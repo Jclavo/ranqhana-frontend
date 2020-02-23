@@ -14,13 +14,13 @@ import * as authGuards from './guards';
 
 /* Routes */
 export const ROUTES: Routes = [
+    // {
+    //     path: '',
+    //     pathMatch: 'full',
+    //     redirectTo: 'login',
+    // },
     {
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'login',
-    },
-    {
-        path: 'login',
         canActivate: [],
         component: authContainers.LoginComponent,
         data: {
