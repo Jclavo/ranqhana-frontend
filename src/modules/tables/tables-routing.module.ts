@@ -19,7 +19,7 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: tablesContainers.TablesComponent,
         data: {
-            title: 'Tables - SB Admin Angular',
+            title: 'Tables - Store App',
             breadcrumbs: [
                 {
                     text: 'Dashboard',

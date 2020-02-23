@@ -1,6 +1,6 @@
-# SB Admin Angular
+# Store App
 
-SB Admin Angular is a free and open-sourced Bootstrap themed Angular 9 starter project.
+Store App is a free and open-sourced Bootstrap themed Angular 9 starter project.
 
 It shares the same project structure and subset of tooling from our professional offering,
 [SB Admin Pro Angular](https://themes.startbootstrap.com/sb-admin-pro-angular/),
@@ -9,7 +9,7 @@ so much of the [SB Admin Pro Angular Documentation](https://docs.startbootstrap.
 In particular the documentation for [Structure](https://docs.startbootstrap.com/sb-admin-pro-angular/structure-root-level),
 and the documentation for [SBPro Schematics](https://docs.startbootstrap.com/sb-admin-pro-angular/development-general#sb-pro-schematics)
 
-SB Admin Angular comes with a base implementation of navigation and layouts.
+Store App comes with a base implementation of navigation and layouts.
 
 For professionally designed components (including an advanced SideNav), 100% code coverage,
 starter cypress tests and more, please consider our professional offering:
@@ -50,7 +50,7 @@ npm run e2e
 
 ## Production
 
-SB Admin Angular come with a production ready Dockerfile and build scripts.
+Store App come with a production ready Dockerfile and build scripts.
 
 You can get Docker [here](https://www.docker.com/get-started)
 
