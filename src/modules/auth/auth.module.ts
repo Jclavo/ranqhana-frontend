@@ -20,6 +20,8 @@ import * as authGuards from './guards';
 
 /* Services */
 import * as authServices from './services';
+import * as utilityServices from '../utility/services';
+import * as countryServices from '../country/services';
 
 @NgModule({
     imports: [
@@ -31,7 +33,7 @@ import * as authServices from './services';
         AppCommonModule,
         NavigationModule,
     ],
-    providers: [...authServices.services, ...authGuards.guards],
+    providers: [...authServices.services, ...authGuards.guards, utilityServices.UtilityService, countryServices.CountryService],
     declarations: [...authContainers.containers, ...authComponents.components],
     exports: [...authContainers.containers, ...authComponents.components],
 })
