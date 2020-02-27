@@ -1,0 +1,28 @@
+// Generate html/css/ts
+
+ng g component admin/product/product
+
+// Generate module & routing
+
+ng generate module admin/product --routing
+
+
+#### STRUCTURE
+
+components/
+    index.ts
+containers/
+    xxx/
+    yyy/
+    index.ts
+guards/
+    xxx.guards.ts
+    index.ts
+models/
+    xxx.model.ts
+    index.ts
+services/
+    xxx.service.ts
+    index.ts
+xxx-routing.module.ts
+xxx.module.ts
