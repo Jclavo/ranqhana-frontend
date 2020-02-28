@@ -4,7 +4,7 @@ ng g component admin/product/product
 
 // Generate module & routing
 
-ng generate module admin/product --routing
+ng g module admin/product --routing
 
 
 #### STRUCTURE (root folder must have a plural name)
