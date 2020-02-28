@@ -7,7 +7,7 @@ ng g component admin/product/product
 ng generate module admin/product --routing
 
 
-#### STRUCTURE
+#### STRUCTURE (root folder must have a plural name)
 
 components/
     index.ts
