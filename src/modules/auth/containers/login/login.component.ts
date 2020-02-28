@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 // MODELS
 import { User } from '../../models/user.model';
@@ -9,10 +9,9 @@ import { Response } from '../../../utility/models/index';
 
 // SERVICE
 import { UtilityService, NotificationService } from '../../../utility/services';
-import { UserService } from '../../services';
+import { UserService, AuthService } from '../../services';
 import { CountryService } from '../../../country/services';
 
-// import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'sb-login',
@@ -36,16 +35,14 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private utilityService: UtilityService,
     private notificationService: NotificationService,
     private userService: UserService,
     private countryService: CountryService,
-    // private toastr: ToastrService
+    private authService: AuthService,
   ) {
-    // this.countries.push({ id: '1', country_code: '55', name: 'Brazil' });
-    // this.countries.push({ id: '2', country_code: '51', name: 'Perú' });
     this.getAllCountries();
-    // this.toastr.success('Hello world!', 'Toastr fun!');
   }
 
   ngOnInit() { }
@@ -53,21 +50,13 @@ export class LoginComponent implements OnInit {
   getAllCountries() {
     this.countryService.getAll().subscribe((response: Response) => {
 
-      // this.utilsService.openSnackBar(response.message, 'OK');
-      console.log(response.message);
-      console.log(response);
-      //loading.dismiss();
       if (response.status) {
-
         this.countries = response.result;
-        // if(this.countries.length > 0)
-        //   this.loginForm.controls['country_code'].setValue(this.countries[0].country_code);
+        if(this.countries.length > 0)
+          this.loginForm.controls['country_code'].setValue(this.countries[0].country_code);
       }
-
     }, error => {
-      console.log(error);
-      // this.utilsService.openSnackBar(error);
-      //loading.dismiss();
+      this.notificationService.error(error);
     });
   }
 
@@ -87,9 +76,6 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    // this.loginForm.setValue({'country_code': 55});
-
-
     if (this.loginForm.invalid) {
       this.errorsList = this.utilityService.getFormError(this.loginForm);
       this.notificationService.error(this.errorsList[0]);
@@ -101,24 +87,18 @@ export class LoginComponent implements OnInit {
 
     this.userService.login(this.userLogin).subscribe((response: Response) => {
 
-      //this.utilityService.openSnackBar(response.message, 'OK');
-      console.log(response.message);
-      //loading.dismiss();
-
       if (response.status) {
+        console.log('user', response.result);
+        this.authService.setUser(response.result);
         this.notificationService.success(response.message);
-        //this.authService.login(response.result);
-        //this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard']);
       }
       else {
         this.notificationService.error(response.message);
       }
 
     }, (error: any) => {
-      console.log(error);
-      //this.utilityService.openSnackBar(error);
       this.notificationService.error(error);
-      //loading.dismiss();
     });
   }
 }
