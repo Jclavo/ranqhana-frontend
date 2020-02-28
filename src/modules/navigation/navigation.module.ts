@@ -20,10 +20,11 @@ import * as navigationGuards from './guards';
 
 /* Services */
 import * as navigationServices from './services';
+import * as AuthServices from '../auth/services';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCommonModule],
-    providers: [...navigationServices.services, ...navigationGuards.guards],
+    providers: [...navigationServices.services, ...navigationGuards.guards, AuthServices.AuthService],
     declarations: [
         ...navigationContainers.containers,
         ...navigationComponents.components,
