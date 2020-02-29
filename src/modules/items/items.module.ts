@@ -14,11 +14,15 @@ import * as itemsComponents from './components';
 /* Containers */ 
 import * as itemsContainers from './containers';
 
+/* Directives */
+import * as itemsDirectives from './directives';
+
 /* Guards */
 // import * as tablesGuards from './guards';
 
 /* Services */
-// import * as tablesServices from './services';
+import * as itemsServices from './services';
+import { NgBootstrapTableItemsComponent } from './components/ng-bootstrap-table-items/ng-bootstrap-table-items.component';
 
 @NgModule({
   imports: [
@@ -30,9 +34,17 @@ import * as itemsContainers from './containers';
         AppCommonModule,
         NavigationModule,
   ],
+  providers: [
+    DecimalPipe,
+    ...itemsServices.services,
+    // ...tablesGuards.guards,
+     ...itemsDirectives.directives,
+],
   declarations: [
     ...itemsContainers.containers,
     ...itemsComponents.components,
+    ...itemsDirectives.directives,
+    NgBootstrapTableItemsComponent,
   ],
   exports: [...itemsContainers.containers, ...itemsComponents.components],
 })

@@ -1,1 +1,1 @@
-// export * from './name.model';
+export * from './item.model';

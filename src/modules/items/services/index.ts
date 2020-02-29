@@ -1,7 +1,7 @@
-// import { NameService } from './name.service';
+import { ItemService } from './item.service';
 // import { AnotherService } from './another.service';
 
-// export const services = [NameService, AnotherService];
+export const services = [ItemService];
 
-// export * from './name.service';
+export * from './item.service';
 // export * from './another.service';
