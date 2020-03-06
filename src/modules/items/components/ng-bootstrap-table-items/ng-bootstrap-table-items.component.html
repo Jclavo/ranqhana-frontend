@@ -1,6 +1,6 @@
 <form>
     <div class="form-group form-inline">Full text search: 
-        <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="itemService.searchTerm"/>
+        <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue"/>
     </div>
     <table class="table table-striped">
         <thead>
@@ -21,27 +21,29 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of items$ | async">
+            <tr *ngFor="let item of items">
                 <th scope="row">{{ item.id }}</th>
                 <td>
-                    <ngb-highlight [result]="item.name" [term]="itemService.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="item.name" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="item.description" [term]="itemService.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="item.description" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="item.quantity | number" [term]="itemService.searchTerm"></ngb-highlight>
+                    <ngb-highlight [result]="item.quantity | number" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
             </tr>
         </tbody>
     </table>
 
     <div class="d-flex justify-content-between p-2">
-        <ngb-pagination [collectionSize]="total$ | async" [(page)]="itemService.page" [pageSize]="itemService.pageSize"></ngb-pagination>
-        <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="itemService.pageSize">
-            <option [ngValue]="2">2 items per page</option>
-            <option [ngValue]="4">4 items per page</option>
-            <option [ngValue]="6">6 items per page</option>
+        <ngb-pagination [collectionSize]="searchOption.total" [(page)]="searchOption.page" 
+        [maxSize]="5" [pageSize]="searchOption.per_page" [rotate]="true" [boundaryLinks]="true">
+        </ngb-pagination>
+        <select class="custom-select" style="width: auto" name="per_page" [(ngModel)]="searchOption.per_page">
+            <option [ngValue]="10">10 items per page</option>
+            <option [ngValue]="20">20 items per page</option>
+            <option [ngValue]="50">50 items per page</option>
         </select>
     </div>
 </form>
