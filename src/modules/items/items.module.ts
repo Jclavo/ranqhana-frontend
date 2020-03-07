@@ -47,5 +47,6 @@ import { NgBootstrapTableItemsComponent } from './components/ng-bootstrap-table-
     NgBootstrapTableItemsComponent,
   ],
   exports: [...itemsContainers.containers, ...itemsComponents.components],
+  entryComponents: [itemsComponents.ConfirmModalComponent]
 })
 export class ItemsModule { }
