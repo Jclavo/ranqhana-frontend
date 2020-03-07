@@ -1,8 +1,8 @@
 import { ItemListComponent } from './item-list/item-list.component';
-// import { anotherComponent } from './folder/another.component';
+import { ItemComponent } from './item/item.component';
 
-export const containers = [ItemListComponent];
+export const containers = [ItemListComponent, ItemComponent ];
 
 export * from './item-list/item-list.component';
-// export * from './folder/another.component';
+export * from './item/item.component';
 

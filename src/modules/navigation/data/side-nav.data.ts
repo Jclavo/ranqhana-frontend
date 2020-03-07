@@ -88,6 +88,15 @@ export const sideNavItems: SideNavItems = {
     items: {
         icon: 'table',
         text: 'Items',
-        link: '/items',
+        submenu: [
+            {
+                text: 'Item List',
+                link: '/items',
+            },
+            {
+                text: 'Item',
+                link: '/items/item',
+            },
+        ],
     },
 };

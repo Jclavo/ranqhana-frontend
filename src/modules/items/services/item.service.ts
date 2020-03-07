@@ -20,7 +20,8 @@ export class ItemService {
   private httpOptions = {
     headers: new HttpHeaders({
       //'Content-Type':  'application/json',
-      'Authorization': 'Bearer ' + this.authService.getAPITOKEN()
+      // 'Authorization': 'Bearer ' + this.authService.getAPITOKEN()
+      'Authorization': 'Bearer ' + 'u4qeJOGrJ9YhcS87JQnBo6TWdGZondrpgBov1UvhCh28AkstO71agbsTZ2oz8bz2GMAMlmJY8whsF2I5'
       })
   };
 
@@ -57,6 +58,28 @@ export class ItemService {
       });
 
       response.records = resultRAW.records;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  create(item: Item): Observable<Response> {
+
+    let apiRoot = this.apiRoot + 'items';
+
+    return this.http.post(apiRoot, item, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
 
       return response;
 

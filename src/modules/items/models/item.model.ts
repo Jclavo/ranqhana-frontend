@@ -3,8 +3,8 @@ export class Item {
     id: string = '';
     name: string = '';
     description: string = '';
-    quantity: string = '';
-    store_id: string = '';
+    quantity: number = 0;
+    store_id: number = 0;
     created_at: string = ''; 
     updated_at: string = '';    
 }

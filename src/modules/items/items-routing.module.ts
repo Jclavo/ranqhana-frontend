@@ -23,6 +23,20 @@ export const ROUTES: Routes = [
                 {
                     text: 'Dashboard',
                     link: '/dashboard',
+                }
+            ],
+        } as SBRouteData,
+    },
+    {
+        path: 'item',
+        canActivate: [],
+        component: itemsContainers.ItemComponent,
+        data: {
+            title: 'Item - Store App',
+            breadcrumbs: [
+                {
+                    text: 'Dashboard',
+                    link: '/dashboard',
                 },
                 {
                     text: 'Item',
