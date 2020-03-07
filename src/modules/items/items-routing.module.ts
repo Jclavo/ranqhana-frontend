@@ -45,6 +45,24 @@ export const ROUTES: Routes = [
             ],
         } as SBRouteData,
     },
+    {
+        path: 'item/:id',
+        canActivate: [],
+        component: itemsContainers.ItemComponent,
+        data: {
+            title: 'Edit Item - Store App',
+            breadcrumbs: [
+                {
+                    text: 'Dashboard',
+                    link: '/dashboard',
+                },
+                {
+                    text: 'Edit Item',
+                    active: true,
+                },
+            ],
+        } as SBRouteData,
+    },
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 //MODELS
 import { Item } from "@modules/items/models";
@@ -18,18 +19,41 @@ export class ItemComponent implements OnInit {
 
   constructor(
     private notificationService: NotificationService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     private itemService: ItemService,
 
   ) { }
 
   ngOnInit(): void {
+    this.item.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.item.id ? this.getById(this.item.id) : null;
+  }
+  
+  getById(id: string)
+  {
+    this.itemService.getById(id).subscribe(response => {
+
+      if (response.status) {
+        //this.notificationService.success(response.message);
+        this.item.name = response.result?.name;
+        this.item.description = response.result?.description;
+        this.item.store_id = response.result?.store_id;
+
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+    });
   }
 
   save() {
-    console.log('item', this.item);
 
     if(this.item.id){
-      
+      this.update(this.item);
     }
     else{
       this.item.store_id = 1;
@@ -43,7 +67,24 @@ export class ItemComponent implements OnInit {
 
       if (response.status) {
         this.notificationService.success(response.message);
-        // this.router.navigate(['/login']);
+        this.router.navigate(['/items']);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+    });
+  }
+
+  update(item: Item)
+  {
+    this.itemService.update(item).subscribe(response => {
+
+      if (response.status) {
+        this.notificationService.success(response.message);
+        this.router.navigate(['/items']);
       }
       else {
         this.notificationService.error(response.message);

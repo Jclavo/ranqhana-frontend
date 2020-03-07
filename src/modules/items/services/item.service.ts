@@ -67,6 +67,42 @@ export class ItemService {
       }));
   }
 
+  getById(id: string): Observable<Response> {
+
+    let apiRoot = this.apiRoot + 'items/' + id;
+
+    return this.http.get(apiRoot, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      if (resultRAW.result) {
+        let item = new Item();
+        item.id = resultRAW.result?.id;
+        item.name = resultRAW.result?.name;
+        item.description = resultRAW.result?.description;
+        item.quantity = resultRAW.result?.quantity;
+        item.store_id = resultRAW.result?.store_id;
+        item.created_at = resultRAW.result?.created_at;
+        item.updated_at = resultRAW.result?.updated_at;
+
+        response.result = item;
+      }
+
+      // response.records = resultRAW.result?.length;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
   create(item: Item): Observable<Response> {
 
     let apiRoot = this.apiRoot + 'items';
@@ -101,6 +137,28 @@ export class ItemService {
       //Set response
       response.status = resultRAW.status;
       response.message = resultRAW.message;
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  update(item: Item): Observable<Response> {
+
+    let apiRoot = this.apiRoot + 'items/' + item.id;
+
+    return this.http.put(apiRoot, item, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
+
       return response;
 
     }),

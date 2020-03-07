@@ -1,6 +1,6 @@
 export class Item {
     [key: string]: string | number;
-    id: string = '';
+    id: any;
     name: string = '';
     description: string = '';
     quantity: number = 0;
