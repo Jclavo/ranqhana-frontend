@@ -1,16 +1,20 @@
 import { Component, OnInit, Input, ViewChildren, QueryList, ChangeDetectionStrategy, ChangeDetectorRef, KeyValueDiffer, KeyValueDiffers } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { SBSortableHeaderDirective, SortEvent } from '@modules/items/directives';
-import { ItemService } from '@modules/items/services';
 
 //MODELS
 import { Item, SearchOptions } from '@modules/items/models';
 
+//SERVICES
+import { ItemService } from "@modules/items/services";
+import { NotificationService } from '../../../utility/services';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { ConfirmModalComponent } from "../confirm-modal/confirm-modal.component";
 
 @Component({
   selector: 'sb-ng-bootstrap-table-items',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './ng-bootstrap-table-items.component.html',
   styleUrls: ['./ng-bootstrap-table-items.component.scss']
 })
@@ -25,35 +29,19 @@ export class NgBootstrapTableItemsComponent implements OnInit {
   public sortedColumn!: string;
   public sortedDirection!: string;
 
-  // @Input() pageSize = 2;
-
-  // items$!: Observable<Item[]>;
-  // total$!: Observable<number>;
-  
-
   @ViewChildren(SBSortableHeaderDirective) headers!: QueryList<SBSortableHeaderDirective>;
 
   constructor(
+    private differs: KeyValueDiffers, // to get changes in a object
+    private notificationService: NotificationService,
     private itemService: ItemService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private differs: KeyValueDiffers
-  ) { 
+    private modalService: NgbModal,
+  ) {
 
-    // this.customer = new Customer();
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
   }
 
   ngOnInit(): void {
-
-    // console.log('this.items$',this.items$);
-    // this.itemService.pageSize = this.pageSize;
-    // this.items$ = this.itemService.items$;
-    // this.total$ = this.itemService.total$;
-
-    // this.searchOption.pageSize = this.pageSize;
-
-    // this.searchOption.pageSize = this.pageSize;
-    console.log('this.searchOption', this.searchOption);
 
     this.getItems();
 
@@ -73,37 +61,55 @@ export class NgBootstrapTableItemsComponent implements OnInit {
 
     this.searchOption.sortColumn = this.sortedColumn;
     this.searchOption.sortDirection = this.sortedDirection;
-    // this.itemService.sortColumn = column;
-    // this.itemService.sortDirection = direction;
-    // this.changeDetectorRef.detectChanges();
-    // console.log('this.searchOption', this.searchOption);
   }
 
 
   getItems() {
-    let parameters = { 'store_id' : 1, 'searchOption': this.searchOption};
 
-    this.itemService.getAll(parameters).subscribe(response => {
+    let parameters = { 'store_id': 1, 'searchOption': this.searchOption };
 
-      console.log(response.message);
+    this.itemService.get(parameters).subscribe(response => {
+
       if (response.status) {
-
         this.items = response.result;
-
         this.searchOption.total = response.records;
-
-        console.log('this.searchOption', this.searchOption);
-
-        // this.changeDetectorRef.detectChanges();
-
-
       }
 
     }, error => {
-      console.log(error);
-      //loading.dismiss();
+      this.notificationService.error(error);
     });
 
+  }
+
+  modalDelete(id: string, name: string) {
+    console.log('delete: ', id);
+    
+    const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.title = 'Item';
+    modalRef.componentInstance.value = name;
+
+    modalRef.result.then((result) => {
+      result ? this.delete(id) : null;
+    });
+
+  }
+
+  delete(id: string) {
+
+    this.itemService.delete(id).subscribe(response => {
+
+      if (response.status) {
+        this.notificationService.success(response.message);
+        this.getItems();
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+    });
   }
 
 

@@ -30,7 +30,7 @@ export class ItemService {
     private authService: AuthService
   ) {}
 
-  getAll(parameters: any): Observable<Response> {
+  get(parameters: any): Observable<Response> {
 
     let apiRoot = this.apiRoot + 'items/pagination?page=' + parameters.searchOption.page;
 
@@ -81,6 +81,26 @@ export class ItemService {
       response.message = resultRAW.message;
       //response.result = resultRAW.result;
 
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  delete(id: string): Observable<Response> {
+
+    let apiRoot = this.apiRoot + 'items/' + id;
+
+    return this.http.delete(apiRoot, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
       return response;
 
     }),

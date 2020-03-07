@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 //MODELS
 import { Item } from "@modules/items/models";
 
 //SERVICES
 import { ItemService } from "@modules/items/services";
-import { UtilityService, NotificationService } from '../../../utility/services';
-import { ItemsModule } from '@modules/items/items.module';
+import { NotificationService } from '../../../utility/services';
 
 @Component({
   selector: 'sb-item',
@@ -19,9 +17,7 @@ export class ItemComponent implements OnInit {
   public item = new Item();
 
   constructor(
-    private fb: FormBuilder,
     private notificationService: NotificationService,
-
     private itemService: ItemService,
 
   ) { }
@@ -40,7 +36,6 @@ export class ItemComponent implements OnInit {
       this.create(this.item);
     }
 
-    
   }
 
   create(item: Item) {

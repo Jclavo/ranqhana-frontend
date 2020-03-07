@@ -1,6 +1,6 @@
 <form>
-    <div class="form-group form-inline">Full text search: 
-        <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue"/>
+    <div class="form-group form-inline">Full text search:
+        <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
     </div>
     <table class="table table-striped">
         <thead>
@@ -18,6 +18,9 @@
                     <span>Quantity</span>
                     <sb-sort-icon *ngIf='sortedColumn === "quantity"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
+                <th scope="col">
+                    <span>Options</span>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -32,13 +35,23 @@
                 <td>
                     <ngb-highlight [result]="item.quantity | number" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
+                <td>
+                    <div class="row">
+                        <div class="col-3">
+                            <button type="button" class="btn btn-outline-primary">Edit</button>
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn btn-outline-danger" (click)="modalDelete(item.id, item.name)">Delete</button>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
 
     <div class="d-flex justify-content-between p-2">
-        <ngb-pagination [collectionSize]="searchOption.total" [(page)]="searchOption.page" 
-        [maxSize]="5" [pageSize]="searchOption.per_page" [rotate]="true" [boundaryLinks]="true">
+        <ngb-pagination [collectionSize]="searchOption.total" [(page)]="searchOption.page" [maxSize]="5"
+            [pageSize]="searchOption.per_page" [rotate]="true" [boundaryLinks]="true">
         </ngb-pagination>
         <select class="custom-select" style="width: auto" name="per_page" [(ngModel)]="searchOption.per_page">
             <option [ngValue]="10">10 items per page</option>
@@ -47,4 +60,3 @@
         </select>
     </div>
 </form>
-
