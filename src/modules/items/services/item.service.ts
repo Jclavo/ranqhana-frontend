@@ -20,8 +20,8 @@ export class ItemService {
   private httpOptions = {
     headers: new HttpHeaders({
       //'Content-Type':  'application/json',
-      // 'Authorization': 'Bearer ' + this.authService.getAPITOKEN()
-      'Authorization': 'Bearer ' + 'u4qeJOGrJ9YhcS87JQnBo6TWdGZondrpgBov1UvhCh28AkstO71agbsTZ2oz8bz2GMAMlmJY8whsF2I5'
+      'Authorization': 'Bearer ' + this.authService.getAPITOKEN()
+      //'Authorization': 'Bearer ' + 'u4qeJOGrJ9YhcS87JQnBo6TWdGZondrpgBov1UvhCh28AkstO71agbsTZ2oz8bz2GMAMlmJY8whsF2I5'
       })
   };
 

@@ -5,8 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from "@modules/items/models";
 
 //SERVICES
-import { ItemService } from "@modules/items/services";
-import { NotificationService } from '../../../utility/services';
+import { ItemService } from "../../services";
+import { NotificationService } from '@modules/utility/services';
+import { AuthService } from '@modules/auth/services';
 
 @Component({
   selector: 'sb-item',
@@ -22,6 +23,7 @@ export class ItemComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private itemService: ItemService,
+    private authService: AuthService,
 
   ) { }
 
@@ -56,7 +58,7 @@ export class ItemComponent implements OnInit {
       this.update(this.item);
     }
     else{
-      this.item.store_id = 1;
+      this.item.store_id = this.authService.getUserStoreID();
       this.create(this.item);
     }
 

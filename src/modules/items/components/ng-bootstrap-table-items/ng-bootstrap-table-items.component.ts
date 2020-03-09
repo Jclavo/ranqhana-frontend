@@ -1,17 +1,18 @@
 import { Component, OnInit, Input, ViewChildren, QueryList, ChangeDetectionStrategy, ChangeDetectorRef, KeyValueDiffer, KeyValueDiffers } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SBSortableHeaderDirective, SortEvent } from '@modules/items/directives';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
 import { Item, SearchOptions } from '@modules/items/models';
 
-//SERVICES
-import { ItemService } from "@modules/items/services";
-import { NotificationService } from '../../../utility/services';
-
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+// COMPONENT 
 import { ConfirmModalComponent } from "../confirm-modal/confirm-modal.component";
+
+//SERVICES
+import { ItemService } from "../../services";
+import { AuthService } from "@modules/auth/services";
+import { NotificationService } from '@modules/utility/services';
 
 @Component({
   selector: 'sb-ng-bootstrap-table-items',
@@ -36,6 +37,7 @@ export class NgBootstrapTableItemsComponent implements OnInit {
     private notificationService: NotificationService,
     private itemService: ItemService,
     private modalService: NgbModal,
+    private authService: AuthService,
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -66,7 +68,7 @@ export class NgBootstrapTableItemsComponent implements OnInit {
 
   getItems() {
 
-    let parameters = { 'store_id': 1, 'searchOption': this.searchOption };
+    let parameters = { 'store_id': this.authService.getUserStoreID(), 'searchOption': this.searchOption };
 
     this.itemService.get(parameters).subscribe(response => {
 
