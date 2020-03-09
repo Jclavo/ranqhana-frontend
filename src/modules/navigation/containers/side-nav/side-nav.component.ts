@@ -4,7 +4,8 @@ import { SideNavItems, SideNavSection } from '@modules/navigation/models';
 import { NavigationService } from '@modules/navigation/services';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../../../auth/services';
+//SERVICES
+import { AuthService } from '@modules/auth/services';
 
 @Component({
     selector: 'sb-side-nav',
@@ -20,8 +21,11 @@ export class SideNavComponent implements OnInit, OnDestroy {
     subscription: Subscription = new Subscription();
     routeDataSubscription!: Subscription;
 
-    constructor(public navigationService: NavigationService, public authService: AuthService) {
-        console.log('authService', authService.getAPITOKEN())
+    constructor(
+        public navigationService: NavigationService,
+        public authService: AuthService) {
+
+        console.log('this.authService.getUserEmail()', this.authService.getUserEmail());
     }
 
     ngOnInit() {}
