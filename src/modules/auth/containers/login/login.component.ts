@@ -69,8 +69,6 @@ export class LoginComponent implements OnInit {
     userLogin.identification = this.loginForm.value.identification;
     userLogin.password = this.loginForm.value.password;
 
-    console.log('userLogin', userLogin);
-
     return userLogin;
   }
 
@@ -79,7 +77,6 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       this.errorsList = this.utilityService.getFormError(this.loginForm);
       this.notificationService.error(this.errorsList[0]);
-      console.log('error ', this.errorsList[0]);
       return;
     }
 
