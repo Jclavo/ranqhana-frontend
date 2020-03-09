@@ -12,11 +12,11 @@ describe('AuthService', () => {
         authService = TestBed.get(AuthService);
     });
 
-    describe('getAuth$', () => {
-        it('should return Observable<Auth>', () => {
-            authService.getAuth$().subscribe(response => {
-                expect(response).toEqual({});
-            });
-        });
-    });
+    // describe('getAuth$', () => {
+    //     it('should return Observable<Auth>', () => {
+    //         authService.getAuth$().subscribe(response => {
+    //             expect(response).toEqual({});
+    //         });
+    //     });
+    // });
 });
