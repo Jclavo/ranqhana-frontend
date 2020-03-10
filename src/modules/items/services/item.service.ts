@@ -18,7 +18,9 @@ import { AuthService } from '@modules/auth/services';
 })
 export class ItemService {
 
-  private apiRoot: string = environment.apiURL;
+  static service: string =  'items/'
+
+  private apiRoot: string = environment.apiURL + ItemService.service;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -35,7 +37,7 @@ export class ItemService {
 
   get(parameters: any): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'items/pagination?page=' + parameters.searchOption.page;
+    let apiRoot = this.apiRoot + 'pagination?page=' + parameters.searchOption.page;
 
     return this.http.post(apiRoot, parameters, this.httpOptions).pipe(map(res => {
 
@@ -72,7 +74,7 @@ export class ItemService {
 
   getById(id: string): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'items/' + id;
+    let apiRoot = this.apiRoot + id;
 
     return this.http.get(apiRoot, this.httpOptions).pipe(map(res => {
 
@@ -108,7 +110,7 @@ export class ItemService {
 
   create(item: Item): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'items';
+    let apiRoot = this.apiRoot;
 
     return this.http.post(apiRoot, item, this.httpOptions).pipe(map(res => {
 
@@ -130,7 +132,7 @@ export class ItemService {
 
   delete(id: string): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'items/' + id;
+    let apiRoot = this.apiRoot + id;
 
     return this.http.delete(apiRoot, this.httpOptions).pipe(map(res => {
 
@@ -150,7 +152,7 @@ export class ItemService {
 
   update(item: Item): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'items/' + item.id;
+    let apiRoot = this.apiRoot + item.id;
 
     return this.http.put(apiRoot, item, this.httpOptions).pipe(map(res => {
 
