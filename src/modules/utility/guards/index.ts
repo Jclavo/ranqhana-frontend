@@ -1,5 +1,5 @@
-import { UtilityGuard } from './utility.guard';
+import { GlobalGuard } from './global.guard';
 
-export const guards = [UtilityGuard];
+export const guards = [GlobalGuard];
 
-export * from './utility.guard';
+export * from './global.guard';
