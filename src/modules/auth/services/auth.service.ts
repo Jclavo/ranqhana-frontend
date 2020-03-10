@@ -68,7 +68,9 @@ export class AuthService {
     }
 
     public isLogged() {
-        return this.api_token !== null;
+        if(this.getAPITOKEN())
+            return true;
+        return false;
     }
 
     public logout() {
