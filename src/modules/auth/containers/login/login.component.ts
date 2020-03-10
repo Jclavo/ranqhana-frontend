@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
     private countryService: CountryService,
     private authService: AuthService,
   ) {
+    this.authService.cleanStorage();
     this.getAllCountries();
   }
 
