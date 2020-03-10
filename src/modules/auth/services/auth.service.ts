@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-
+import { Router } from '@angular/router';
 //MODEL
 import { User } from '../models';
 
@@ -10,7 +10,9 @@ export class AuthService {
     private api_token: string = '';
     public user = new User();
 
-    constructor() { }
+    constructor(
+        private router: Router,
+    ) { }
 
     public setUser(userInfo: User) {
 
@@ -74,8 +76,17 @@ export class AuthService {
     }
 
     public logout() {
-        this.api_token = '';
-        //localStorage.removeItem('ACCESS_TOKEN');
+        this.cleanStorage();
+        this.router.navigate(['/login']);
+    }
+
+    public raiseError(){
+        this.logout();
+    }
+
+    public cleanStorage(){
+        localStorage.removeItem('API_TOKEN');
+        localStorage.removeItem('user');
     }
 
 }
