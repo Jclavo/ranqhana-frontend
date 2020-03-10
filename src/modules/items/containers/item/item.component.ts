@@ -49,6 +49,7 @@ export class ItemComponent implements OnInit {
 
     }, error => {
       this.notificationService.error(error);
+      this.authService.raiseError();
     });
   }
 
@@ -77,6 +78,7 @@ export class ItemComponent implements OnInit {
 
     }, error => {
       this.notificationService.error(error);
+      this.authService.raiseError();
     });
   }
 
@@ -94,6 +96,7 @@ export class ItemComponent implements OnInit {
 
     }, error => {
       this.notificationService.error(error);
+      this.authService.raiseError();
     });
   }
 
