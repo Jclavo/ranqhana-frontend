@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GlobalGuard } from '@modules/utility/guards';
 
 const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        // redirectTo: '/login',
         redirectTo: '/login',
     },
     {
@@ -24,6 +24,7 @@ const routes: Routes = [
             import('modules/dashboard/dashboard-routing.module').then(
                 m => m.DashboardRoutingModule
             ),
+        canActivate: [GlobalGuard]
     },
     {
         path: 'auth',
@@ -44,6 +45,7 @@ const routes: Routes = [
         path: 'items',
         loadChildren: () =>
             import('modules/items/items-routing.module').then(m => m.ItemsRoutingModule),
+        canActivate: [GlobalGuard]
     },
     {
         path: 'version',
