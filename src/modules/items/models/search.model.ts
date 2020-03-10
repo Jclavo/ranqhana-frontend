@@ -3,6 +3,6 @@ export class SearchOptions {
     per_page: number = 20;
     searchValue: string = '';
     total: number = 0;
-    sortColumn: string = 'id';
-    sortDirection: string = 'ASC'; 
+    sortColumn: string = '';
+    sortDirection: string = ''; 
 }
