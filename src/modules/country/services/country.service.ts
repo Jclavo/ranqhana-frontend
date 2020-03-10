@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from "rxjs/operators";
 
+//ENVIRONMENT
+import { environment } from "../../../environments/environment";
+
 //Models
 import { Country } from '../models';
 import { Response } from '../../utility/models';
@@ -12,8 +15,7 @@ import { Response } from '../../utility/models';
 })
 export class CountryService {
 
-  private apiRoot: string = 'https://blooming-hamlet-62206.herokuapp.com/api/';
- // private resultObservable: Observable<Country[]>;
+  private apiRoot: string = environment.apiURL;
 
   constructor(private http: HttpClient) { }
 

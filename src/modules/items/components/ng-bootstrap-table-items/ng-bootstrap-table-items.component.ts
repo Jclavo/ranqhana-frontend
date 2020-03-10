@@ -52,7 +52,6 @@ export class NgBootstrapTableItemsComponent implements OnInit {
   ngDoCheck(): void {
     const changes = this.searchOptionDiffers.diff(this.searchOption);
     if (changes) {
-      console.log('changed');
       this.getItems();
     }
   }
@@ -75,16 +74,18 @@ export class NgBootstrapTableItemsComponent implements OnInit {
       if (response.status) {
         this.items = response.result;
         this.searchOption.total = response.records;
+      }else{
+        this.notificationService.error(response.message);
       }
 
     }, error => {
       this.notificationService.error(error);
+      this.authService.raiseError();
     });
 
   }
 
   modalDelete(id: string, name: string) {
-    console.log('delete: ', id);
     
     const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
@@ -111,11 +112,9 @@ export class NgBootstrapTableItemsComponent implements OnInit {
 
     }, error => {
       this.notificationService.error(error);
+      this.authService.raiseError();
     });
   }
-
-
-
 
 
 }

@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, switchMap } from "rxjs/operators";
 
+//ENVIRONMENT
+import { environment } from "../../../environments/environment";
+
 //Models
 import { Item, SearchOptions } from '@modules/items/models';
 import { Response } from '@modules/utility/models';
@@ -15,7 +18,7 @@ import { AuthService } from '@modules/auth/services';
 })
 export class ItemService {
 
-  private apiRoot: string = 'https://blooming-hamlet-62206.herokuapp.com/api/';
+  private apiRoot: string = environment.apiURL;
 
   private httpOptions = {
     headers: new HttpHeaders({

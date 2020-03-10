@@ -6,12 +6,14 @@ import { map, catchError } from "rxjs/operators";
 //MODEL
 import { User } from '../models';
 import { Response } from '../../utility/models';
-// const userSubject: ReplaySubject<User> = new ReplaySubject(1);
+
+//ENVIRONMENT
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class UserService {
 
-  private apiRoot: string = 'https://blooming-hamlet-62206.herokuapp.com/api/';
+  private apiRoot: string = environment.apiURL;
 
   constructor(private http: HttpClient) {
     // this.user = {
