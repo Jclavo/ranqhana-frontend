@@ -8,14 +8,15 @@ import { ItemsModule } from './items.module';
 import * as itemsContainers from './containers';
 
 /* Guards */
-// import * as tablesGuards from './guards';
+import { GlobalGuard } from '@modules/utility/guards';
+
 import { SBRouteData } from '@modules/navigation/models';
 
 /* Routes */
 export const ROUTES: Routes = [
     {
         path: '',
-        canActivate: [],
+        canActivate: [GlobalGuard],
         component: itemsContainers.ItemListComponent,
         data: {
             title: 'Items List - Store App',
@@ -29,7 +30,7 @@ export const ROUTES: Routes = [
     },
     {
         path: 'item',
-        canActivate: [],
+        canActivate: [GlobalGuard],
         component: itemsContainers.ItemComponent,
         data: {
             title: 'Item - Store App',
@@ -47,7 +48,7 @@ export const ROUTES: Routes = [
     },
     {
         path: 'item/:id',
-        canActivate: [],
+        canActivate: [GlobalGuard],
         component: itemsContainers.ItemComponent,
         data: {
             title: 'Edit Item - Store App',
