@@ -4,6 +4,8 @@
 
 export const environment = {
     production: false,
+    apiURL: 'https://blooming-hamlet-62206.herokuapp.com/api/',
+    // apiURL: 'http://127.0.0.1:8000/api/',
 };
 
 /*
