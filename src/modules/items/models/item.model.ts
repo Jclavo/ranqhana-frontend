@@ -3,6 +3,7 @@ export class Item {
     id: any;
     name: string = '';
     description: string = '';
+    price: number = 0;
     quantity: number = 0;
     store_id: number = 0;
     created_at: string = ''; 
