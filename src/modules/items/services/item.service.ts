@@ -85,16 +85,30 @@ export class ItemService {
       response.status = resultRAW.status;
       response.message = resultRAW.message;
 
+      // if (resultRAW.result) {
+      //   let item = new Item();
+      //   item.id = resultRAW.result[0]?.id;
+      //   item.name = resultRAW.result[0]?.name;
+      //   item.description = resultRAW.result[0]?.description;
+      //   item.price = resultRAW.result[0]?.price;
+      //   item.quantity = resultRAW.result[0]?.quantity;
+      //   item.store_id = resultRAW.result[0]?.store_id;
+      //   item.created_at = resultRAW.result[0]?.created_at;
+      //   item.updated_at = resultRAW.result[0]?.updated_at;
+
+      //   response.result = item;
+      // }
+
       if (resultRAW.result) {
         let item = new Item();
-        item.id = resultRAW.result[0]?.id;
-        item.name = resultRAW.result[0]?.name;
-        item.description = resultRAW.result[0]?.description;
-        item.price = resultRAW.result[0]?.price;
-        item.quantity = resultRAW.result[0]?.quantity;
-        item.store_id = resultRAW.result[0]?.store_id;
-        item.created_at = resultRAW.result[0]?.created_at;
-        item.updated_at = resultRAW.result[0]?.updated_at;
+        item.id = resultRAW.result?.id;
+        item.name = resultRAW.result?.name;
+        item.description = resultRAW.result?.description;
+        item.price = resultRAW.result?.price;
+        item.quantity = resultRAW.result?.quantity;
+        item.store_id = resultRAW.result?.store_id;
+        item.created_at = resultRAW.result?.created_at;
+        item.updated_at = resultRAW.result?.updated_at;
 
         response.result = item;
       }
