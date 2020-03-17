@@ -22,8 +22,12 @@ export const ROUTES: Routes = [
             title: 'Items List - Store App',
             breadcrumbs: [
                 {
-                    text: 'Dashboard',
+                    text: 'Dashboard ',
                     link: '/dashboard',
+                },
+                {
+                    text: 'Items List',
+                    active: true,
                 }
             ],
         } as SBRouteData,
