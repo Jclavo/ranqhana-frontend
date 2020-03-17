@@ -54,6 +54,7 @@ export class ItemService {
         item.id = data.id;
         item.name = data.name;
         item.description = data.description;
+        item.price = data.price;
         item.quantity = data.quantity;
         item.store_id = data.store_id;
         item.created_at = data.created_at;

@@ -14,6 +14,10 @@
                     <span>Description</span>
                     <sb-sort-icon *ngIf='sortedColumn === "description"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
+                <th scope="col" sbSortable="price" (sort)="onSort($event)">
+                    <span>Price $</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "price"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
                 <th scope="col" sbSortable="quantity" (sort)="onSort($event)">
                     <span>Quantity</span>
                     <sb-sort-icon *ngIf='sortedColumn === "quantity"' [direction]="sortedDirection"></sb-sort-icon>
@@ -33,15 +37,20 @@
                     <ngb-highlight [result]="item.description" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
+                    <ngb-highlight [result]="item.price | number" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
                     <ngb-highlight [result]="item.quantity | number" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
                     <div class="row">
                         <div class="col-3">
-                            <button type="button" class="btn btn-outline-primary" routerLink="/items/item/{{item.id}}">Edit</button>
+                            <button type="button" class="btn btn-outline-primary"
+                                routerLink="/items/item/{{item.id}}">Edit</button>
                         </div>
                         <div class="col-3">
-                            <button type="button" class="btn btn-outline-danger" (click)="modalDelete(item.id, item.name)">Delete</button>
+                            <button type="button" class="btn btn-outline-danger"
+                                (click)="modalDelete(item.id, item.name)">Delete</button>
                         </div>
                     </div>
                 </td>
