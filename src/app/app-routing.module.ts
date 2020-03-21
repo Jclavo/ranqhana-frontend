@@ -48,6 +48,12 @@ const routes: Routes = [
         canActivate: [GlobalGuard]
     },
     {
+        path: 'invoices',
+        loadChildren: () =>
+            import('modules/invoices/invoices-routing.module').then(m => m.InvoicesRoutingModule),
+        canActivate: [GlobalGuard]
+    },
+    {
         path: 'version',
         loadChildren: () =>
             import('modules/utility/utility-routing.module').then(m => m.UtilityRoutingModule),

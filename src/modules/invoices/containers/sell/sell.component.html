@@ -1,0 +1,49 @@
+<sb-layout-dashboard>
+    <sb-dashboard-head title="Sell" [hideBreadcrumbs]="false"></sb-dashboard-head>
+    <!-- <sb-card>
+        <div class="card-body">This page is to create a sell invoice .
+            <a target="_blank" href="jclavotafur@gmail.com">Contact me clicking here.</a>
+        </div>
+    </sb-card> -->
+
+    <sb-card>
+        <div class="card-header">
+            <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
+            Sell invoice
+        </div>
+        <div class="card-body">
+            <form >
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- <label for="inputEmail4">Item</label> -->
+                        <input class="form-control" type="text" name="searchItem" [(ngModel)]="searchItem"
+                            placeholder="Search Item"
+                            [ngbTypeahead]="search" 
+                            [inputFormatter]="formatter"
+                            [resultFormatter]="formatter" />
+                    </div>
+                    <div class="col-md-2">
+                        <!-- <label for="inputEmail4">Price</label> -->
+                        <input class="form-control" type="text" name="price" [(ngModel)]="searchItem.price" readonly/>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- <label for="inputEmail4">Quantity</label> -->
+                        <input class="form-control" type="number" name="quantity" placeholder="Quantity" />
+                    </div>
+
+                    <!-- <div class="col-md-1">
+                       <button type="button" class="btn btn-primary ">Add Item</button>
+                    </div> -->
+                    <button type="button" class="btn btn-primary ">Add Item</button>
+                </div>
+               
+            </form>
+        </div>
+
+        <div class="card-body">
+            List
+        </div>
+
+        
+    </sb-card>
+</sb-layout-dashboard>

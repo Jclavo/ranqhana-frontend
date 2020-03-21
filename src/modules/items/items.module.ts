@@ -11,7 +11,7 @@ import { NavigationModule } from '@modules/navigation/navigation.module';
 /* Components */
 import * as itemsComponents from './components';
 
-/* Containers */ 
+/* Containers */
 import * as itemsContainers from './containers';
 
 /* Directives */
@@ -27,19 +27,19 @@ import { NgBootstrapTableItemsComponent } from './components/ng-bootstrap-table-
 @NgModule({
   imports: [
     CommonModule,
-        RouterModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HttpClientModule,
-        AppCommonModule,
-        NavigationModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    AppCommonModule,
+    NavigationModule,
   ],
   providers: [
     DecimalPipe,
     ...itemsServices.services,
     // ...tablesGuards.guards,
-     ...itemsDirectives.directives,
-],
+    ...itemsDirectives.directives,
+  ],
   declarations: [
     ...itemsContainers.containers,
     ...itemsComponents.components,
