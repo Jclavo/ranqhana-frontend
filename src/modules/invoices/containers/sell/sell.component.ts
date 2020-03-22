@@ -5,6 +5,7 @@ import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operato
 
 //MODELS
 import { Item, SearchOptions } from '@modules/items/models';
+import { SellItem, SellInvoice } from '../../models';
 
 
 //SERVICES
@@ -13,14 +14,6 @@ import { AuthService } from "@modules/auth/services";
 import { NotificationService } from '@modules/utility/services';
 import { ItemsModule } from '@modules/items/items.module';
 
-const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
-  'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
-  'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-  'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
-  'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-  'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
-  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
-  'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 
 @Component({
   selector: 'sb-sell',
@@ -29,11 +22,14 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
 })
 export class SellComponent implements OnInit {
 
-  public searchValue: string = "";
-
   public searchOption = new SearchOptions();
   public searchItem = new Item();
+  public sellInvoice = new SellInvoice();
+
   public items: Array<Item> = [];
+  public sellItems: Array<SellItem> = [];
+
+  public selectQuantity: number = 1;
 
   constructor(
     private itemService: ItemService,
@@ -80,9 +76,105 @@ export class SellComponent implements OnInit {
     );
   }
 
-  // addItem()
-  // {
+  addItem() {
+    //validate item selected
+    if(!this.searchItem.id){
+      this.notificationService.error("Select an item");
+      return;
+    } 
+
+    //validate quantity
+    if(this.selectQuantity <= 0){
+      this.notificationService.error("Select a quantity");
+      return;
+    }
+
+    if(this.selectQuantity > this.searchItem.quantity){
+      this.notificationService.error("There is not stock for this quantity");
+      return;
+    }
+
+    //Check if the item has already exist in the list
+    let indexSellItem = this.sellItems.findIndex(value => value.id == this.searchItem.id);
+
+    if(indexSellItem < 0){
+      let sellItem = new SellItem();
+      sellItem.id = this.searchItem.id;
+      sellItem.name = this.searchItem.name;
+      sellItem.quantity =this.selectQuantity;
+      sellItem.price = this.searchItem.price;
+      sellItem.total = sellItem.quantity * sellItem.price;
+      this.sellItems.push(sellItem);
+    }
+    else{
+
+      this.sellItems[indexSellItem].quantity = this.sellItems[indexSellItem].quantity + this.selectQuantity;
+      this.sellItems[indexSellItem].price = this.searchItem.price;
+      this.sellItems[indexSellItem].total = this.sellItems[indexSellItem].quantity * this.sellItems[indexSellItem].price;
+
+    }
+    // sellItem.total = sellItem.total.toPrecision(2)
+
+    this.selectQuantity = 0;
+    this.searchItem = new Item();
+
+    // Calculate final values for SellInvoice
+    this.calculateSellInvoice();
+
+
+  }
+
+  delete(index: number)
+  {
+    this.sellItems.splice(index, 1);
+    // Calculate final values for SellInvoice
+    this.calculateSellInvoice();
+  }
+
+  calculateSellInvoice() {
+
+    this.sellInvoice.subtotal = 0.0;
+    // this.sellInvoice.taxes = 0.0;
+    // this.sellInvoice.discount = 0.0;
+    this.sellInvoice.total = 0.0;
+
+    // Get subtotal
+    for (let index = 0; index < this.sellItems.length; index++) {
+      this.sellInvoice.subtotal = this.sellInvoice.subtotal + this.sellItems[index].total
+    }
+
+    //Get total
+    this.sellInvoice.total = this.sellInvoice.subtotal + this.sellInvoice.taxes - this.sellInvoice.discount;
+
+  }
+
+  calculateDiscount(){
+
+    if(this.sellInvoice.discount < 0){
+      this.notificationService.error("The discount is a negative number");
+      this.sellInvoice.discount = 0.0;
+      return;
+    }
+
+    if(this.sellInvoice.discount > this.sellInvoice.subtotal){
+      this.notificationService.error("The discount is great than the subtotal");
+      this.sellInvoice.discount = 0.0;
+      return;
+    }
+
+      this.sellInvoice.total = this.sellInvoice.subtotal + this.sellInvoice.taxes - this.sellInvoice.discount;
     
-  // }
+  }
+
+  calculateStock(){
+    
+    //Check if the item has already exist in the list
+    let indexSellItem = this.sellItems.findIndex(value => value.id == this.searchItem.id);
+
+    if(indexSellItem >= 0){
+      this.searchItem.quantity =  this.searchItem.quantity  - this.sellItems[indexSellItem].quantity;
+    }
+
+  }
 
 }
