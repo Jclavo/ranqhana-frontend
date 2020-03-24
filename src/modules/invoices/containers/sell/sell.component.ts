@@ -12,7 +12,8 @@ import { SellItem, SellInvoice } from '../../models';
 import { ItemService } from "@modules/items/services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService } from '@modules/utility/services';
-import { ItemsModule } from '@modules/items/items.module';
+// import { ItemsModule } from '@modules/items/items.module';
+import { InvoiceService } from '../../services';
 
 
 @Component({
@@ -29,12 +30,13 @@ export class SellComponent implements OnInit {
   public items: Array<Item> = [];
   public sellItems: Array<SellItem> = [];
 
-  public selectQuantity: number = 1;
+  public quantity: number = 1;
 
   constructor(
     private itemService: ItemService,
     private authService: AuthService,
     private notificationService: NotificationService,
+    private invoiceService: InvoiceService,
   ) { }
 
   ngOnInit(): void {
@@ -84,12 +86,12 @@ export class SellComponent implements OnInit {
     } 
 
     //validate quantity
-    if(this.selectQuantity <= 0){
+    if(this.quantity <= 0){
       this.notificationService.error("Select a quantity");
       return;
     }
 
-    if(this.selectQuantity > this.searchItem.quantity){
+    if(this.quantity > this.searchItem.stock){
       this.notificationService.error("There is not stock for this quantity");
       return;
     }
@@ -101,21 +103,21 @@ export class SellComponent implements OnInit {
       let sellItem = new SellItem();
       sellItem.id = this.searchItem.id;
       sellItem.name = this.searchItem.name;
-      sellItem.quantity =this.selectQuantity;
+      sellItem.quantity =this.quantity;
       sellItem.price = this.searchItem.price;
       sellItem.total = sellItem.quantity * sellItem.price;
       this.sellItems.push(sellItem);
     }
     else{
 
-      this.sellItems[indexSellItem].quantity = this.sellItems[indexSellItem].quantity + this.selectQuantity;
+      this.sellItems[indexSellItem].quantity = this.sellItems[indexSellItem].quantity + this.quantity;
       this.sellItems[indexSellItem].price = this.searchItem.price;
       this.sellItems[indexSellItem].total = this.sellItems[indexSellItem].quantity * this.sellItems[indexSellItem].price;
 
     }
     // sellItem.total = sellItem.total.toPrecision(2)
 
-    this.selectQuantity = 0;
+    this.quantity = 0;
     this.searchItem = new Item();
 
     // Calculate final values for SellInvoice
@@ -172,9 +174,37 @@ export class SellComponent implements OnInit {
     let indexSellItem = this.sellItems.findIndex(value => value.id == this.searchItem.id);
 
     if(indexSellItem >= 0){
-      this.searchItem.quantity =  this.searchItem.quantity  - this.sellItems[indexSellItem].quantity;
+      this.searchItem.stock =  this.searchItem.stock  - this.sellItems[indexSellItem].quantity;
     }
 
+  }
+
+  save() {
+
+    if(this.sellInvoice.id){
+      // this.update(this.item);
+    }
+    else{
+      this.create(this.sellInvoice);
+    }
+
+  }
+
+  create(sellInvoice: SellInvoice) {
+    this.invoiceService.createSellInvoice(sellInvoice).subscribe(response => {
+
+      if (response.status) {
+        this.notificationService.success(response.message + response.result.id);
+        // this.router.navigate(['/items']);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
   }
 
 }

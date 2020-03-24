@@ -29,7 +29,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">Stock:</div>
                             </div>
-                            <input class="form-control" type="text" name="quantity" [(ngModel)]="searchItem.quantity" 
+                            <input class="form-control" type="text" name="stock" [(ngModel)]="searchItem.stock" 
                             readonly/>
                         </div>                        
                     </div>
@@ -46,8 +46,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">Quantity:</div>
                             </div>
-                            <input class="form-control" type="number" name="selectQuantity"  placeholder="Quantity" min="1"
-                            [(ngModel)]="selectQuantity" />
+                            <input class="form-control" type="number" name="quantity"  placeholder="Quantity" min="1"
+                            [(ngModel)]="quantity" />
                         </div>
                     </div>
 
@@ -157,7 +157,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-success btn-block" (click)="createSellInvoice()">Create
+                        <button type="button" class="btn btn-success btn-block" (click)="save()">Create
                             Sell Invoice</button>
                     </div>
                 </div>

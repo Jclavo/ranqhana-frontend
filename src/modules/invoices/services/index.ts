@@ -1,7 +1,7 @@
-// import { ItemService } from './item.service';
-// // import { AnotherService } from './another.service';
+import { InvoiceService } from './invoice.service';
+// import { AnotherService } from './another.service';
 
-// export const services = [ItemService];
+export const services = [InvoiceService];
 
-// export * from './item.service';
-// // export * from './another.service';
+export * from './invoice.service';
+// export * from './another.service';
