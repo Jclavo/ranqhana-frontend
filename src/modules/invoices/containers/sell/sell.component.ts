@@ -2,19 +2,20 @@ import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
 import { Item, SearchOptions } from '@modules/items/models';
 import { SellInvoice, InvoiceDetail } from '../../models';
 
+// COMPONENT 
+import { AddAditionalInfoComponent } from "../../components/add-aditional-info/add-aditional-info.component";
 
 //SERVICES
 import { ItemService } from "@modules/items/services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService } from '@modules/utility/services';
-// import { ItemsModule } from '@modules/items/items.module';
 import { InvoiceService } from '../../services';
-
 
 @Component({
   selector: 'sb-sell',
@@ -33,6 +34,7 @@ export class SellComponent implements OnInit {
   public quantity: number = 1;
 
   constructor(
+    private modalService: NgbModal,
     private itemService: ItemService,
     private authService: AuthService,
     private notificationService: NotificationService,
@@ -80,18 +82,18 @@ export class SellComponent implements OnInit {
 
   addItem() {
     //validate item selected
-    if(!this.searchItem.id){
+    if (!this.searchItem.id) {
       this.notificationService.error("Select an item");
       return;
-    } 
+    }
 
     //validate quantity
-    if(this.quantity <= 0){
+    if (this.quantity <= 0) {
       this.notificationService.error("Select a quantity");
       return;
     }
 
-    if(this.quantity > this.searchItem.stock){
+    if (this.quantity > this.searchItem.stock) {
       this.notificationService.error("There is not stock for this quantity");
       return;
     }
@@ -99,16 +101,16 @@ export class SellComponent implements OnInit {
     //Check if the item has already exist in the list
     let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == this.searchItem.id);
 
-    if(indexSellItem < 0){
-      let invoiceDetail     = new InvoiceDetail();
+    if (indexSellItem < 0) {
+      let invoiceDetail = new InvoiceDetail();
       invoiceDetail.item_id = this.searchItem.id;
-      invoiceDetail.name    = this.searchItem.name;
-      invoiceDetail.quantity =this.quantity;
-      invoiceDetail.price   = this.searchItem.price;
-      invoiceDetail.total   = invoiceDetail.quantity * invoiceDetail.price;
+      invoiceDetail.name = this.searchItem.name;
+      invoiceDetail.quantity = this.quantity;
+      invoiceDetail.price = this.searchItem.price;
+      invoiceDetail.total = invoiceDetail.quantity * invoiceDetail.price;
       this.invoiceDetails.push(invoiceDetail);
     }
-    else{
+    else {
 
       this.invoiceDetails[indexSellItem].quantity = this.invoiceDetails[indexSellItem].quantity + this.quantity;
       this.invoiceDetails[indexSellItem].price = this.searchItem.price;
@@ -126,8 +128,7 @@ export class SellComponent implements OnInit {
 
   }
 
-  delete(index: number)
-  {
+  delete(index: number) {
     this.invoiceDetails.splice(index, 1);
     // Calculate final values for SellInvoice
     this.calculateSellInvoice();
@@ -150,41 +151,41 @@ export class SellComponent implements OnInit {
 
   }
 
-  calculateDiscount(){
+  calculateDiscount() {
 
-    if(this.sellInvoice.discount < 0){
+    if (this.sellInvoice.discount < 0) {
       this.notificationService.error("The discount is a negative number");
       this.sellInvoice.discount = 0.0;
       return;
     }
 
-    if(this.sellInvoice.discount > this.sellInvoice.subtotal){
+    if (this.sellInvoice.discount > this.sellInvoice.subtotal) {
       this.notificationService.error("The discount is great than the subtotal");
       this.sellInvoice.discount = 0.0;
       return;
     }
 
-      this.sellInvoice.total = this.sellInvoice.subtotal + this.sellInvoice.taxes - this.sellInvoice.discount;
-    
+    this.sellInvoice.total = this.sellInvoice.subtotal + this.sellInvoice.taxes - this.sellInvoice.discount;
+
   }
 
-  calculateStock(){
-    
+  calculateStock() {
+
     //Check if the item has already exist in the list
     let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == this.searchItem.id);
 
-    if(indexSellItem >= 0){
-      this.searchItem.stock =  this.searchItem.stock  - this.invoiceDetails[indexSellItem].quantity;
+    if (indexSellItem >= 0) {
+      this.searchItem.stock = this.searchItem.stock - this.invoiceDetails[indexSellItem].quantity;
     }
 
   }
 
   save() {
 
-    if(this.sellInvoice.id){
+    if (this.sellInvoice.id) {
       // this.update(this.item);
     }
-    else{
+    else {
       this.create(this.sellInvoice);
     }
 
@@ -195,13 +196,18 @@ export class SellComponent implements OnInit {
 
       if (response.status) {
         this.notificationService.success(response.message);
+        this.sellInvoice.id = response.result.id;
 
-        // Add Details
-        for (let index = 0; index < this.invoiceDetails.length; index++) {
-          this.invoiceDetails[index].invoice_id = response.result.id;
-          this.addDetail(this.invoiceDetails[index]);
+        if (this.sellInvoice.id) {
+          // Add Details
+          for (let index = 0; index < this.invoiceDetails.length; index++) {
+            this.invoiceDetails[index].invoice_id = this.sellInvoice.id;
+            this.addDetail(this.invoiceDetails[index]);
+          }
+
+          this.openModalAdditionalInfo();
+          // this.router.navigate(['/items']);
         }
-        // this.router.navigate(['/items']);
       }
       else {
         this.notificationService.error(response.message);
@@ -229,6 +235,17 @@ export class SellComponent implements OnInit {
       this.notificationService.error(error);
       this.authService.raiseError();
     });
+  }
+
+  openModalAdditionalInfo() {
+    const modalRef = this.modalService.open(AddAditionalInfoComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.invoice_id = this.sellInvoice.id;
+    // modalRef.componentInstance.value = name;
+
+    // modalRef.result.then((result) => {
+    //   result ? this.delete(id) : null;
+    // });
   }
 
 }

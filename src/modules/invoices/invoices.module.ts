@@ -18,13 +18,14 @@ import * as invoicesContainers from './containers';
 
 /* Directives */
 import * as invoicesDirectives from './directives';
+import { AddAditionalInfoComponent } from './components/add-aditional-info/add-aditional-info.component';
 
 
 /* Guards */
 // import * as tablesGuards from './guards';
 
 /* Services */
-// import * as invoicesServices from './services';
+import * as invoicesServices from './services';
 
 @NgModule({
   imports: [
@@ -37,7 +38,7 @@ import * as invoicesDirectives from './directives';
     NavigationModule,
   ],
   providers: [
-    // ...itemsServices.services,
+    ...invoicesServices.services,
     // ...tablesGuards.guards,
     ...invoicesDirectives.directives,
   ],
@@ -47,5 +48,6 @@ import * as invoicesDirectives from './directives';
     ...invoicesDirectives.directives,
   ],
   exports: [...invoicesContainers.containers, ...invoicesComponents.components],
+  entryComponents: [ invoicesComponents.AddAditionalInfoComponent]
 })
 export class InvoicesModule { }

@@ -1,7 +1,5 @@
-// import { NgBootstrapTableItemsComponent } from './ng-bootstrap-table-items/ng-bootstrap-table-items.component';
-import { SortIconComponent } from './sort-icon/sort-icon.component';
+import { AddAditionalInfoComponent } from './add-aditional-info/add-aditional-info.component';
 
-export const components = [SortIconComponent];
+export const components = [AddAditionalInfoComponent ];
 
-// export * from './ng-bootstrap-table-items/ng-bootstrap-table-items.component';
-export * from './sort-icon/sort-icon.component';
+export * from './add-aditional-info/add-aditional-info.component';
