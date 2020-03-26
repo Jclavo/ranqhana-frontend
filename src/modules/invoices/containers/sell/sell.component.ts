@@ -5,7 +5,7 @@ import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operato
 
 //MODELS
 import { Item, SearchOptions } from '@modules/items/models';
-import { SellItem, SellInvoice } from '../../models';
+import { SellItem, SellInvoice, InvoiceDetail } from '../../models';
 
 
 //SERVICES
@@ -28,7 +28,7 @@ export class SellComponent implements OnInit {
   public sellInvoice = new SellInvoice();
 
   public items: Array<Item> = [];
-  public sellItems: Array<SellItem> = [];
+  public invoiceDetails: Array<InvoiceDetail> = [];
 
   public quantity: number = 1;
 
@@ -97,25 +97,25 @@ export class SellComponent implements OnInit {
     }
 
     //Check if the item has already exist in the list
-    let indexSellItem = this.sellItems.findIndex(value => value.id == this.searchItem.id);
+    let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == this.searchItem.id);
 
     if(indexSellItem < 0){
-      let sellItem = new SellItem();
-      sellItem.id = this.searchItem.id;
-      sellItem.name = this.searchItem.name;
-      sellItem.quantity =this.quantity;
-      sellItem.price = this.searchItem.price;
-      sellItem.total = sellItem.quantity * sellItem.price;
-      this.sellItems.push(sellItem);
+      let invoiceDetail     = new InvoiceDetail();
+      invoiceDetail.item_id = this.searchItem.id;
+      invoiceDetail.name    = this.searchItem.name;
+      invoiceDetail.quantity =this.quantity;
+      invoiceDetail.price   = this.searchItem.price;
+      invoiceDetail.total   = invoiceDetail.quantity * invoiceDetail.price;
+      this.invoiceDetails.push(invoiceDetail);
     }
     else{
 
-      this.sellItems[indexSellItem].quantity = this.sellItems[indexSellItem].quantity + this.quantity;
-      this.sellItems[indexSellItem].price = this.searchItem.price;
-      this.sellItems[indexSellItem].total = this.sellItems[indexSellItem].quantity * this.sellItems[indexSellItem].price;
+      this.invoiceDetails[indexSellItem].quantity = this.invoiceDetails[indexSellItem].quantity + this.quantity;
+      this.invoiceDetails[indexSellItem].price = this.searchItem.price;
+      this.invoiceDetails[indexSellItem].total = this.invoiceDetails[indexSellItem].quantity * this.invoiceDetails[indexSellItem].price;
 
     }
-    // sellItem.total = sellItem.total.toPrecision(2)
+    // invoiceDetail.total = invoiceDetail.total.toPrecision(2)
 
     this.quantity = 0;
     this.searchItem = new Item();
@@ -128,7 +128,7 @@ export class SellComponent implements OnInit {
 
   delete(index: number)
   {
-    this.sellItems.splice(index, 1);
+    this.invoiceDetails.splice(index, 1);
     // Calculate final values for SellInvoice
     this.calculateSellInvoice();
   }
@@ -141,8 +141,8 @@ export class SellComponent implements OnInit {
     this.sellInvoice.total = 0.0;
 
     // Get subtotal
-    for (let index = 0; index < this.sellItems.length; index++) {
-      this.sellInvoice.subtotal = this.sellInvoice.subtotal + this.sellItems[index].total
+    for (let index = 0; index < this.invoiceDetails.length; index++) {
+      this.sellInvoice.subtotal = this.sellInvoice.subtotal + this.invoiceDetails[index].total
     }
 
     //Get total
@@ -171,10 +171,10 @@ export class SellComponent implements OnInit {
   calculateStock(){
     
     //Check if the item has already exist in the list
-    let indexSellItem = this.sellItems.findIndex(value => value.id == this.searchItem.id);
+    let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == this.searchItem.id);
 
     if(indexSellItem >= 0){
-      this.searchItem.stock =  this.searchItem.stock  - this.sellItems[indexSellItem].quantity;
+      this.searchItem.stock =  this.searchItem.stock  - this.invoiceDetails[indexSellItem].quantity;
     }
 
   }
@@ -194,8 +194,32 @@ export class SellComponent implements OnInit {
     this.invoiceService.createSellInvoice(sellInvoice).subscribe(response => {
 
       if (response.status) {
-        this.notificationService.success(response.message + response.result.id);
+        this.notificationService.success(response.message);
+
+        // Add Details
+        for (let index = 0; index < this.invoiceDetails.length; index++) {
+          this.invoiceDetails[index].invoice_id = response.result.id;
+          this.addDetail(this.invoiceDetails[index]);
+        }
         // this.router.navigate(['/items']);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+
+  addDetail(invoiceDetail: InvoiceDetail) {
+    this.invoiceService.addInvoiceDetail(invoiceDetail).subscribe(response => {
+
+      if (response.status) {
+        // this.notificationService.success(response.message);
+        console.log(response.message);
       }
       else {
         this.notificationService.error(response.message);

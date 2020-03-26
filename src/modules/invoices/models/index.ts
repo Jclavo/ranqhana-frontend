@@ -1,2 +1,2 @@
-export * from './SellItem.model';
 export * from './SellInvoice.model';
+export * from './InvoiceDetail.model';

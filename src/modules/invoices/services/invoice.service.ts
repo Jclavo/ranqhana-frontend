@@ -7,7 +7,7 @@ import { map, catchError, switchMap } from "rxjs/operators";
 import { environment } from "../../../environments/environment";
 
 //Models
-import { SellInvoice } from '../models';
+import { SellInvoice, InvoiceDetail } from '../models';
 import { Response } from '@modules/utility/models';
 
 //SERVICES
@@ -19,9 +19,10 @@ import { AuthService } from '@modules/auth/services';
 export class InvoiceService {
 
 
-  static service: string = 'sellInvoices/'
+  // static service: string = 'sellInvoices/'
 
-  private apiRoot: string = environment.apiURL + InvoiceService.service;
+  // private apiRoot: string = environment.apiURL + InvoiceService.service;
+  private apiRoot: string = environment.apiURL;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -36,7 +37,7 @@ export class InvoiceService {
 
   createSellInvoice(sellInvoice: SellInvoice): Observable<Response> {
 
-    let apiRoot = this.apiRoot;
+    let apiRoot = this.apiRoot + 'sellInvoices/';
 
     return this.http.post(apiRoot, sellInvoice, this.httpOptions).pipe(map(res => {
 
@@ -46,7 +47,7 @@ export class InvoiceService {
       //Set response
       response.status = resultRAW.status;
       response.message = resultRAW.message;
-      
+
       if (resultRAW.result) {
         let sellInvoice = new SellInvoice();
         sellInvoice.id = resultRAW.result?.id;
@@ -60,6 +61,34 @@ export class InvoiceService {
       catchError(error => {
         return throwError(error.message);
       }));
+  }
+
+  addInvoiceDetail(invoiceDetail: InvoiceDetail): Observable<Response> {
+
+    let apiRoot = this.apiRoot + 'invoiceDetails/';
+
+    return this.http.post(apiRoot, invoiceDetail, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      if (resultRAW.result) {
+        let invoiceDetail = new InvoiceDetail();
+        invoiceDetail.id = resultRAW.result?.id;
+        response.result = invoiceDetail;
+      }
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+
   }
 
 

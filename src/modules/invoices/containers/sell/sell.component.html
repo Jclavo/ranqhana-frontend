@@ -89,13 +89,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let sellItem of sellItems; index as index">
+                        <tr *ngFor="let invoiceDetail of invoiceDetails; index as index">
                             <th scope="row">{{ index + 1 }}</th>
-                            <th scope="row">{{ sellItem.id }}</th>
-                            <td scope="row">{{ sellItem.name }}</td>
-                            <td scope="row">{{ sellItem.quantity }}</td>
-                            <td scope="row">{{ sellItem.price | number : '1.2'}}</td>
-                            <td scope="row">{{ sellItem.total | number : '1.2'}}</td>
+                            <th scope="row">{{ invoiceDetail.item_id }}</th>
+                            <td scope="row">{{ invoiceDetail.name }}</td>
+                            <td scope="row">{{ invoiceDetail.quantity }}</td>
+                            <td scope="row">{{ invoiceDetail.price | number : '1.2'}}</td>
+                            <td scope="row">{{ invoiceDetail.total | number : '1.2'}}</td>
                             <td>
                                 <div class="row">
                                     <!-- <div class="col-3">
@@ -115,7 +115,7 @@
         </div>
     </sb-card>
 
-    <sb-card *ngIf="sellItems.length > 0" >
+    <sb-card *ngIf="invoiceDetails.length > 0" >
         <div class="card-body">
             <form>
                 <div class="row">
