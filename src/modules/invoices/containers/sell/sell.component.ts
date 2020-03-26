@@ -5,7 +5,7 @@ import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operato
 
 //MODELS
 import { Item, SearchOptions } from '@modules/items/models';
-import { SellItem, SellInvoice, InvoiceDetail } from '../../models';
+import { SellInvoice, InvoiceDetail } from '../../models';
 
 
 //SERVICES
