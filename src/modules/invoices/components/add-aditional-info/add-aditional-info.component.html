@@ -1,30 +1,31 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">ADD Aditional information: </h4>
-    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="activeModal.close(false)">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-        <div class="form-group">
-          <label for="serie">Invoice <span style="font-weight:bold">{{invoice_id}} </span> was created succesfully</label>
-        </div>
-        <div class="form-group">
-          <label for="serie">Serie</label>
-          <div class="input-group">
-            <input id="serie" class="form-control" name="serie" [(ngModel)]="invoice.serie">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="client">Client</label>
-          <div class="input-group">
-            <input id="client" class="form-control" name="client" [(ngModel)]="invoice.client">
-          </div>
-        </div>
-        
-      </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Cancel</button>
-    <button type="button" ngbAutofocus class="btn btn-danger" (click)="save()">OK</button>
-  </div>
+  <h4 class="modal-title" id="modal-title">Invoice Information </h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+    (click)="activeModal.close(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>The invoice <span class="text-primary">"{{invoice_id}}"</span> was created <strong><span class="text-success">succesfully</span>.</strong></p>
+  <p><strong>Do you want to add additional information?.</strong></p>
+
+  <form>
+    <div class="form-group">
+      <label for="serie">Serie</label>
+      <div class="input-group">
+        <input id="serie" class="form-control" name="serie" [(ngModel)]="invoice.serie">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="client">Client</label>
+      <div class="input-group">
+        <input id="client" class="form-control" name="client" [(ngModel)]="invoice.client">
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-primary" (click)="print()">Print</button>
+  <button type="button" ngbAutofocus class="btn btn-success" (click)="save()">OK</button>
+</div>

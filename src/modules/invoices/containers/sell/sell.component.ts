@@ -42,6 +42,7 @@ export class SellComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // this.openModalAdditionalInfo();
   }
 
   formatter = (item: Item) => item.name;
@@ -119,7 +120,7 @@ export class SellComponent implements OnInit {
     }
     // invoiceDetail.total = invoiceDetail.total.toPrecision(2)
 
-    this.quantity = 0;
+    this.quantity = 1;
     this.searchItem = new Item();
 
     // Calculate final values for SellInvoice
@@ -243,9 +244,9 @@ export class SellComponent implements OnInit {
     modalRef.componentInstance.invoice_id = this.sellInvoice.id;
     // modalRef.componentInstance.value = name;
 
-    // modalRef.result.then((result) => {
-    //   result ? this.delete(id) : null;
-    // });
+    modalRef.result.then((result) => {
+      result ? this.notificationService.success('Go to another page') : this.notificationService.error('error');
+    });
   }
 
 }
