@@ -108,6 +108,10 @@ export const sideNavItems: SideNavItems = {
                 link: '/invoices/sell',
             },
             {
+                text: 'Invoices List',
+                link: '/invoices/',
+            },
+            {
                 text: 'Purcharse Invoice',
                 link: '/invoices/purchase',
             },

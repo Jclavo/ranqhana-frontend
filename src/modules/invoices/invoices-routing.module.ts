@@ -14,6 +14,24 @@ import { GlobalGuard } from '@modules/utility/guards';
 /* Routes */
 export const ROUTES: Routes = [
   {
+    path: '',
+    canActivate: [GlobalGuard],
+    component: invoicesContainers.InvoicesComponent,
+    data: {
+      title: 'Invoices List - Store App',
+      breadcrumbs: [
+        {
+          text: 'Dashboard',
+          link: '/dashboard',
+        },
+        {
+          text: 'Invoice List',
+          active: true,
+        },
+      ],
+    } as SBRouteData,
+  },
+  {
     path: 'sell',
     canActivate: [GlobalGuard],
     component: invoicesContainers.SellComponent,

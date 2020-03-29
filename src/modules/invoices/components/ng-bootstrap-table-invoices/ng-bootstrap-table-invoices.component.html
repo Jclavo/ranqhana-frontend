@@ -1,0 +1,88 @@
+<form>
+    <div class="form-group form-inline">Full search:
+        <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" sbSortable="serie" (sort)="onSort($event)">
+                    <span>Serie</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "serie"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
+                <th scope="col" sbSortable="subtotal" (sort)="onSort($event)">
+                    <span>Subtotal $</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "subtotal"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
+                <th scope="col" sbSortable="taxes" (sort)="onSort($event)">
+                    <span>Taxes $</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "taxes"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
+                <th scope="col" sbSortable="discount" (sort)="onSort($event)">
+                    <span>Discount $</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "discount"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
+                <th scope="col" sbSortable="total" (sort)="onSort($event)">
+                    <span>Total $</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "total"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
+                <th scope="col" sbSortable="created_at" (sort)="onSort($event)">
+                    <span>Created at</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "created_at"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
+                
+                <th scope="col">
+                    <span>Options</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let invoice of invoices">
+                <th scope="row">{{ invoice.id }}</th>
+                <td>
+                    <ngb-highlight [result]="invoice.serie" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="invoice.subtotal | number" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="invoice.taxes | number" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="invoice.discount | number" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="invoice.total | number" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="invoice.created_at" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-3">
+                            <button type="button" class="btn btn-outline-primary">show</button>
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn btn-outline-danger">Anull/Cancel</button>
+                        </div>
+                        <!-- <div class="col-3">
+                            <button type="button" class="btn btn-outline-danger"
+                                (click)="modalDelete(item.id, item.name)">Delete</button>
+                        </div> -->
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="searchOption.total" [(page)]="searchOption.page" [maxSize]="5"
+            [pageSize]="searchOption.per_page" [rotate]="true" [boundaryLinks]="true">
+        </ngb-pagination>
+        <select class="custom-select" style="width: auto" name="per_page" [(ngModel)]="searchOption.per_page">
+            <option [ngValue]="10">10 items per page</option>
+            <option [ngValue]="20">20 items per page</option>
+            <option [ngValue]="50">50 items per page</option>
+        </select>
+    </div>
+</form>

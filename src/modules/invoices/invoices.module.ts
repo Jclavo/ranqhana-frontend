@@ -4,8 +4,6 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { SellComponent } from './containers/sell/sell.component';
-
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
@@ -18,14 +16,13 @@ import * as invoicesContainers from './containers';
 
 /* Directives */
 import * as invoicesDirectives from './directives';
-import { AddAditionalInfoComponent } from './components/add-aditional-info/add-aditional-info.component';
-
 
 /* Guards */
 // import * as tablesGuards from './guards';
 
 /* Services */
 import * as invoicesServices from './services';
+import { NgBootstrapTableInvoicesComponent } from './components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component';
 
 @NgModule({
   imports: [
@@ -46,6 +43,7 @@ import * as invoicesServices from './services';
     ...invoicesContainers.containers,
     ...invoicesComponents.components,
     ...invoicesDirectives.directives,
+    NgBootstrapTableInvoicesComponent,
   ],
   exports: [...invoicesContainers.containers, ...invoicesComponents.components],
   entryComponents: [ invoicesComponents.AddAditionalInfoComponent]

@@ -35,6 +35,45 @@ export class InvoiceService {
     private authService: AuthService
   ) { }
 
+  get(parameters: any): Observable<Response> {
+
+    let apiRoot = this.apiRoot + 'invoices/pagination?page=' + parameters.searchOption.page;
+
+    return this.http.post(apiRoot, parameters, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      response.result = resultRAW.result?.map((data: any) => {
+
+        let invoice = new SellInvoice();
+        invoice.id       = data.id;
+        invoice.serie    = data.serie;
+        invoice.subtotal = data.subtotal;
+        invoice.discount = data.discount;
+        invoice.total    = data.total;
+        invoice.created_at = data.created_at;
+        // invoice.id = data.id;
+        // invoice.id = data.id;
+        // invoice.id = data.id;
+
+        return invoice;
+      });
+
+      response.records = resultRAW.records;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
   createSellInvoice(sellInvoice: SellInvoice): Observable<Response> {
 
     let apiRoot = this.apiRoot + 'sellInvoices/';

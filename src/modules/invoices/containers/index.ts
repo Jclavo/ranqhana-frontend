@@ -1,8 +1,8 @@
 import { SellComponent } from './sell/sell.component';
-// import { anotherComponent } from './folder/another.component';
+import { InvoicesComponent } from './invoices/invoices.component';
 
-export const containers = [SellComponent];
+export const containers = [SellComponent, InvoicesComponent];
 
 export * from './sell/sell.component';
-// export * from './folder/another.component';
+export * from './invoices/invoices.component';
 
