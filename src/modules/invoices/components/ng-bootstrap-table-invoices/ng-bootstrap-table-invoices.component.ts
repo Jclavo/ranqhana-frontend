@@ -4,8 +4,8 @@ import { SBSortableHeaderDirective, SortEvent } from '@modules/invoices/directiv
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
-import { SearchOptions } from '@modules/items/models';
-import { SellInvoice } from "../../models";
+// import { SearchOptions } from '@modules/items/models';
+import { SellInvoice, SearchInvoice } from "../../models";
 
 //SERVICES
 import { InvoiceService } from "../../services";
@@ -19,7 +19,7 @@ import { NotificationService } from '@modules/utility/services';
 })
 export class NgBootstrapTableInvoicesComponent implements OnInit {
 
-  public searchOption = new SearchOptions();
+  public searchOption = new SearchInvoice();
   public invoices: Array<SellInvoice> = [];
   public parameters: any;
 
