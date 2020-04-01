@@ -20,6 +20,7 @@ import * as utilityGuards from './guards';
 
 /* Services */
 import * as utilityServices from './services';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 
 @NgModule({
     imports: [
@@ -32,7 +33,7 @@ import * as utilityServices from './services';
         NavigationModule,
     ],
     providers: [...utilityServices.services, ...utilityGuards.guards],
-    declarations: [...utilityContainers.containers, ...utilityComponents.components],
+    declarations: [...utilityContainers.containers, ...utilityComponents.components, ConfirmModalComponent],
     exports: [...utilityContainers.containers, ...utilityComponents.components],
 })
 export class UtilityModule {}
