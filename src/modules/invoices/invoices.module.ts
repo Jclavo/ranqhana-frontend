@@ -7,9 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
+import { UtilityModule } from '@modules/utility/utility.module';
 
 /* Components */
 import * as invoicesComponents from './components';
+import * as utilitiesComponents from '@modules/utility/components';
 
 /* Containers */ 
 import * as invoicesContainers from './containers';
@@ -22,7 +24,6 @@ import * as invoicesDirectives from './directives';
 
 /* Services */
 import * as invoicesServices from './services';
-import { NgBootstrapTableInvoicesComponent } from './components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { NgBootstrapTableInvoicesComponent } from './components/ng-bootstrap-tab
     HttpClientModule,
     AppCommonModule,
     NavigationModule,
+    UtilityModule
   ],
   providers: [
     ...invoicesServices.services,
@@ -43,9 +45,8 @@ import { NgBootstrapTableInvoicesComponent } from './components/ng-bootstrap-tab
     ...invoicesContainers.containers,
     ...invoicesComponents.components,
     ...invoicesDirectives.directives,
-    NgBootstrapTableInvoicesComponent,
   ],
   exports: [...invoicesContainers.containers, ...invoicesComponents.components],
-  entryComponents: [ invoicesComponents.AddAditionalInfoComponent]
+  entryComponents: [ invoicesComponents.AddAditionalInfoComponent, utilitiesComponents.ConfirmModalComponent]
 })
 export class InvoicesModule { }

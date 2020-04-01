@@ -7,6 +7,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 // import { SearchOptions } from '@modules/items/models';
 import { SellInvoice, SearchInvoice } from "../../models";
 
+// COMPONENT 
+import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal/confirm-modal.component";
+
 //SERVICES
 import { InvoiceService } from "../../services";
 import { AuthService } from "@modules/auth/services";
@@ -35,6 +38,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     private notificationService: NotificationService,
     private invoiceService: InvoiceService,
     private authService: AuthService,
+    private ngbModal: NgbModal,
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -78,6 +82,20 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     }, error => {
       this.notificationService.error(error);
       this.authService.raiseError();
+    });
+
+  }
+
+  modalDelete(id: string) {
+    
+    const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.title = 'Invoice';
+    modalRef.componentInstance.action = 'Anull/Cancel';
+    modalRef.componentInstance.value = id;
+
+    modalRef.result.then((result) => {
+      result ? this.delete(id) : null;
     });
 
   }
