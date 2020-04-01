@@ -42,14 +42,14 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
   
   ngOnInit(): void {
 
-    this.getItems();
+    this.getInvoices();
 
   }
 
   ngDoCheck(): void {
     const changes = this.searchOptionDiffers.diff(this.searchOption);
     if (changes) {
-      this.getItems();
+      this.getInvoices();
     }
   }
 
@@ -62,7 +62,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
   }
 
 
-  getItems() {
+  getInvoices() {
 
     let parameters = { 'store_id': this.authService.getUserStoreID(), 'searchOption': this.searchOption };
 
@@ -80,6 +80,24 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
       this.authService.raiseError();
     });
 
+  }
+
+  delete(id: string) {
+
+    this.invoiceService.delete(id).subscribe(response => {
+
+      if (response.status) {
+        this.notificationService.success(response.message);
+        this.getInvoices();
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
   }
 
 }
