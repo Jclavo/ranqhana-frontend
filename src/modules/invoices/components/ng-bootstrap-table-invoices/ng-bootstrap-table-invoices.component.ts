@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, ChangeDetectionStrategy, ChangeDetectorRef, KeyValueDiffer, KeyValueDiffers } from '@angular/core';
-import { Observable } from 'rxjs';
-import { SBSortableHeaderDirective, SortEvent } from '@modules/invoices/directives';
+import { Component, OnInit, ViewChildren, QueryList, KeyValueDiffer, KeyValueDiffers } from '@angular/core';
+import { SBSortableHeaderDirective, SortEvent } from '@modules/utility/directives';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
