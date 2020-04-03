@@ -7,22 +7,17 @@ import { HttpClientModule } from '@angular/common/http';
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
+import { UtilityModule } from '@modules/utility/utility.module';
 
 /* Components */
 import * as itemsComponents from './components';
+import * as utilitiesComponents from '@modules/utility/components';
 
 /* Containers */
 import * as itemsContainers from './containers';
 
-/* Directives */
-import * as itemsDirectives from './directives';
-
-/* Guards */
-// import * as tablesGuards from './guards';
-
 /* Services */
 import * as itemsServices from './services';
-import { NgBootstrapTableItemsComponent } from './components/ng-bootstrap-table-items/ng-bootstrap-table-items.component';
 
 @NgModule({
   imports: [
@@ -33,20 +28,22 @@ import { NgBootstrapTableItemsComponent } from './components/ng-bootstrap-table-
     HttpClientModule,
     AppCommonModule,
     NavigationModule,
+    UtilityModule
   ],
   providers: [
     DecimalPipe,
     ...itemsServices.services,
-    // ...tablesGuards.guards,
-    ...itemsDirectives.directives,
   ],
   declarations: [
     ...itemsContainers.containers,
     ...itemsComponents.components,
-    ...itemsDirectives.directives,
-    NgBootstrapTableItemsComponent,
   ],
-  exports: [...itemsContainers.containers, ...itemsComponents.components],
-  entryComponents: [itemsComponents.ConfirmModalComponent]
+  exports: [
+    ...itemsContainers.containers, 
+    ...itemsComponents.components
+  ],
+  entryComponents: [
+    utilitiesComponents.ConfirmModalComponent
+  ]
 })
 export class ItemsModule { }

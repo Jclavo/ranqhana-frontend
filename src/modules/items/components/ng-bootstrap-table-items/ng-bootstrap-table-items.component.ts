@@ -1,13 +1,12 @@
-import { Component, OnInit, Input, ViewChildren, QueryList, ChangeDetectionStrategy, ChangeDetectorRef, KeyValueDiffer, KeyValueDiffers } from '@angular/core';
-import { Observable } from 'rxjs';
-import { SBSortableHeaderDirective, SortEvent } from '@modules/items/directives';
+import { Component, OnInit, ViewChildren, QueryList, KeyValueDiffer, KeyValueDiffers } from '@angular/core';
+import { SBSortableHeaderDirective, SortEvent } from '@modules/utility/directives';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
 import { Item, SearchOptions } from '@modules/items/models';
 
 // COMPONENT 
-import { ConfirmModalComponent } from "../confirm-modal/confirm-modal.component";
+import { ConfirmModalComponent } from '@modules/utility/components';
 
 //SERVICES
 import { ItemService } from "../../services";
@@ -90,6 +89,7 @@ export class NgBootstrapTableItemsComponent implements OnInit {
     const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
     modalRef.componentInstance.title = 'Item';
+    modalRef.componentInstance.action = 'delete';
     modalRef.componentInstance.value = name;
 
     modalRef.result.then((result) => {
