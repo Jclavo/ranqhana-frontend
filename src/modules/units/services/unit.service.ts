@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from "rxjs/operators";
 
@@ -10,20 +10,33 @@ import { environment } from "../../../environments/environment";
 import { Unit } from '../models';
 import { Response } from '../../utility/models';
 
+//SERVICES
+import { AuthService } from '@modules/auth/services';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UnitService {
 
-  private apiRoot: string = environment.apiURL;
+  static service: string =  'units/'
+  private apiRoot: string = environment.apiURL + UnitService.service;;
 
-  constructor(private http: HttpClient) { }
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Authorization': 'Bearer ' + this.authService.getAPITOKEN()
+      })
+  };
 
-  getAll(): Observable<Response> {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+  ) { }
 
-    let apiRoot = this.apiRoot + 'units';
+  get(): Observable<Response> {
 
-    return this.http.get(apiRoot).pipe(map(res => {
+    let apiRoot = this.apiRoot;
+
+    return this.http.get(apiRoot, this.httpOptions).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
