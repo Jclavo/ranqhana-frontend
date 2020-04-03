@@ -46,10 +46,11 @@ export class ItemComponent implements OnInit {
 
       if (response.status) {
         //this.notificationService.success(response.message);
-        this.item.name = response.result?.name;
-        this.item.description = response.result?.description;
-        this.item.price = response.result?.price;
-        this.item.store_id = response.result?.store_id;
+        // this.item.name = response.result?.name;
+        // this.item.description = response.result?.description;
+        // this.item.price = response.result?.price;
+        // this.item.store_id = response.result?.store_id;
+        this.item = response.result;
 
       }
       else {
