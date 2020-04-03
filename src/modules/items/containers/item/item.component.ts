@@ -3,11 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 //MODELS
 import { Item } from "@modules/items/models";
+import { Unit } from "@modules/units/models";
 
 //SERVICES
 import { ItemService } from "../../services";
 import { NotificationService } from '@modules/utility/services';
 import { AuthService } from '@modules/auth/services';
+import { UnitService } from '@modules/units/services';
 
 @Component({
   selector: 'sb-item',
@@ -18,16 +20,22 @@ export class ItemComponent implements OnInit {
 
   public item = new Item();
 
+  public units: Array<Unit> = [];
+
   constructor(
     private notificationService: NotificationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private itemService: ItemService,
     private authService: AuthService,
+    private unitService: UnitService,
 
   ) { }
 
   ngOnInit(): void {
+
+    this.getUnits();
+
     this.item.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.item.id ? this.getById(this.item.id) : null;
   }
@@ -95,6 +103,21 @@ export class ItemComponent implements OnInit {
         this.notificationService.error(response.message);
       }
 
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+  getUnits(){
+
+    this.unitService.get().subscribe(response => {
+
+      if (response.status) {
+        this.units = response.result;
+      }else{
+        this.notificationService.error(response.message);
+      }
     }, error => {
       this.notificationService.error(error);
       this.authService.raiseError();
