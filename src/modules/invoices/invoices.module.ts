@@ -13,14 +13,8 @@ import { UtilityModule } from '@modules/utility/utility.module';
 import * as invoicesComponents from './components';
 import * as utilitiesComponents from '@modules/utility/components';
 
-/* Containers */ 
+/* Containers */
 import * as invoicesContainers from './containers';
-
-/* Directives */
-import * as invoicesDirectives from './directives';
-
-/* Guards */
-// import * as tablesGuards from './guards';
 
 /* Services */
 import * as invoicesServices from './services';
@@ -38,15 +32,18 @@ import * as invoicesServices from './services';
   ],
   providers: [
     ...invoicesServices.services,
-    // ...tablesGuards.guards,
-    ...invoicesDirectives.directives,
   ],
   declarations: [
     ...invoicesContainers.containers,
-    ...invoicesComponents.components,
-    ...invoicesDirectives.directives,
+    ...invoicesComponents.components
   ],
-  exports: [...invoicesContainers.containers, ...invoicesComponents.components],
-  entryComponents: [ invoicesComponents.AddAditionalInfoComponent, utilitiesComponents.ConfirmModalComponent]
+  exports: [
+    ...invoicesContainers.containers,
+    ...invoicesComponents.components
+  ],
+  entryComponents: [
+    invoicesComponents.AddAditionalInfoComponent,
+    utilitiesComponents.ConfirmModalComponent
+  ]
 })
 export class InvoicesModule { }
