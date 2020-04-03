@@ -18,9 +18,11 @@ import * as utilityContainers from './containers';
 /* Guards */
 import * as utilityGuards from './guards';
 
+/* Guards */
+import * as utilityDirectives from './directives';
+
 /* Services */
 import * as utilityServices from './services';
-import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 
 @NgModule({
     imports: [
@@ -32,8 +34,20 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
         AppCommonModule,
         NavigationModule,
     ],
-    providers: [...utilityServices.services, ...utilityGuards.guards],
-    declarations: [...utilityContainers.containers, ...utilityComponents.components, ConfirmModalComponent],
-    exports: [...utilityContainers.containers, ...utilityComponents.components],
+    providers: [
+        ...utilityServices.services, 
+        ...utilityGuards.guards,
+        ...utilityDirectives.directives
+    ],
+    declarations: [
+        ...utilityContainers.containers, 
+        ...utilityComponents.components,
+        ...utilityDirectives.directives
+    ],
+    exports: [
+        ...utilityContainers.containers, 
+        ...utilityComponents.components,
+        ...utilityDirectives.directives
+    ],
 })
 export class UtilityModule {}
