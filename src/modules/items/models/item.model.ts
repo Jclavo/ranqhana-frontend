@@ -5,6 +5,7 @@ export class Item {
     description: string = '';
     price: number = 0;
     stock: number = 0;
+    unit: string = ''; 
     store_id: number = 0;
     created_at: string = ''; 
     updated_at: string = '';    
