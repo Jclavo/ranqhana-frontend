@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, KeyValueDiffer, KeyValueDiffers } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, KeyValueDiffer, KeyValueDiffers, HostListener } from '@angular/core';
 import { SBSortableHeaderDirective, SortEvent } from '@modules/utility/directives';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -23,6 +23,7 @@ export class NgBootstrapTableItemsComponent implements OnInit {
   public searchOption = new SearchOptions();
   public items: Array<Item> = [];
   public parameters: any;
+  public maxSizePagination: number = 10;
 
   private searchOptionDiffers: KeyValueDiffer<string, any>;
 
@@ -45,7 +46,13 @@ export class NgBootstrapTableItemsComponent implements OnInit {
   ngOnInit(): void {
 
     this.getItems();
+    this.maxSizePagination = this.getMaxSizePagination(window.screen.width);
 
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any ) {
+    this.maxSizePagination = this.getMaxSizePagination(event.target.innerWidth);
   }
 
   ngDoCheck(): void {
@@ -114,6 +121,26 @@ export class NgBootstrapTableItemsComponent implements OnInit {
       this.notificationService.error(error);
       this.authService.raiseError();
     });
+  }
+
+
+  getMaxSizePagination(screenWidth: number){
+
+    let maxSizePagination = 1;
+
+    if(screenWidth <= 400){
+      maxSizePagination = 1;
+    }else if(screenWidth > 400 && screenWidth <= 500){
+      maxSizePagination = 3;
+    }else if(screenWidth > 500 && screenWidth <= 700){
+      maxSizePagination = 5;
+    }else if(screenWidth > 700 && screenWidth <= 1100){
+      maxSizePagination = 8;
+    }else{
+      maxSizePagination = 10;
+    }
+
+    return maxSizePagination;
   }
 
 

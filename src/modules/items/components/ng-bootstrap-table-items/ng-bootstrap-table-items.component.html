@@ -1,78 +1,100 @@
 <form>
     <div class="form-group form-inline">Full search:
-        <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
+        <input class="form-control ml-sm-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col" sbSortable="name" (sort)="onSort($event)">
-                    <span>Country</span>
-                    <sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon>
-                </th>
-                <th scope="col" sbSortable="description" (sort)="onSort($event)">
-                    <span>Description</span>
-                    <sb-sort-icon *ngIf='sortedColumn === "description"' [direction]="sortedDirection"></sb-sort-icon>
-                </th>
-                <th scope="col" sbSortable="price" (sort)="onSort($event)">
-                    <span>Price $</span>
-                    <sb-sort-icon *ngIf='sortedColumn === "price"' [direction]="sortedDirection"></sb-sort-icon>
-                </th>
-                <th scope="col" sbSortable="quantity" (sort)="onSort($event)">
-                    <span>Quantity</span>
-                    <sb-sort-icon *ngIf='sortedColumn === "quantity"' [direction]="sortedDirection"></sb-sort-icon>
-                </th>
-                <th scope="col" sbSortable="unit" (sort)="onSort($event)">
-                    <span>Unit</span>
-                    <sb-sort-icon *ngIf='sortedColumn === "unit"' [direction]="sortedDirection"></sb-sort-icon>
-                </th>
-                <th scope="col">
-                    <span>Options</span>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of items">
-                <th scope="row">{{ item.id }}</th>
-                <td>
-                    <ngb-highlight [result]="item.name" [term]="searchOption.searchValue"></ngb-highlight>
-                </td>
-                <td>
-                    <ngb-highlight [result]="item.description" [term]="searchOption.searchValue"></ngb-highlight>
-                </td>
-                <td>
-                    <ngb-highlight [result]="item.price | number" [term]="searchOption.searchValue"></ngb-highlight>
-                </td>
-                <td>
-                    <ngb-highlight [result]="item.quantity | number" [term]="searchOption.searchValue"></ngb-highlight>
-                </td>
-                <td>
-                    <ngb-highlight [result]="item.unit" [term]="searchOption.searchValue"></ngb-highlight>
-                </td>
-                <td>
-                    <div class="row">
-                        <div class="col-3">
-                            <button type="button" class="btn btn-outline-primary"
-                                routerLink="/items/item/{{item.id}}">Edit</button>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" sbSortable="name" (sort)="onSort($event)">
+                        <span>Country</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon>
+                    </th>
+                    <th scope="col" sbSortable="description" (sort)="onSort($event)">
+                        <span>Description</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "description"' [direction]="sortedDirection">
+                        </sb-sort-icon>
+                    </th>
+                    <th scope="col" sbSortable="price" (sort)="onSort($event)">
+                        <span>Price $</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "price"' [direction]="sortedDirection"></sb-sort-icon>
+                    </th>
+                    <th scope="col" sbSortable="quantity" (sort)="onSort($event)">
+                        <span>Quantity</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "quantity"' [direction]="sortedDirection"></sb-sort-icon>
+                    </th>
+                    <th scope="col" sbSortable="unit" (sort)="onSort($event)">
+                        <span>Unit</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "unit"' [direction]="sortedDirection"></sb-sort-icon>
+                    </th>
+                    <th scope="col">
+                        <span>Options</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items">
+                    <th scope="row" class="col-auto">{{ item.id }}</th>
+                    <td>
+                        <ngb-highlight [result]="item.name" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.description" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.price | number" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.quantity | number" [term]="searchOption.searchValue">
+                        </ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.unit" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="col-auto mb-1">
+                                <button type="button" class="btn btn-outline-primary"
+                                    routerLink="/items/item/{{item.id}}">Edit</button>
+                            </div>
+                            <div class="col-auto mb-1">
+                                <button type="button" class="btn btn-outline-danger"
+                                    (click)="modalDelete(item.id, item.name)">Delete</button>
+                            </div>
                         </div>
-                        <div class="col-3">
-                            <button type="button" class="btn btn-outline-danger"
-                                (click)="modalDelete(item.id, item.name)">Delete</button>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <div class="d-flex justify-content-between p-2">
-        <ngb-pagination [collectionSize]="searchOption.total" [(page)]="searchOption.page" [maxSize]="5"
-            [pageSize]="searchOption.per_page" [rotate]="true" [boundaryLinks]="true">
-        </ngb-pagination>
-        <select class="custom-select" style="width: auto" name="per_page" [(ngModel)]="searchOption.per_page">
-            <option [ngValue]="10">10 items per page</option>
-            <option [ngValue]="20">20 items per page</option>
-            <option [ngValue]="50">50 items per page</option>
-        </select>
-    </div>
+    <!-- <div class="d-flex justify-content-between p-sm-2">
+        <div class="col-12 col-md-6">
+            <ngb-pagination [collectionSize]="searchOption.total" [(page)]="searchOption.page" [maxSize]="5"
+                [pageSize]="searchOption.per_page" [rotate]="true" [boundaryLinks]="true">
+            </ngb-pagination>
+        </div>
+        <div class="col-12 col-md-2 offset-md-4">
+            <select class="custom-select" style="width: auto" name="per_page" [(ngModel)]="searchOption.per_page">
+                <option [ngValue]="10">10 items per page</option>
+                <option [ngValue]="20">20 items per page</option>
+                <option [ngValue]="50">50 items per page</option>
+            </select>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="col-12 col-md-6 mt-3">
+            <ngb-pagination class="d-flex justify-content-start" [collectionSize]="searchOption.total" [(page)]="searchOption.page" 
+                [maxSize]="maxSizePagination" [pageSize]="searchOption.per_page" [rotate]="true" [boundaryLinks]="true">
+            </ngb-pagination>
+        </div>
+        <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
+            <select class="custom-select" name="per_page" [(ngModel)]="searchOption.per_page">
+                <option [ngValue]="10">10 items per page</option>
+                <option [ngValue]="20">20 items per page</option>
+                <option [ngValue]="50">50 items per page</option>
+            </select>
+        </div>
+      </div>
 </form>
