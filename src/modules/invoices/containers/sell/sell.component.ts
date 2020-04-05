@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 //MODELS
 import { Item, SearchOptions } from '@modules/items/models';
@@ -39,6 +39,7 @@ export class SellComponent implements OnInit {
     private authService: AuthService,
     private notificationService: NotificationService,
     private invoiceService: InvoiceService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -105,7 +106,8 @@ export class SellComponent implements OnInit {
     if (indexSellItem < 0) {
       let invoiceDetail = new InvoiceDetail();
       invoiceDetail.item_id = this.searchItem.id;
-      invoiceDetail.name = this.searchItem.name;
+      invoiceDetail.item = this.searchItem.name;
+      invoiceDetail.unit = this.searchItem.unit;
       invoiceDetail.quantity = this.quantity;
       invoiceDetail.price = this.searchItem.price;
       invoiceDetail.total = invoiceDetail.quantity * invoiceDetail.price;
@@ -207,7 +209,6 @@ export class SellComponent implements OnInit {
           }
 
           this.openModalAdditionalInfo();
-          // this.router.navigate(['/items']);
         }
       }
       else {
@@ -245,7 +246,7 @@ export class SellComponent implements OnInit {
     // modalRef.componentInstance.value = name;
 
     modalRef.result.then((result) => {
-      result ? this.notificationService.success('Go to another page') : this.notificationService.error('error');
+      result ? this.router.navigate(['/invoices']) : this.notificationService.error('error');
     });
   }
 
