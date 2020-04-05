@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12 col-lg-6">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold">Full search:</div>
@@ -7,20 +7,23 @@
             <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6 col-lg-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
-                <div class="input-group-text font-weight-bold">Initial date:</div>
+                <div class="input-group-text font-weight-bold">From:</div>
             </div>
-            <input class="form-control ml-2" type="date" name="fromDate" [(ngModel)]="searchOption.fromDate" />
+            <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="fromDate"
+                [(ngModel)]="searchOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()">
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6 col-lg-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
-                <div class="input-group-text font-weight-bold">Final date:</div>
+                <div class="input-group-text font-weight-bold">To:</div>
             </div>
-            <input class="form-control ml-2" type="date" name="toDate" [(ngModel)]="searchOption.toDate" />
+            <!-- <input class="form-control ml-2" type="date" name="toDate" [(ngModel)]="searchOption.toDate" /> -->
+            <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate"
+                [(ngModel)]="searchOption.toDate" ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
         </div>
     </div>
 </div>

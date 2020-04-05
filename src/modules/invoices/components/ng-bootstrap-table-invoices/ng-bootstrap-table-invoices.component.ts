@@ -12,7 +12,7 @@ import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal
 //SERVICES
 import { InvoiceService } from "../../services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService, UtilityService } from '@modules/utility/services';
+import { NotificationService, UtilityService, CustomDateService } from '@modules/utility/services';
 
 @Component({
   selector: 'sb-ng-bootstrap-table-invoices',
@@ -39,10 +39,13 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     private invoiceService: InvoiceService,
     private authService: AuthService,
     private ngbModal: NgbModal,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private customDateService: CustomDateService,
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
+
+    this.searchOption.fromDate = this.searchOption.toDate = this.customDateService.getToday();
   }
   
   ngOnInit(): void {
