@@ -32,9 +32,22 @@ export class UtilityService {
         return errorsList;
     }
 
-    // openSnackBar(message: string, action: string = 'OK') {
-    //     this.snackBar.open(message, action, {
-    //         duration: 2000,
-    //     });
-    // }
+    getMaxSizePagination(screenWidth: number){
+
+        let maxSizePagination = 1;
+    
+        if(screenWidth <= 400){
+          maxSizePagination = 1;
+        }else if(screenWidth > 400 && screenWidth <= 500){
+          maxSizePagination = 3;
+        }else if(screenWidth > 500 && screenWidth <= 700){
+          maxSizePagination = 5;
+        }else if(screenWidth > 700 && screenWidth <= 1100){
+          maxSizePagination = 8;
+        }else{
+          maxSizePagination = 10;
+        }
+    
+        return maxSizePagination;
+      }
 }
