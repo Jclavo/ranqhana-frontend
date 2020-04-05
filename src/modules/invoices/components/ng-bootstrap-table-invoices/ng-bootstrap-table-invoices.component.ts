@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, QueryList, KeyValueDiffer, KeyValueDiffers } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, KeyValueDiffer, KeyValueDiffers, HostListener } from '@angular/core';
 import { SBSortableHeaderDirective, SortEvent } from '@modules/utility/directives';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,7 +12,7 @@ import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal
 //SERVICES
 import { InvoiceService } from "../../services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService } from '@modules/utility/services';
+import { NotificationService, UtilityService } from '@modules/utility/services';
 
 @Component({
   selector: 'sb-ng-bootstrap-table-invoices',
@@ -24,6 +24,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
   public searchOption = new SearchInvoice();
   public invoices: Array<SellInvoice> = [];
   public parameters: any;
+  public maxSizePagination: number = 10;
 
   private searchOptionDiffers: KeyValueDiffer<string, any>;
 
@@ -38,6 +39,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     private invoiceService: InvoiceService,
     private authService: AuthService,
     private ngbModal: NgbModal,
+    private utilityService: UtilityService
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -46,7 +48,13 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
   ngOnInit(): void {
 
     this.getInvoices();
+    this.maxSizePagination = this.utilityService.getMaxSizePagination(window.screen.width);
 
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any ) {
+    this.maxSizePagination = this.utilityService.getMaxSizePagination(event.target.innerWidth);
   }
 
   ngDoCheck(): void {

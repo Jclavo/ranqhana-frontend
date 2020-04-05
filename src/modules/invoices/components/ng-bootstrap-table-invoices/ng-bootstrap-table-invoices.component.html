@@ -1,44 +1,31 @@
-<form>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                    <div class="input-group-text font-weight-bold">Full search:</div>
-                </div>
-                <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
+<div class="row">
+    <div class="col-md-4">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold">Full search:</div>
             </div>
+            <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
         </div>
-        <div class="col-md-3">
-            <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                    <div class="input-group-text font-weight-bold">Initial date:</div>
-                </div>
-                <input class="form-control ml-2" type="date" name="fromDate" [(ngModel)]="searchOption.fromDate"/>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                    <div class="input-group-text font-weight-bold">Final date:</div>
-                </div>
-                <input class="form-control ml-2" type="date" name="toDate" [(ngModel)]="searchOption.toDate"/>
-            </div>
-        </div>
-        <!-- <div class="col-md-2">
-            <button type="button" class="btn btn-primary" (click)="addItem()">Search</button>
-        </div> -->
-
     </div>
+    <div class="col-md-4">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold">Initial date:</div>
+            </div>
+            <input class="form-control ml-2" type="date" name="fromDate" [(ngModel)]="searchOption.fromDate" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold">Final date:</div>
+            </div>
+            <input class="form-control ml-2" type="date" name="toDate" [(ngModel)]="searchOption.toDate" />
+        </div>
+    </div>
+</div>
 
-
-</form>
-<form>
-    <!-- <div class="form-group form-inline">
-        Full search: <input class="form-control ml-2" type="text" name="searchTerm"
-            [(ngModel)]="searchOption.searchValue" />
-        Initial date: <input class="form-control ml-2" type="date" />
-    </div> -->
-
+<div class="table-responsive">
     <table class="table table-striped">
         <thead>
             <tr>
@@ -98,30 +85,32 @@
                 </td>
                 <td>
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-auto mb-1">
                             <button type="button" class="btn btn-outline-primary">show</button>
                         </div>
-                        <div class="col-3">
-                            <button type="button" class="btn btn-outline-danger" (click)="modalDelete(invoice.id)">Anull/Cancel</button>
-                        </div>
-                        <!-- <div class="col-3">
+                        <div class="col-auto mb-1">
                             <button type="button" class="btn btn-outline-danger"
-                                (click)="modalDelete(item.id, item.name)">Delete</button>
-                        </div> -->
+                                (click)="modalDelete(invoice.id)">Anull/Cancel</button>
+                        </div>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
 
-    <div class="d-flex justify-content-between p-2">
-        <ngb-pagination [collectionSize]="searchOption.total" [(page)]="searchOption.page" [maxSize]="5"
-            [pageSize]="searchOption.per_page" [rotate]="true" [boundaryLinks]="true">
+<div class="row">
+    <div class="col-12 col-md-6 mt-3">
+        <ngb-pagination class="d-flex justify-content-start" [collectionSize]="searchOption.total"
+            [(page)]="searchOption.page" [maxSize]="maxSizePagination" [pageSize]="searchOption.per_page"
+            [rotate]="true" [boundaryLinks]="true">
         </ngb-pagination>
-        <select class="custom-select" style="width: auto" name="per_page" [(ngModel)]="searchOption.per_page">
+    </div>
+    <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
+        <select class="custom-select" name="per_page" [(ngModel)]="searchOption.per_page">
             <option [ngValue]="10">10 items per page</option>
             <option [ngValue]="20">20 items per page</option>
             <option [ngValue]="50">50 items per page</option>
         </select>
     </div>
-</form>
+</div>
