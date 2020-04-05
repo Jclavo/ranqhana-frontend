@@ -12,6 +12,7 @@ import { Response } from '@modules/utility/models';
 
 //SERVICES
 import { AuthService } from '@modules/auth/services';
+import { CustomDateService } from '@modules/utility/services';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,8 @@ export class InvoiceService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private customDateService: CustomDateService,
   ) { }
 
   get(parameters: any): Observable<Response> {
@@ -56,7 +58,7 @@ export class InvoiceService {
         invoice.subtotal = data.subtotal;
         invoice.discount = data.discount;
         invoice.total    = data.total;
-        invoice.created_at = data.created_at;
+        invoice.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at); 
         // invoice.id = data.id;
         // invoice.id = data.id;
         // invoice.id = data.id;

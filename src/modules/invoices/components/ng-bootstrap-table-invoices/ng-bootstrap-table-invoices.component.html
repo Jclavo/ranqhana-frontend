@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-6 col-xl-3">
         <div class="input-group mb-4">
-            <div class="input-group-prepend">
+            <div class="input-group-prepend ">
                 <div class="input-group-text font-weight-bold">From:</div>
             </div>
             <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="fromDate"
@@ -21,7 +21,6 @@
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold">To:</div>
             </div>
-            <!-- <input class="form-control ml-2" type="date" name="toDate" [(ngModel)]="searchOption.toDate" /> -->
             <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate"
                 [(ngModel)]="searchOption.toDate" ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
         </div>

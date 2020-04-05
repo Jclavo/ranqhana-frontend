@@ -45,14 +45,14 @@ export class CustomDateService {
       date.year;
   }
 
-  // formatStringDDMMYYYY(date: any, DELIMITER: string = this.DELIMITER) {
+  formatStringDDMMYYYY(date: string, DELIMITER: string = this.DELIMITER) {
 
-  //   if (!date) return '';
+    if (!date) return '';
 
-  //   return (date.day < 10 ? '0' + date.day : date.day) + DELIMITER +
-  //     (date.month < 10 ? '0' + date.month : date.month) + DELIMITER +
-  //     date.year;
-  // }
+    return date.substring(8,10) + DELIMITER +
+           date.substring(5,7) + DELIMITER +
+           date.substring(0,4) + ' ' +  date.substring(11,date.length);
+  }
 
   getToday() {
     return this.formatYYYYMMDD(this.ngbCalendar.getToday());
