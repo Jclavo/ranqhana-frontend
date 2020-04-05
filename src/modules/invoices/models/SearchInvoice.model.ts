@@ -8,8 +8,8 @@ export class SearchInvoice extends SearchOptions {
 
     constructor() {
         super();
-        this.fromDate = this.getCurrentDate();
-        this.toDate = this.getCurrentDate();
+        // this.fromDate = this.getCurrentDate();
+        // this.toDate = this.getCurrentDate();
     }
 
     getCurrentDate() {
