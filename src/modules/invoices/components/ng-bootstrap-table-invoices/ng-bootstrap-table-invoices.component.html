@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12 col-xl-6">
+    <div class="col-md-12 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold">Full search:</div>
@@ -7,7 +7,7 @@
             <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
         </div>
     </div>
-    <div class="col-md-6 col-xl-3">
+    <div class="col-md-4 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend ">
                 <div class="input-group-text font-weight-bold">From:</div>
@@ -16,13 +16,24 @@
                 [(ngModel)]="searchOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()">
         </div>
     </div>
-    <div class="col-md-6 col-xl-3">
+    <div class="col-md-4 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold">To:</div>
             </div>
-            <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate"
-                [(ngModel)]="searchOption.toDate" ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
+            <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate" [(ngModel)]="searchOption.toDate"
+                ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
+        </div>
+    </div>
+    <div class="col-md-4 col-xl-3">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold">Type:</div>
+            </div>
+            <select class="custom-select" [(ngModel)]="searchOption.type" placeholder="Country">
+                <option value="S" selected>Sell Invoice</option>
+                <option value="p">Purcharse Invoice</option>
+            </select>
         </div>
     </div>
 </div>
