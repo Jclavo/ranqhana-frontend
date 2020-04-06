@@ -28,6 +28,10 @@
                         <span>Unit</span>
                         <sb-sort-icon *ngIf='sortedColumn === "unit"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
+                    <th scope="col" sbSortable="stocked" (sort)="onSort($event)">
+                        <span>Stocked</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "stocked"' [direction]="sortedDirection"></sb-sort-icon>
+                    </th>
                     <th scope="col">
                         <span>Options</span>
                     </th>
@@ -51,6 +55,9 @@
                     </td>
                     <td>
                         <ngb-highlight [result]="item.unit" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.stocked ? 'YES' : 'NO' " [term]="searchOption.searchValue"></ngb-highlight>
                     </td>
                     <td>
                         <div class="row">

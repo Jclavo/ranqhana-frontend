@@ -124,5 +124,7 @@ export class NgBootstrapTableItemsComponent implements OnInit {
     });
   }
 
+  
+
 
 }

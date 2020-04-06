@@ -57,6 +57,7 @@ export class ItemService {
         item.price = data.price;
         item.stock = data.stock;
         item.unit = data.unit;
+        item.stocked = data.stocked;
         item.store_id = data.store_id;
         item.created_at = data.created_at;
         item.updated_at = data.updated_at;
@@ -109,6 +110,7 @@ export class ItemService {
         item.price = resultRAW.result?.price;
         item.quantity = resultRAW.result?.quantity;
         item.unit = resultRAW.result?.unit;
+        item.stocked = resultRAW.result?.stocked;
         item.store_id = resultRAW.result?.store_id;
         item.created_at = resultRAW.result?.created_at;
         item.updated_at = resultRAW.result?.updated_at;
