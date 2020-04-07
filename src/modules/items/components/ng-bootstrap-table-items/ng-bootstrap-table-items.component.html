@@ -56,9 +56,14 @@
                     <td>
                         <ngb-highlight [result]="item.unit" [term]="searchOption.searchValue"></ngb-highlight>
                     </td>
+                    <!-- <td class="text-center"> -->
                     <td>
-                        <ngb-highlight [result]="item.stocked ? 'YES' : 'NO' " [term]="searchOption.searchValue">
-                        </ngb-highlight>
+                        <!-- <ngb-highlight [result]="item.stocked ? 'YES' : 'NO' " [term]="searchOption.searchValue">
+                        </ngb-highlight> -->
+                        <!-- <ngb-highlight [result]="item.stocked ? '' : 'NO' " [term]="searchOption.searchValue">
+                        </ngb-highlight> -->
+                        <fa-icon *ngIf="item.stocked" [icon]='["fas", "check-circle"]'></fa-icon>
+
                     </td>
                     <td>
                         <div class="row ">
