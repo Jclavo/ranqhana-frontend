@@ -57,17 +57,18 @@
                         <ngb-highlight [result]="item.unit" [term]="searchOption.searchValue"></ngb-highlight>
                     </td>
                     <td>
-                        <ngb-highlight [result]="item.stocked ? 'YES' : 'NO' " [term]="searchOption.searchValue"></ngb-highlight>
+                        <ngb-highlight [result]="item.stocked ? 'YES' : 'NO' " [term]="searchOption.searchValue">
+                        </ngb-highlight>
                     </td>
                     <td>
-                        <div class="row">
-                            <div class="col-auto mb-1">
-                                <button type="button" class="btn btn-outline-primary"
-                                    routerLink="/items/item/{{item.id}}">Edit</button>
+                        <div class="row ">
+                            <div class="col-2 mb-1 ml-3">
+                                <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}"
+                                    size="lg" routerLink="/items/item/{{item.id}}"></fa-icon>
                             </div>
-                            <div class="col-auto mb-1">
-                                <button type="button" class="btn btn-outline-danger"
-                                    (click)="modalDelete(item.id, item.name)">Delete</button>
+                            <div class="col-2 mb-1 ml-3">
+                                <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
+                                    size="lg" (click)="modalDelete(item.id, item.name)"></fa-icon>
                             </div>
                         </div>
                     </td>
@@ -92,8 +93,9 @@
     </div> -->
     <div class="row">
         <div class="col-12 col-md-6 mt-3">
-            <ngb-pagination class="d-flex justify-content-start" [collectionSize]="searchOption.total" [(page)]="searchOption.page" 
-                [maxSize]="maxSizePagination" [pageSize]="searchOption.per_page" [rotate]="true" [boundaryLinks]="true">
+            <ngb-pagination class="d-flex justify-content-start" [collectionSize]="searchOption.total"
+                [(page)]="searchOption.page" [maxSize]="maxSizePagination" [pageSize]="searchOption.per_page"
+                [rotate]="true" [boundaryLinks]="true">
             </ngb-pagination>
         </div>
         <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
@@ -103,5 +105,5 @@
                 <option [ngValue]="50">50 items per page</option>
             </select>
         </div>
-      </div>
+    </div>
 </form>
