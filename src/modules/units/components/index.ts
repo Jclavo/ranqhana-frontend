@@ -1,5 +1,5 @@
-// import { NgBootstrapTableItemsComponent } from './ng-bootstrap-table-items/ng-bootstrap-table-items.component';
+import { NgBootstrapTableUnitsComponent } from './ng-bootstrap-table-units/ng-bootstrap-table-units.component';
 
-export const components = [];
+export const components = [NgBootstrapTableUnitsComponent];
 
-// export * from './ng-bootstrap-table-items/ng-bootstrap-table-items.component';
+export * from './ng-bootstrap-table-units/ng-bootstrap-table-units.component';

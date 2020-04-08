@@ -54,6 +54,12 @@ const routes: Routes = [
         canActivate: [GlobalGuard]
     },
     {
+        path: 'units',
+        loadChildren: () =>
+            import('modules/units/units-routing.module').then(m => m.UnitsRoutingModule),
+        canActivate: [GlobalGuard]
+    },
+    {
         path: 'version',
         loadChildren: () =>
             import('modules/utility/utility-routing.module').then(m => m.UtilityRoutingModule),

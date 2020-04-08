@@ -45,16 +45,52 @@ export class UnitService {
       response.status = resultRAW.status;
       response.message = resultRAW.message;
 
-      response.result = resultRAW.result.map((item: any) => {
+      response.result = resultRAW.result.map((data: any) => {
 
         let unit = new Unit();
-        unit.id = item.id;
-        unit.code = item.code;
-        unit.description = item.description;
+        unit.id = data.id;
+        unit.code = data.code;
+        unit.description = data.description;
         return unit;
       });
 
       response.records = resultRAW.result.length;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  pagination(parameters: any): Observable<Response> {
+
+    let apiRoot = this.apiRoot + 'pagination?page=' + parameters.page;
+
+    return this.http.post(apiRoot, parameters, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      response.result = resultRAW.result?.map((data: any) => {
+
+        let unit = new Unit();
+        unit.id = data.id;
+        unit.code = data.code;
+        unit.description = data.description;
+        unit.allow_decimal = data.allow_decimal;
+        unit.created_at = data.created_at;
+        unit.updated_at = data.updated_at;
+
+        return unit;
+      });
+
+      response.records = resultRAW.records;
 
       return response;
 
