@@ -95,10 +95,12 @@ export class SellComponent implements OnInit {
       return;
     }
 
-    if (this.quantity > this.searchItem.stock) {
+    if (this.searchItem.stocked && this.quantity > this.searchItem.stock) {
       this.notificationService.error("There is not stock for this quantity");
       return;
     }
+
+    // if()
 
     //Check if the item has already exist in the list
     let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == this.searchItem.id);
