@@ -99,8 +99,9 @@
                             <td>
                                 <div class="row">
                                     <div class="col-3">
-                                        <button type="button" class="btn btn-outline-danger"
-                                            (click)="delete(index)">Delete</button>
+                                        <fa-icon [icon]='["far", "trash-alt"]'
+                                            [styles]="{'stroke': 'red', 'color': 'red'}" size="md"
+                                            (click)="delete(index)"></fa-icon>
                                     </div>
                                 </div>
                             </td>
