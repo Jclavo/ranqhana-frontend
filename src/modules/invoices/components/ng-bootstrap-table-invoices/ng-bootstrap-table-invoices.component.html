@@ -99,11 +99,14 @@
                 <td>
                     <div class="row">
                         <div class="col-auto mb-1">
-                            <button type="button" class="btn btn-outline-primary">show</button>
+                            <fa-icon [icon]='["far", "eye"]' [styles]="{'stroke': 'blue', 'color': 'blue'}"
+                                size="lg"></fa-icon>
                         </div>
                         <div class="col-auto mb-1">
-                            <button type="button" class="btn btn-outline-danger"
-                                (click)="modalDelete(invoice.id)">Anull/Cancel</button>
+                            <!-- <button type="button" class="btn btn-outline-danger"
+                                (click)="modalDelete(invoice.id)">Anull/Cancel</button> -->
+                            <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
+                                size="lg" (click)="modalDelete(invoice.id)"></fa-icon>
                         </div>
                     </div>
                 </td>
