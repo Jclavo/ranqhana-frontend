@@ -3,6 +3,7 @@ export class Unit {
     id: string = '';
     code: string = '';
     description: string = '';
+    allowecimal: string = '';
     // isDecimal: string = '';
     // store_id: string = '';
 }

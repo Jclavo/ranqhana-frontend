@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="col-12 offset-sm-1 col-sm-3 offset-md-4 col-md-3 offset-lg-5 col-lg-2">
-        <button type="button" class="btn btn-primary btn-block" (click)="addItem()">ADD</button>
+        <button type="button" class="btn btn-primary btn-block" (click)="openUnitModal()">ADD</button>
     </div>
 </div>
 
@@ -53,7 +53,7 @@
                     <div class="row ">
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}" size="lg"
-                                routerLink="/units/unit/{{unit.id}}"></fa-icon>
+                            (click)="openUnitModal(unit.id)"></fa-icon>
                         </div>
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"

@@ -8,6 +8,7 @@ import { Unit } from "../../models";
 
 // COMPONENT 
 import { ConfirmModalComponent } from '@modules/utility/components';
+import { UnitModalComponent } from '../unit-modal/unit-modal.component';
 
 //SERVICES
 import { UnitService } from "../../services";
@@ -96,34 +97,46 @@ export class NgBootstrapTableUnitsComponent implements OnInit {
 
   modalDelete(id: string, name: string) {
     
-    // const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
+    const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
-    // modalRef.componentInstance.title = 'Item';
-    // modalRef.componentInstance.action = 'delete';
-    // modalRef.componentInstance.value = name;
+    modalRef.componentInstance.title = 'Unit';
+    modalRef.componentInstance.action = 'delete';
+    modalRef.componentInstance.value = name;
 
-    // modalRef.result.then((result) => {
-    //   result ? this.delete(id) : null;
-    // });
+    modalRef.result.then((result) => {
+      result ? this.delete(id) : null;
+    });
 
   }
 
   delete(id: string) {
 
-    // this.unitService.delete(id).subscribe(response => {
+    this.unitService.delete(id).subscribe(response => {
 
-    //   if (response.status) {
-    //     this.notificationService.success(response.message);
-    //     this.getunits();
-    //   }
-    //   else {
-    //     this.notificationService.error(response.message);
-    //   }
+      if (response.status) {
+        this.notificationService.success(response.message);
+        this.getunits();
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
 
-    // }, error => {
-    //   this.notificationService.error(error);
-    //   this.authService.raiseError();
-    // });
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+
+  openUnitModal(id: string = '') {
+    const modalRef = this.modalService.open(UnitModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.unit_id = id;
+    // modalRef.componentInstance.value = name;
+
+    modalRef.result.then((result) => {
+      result ? this.getunits() : null;
+    });
   }
 
 }

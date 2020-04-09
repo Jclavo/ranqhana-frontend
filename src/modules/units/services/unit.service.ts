@@ -18,13 +18,13 @@ import { AuthService } from '@modules/auth/services';
 })
 export class UnitService {
 
-  static service: string =  'units/'
+  static service: string = 'units/'
   private apiRoot: string = environment.apiURL + UnitService.service;;
 
   private httpOptions = {
     headers: new HttpHeaders({
       'Authorization': 'Bearer ' + this.authService.getAPITOKEN()
-      })
+    })
   };
 
   constructor(
@@ -91,6 +91,103 @@ export class UnitService {
       });
 
       response.records = resultRAW.records;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  getById(id: string): Observable<Response> {
+
+    let apiRoot = this.apiRoot + id;
+
+    return this.http.get(apiRoot, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      if (resultRAW.result) {
+        let unit = new Unit();
+        unit.id = resultRAW.result?.id;
+        unit.code = resultRAW.result?.code;
+        unit.description = resultRAW.result?.description;
+        unit.allow_decimal = resultRAW.result?.allow_decimal;
+
+        response.result = unit;
+      }
+
+      // response.records = resultRAW.result?.length;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  create(unit: Unit): Observable<Response> {
+
+    let apiRoot = this.apiRoot;
+
+    return this.http.post(apiRoot, unit, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  delete(id: string): Observable<Response> {
+
+    let apiRoot = this.apiRoot + id;
+
+    return this.http.delete(apiRoot, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  update(unit: Unit): Observable<Response> {
+
+    let apiRoot = this.apiRoot + unit.id;
+
+    return this.http.put(apiRoot, unit, this.httpOptions).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
 
       return response;
 

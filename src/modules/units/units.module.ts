@@ -11,14 +11,13 @@ import { UtilityModule } from '@modules/utility/utility.module';
 
 /* Components */
 import * as unitsComponents from './components';
+import * as utilityComponents from '@modules/utility/components';
 
 /* Containers */
 import * as unitsContainers from './containers';
 
 /* Services */
 import * as unitsServices from './services';
-import { UnitListComponent } from './containers/unit-list/unit-list.component';
-import { NgBootstrapTableUnitsComponent } from './components/ng-bootstrap-table-units/ng-bootstrap-table-units.component';
 
 @NgModule({
   imports: [
@@ -38,12 +37,15 @@ import { NgBootstrapTableUnitsComponent } from './components/ng-bootstrap-table-
   declarations: [
     ...unitsComponents.components,
     ...unitsContainers.containers,
-    UnitListComponent,
-    NgBootstrapTableUnitsComponent
   ],
   exports: [
     ...unitsComponents.components,
     ...unitsContainers.containers
+  ],
+  entryComponents: [
+    unitsComponents.UnitModalComponent,
+    utilityComponents.ConfirmModalComponent
   ]
+
 })
 export class UnitsModule { }
