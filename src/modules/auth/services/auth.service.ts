@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 //MODEL
 import { User } from '../models';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
@@ -50,6 +51,14 @@ export class AuthService {
     public getUserStoreID() {
         return this.getUserFeature('store_id');
     }
+
+    public getHeaders() {
+        return {
+          headers: new HttpHeaders({
+            'Authorization': 'Bearer ' + this.getAPITOKEN()
+          })
+        };
+      }
 
     private getUserFeature(feature: string) {
         let user: any;
