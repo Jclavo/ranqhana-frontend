@@ -21,22 +21,16 @@ export class UnitService {
   static service: string = 'units/'
   private apiRoot: string = environment.apiURL + UnitService.service;;
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + this.authService.getAPITOKEN()
-    })
-  };
-
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-  ) { }
+  ) {}
 
   get(): Observable<Response> {
 
     let apiRoot = this.apiRoot;
 
-    return this.http.get(apiRoot, this.httpOptions).pipe(map(res => {
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -66,9 +60,10 @@ export class UnitService {
 
   pagination(parameters: any): Observable<Response> {
 
+    
     let apiRoot = this.apiRoot + 'pagination?page=' + parameters.page;
 
-    return this.http.post(apiRoot, parameters, this.httpOptions).pipe(map(res => {
+    return this.http.post(apiRoot, parameters, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -104,7 +99,7 @@ export class UnitService {
 
     let apiRoot = this.apiRoot + id;
 
-    return this.http.get(apiRoot, this.httpOptions).pipe(map(res => {
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -137,7 +132,7 @@ export class UnitService {
 
     let apiRoot = this.apiRoot;
 
-    return this.http.post(apiRoot, unit, this.httpOptions).pipe(map(res => {
+    return this.http.post(apiRoot, unit, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -159,7 +154,7 @@ export class UnitService {
 
     let apiRoot = this.apiRoot + id;
 
-    return this.http.delete(apiRoot, this.httpOptions).pipe(map(res => {
+    return this.http.delete(apiRoot, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -179,7 +174,7 @@ export class UnitService {
 
     let apiRoot = this.apiRoot + unit.id;
 
-    return this.http.put(apiRoot, unit, this.httpOptions).pipe(map(res => {
+    return this.http.put(apiRoot, unit, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
