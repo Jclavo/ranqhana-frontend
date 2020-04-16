@@ -78,9 +78,9 @@ export class UnitService {
         unit.id = data.id;
         unit.code = data.code;
         unit.description = data.description;
-        unit.allow_decimal = data.allow_decimal;
-        unit.created_at = data.created_at;
-        unit.updated_at = data.updated_at;
+        unit.fractioned = data.fractioned;
+        // unit.created_at = data.created_at;
+        // unit.updated_at = data.updated_at;
 
         return unit;
       });
@@ -95,7 +95,7 @@ export class UnitService {
       }));
   }
 
-  getById(id: string): Observable<Response> {
+  getById(id: number): Observable<Response> {
 
     let apiRoot = this.apiRoot + id;
 
@@ -113,7 +113,7 @@ export class UnitService {
         unit.id = resultRAW.result?.id;
         unit.code = resultRAW.result?.code;
         unit.description = resultRAW.result?.description;
-        unit.allow_decimal = resultRAW.result?.allow_decimal;
+        unit.fractioned = resultRAW.result?.fractioned;
 
         response.result = unit;
       }

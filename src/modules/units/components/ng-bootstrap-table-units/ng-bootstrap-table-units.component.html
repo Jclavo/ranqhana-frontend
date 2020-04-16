@@ -26,9 +26,9 @@
                     <sb-sort-icon *ngIf='sortedColumn === "description"' [direction]="sortedDirection">
                     </sb-sort-icon>
                 </th>
-                <th scope="col" sbSortable="allow_decimal" (sort)="onSort($event)">
-                    <span>Decimal</span>
-                    <sb-sort-icon *ngIf='sortedColumn === "allow_decimal"' [direction]="sortedDirection">
+                <th scope="col" sbSortable="fractioned" (sort)="onSort($event)">
+                    <span>Fractioned</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "fractioned"' [direction]="sortedDirection">
                     </sb-sort-icon>
                 </th>
                 <th scope="col">
@@ -46,14 +46,14 @@
                     <ngb-highlight [result]="unit.description" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
-                    <fa-icon *ngIf="unit.allow_decimal" [icon]='["fas", "check-circle"]'></fa-icon>
+                    <fa-icon *ngIf="unit.fractioned" [icon]='["fas", "check-circle"]'></fa-icon>
 
                 </td>
                 <td>
                     <div class="row ">
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}" size="lg"
-                            (click)="openUnitModal(unit.id)"></fa-icon>
+                                (click)="openUnitModal(unit.id)"></fa-icon>
                         </div>
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"

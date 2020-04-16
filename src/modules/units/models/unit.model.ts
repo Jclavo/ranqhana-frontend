@@ -1,9 +1,9 @@
 export class Unit {
-    [key: string]: string | number;
-    id: string = '';
+    // [key: string]: string | number;
+    id: number = 0;
     code: string = '';
     description: string = '';
-    allowecimal: string = '';
+    fractioned: boolean = false;
     // isDecimal: string = '';
     // store_id: string = '';
 }

@@ -16,7 +16,7 @@ import { UnitService } from '../../services';
 })
 export class UnitModalComponent implements OnInit {
 
-  @Input() unit_id: string = "";
+  @Input() unit_id: number = 0;
 
   public unit = new Unit();
   
@@ -74,7 +74,7 @@ export class UnitModalComponent implements OnInit {
     });
   }
 
-  getById(id: string)
+  getById(id: number)
   {
     this.unitService.getById(id).subscribe(response => {
 
