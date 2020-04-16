@@ -9,6 +9,7 @@ import { environment } from "../../../environments/environment";
 //Models
 import { Unit } from '../models';
 import { Response } from '../../utility/models';
+import { SearchOptions } from '@modules/utility/models';
 
 //SERVICES
 import { AuthService } from '@modules/auth/services';
@@ -28,37 +29,39 @@ export class UnitService {
 
   get(): Observable<Response> {
 
-    let apiRoot = this.apiRoot;
+    return this.pagination(new SearchOptions());
 
-    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+    // let apiRoot = this.apiRoot;
 
-      let response = new Response();
-      let resultRAW: any = res;
+    // return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
 
-      //Set response
-      response.status = resultRAW.status;
-      response.message = resultRAW.message;
+    //   let response = new Response();
+    //   let resultRAW: any = res;
 
-      response.result = resultRAW.result.map((data: any) => {
+    //   //Set response
+    //   response.status = resultRAW.status;
+    //   response.message = resultRAW.message;
 
-        let unit = new Unit();
-        unit.id = data.id;
-        unit.code = data.code;
-        unit.description = data.description;
-        return unit;
-      });
+    //   response.result = resultRAW.result.map((data: any) => {
 
-      response.records = resultRAW.result.length;
+    //     let unit = new Unit();
+    //     unit.id = data.id;
+    //     unit.code = data.code;
+    //     unit.description = data.description;
+    //     return unit;
+    //   });
 
-      return response;
+    //   response.records = resultRAW.result.length;
 
-    }),
-      catchError(error => {
-        return throwError(error.message);
-      }));
+    //   return response;
+
+    // }),
+    //   catchError(error => {
+    //     return throwError(error.message);
+    //   }));
   }
 
-  pagination(parameters: any): Observable<Response> {
+  pagination(parameters: SearchOptions): Observable<Response> {
 
     
     let apiRoot = this.apiRoot + 'pagination?page=' + parameters.page;
