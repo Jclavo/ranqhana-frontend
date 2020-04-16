@@ -22,14 +22,6 @@ export class ItemService {
 
   private apiRoot: string = environment.apiURL + ItemService.service;
 
-  private httpOptions = {
-    headers: new HttpHeaders({
-      //'Content-Type':  'application/json',
-      'Authorization': 'Bearer ' + this.authService.getAPITOKEN()
-      //'Authorization': 'Bearer ' + 'u4qeJOGrJ9YhcS87JQnBo6TWdGZondrpgBov1UvhCh28AkstO71agbsTZ2oz8bz2GMAMlmJY8whsF2I5'
-      })
-  };
-
   constructor(
     private http: HttpClient,
     private authService: AuthService
@@ -39,7 +31,7 @@ export class ItemService {
 
     let apiRoot = this.apiRoot + 'pagination?page=' + parameters.searchOption.page;
 
-    return this.http.post(apiRoot, parameters, this.httpOptions).pipe(map(res => {
+    return this.http.post(apiRoot, parameters, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -56,6 +48,7 @@ export class ItemService {
         item.description = data.description;
         item.price = data.price;
         item.stock = data.stock;
+        item.unit_id = data.unit_id;
         item.unit = data.unit;
         item.stocked = data.stocked;
         item.store_id = data.store_id;
@@ -74,12 +67,12 @@ export class ItemService {
         return throwError(error.message);
       }));
   }
-
-  getById(id: string): Observable<Response> {
+ 
+  getById(id: number): Observable<Response> {
 
     let apiRoot = this.apiRoot + id;
 
-    return this.http.get(apiRoot, this.httpOptions).pipe(map(res => {
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -88,28 +81,14 @@ export class ItemService {
       response.status = resultRAW.status;
       response.message = resultRAW.message;
 
-      // if (resultRAW.result) {
-      //   let item = new Item();
-      //   item.id = resultRAW.result[0]?.id;
-      //   item.name = resultRAW.result[0]?.name;
-      //   item.description = resultRAW.result[0]?.description;
-      //   item.price = resultRAW.result[0]?.price;
-      //   item.quantity = resultRAW.result[0]?.quantity;
-      //   item.store_id = resultRAW.result[0]?.store_id;
-      //   item.created_at = resultRAW.result[0]?.created_at;
-      //   item.updated_at = resultRAW.result[0]?.updated_at;
-
-      //   response.result = item;
-      // }
-
       if (resultRAW.result) {
         let item = new Item();
         item.id = resultRAW.result?.id;
         item.name = resultRAW.result?.name;
         item.description = resultRAW.result?.description;
         item.price = resultRAW.result?.price;
-        item.quantity = resultRAW.result?.quantity;
-        item.unit = resultRAW.result?.unit;
+        item.unit_id = resultRAW.result?.unit_id;
+        // item.unit = resultRAW.result?.unit;
         item.stocked = resultRAW.result?.stocked;
         item.store_id = resultRAW.result?.store_id;
         item.created_at = resultRAW.result?.created_at;
@@ -132,7 +111,7 @@ export class ItemService {
 
     let apiRoot = this.apiRoot;
 
-    return this.http.post(apiRoot, item, this.httpOptions).pipe(map(res => {
+    return this.http.post(apiRoot, item, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -154,7 +133,7 @@ export class ItemService {
 
     let apiRoot = this.apiRoot + id;
 
-    return this.http.delete(apiRoot, this.httpOptions).pipe(map(res => {
+    return this.http.delete(apiRoot, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -174,7 +153,7 @@ export class ItemService {
 
     let apiRoot = this.apiRoot + item.id;
 
-    return this.http.put(apiRoot, item, this.httpOptions).pipe(map(res => {
+    return this.http.put(apiRoot, item, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;

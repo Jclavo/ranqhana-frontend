@@ -24,9 +24,9 @@
                         <span>Stock</span>
                         <sb-sort-icon *ngIf='sortedColumn === "stock"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
-                    <th scope="col" sbSortable="unit" (sort)="onSort($event)">
+                    <th scope="col">
                         <span>Unit</span>
-                        <sb-sort-icon *ngIf='sortedColumn === "unit"' [direction]="sortedDirection"></sb-sort-icon>
+                        <!-- <sb-sort-icon *ngIf='sortedColumn === "unit"' [direction]="sortedDirection"></sb-sort-icon> -->
                     </th>
                     <th scope="col" sbSortable="stocked" (sort)="onSort($event)">
                         <span>Stocked</span>

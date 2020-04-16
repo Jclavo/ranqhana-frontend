@@ -36,11 +36,11 @@ export class ItemComponent implements OnInit {
 
     this.getUnits();
 
-    this.item.id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.item.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
     this.item.id ? this.getById(this.item.id) : null;
   }
   
-  getById(id: string)
+  getById(id: number)
   {
     this.itemService.getById(id).subscribe(response => {
 
