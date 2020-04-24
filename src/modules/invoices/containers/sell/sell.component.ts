@@ -15,7 +15,7 @@ import { AddAditionalInfoComponent } from "../../components/add-aditional-info/a
 import { ItemService } from "@modules/items/services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService } from '@modules/utility/services';
-import { InvoiceService } from '../../services';
+import { InvoiceService, InvoiceDetailService } from '../../services';
 
 @Component({
   selector: 'sb-sell',
@@ -39,6 +39,7 @@ export class SellComponent implements OnInit {
     private authService: AuthService,
     private notificationService: NotificationService,
     private invoiceService: InvoiceService,
+    private invoiceDetailService: InvoiceDetailService,
     private router: Router,
   ) { }
 
@@ -187,17 +188,18 @@ export class SellComponent implements OnInit {
 
   save() {
 
-    if (this.sellInvoice.id) {
-      // this.update(this.item);
-    }
-    else {
-      this.create(this.sellInvoice);
-    }
+    // if (this.sellInvoice.id) {
+    //   // this.update(this.item);
+    // }
+    // else {
+    //   this.create(this.sellInvoice);
+    // }
+    this.create(this.sellInvoice);
 
   }
 
   create(sellInvoice: SellInvoice) {
-    this.invoiceService.createSellInvoice(sellInvoice).subscribe(response => {
+    this.invoiceService.create(sellInvoice).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
@@ -225,7 +227,7 @@ export class SellComponent implements OnInit {
 
 
   addDetail(invoiceDetail: InvoiceDetail) {
-    this.invoiceService.addInvoiceDetail(invoiceDetail).subscribe(response => {
+    this.invoiceDetailService.create(invoiceDetail).subscribe(response => {
 
       if (response.status) {
         // this.notificationService.success(response.message);

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError, switchMap } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
 
 //ENVIRONMENT
 import { environment } from "../../../environments/environment";
 
 //Models
-import { SellInvoice, InvoiceDetail } from '../models';
+import { Invoice } from '../models';
 import { Response } from '@modules/utility/models';
 
 //SERVICES
@@ -19,17 +19,8 @@ import { CustomDateService } from '@modules/utility/services';
 })
 export class InvoiceService {
 
-
-  // static service: string = 'sellInvoices/'
-
-  // private apiRoot: string = environment.apiURL + InvoiceService.service;
-  private apiRoot: string = environment.apiURL;
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + this.authService.getAPITOKEN()
-    })
-  };
+  static service: string = 'invoices/'
+  private apiRoot: string = environment.apiURL + InvoiceService.service;
 
   constructor(
     private http: HttpClient,
@@ -39,9 +30,9 @@ export class InvoiceService {
 
   get(parameters: any): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'invoices/pagination?page=' + parameters.searchOption.page;
+    let apiRoot = this.apiRoot + 'pagination?page=' + parameters.searchOption.page;
 
-    return this.http.post(apiRoot, parameters, this.httpOptions).pipe(map(res => {
+    return this.http.post(apiRoot, parameters, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -52,16 +43,13 @@ export class InvoiceService {
 
       response.result = resultRAW.result?.map((data: any) => {
 
-        let invoice = new SellInvoice();
+        let invoice = new Invoice();
         invoice.id       = data.id;
         invoice.serie    = data.serie;
         invoice.subtotal = data.subtotal;
         invoice.discount = data.discount;
         invoice.total    = data.total;
         invoice.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at); 
-        // invoice.id = data.id;
-        // invoice.id = data.id;
-        // invoice.id = data.id;
 
         return invoice;
       });
@@ -76,11 +64,9 @@ export class InvoiceService {
       }));
   }
 
-  createSellInvoice(sellInvoice: SellInvoice): Observable<Response> {
+  create(sellInvoice: Invoice): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'sellInvoices/';
-
-    return this.http.post(apiRoot, sellInvoice, this.httpOptions).pipe(map(res => {
+    return this.http.post(this.apiRoot, sellInvoice, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -90,7 +76,7 @@ export class InvoiceService {
       response.message = resultRAW.message;
 
       if (resultRAW.result) {
-        let sellInvoice = new SellInvoice();
+        let sellInvoice = new Invoice();
         sellInvoice.id = resultRAW.result?.id;
 
         response.result = sellInvoice;
@@ -104,39 +90,11 @@ export class InvoiceService {
       }));
   }
 
-  addInvoiceDetail(invoiceDetail: InvoiceDetail): Observable<Response> {
+  update(sellInvoice: Invoice): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'invoiceDetails/';
+    let apiRoot = this.apiRoot + sellInvoice.id;
 
-    return this.http.post(apiRoot, invoiceDetail, this.httpOptions).pipe(map(res => {
-
-      let response = new Response();
-      let resultRAW: any = res;
-
-      //Set response
-      response.status = resultRAW.status;
-      response.message = resultRAW.message;
-
-      if (resultRAW.result) {
-        let invoiceDetail = new InvoiceDetail();
-        invoiceDetail.id = resultRAW.result?.id;
-        response.result = invoiceDetail;
-      }
-
-      return response;
-
-    }),
-      catchError(error => {
-        return throwError(error.message);
-      }));
-
-  }
-
-  updateInvoice(sellInvoice: SellInvoice): Observable<Response> {
-
-    let apiRoot = this.apiRoot + 'invoices/' + sellInvoice.id;
-
-    return this.http.put(apiRoot, sellInvoice, this.httpOptions).pipe(map(res => {
+    return this.http.put(apiRoot, sellInvoice, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -146,7 +104,7 @@ export class InvoiceService {
       response.message = resultRAW.message;
 
       if (resultRAW.result) {
-        let sellInvoice = new SellInvoice();
+        let sellInvoice = new Invoice();
         sellInvoice.id = resultRAW.result?.id;
 
         response.result = sellInvoice;
@@ -162,9 +120,9 @@ export class InvoiceService {
 
   delete(id: string): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'invoices/' + id;
+    let apiRoot = this.apiRoot + id;
 
-    return this.http.delete(apiRoot, this.httpOptions).pipe(map(res => {
+    return this.http.delete(apiRoot, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;

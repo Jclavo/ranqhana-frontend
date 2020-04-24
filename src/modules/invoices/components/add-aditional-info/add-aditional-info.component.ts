@@ -16,7 +16,7 @@ import { InvoiceService } from '../../services';
 })
 export class AddAditionalInfoComponent implements OnInit {
 
-  @Input() invoice_id: string = "";
+  @Input() invoice_id: number = 0;
 
   public invoice = new SellInvoice();
   
@@ -47,7 +47,7 @@ export class AddAditionalInfoComponent implements OnInit {
   }
 
   updateInvoice(invoice: SellInvoice){
-    this.invoiceService.updateInvoice(invoice).subscribe(response => {
+    this.invoiceService.update(invoice).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
