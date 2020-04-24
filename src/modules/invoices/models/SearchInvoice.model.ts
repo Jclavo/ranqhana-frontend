@@ -4,7 +4,7 @@ export class SearchInvoice extends SearchOptions {
 
     fromDate: string = '';
     toDate: string = '';
-    type: string = 'S';
+    type_id: number = 1;
 
     constructor() {
         super();

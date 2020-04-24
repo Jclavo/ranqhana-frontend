@@ -1,11 +1,14 @@
 export class Invoice {
     [key: string]: string | number;
-    id: string = '';
+    id: number = 0;
     serie: string = '';
     subtotal: number = 0.0;
     taxes: number = 0.0;
     discount: number = 0.0;
     total: number = 0.0;
-    client: string = '';  
-    created_at: string = '';       
+    type_id: number = 0;
+    user_id: number = 0;
+    external_user_id: number = 0;
+    created_at: string = '';   
+    
 }
