@@ -1,7 +1,7 @@
 import { InvoiceService } from './invoice.service';
-// import { AnotherService } from './another.service';
+import { InvoiceDetailService } from './invoice-detail.service';
 
-export const services = [InvoiceService];
+export const services = [InvoiceService, InvoiceDetailService];
 
 export * from './invoice.service';
-// export * from './another.service';
+export * from './invoice-detail.service';
