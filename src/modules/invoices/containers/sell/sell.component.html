@@ -121,8 +121,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">SUBTOTAL:</div>
                             </div>
-                            <input class="form-control" type="text" name="subtotal" [(ngModel)]="sellInvoice.subtotal"
-                                readonly />
+                            <input class="form-control" type="text" name="subtotal" 
+                            value="{{sellInvoice.subtotal| number : '1.2'}}" readonly />
                         </div>
                     </div>
 
@@ -131,7 +131,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">TAXES:</div>
                             </div>
-                            <input class="form-control" type="text" name="taxes" [(ngModel)]="sellInvoice.taxes"
+                            <input class="form-control" type="text" name="taxes" value="{{sellInvoice.taxes | number : '1.2'}}"
                                 readonly />
                         </div>
                     </div>
@@ -149,7 +149,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">TOTAL:</div>
                             </div>
-                            <input class="form-control" type="text" name="total" [(ngModel)]="sellInvoice.total"
+                            <!-- [(ngModel)]="sellInvoice.total | number : '1.2'" -->
+                            <input class="form-control" type="text" name="total" value="{{sellInvoice.total | number : '1.2'}}"
                                 readonly />
                         </div>
                     </div>
