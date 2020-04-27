@@ -49,9 +49,12 @@ export class CustomDateService {
 
     if (!date) return '';
 
-    return date.substring(8,10) + DELIMITER +
-           date.substring(5,7) + DELIMITER +
-           date.substring(0,4) + ' ' +  date.substring(11,date.length);
+    let localDate = new Date(date);
+
+    return (localDate.getDate() < 10 ? '0' + localDate.getDate() : localDate.getDate()) + DELIMITER +
+      (localDate.getMonth() < 10 ? '0' + localDate.getMonth() : localDate.getMonth()) + DELIMITER +
+      localDate.getFullYear() + ' ' + 
+      localDate.getHours() + ':' + localDate.getMinutes() + ':' + localDate.getSeconds();
   }
 
   getToday() {
