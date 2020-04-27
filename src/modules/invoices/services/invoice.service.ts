@@ -49,6 +49,7 @@ export class InvoiceService {
         invoice.subtotal = data.subtotal;
         invoice.discount = data.discount;
         invoice.total    = data.total;
+        invoice.stage    = data.stage;
         invoice.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at); 
 
         return invoice;

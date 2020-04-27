@@ -63,6 +63,10 @@
                     <span>Total $</span>
                     <sb-sort-icon *ngIf='sortedColumn === "total"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
+                <th scope="col" sbSortable="stage" (sort)="onSort($event)">
+                    <span>Stage</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "stage"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
                 <th scope="col" sbSortable="created_at" (sort)="onSort($event)">
                     <span>Created at</span>
                     <sb-sort-icon *ngIf='sortedColumn === "created_at"' [direction]="sortedDirection"></sb-sort-icon>
@@ -92,6 +96,9 @@
                 </td>
                 <td>
                     <ngb-highlight [result]="invoice.total | number" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="invoice.stage" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
                     <ngb-highlight [result]="invoice.created_at" [term]="searchOption.searchValue"></ngb-highlight>
