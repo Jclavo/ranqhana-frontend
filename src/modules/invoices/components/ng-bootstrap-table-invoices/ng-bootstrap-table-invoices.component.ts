@@ -96,7 +96,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
 
   }
 
-  modalDelete(id: string) {
+  modalAnull(id: string) {
     
     const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
@@ -105,14 +105,14 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     modalRef.componentInstance.value = id;
 
     modalRef.result.then((result) => {
-      result ? this.delete(id) : null;
+      result ? this.anull(id) : null;
     });
 
   }
 
-  delete(id: string) {
+  anull(id: string) {
 
-    this.invoiceService.delete(id).subscribe(response => {
+    this.invoiceService.anull(id).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);

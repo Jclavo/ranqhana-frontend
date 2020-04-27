@@ -119,11 +119,11 @@ export class InvoiceService {
       }));
   }
 
-  delete(id: string): Observable<Response> {
+  anull(id: string): Observable<Response> {
 
-    let apiRoot = this.apiRoot + id;
+    let apiRoot = this.apiRoot + 'anull/' + id;
 
-    return this.http.delete(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
