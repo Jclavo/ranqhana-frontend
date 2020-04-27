@@ -32,6 +32,8 @@ export class SellComponent implements OnInit {
   public invoiceDetails: Array<InvoiceDetail> = [];
 
   public quantity: number = 1;
+  public invoiceDetailTotalItems: number = 0;
+  public invoiceDetailTotalItemsOK: number = 0;
 
   constructor(
     private modalService: NgbModal,
@@ -68,19 +70,15 @@ export class SellComponent implements OnInit {
       map(response => {
 
         if (response.status) {
-          // let itemSearch = [];
           this.items = response.result;
-          // for (let index = 0; index < this.items.length; index++) {
-          //   // itemSearch.push( '[' + this.items[index]?.id + '] '+ this.items[index]?.name);
-          //   itemSearch.push(this.items[index]?.name);
-          // }
-          // return itemSearch;
           return this.items;
         } else {
           return []
         }
-      })
-    );
+      }, (error: any) => {
+          this.notificationService.error(error);
+          this.authService.raiseError();
+        }))
   }
 
   addItem() {
@@ -96,12 +94,19 @@ export class SellComponent implements OnInit {
       return;
     }
 
+    // check the stock
     if (this.searchItem.stocked && this.quantity > this.searchItem.stock) {
       this.notificationService.error("There is not stock for this quantity");
       return;
     }
 
-    // if()
+    //Check if the item UNIT allows DECIMAL number
+    if (!this.searchItem.fractioned) {
+      if (!Number.isInteger(this.quantity)) {
+        this.notificationService.error("The quantity should be an integer");
+        return;
+      }
+    }
 
     //Check if the item has already exist in the list
     let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == this.searchItem.id);
@@ -199,20 +204,28 @@ export class SellComponent implements OnInit {
   }
 
   create(sellInvoice: SellInvoice) {
-    this.invoiceService.create(sellInvoice).subscribe(response => {
+    this.invoiceService.create(sellInvoice).subscribe(async response => {
 
       if (response.status) {
-        this.notificationService.success(response.message);
         this.sellInvoice.id = response.result.id;
 
         if (this.sellInvoice.id) {
           // Add Details
-          for (let index = 0; index < this.invoiceDetails.length; index++) {
+          
+          this.invoiceDetailTotalItems = this.invoiceDetails.length;
+          this.invoiceDetailTotalItemsOK = 0;
+          for (let index = 0; index < this.invoiceDetailTotalItems; index++) {
             this.invoiceDetails[index].invoice_id = this.sellInvoice.id;
-            this.addDetail(this.invoiceDetails[index]);
+            this.invoiceDetailTotalItemsOK >= 0 ? await this.addDetail(this.invoiceDetails[index]) : null;
           }
 
-          this.openModalAdditionalInfo();
+
+          console.log('this.invoiceDetailTotalItemsOK', this.invoiceDetailTotalItemsOK);
+
+          if(this.invoiceDetailTotalItems == this.invoiceDetailTotalItemsOK){
+            this.notificationService.success(response.message);
+            this.openModalAdditionalInfo();
+          }
         }
       }
       else {
@@ -226,15 +239,18 @@ export class SellComponent implements OnInit {
   }
 
 
-  addDetail(invoiceDetail: InvoiceDetail) {
-    this.invoiceDetailService.create(invoiceDetail).subscribe(response => {
+  async addDetail(invoiceDetail: InvoiceDetail) {
+    // this.invoiceDetailService.create(invoiceDetail).subscribe(response => {
+      await this.invoiceDetailService.create(invoiceDetail).toPromise().then(response => {
 
       if (response.status) {
         // this.notificationService.success(response.message);
         console.log(response.message);
+        this.invoiceDetailTotalItemsOK = this.invoiceDetailTotalItemsOK + 1;
       }
       else {
         this.notificationService.error(response.message);
+        this.invoiceDetailTotalItemsOK = -1;
       }
 
     }, error => {
