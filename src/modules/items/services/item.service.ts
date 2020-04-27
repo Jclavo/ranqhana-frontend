@@ -50,6 +50,7 @@ export class ItemService {
         item.stock = data.stock;
         item.unit_id = data.unit_id;
         item.unit = data.unit;
+        item.fractioned = data.fractioned;
         item.stocked = data.stocked;
         item.store_id = data.store_id;
         item.created_at = data.created_at;

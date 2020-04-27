@@ -7,6 +7,7 @@ export class Item {
     stock: number = 0;
     unit: string = '';
     unit_id: number = 0;
+    fractioned: boolean = false; 
     stocked: boolean = true; 
     store_id: number = 0;
     created_at: string = ''; 
