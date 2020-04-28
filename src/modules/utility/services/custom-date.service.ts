@@ -53,8 +53,10 @@ export class CustomDateService {
 
     return (localDate.getDate() < 10 ? '0' + localDate.getDate() : localDate.getDate()) + DELIMITER +
       (localDate.getMonth() < 10 ? '0' + localDate.getMonth() : localDate.getMonth()) + DELIMITER +
-      localDate.getFullYear() + ' ' + 
-      localDate.getHours() + ':' + localDate.getMinutes() + ':' + localDate.getSeconds();
+      localDate.getFullYear() + ' ' +
+      (localDate.getHours() < 10 ? '0' + localDate.getHours() : localDate.getHours()) + ':' +
+      (localDate.getMinutes() < 10 ? '0' + localDate.getMinutes() : localDate.getMinutes()) + ':' +
+      (localDate.getSeconds() < 10 ? '0' + localDate.getSeconds() : localDate.getSeconds());
   }
 
   getToday() {
