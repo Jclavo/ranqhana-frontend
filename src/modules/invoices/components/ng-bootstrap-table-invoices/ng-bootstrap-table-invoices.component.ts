@@ -78,9 +78,9 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
 
   getInvoices() {
 
-    let parameters = { 'store_id': this.authService.getUserStoreID(), 'searchOption': this.searchOption };
+    // let parameters = { 'store_id': this.authService.getUserStoreID(), 'searchOption': this.searchOption };
 
-    this.invoiceService.get(parameters).subscribe(response => {
+    this.invoiceService.get(this.searchOption).subscribe(response => {
 
       if (response.status) {
         this.invoices = response.result;

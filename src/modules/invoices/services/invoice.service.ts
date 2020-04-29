@@ -9,6 +9,7 @@ import { environment } from "../../../environments/environment";
 //Models
 import { Invoice } from '../models';
 import { Response } from '@modules/utility/models';
+import { SearchInvoice } from "../models/SearchInvoice.model";
 
 //SERVICES
 import { AuthService } from '@modules/auth/services';
@@ -28,11 +29,11 @@ export class InvoiceService {
     private customDateService: CustomDateService,
   ) { }
 
-  get(parameters: any): Observable<Response> {
+  get(searchOption: SearchInvoice): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'pagination?page=' + parameters.searchOption.page;
+    let apiRoot = this.apiRoot + 'pagination?page=' + searchOption.page;
 
-    return this.http.post(apiRoot, parameters, this.authService.getHeaders()).pipe(map(res => {
+    return this.http.post(apiRoot, searchOption, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
