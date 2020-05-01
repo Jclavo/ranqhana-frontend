@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       if (response.status) {
         this.countries = response.result;
         if(this.countries.length > 0)
-          this.loginForm.controls['country_code'].setValue(this.countries[0].country_code);
+          this.loginForm.controls['country_code'].setValue(this.countries[0].code);
       }
     }, error => {
       this.notificationService.error(error);

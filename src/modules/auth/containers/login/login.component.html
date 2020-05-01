@@ -11,7 +11,7 @@
                             <div class="form-group">
                                 <label class="small mb-1">Country</label>
                                 <select class="form-control" formControlName="country_code" placeholder="Country">
-                                    <option *ngFor="let country of countries" [value]="country.country_code">
+                                    <option *ngFor="let country of countries" [value]="country.code">
                                         {{country.name}}
                                     </option>
                                 </select>

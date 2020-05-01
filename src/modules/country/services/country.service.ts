@@ -36,7 +36,7 @@ export class CountryService {
 
         let country = new Country();
         country.id = item.id;
-        country.country_code = item.country_code;
+        country.code = item.code;
         country.name = item.name;
 
         return country;
