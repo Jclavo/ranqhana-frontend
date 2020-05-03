@@ -19,5 +19,9 @@ export class Invoice {
     setTypeForPurchase(){
         this.type_id = 2;
     }
+
+    getType(){
+        return this.type_id;
+    }
     
 }
