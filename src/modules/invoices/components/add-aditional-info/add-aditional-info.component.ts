@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
-import { SellInvoice,  } from "../../models";
+import { SellInvoice, Invoice } from "../../models";
 
 //SERVICES
 import { NotificationService } from '@modules/utility/services';
@@ -18,7 +18,7 @@ export class AddAditionalInfoComponent implements OnInit {
 
   @Input() invoice_id: number = 0;
 
-  public invoice = new SellInvoice();
+  public invoice = new Invoice();
   
   constructor(
     public activeModal: NgbActiveModal,
@@ -38,7 +38,8 @@ export class AddAditionalInfoComponent implements OnInit {
 
     this.invoice.id = this.invoice_id;
 
-    if(this.invoice.serie || this.invoice.client){
+    // if(this.invoice.serie || this.invoice.client){
+    if(this.invoice.serie){
       this.invoice.serie = this.invoice.serie.toUpperCase();
       this.updateInvoice(this.invoice);
     }else{
