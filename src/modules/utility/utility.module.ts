@@ -19,8 +19,11 @@ import * as utilityContainers from './containers';
 /* Guards */
 import * as utilityGuards from './guards';
 
-/* Guards */
+/* Directives */
 import * as utilityDirectives from './directives';
+
+/* Directives */
+import * as utilityUtils from './utils';
 
 /* Services */
 import * as utilityServices from './services';
@@ -39,18 +42,21 @@ import * as utilityServices from './services';
         ...utilityServices.services, 
         ...utilityGuards.guards,
         ...utilityDirectives.directives,
+        ...utilityUtils.utils,
         { provide: NgbDateAdapter, useClass: utilityServices.CustomAdapterService},
         { provide: NgbDateParserFormatter, useClass: utilityServices.CustomDateParserFormatterService}
     ],
     declarations: [
         ...utilityContainers.containers, 
         ...utilityComponents.components,
-        ...utilityDirectives.directives
+        ...utilityDirectives.directives,
+        // ...utilityUtils.utils,
     ],
     exports: [
         ...utilityContainers.containers, 
         ...utilityComponents.components,
-        ...utilityDirectives.directives
+        ...utilityDirectives.directives,
+        // ...utilityUtils.utils,
     ],
 })
 export class UtilityModule {}
