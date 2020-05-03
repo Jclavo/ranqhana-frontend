@@ -121,8 +121,11 @@ export class PurchaseComponent implements OnInit {
 
     this.searchItem = this.getFormValues();
 
-    // check the stock
-    // if(!this.invoiceUtils.hasStock(this.searchItem)) return;
+    // check if item is not stocked
+    if(!this.searchItem.stocked){
+      this.notificationService.error("Item is not stocked");
+      return;
+    } 
 
     //Check if the item UNIT allows DECIMAL number
     if(!this.invoiceUtils.unitAllowDecimal(this.searchItem)) return;
