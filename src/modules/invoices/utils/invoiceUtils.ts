@@ -183,7 +183,7 @@ export class InvoiceUtils implements OnInit {
         // modalRef.componentInstance.value = name;
 
         modalRef.result.then((result) => {
-            result ? this.router.navigate(['/invoices']) : this.notificationService.error('error');
+            result ? this.router.navigate(['/invoices', invoice.getType()]) : this.notificationService.error('error');
         });
     }
 

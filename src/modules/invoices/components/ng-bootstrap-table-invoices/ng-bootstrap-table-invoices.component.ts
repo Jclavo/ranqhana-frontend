@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList, KeyValueDiffer, KeyValueDiffers, HostListener } from '@angular/core';
 import { SBSortableHeaderDirective, SortEvent } from '@modules/utility/directives';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { ActivatedRoute } from '@angular/router';
 //MODELS
 // import { SearchOptions } from '@modules/items/models';
 import { SellInvoice, SearchInvoice } from "../../models";
@@ -13,6 +13,7 @@ import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal
 import { InvoiceService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService, UtilityService, CustomDateService } from '@modules/utility/services';
+
 
 @Component({
   selector: 'sb-ng-bootstrap-table-invoices',
@@ -35,6 +36,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
 
   constructor(
     private differs: KeyValueDiffers, // to get changes in a object
+    private activatedRoute: ActivatedRoute,
     private notificationService: NotificationService,
     private invoiceService: InvoiceService,
     private authService: AuthService,
@@ -49,6 +51,11 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
   }
   
   ngOnInit(): void {
+
+    let typeInvoice = this.activatedRoute.snapshot.paramMap.get('typeInvoice');
+    if(typeInvoice){
+      this.searchOption.type_id = Number(typeInvoice);
+    }
 
     this.getInvoices();
     this.maxSizePagination = this.utilityService.getMaxSizePagination(window.screen.width);

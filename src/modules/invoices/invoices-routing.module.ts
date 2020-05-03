@@ -67,6 +67,24 @@ export const ROUTES: Routes = [
           ],
       } as SBRouteData,
   },
+  {
+    path: ':typeInvoice',
+    canActivate: [GlobalGuard],
+    component: invoicesContainers.InvoicesComponent,
+    data: {
+      title: 'Invoices List - Store App',
+      breadcrumbs: [
+        {
+          text: 'Dashboard',
+          link: '/dashboard',
+        },
+        {
+          text: 'Invoice List',
+          active: true,
+        },
+      ],
+    } as SBRouteData,
+  },
 ];
 
 @NgModule({
