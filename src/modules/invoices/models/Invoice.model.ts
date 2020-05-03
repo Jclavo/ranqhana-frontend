@@ -1,5 +1,5 @@
 export class Invoice {
-    [key: string]: string | number;
+    // [key: string]: string | number;
     id: number = 0;
     serie: string = '';
     subtotal: number = 0.0;
@@ -10,6 +10,14 @@ export class Invoice {
     stage: string = '';
     user_id: number = 0;
     external_user_id: number = 0;
-    created_at: string = '';   
+    created_at: string = '';
+
+    setTypeForSell(){
+        this.type_id = 1;
+    }
+
+    setTypeForPurchase(){
+        this.type_id = 2;
+    }
     
 }
