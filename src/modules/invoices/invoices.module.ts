@@ -19,6 +19,10 @@ import * as invoicesContainers from './containers';
 /* Services */
 import * as invoicesServices from './services';
 
+/* Utils */
+import * as invoicesUtils from './utils';
+// import * as UtilityUtils from '@modules/utility/utils';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -32,10 +36,11 @@ import * as invoicesServices from './services';
   ],
   providers: [
     ...invoicesServices.services,
-  ],
+    ...invoicesUtils.utils,
+   ],
   declarations: [
     ...invoicesContainers.containers,
-    ...invoicesComponents.components
+    ...invoicesComponents.components,
   ],
   exports: [
     ...invoicesContainers.containers,
@@ -43,7 +48,7 @@ import * as invoicesServices from './services';
   ],
   entryComponents: [
     invoicesComponents.AddAditionalInfoComponent,
-    utilitiesComponents.ConfirmModalComponent
+    utilitiesComponents.ConfirmModalComponent,
   ]
 })
 export class InvoicesModule { }
