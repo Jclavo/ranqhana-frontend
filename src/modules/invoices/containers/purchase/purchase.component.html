@@ -1,0 +1,156 @@
+<sb-layout-dashboard>
+    <sb-dashboard-head title="" [hideBreadcrumbs]="false"></sb-dashboard-head>
+    <!-- <sb-card>
+        <div class="card-body">This page is to create a sell invoice .
+            <a target="_blank" href="jclavotafur@gmail.com">Contact me clicking here.</a>
+        </div>
+    </sb-card> -->
+
+    <sb-card>
+        <div class="card-header">
+            <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
+            Sell invoice
+        </div>
+        <div class="card-body">
+            <form [formGroup]="addItemForm">
+                <div class="row">
+                    <div class="col-12 col-md-8 col-xl-3">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">Item:</div>
+                            </div>
+                            <input class="form-control" type="text" name="searchItem" formControlName="searchItem"
+                                placeholder="Search Item" [ngbTypeahead]="search" [inputFormatter]="formatter"
+                                [resultFormatter]="formatter" (blur)="assignSearchItemToForm()"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 col-xl-2">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">Unit:</div>
+                            </div>
+                            <input class="form-control" type="text" name="unit" formControlName="unit"
+                                readonly />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-5 col-xl-3">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">Price:</div>
+                            </div>
+                            <input class="form-control" type="text" name="price" formControlName="price"
+                                />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-5 col-xl-3">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">Quantity:</div>
+                            </div>
+                            <input class="form-control" type="text" name="quantity" placeholder="Quantity"
+                            formControlName="quantity" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-2 col-xl-1">
+                        <button type="button" class="btn btn-primary btn-block" type="submit" (click)="addItem()">ADD</button>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </sb-card>
+
+    <sb-card>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col"><span>ID</span></th>
+                            <th scope="col"><span>Description</span></th>
+                            <th scope="col"><span>Unit</span></th>
+                            <th scope="col"><span>Quantity</span></th>
+                            <th scope="col"><span>Unit Price</span></th>
+                            <th scope="col"><span>Line Total</span></th>
+                            <th scope="col"><span>Options</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let invoiceDetail of invoiceDetails; index as index">
+                            <th scope="row">{{ index + 1 }}</th>
+                            <th scope="row">{{ invoiceDetail.item_id }}</th>
+                            <td scope="row">{{ invoiceDetail.item }}</td>
+                            <td scope="row">{{ invoiceDetail.unit }}</td>
+                            <td scope="row">{{ invoiceDetail.quantity }}</td>
+                            <td scope="row">{{ invoiceDetail.price | number : '1.2'}}</td>
+                            <td scope="row">{{ invoiceDetail.total | number : '1.2'}}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <fa-icon [icon]='["far", "trash-alt"]'
+                                            [styles]="{'stroke': 'red', 'color': 'red'}" size="md"
+                                            (click)="delete(index)"></fa-icon>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </sb-card>
+
+    <sb-card *ngIf="invoiceDetails.length > 0">
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="input-group mb-2 mb-md-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">SUBTOTAL:</div>
+                            </div>
+                            <input class="form-control" type="text" name="subtotal" 
+                            value="{{purchaseInvoice.subtotal| number : '1.2'}}" readonly />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="input-group mb-2 mb-md-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">TAXES:</div>
+                            </div>
+                            <input class="form-control" type="text" name="taxes" value="{{purchaseInvoice.taxes | number : '1.2'}}"
+                                readonly />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-2 mb-md-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">DISCOUNT:</div>
+                            </div>
+                            <input class="form-control" type="text" name="discount" [(ngModel)]="purchaseInvoice.discount"
+                                min="0.0" (blur)="calculateDiscount()" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group mb-2 mb-md-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">TOTAL:</div>
+                            </div>
+                            <!-- [(ngModel)]="purchaseInvoice.total | number : '1.2'" -->
+                            <input class="form-control" type="text" name="total" value="{{purchaseInvoice.total | number : '1.2'}}"
+                                readonly />
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success btn-block" (click)="save()">Create
+                    Purchase Invoice</button>
+            </form>
+        </div>
+    </sb-card>
+
+</sb-layout-dashboard>

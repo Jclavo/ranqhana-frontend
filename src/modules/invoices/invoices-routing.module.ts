@@ -49,24 +49,24 @@ export const ROUTES: Routes = [
       ],
     } as SBRouteData,
   },
-  // {
-  //     path: 'item/:id',
-  //     canActivate: [GlobalGuard],
-  //     component: invoicesContainers.*,
-  //     data: {
-  //         title: 'Edit Item - Store App',
-  //         breadcrumbs: [
-  //             {
-  //                 text: 'Dashboard',
-  //                 link: '/dashboard',
-  //             },
-  //             {
-  //                 text: 'Edit Item',
-  //                 active: true,
-  //             },
-  //         ],
-  //     } as SBRouteData,
-  // },
+  {
+      path: 'purchase',
+      canActivate: [GlobalGuard],
+      component: invoicesContainers.PurchaseComponent,
+      data: {
+          title: 'Purcharse Invoice - Store App',
+          breadcrumbs: [
+              {
+                  text: 'Dashboard',
+                  link: '/dashboard',
+              },
+              {
+                  text: 'Purcharse Invoice',
+                  active: true,
+              },
+          ],
+      } as SBRouteData,
+  },
 ];
 
 @NgModule({
