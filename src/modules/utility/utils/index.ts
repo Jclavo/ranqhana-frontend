@@ -1,5 +1,5 @@
-import { FormUtils } from './formUtils';
+import { FormUtils } from './form-utils';
 
 export const utils = [FormUtils]
 
-export * from './formUtils';
+export * from './form-utils';
