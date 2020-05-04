@@ -16,8 +16,16 @@ export class Invoice {
         this.type_id = 1;
     }
 
+    getTypeForSell(){
+        return this.type_id;
+    }
+
     setTypeForPurchase(){
         this.type_id = 2;
+    }
+
+    getTypeForPurchase(){
+        return this.type_id;
     }
 
     getType(){
