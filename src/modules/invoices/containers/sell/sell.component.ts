@@ -4,7 +4,7 @@ import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operato
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 //MODELS
-import { Item, SearchOptions } from '@modules/items/models';
+import { Item, SearchItemOptions } from '@modules/items/models';
 import { SellInvoice, InvoiceDetail, SearchItem } from '../../models';
 
 //SERVICES
@@ -24,7 +24,7 @@ import { FormUtils, CustomValidator } from "@modules/utility/utils";
 })
 export class SellComponent implements OnInit {
 
-  public searchOption = new SearchOptions();
+  public searchItemOptions = new SearchItemOptions();
   public searchItem = new SearchItem();
   public sellInvoice = new SellInvoice();
 
@@ -71,11 +71,10 @@ export class SellComponent implements OnInit {
 
   getItems(searchValue: string) {
 
-    this.searchOption.searchValue = searchValue;
+    this.searchItemOptions.searchValue = searchValue;
+    this.searchItemOptions.invoice_type_id = this.sellInvoice.getTypeForSell();
 
-    let parameters = { 'store_id': this.authService.getUserStoreID(), 'searchOption': this.searchOption };
-
-    return this.itemService.get(parameters).pipe(
+    return this.itemService.get(this.searchItemOptions).pipe(
       map(response => {
 
         if (response.status) {

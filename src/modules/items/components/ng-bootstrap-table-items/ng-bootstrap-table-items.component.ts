@@ -3,7 +3,7 @@ import { SBSortableHeaderDirective, SortEvent } from '@modules/utility/directive
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
-import { Item, SearchOptions } from '@modules/items/models';
+import { Item, SearchItemOptions } from '@modules/items/models';
 
 // COMPONENT 
 import { ConfirmModalComponent } from '@modules/utility/components';
@@ -20,7 +20,7 @@ import { NotificationService, UtilityService } from '@modules/utility/services';
 })
 export class NgBootstrapTableItemsComponent implements OnInit {
 
-  public searchOption = new SearchOptions();
+  public searchOption = new SearchItemOptions();
   public items: Array<Item> = [];
   public parameters: any;
   public maxSizePagination: number = 10;
@@ -74,9 +74,7 @@ export class NgBootstrapTableItemsComponent implements OnInit {
 
   getItems() {
 
-    let parameters = { 'store_id': this.authService.getUserStoreID(), 'searchOption': this.searchOption };
-
-    this.itemService.get(parameters).subscribe(response => {
+    this.itemService.get(this.searchOption).subscribe(response => {
 
       if (response.status) {
         this.items = response.result;

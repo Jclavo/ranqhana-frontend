@@ -7,7 +7,7 @@ import { map, catchError, switchMap } from "rxjs/operators";
 import { environment } from "../../../environments/environment";
 
 //Models
-import { Item, SearchOptions } from '@modules/items/models';
+import { Item, SearchItemOptions } from '@modules/items/models';
 import { Response } from '@modules/utility/models';
 
 //SERVICES
@@ -27,11 +27,11 @@ export class ItemService {
     private authService: AuthService
   ) {}
 
-  get(parameters: any): Observable<Response> {
+  get(searchOption: SearchItemOptions): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'pagination?page=' + parameters.searchOption.page;
+    let apiRoot = this.apiRoot + 'pagination?page=' + searchOption.page;
 
-    return this.http.post(apiRoot, parameters, this.authService.getHeaders()).pipe(map(res => {
+    return this.http.post(apiRoot, searchOption, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
