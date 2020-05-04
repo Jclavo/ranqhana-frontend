@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 //MODELS
 import { Item, SearchOptions } from '@modules/items/models';
-import { SellInvoice, InvoiceDetail } from '../../models';
-
-// COMPONENT 
-import { AddAditionalInfoComponent } from "../../components/add-aditional-info/add-aditional-info.component";
+import { SellInvoice, InvoiceDetail, SearchItem } from '../../models';
 
 //SERVICES
 import { ItemService } from "@modules/items/services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService } from '@modules/utility/services';
-import { InvoiceService, InvoiceDetailService } from '../../services';
+import { NotificationService, CustomValidatorService } from '@modules/utility/services';
+
+//UTILS
+import { InvoiceUtils } from "../../utils/invoiceUtils";
+import { FormUtils } from "@modules/utility/utils";
+
 
 @Component({
   selector: 'sb-sell',
@@ -25,7 +25,7 @@ import { InvoiceService, InvoiceDetailService } from '../../services';
 export class SellComponent implements OnInit {
 
   public searchOption = new SearchOptions();
-  public searchItem = new Item();
+  public searchItem = new SearchItem();
   public sellInvoice = new SellInvoice();
 
   public items: Array<Item> = [];
@@ -35,14 +35,23 @@ export class SellComponent implements OnInit {
   public invoiceDetailTotalItems: number = 0;
   public invoiceDetailTotalItemsOK: number = 0;
 
+  addItemForm: FormGroup = this.formBuilder.group({
+    searchItem: ['', [Validators.required]],
+    unit: [''],
+    stock: [''],
+    price: [''],
+    quantity: [0, [Validators.required, CustomValidatorService.validatePositiveNumbers]]
+  });
+
+  private errorsListForm: Array<string> = [];
+
   constructor(
-    private modalService: NgbModal,
+    private formBuilder: FormBuilder,
     private itemService: ItemService,
     private authService: AuthService,
     private notificationService: NotificationService,
-    private invoiceService: InvoiceService,
-    private invoiceDetailService: InvoiceDetailService,
-    private router: Router,
+    private invoiceUtils: InvoiceUtils,
+
   ) { }
 
   ngOnInit(): void {
@@ -76,23 +85,55 @@ export class SellComponent implements OnInit {
           return []
         }
       }, (error: any) => {
-          this.notificationService.error(error);
-          this.authService.raiseError();
-        }))
+        this.notificationService.error(error);
+        this.authService.raiseError();
+      }))
+  }
+
+  assignSearchItemToForm() {
+
+    this.addItemForm.controls['searchItem'].setValue(this.calculateStock(this.addItemForm.value.searchItem));
+
+    this.addItemForm.controls['unit'].setValue(this.addItemForm.value.searchItem.unit);
+    this.addItemForm.controls['price'].setValue(this.addItemForm.value.searchItem.price);
+    this.addItemForm.controls['stock'].setValue(this.addItemForm.value.searchItem.stock);
+
+  }
+
+  calculateStock(searchItem: SearchItem): SearchItem {
+
+    //Check if the item has already exist in the list
+    let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == searchItem.id);
+
+    if (indexSellItem >= 0) {
+      searchItem.stock = searchItem.stock - this.invoiceDetails[indexSellItem].quantity;
+    }
+
+    return searchItem;
+
+  }
+
+  getFormValues() {
+
+    let searchItem = new SearchItem();
+
+    searchItem = FormUtils.moveFormValuesToModel(this.addItemForm.value.searchItem, searchItem);
+
+    //Other values
+    searchItem.quantity = this.addItemForm.value.quantity;
+
+    return searchItem;
   }
 
   addItem() {
-    //validate item selected
-    if (!this.searchItem.id) {
-      this.notificationService.error("Select an item");
+
+    if (this.addItemForm.invalid) {
+      this.errorsListForm = FormUtils.getFormError(this.addItemForm);
+      this.notificationService.error(this.errorsListForm[0]);
       return;
     }
 
-    //validate quantity
-    if (this.quantity <= 0) {
-      this.notificationService.error("Select a quantity");
-      return;
-    }
+    this.searchItem = this.getFormValues();
 
     // check the stock
     if (this.searchItem.stocked && this.quantity > this.searchItem.stock) {
@@ -101,173 +142,43 @@ export class SellComponent implements OnInit {
     }
 
     //Check if the item UNIT allows DECIMAL number
-    if (!this.searchItem.fractioned) {
-      if (!Number.isInteger(this.quantity)) {
-        this.notificationService.error("The quantity should be an integer");
-        return;
-      }
-    }
+    if (!this.invoiceUtils.unitAllowDecimal(this.searchItem)) return;
 
-    //Check if the item has already exist in the list
-    let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == this.searchItem.id);
+    this.invoiceDetails = this.invoiceUtils.addInvoiceDetail(this.searchItem, this.invoiceDetails);
 
-    if (indexSellItem < 0) {
-      let invoiceDetail = new InvoiceDetail();
-      invoiceDetail.item_id = this.searchItem.id;
-      invoiceDetail.item = this.searchItem.name;
-      invoiceDetail.unit = this.searchItem.unit;
-      invoiceDetail.quantity = this.quantity;
-      invoiceDetail.price = this.searchItem.price;
-      invoiceDetail.total = invoiceDetail.quantity * invoiceDetail.price;
-      this.invoiceDetails.push(invoiceDetail);
-    }
-    else {
+    this.searchItem = new SearchItem();
+    this.addItemForm.reset()
 
-      this.invoiceDetails[indexSellItem].quantity = this.invoiceDetails[indexSellItem].quantity + this.quantity;
-      this.invoiceDetails[indexSellItem].price = this.searchItem.price;
-      this.invoiceDetails[indexSellItem].total = this.invoiceDetails[indexSellItem].quantity * this.invoiceDetails[indexSellItem].price;
-
-    }
-    // invoiceDetail.total = invoiceDetail.total.toPrecision(2)
-
-    this.quantity = 1;
-    this.searchItem = new Item();
-
-    // Calculate final values for SellInvoice
-    this.calculateSellInvoice();
-
+    // Calculate final values for sellInvoice
+    this.calculateInvoice();
 
   }
 
   delete(index: number) {
-    this.invoiceDetails.splice(index, 1);
-    // Calculate final values for SellInvoice
-    this.calculateSellInvoice();
+    
+    this.invoiceDetails = this.invoiceUtils.delete(index, this.invoiceDetails);
+    this.calculateInvoice();
   }
 
-  calculateSellInvoice() {
+  calculateInvoice() {
 
-    this.sellInvoice.subtotal = 0.0;
-    // this.sellInvoice.taxes = 0.0;
-    // this.sellInvoice.discount = 0.0;
-    this.sellInvoice.total = 0.0;
+    this.sellInvoice = this.invoiceUtils.calculateInvoice(this.sellInvoice, this.invoiceDetails);
 
-    // Get subtotal
-    for (let index = 0; index < this.invoiceDetails.length; index++) {
-      this.sellInvoice.subtotal = this.sellInvoice.subtotal + this.invoiceDetails[index].total
-    }
-
-    //Get total
-    this.sellInvoice.total = this.sellInvoice.subtotal + this.sellInvoice.taxes - this.sellInvoice.discount;
+    // this.invoiceForm = this.moveModelValuesToForm(this.invoiceForm, this.sellInvoice);
 
   }
 
   calculateDiscount() {
 
-    if (this.sellInvoice.discount < 0) {
-      this.notificationService.error("The discount is a negative number");
-      this.sellInvoice.discount = 0.0;
-      return;
-    }
-
-    if (this.sellInvoice.discount > this.sellInvoice.subtotal) {
-      this.notificationService.error("The discount is great than the subtotal");
-      this.sellInvoice.discount = 0.0;
-      return;
-    }
-
-    this.sellInvoice.total = this.sellInvoice.subtotal + this.sellInvoice.taxes - this.sellInvoice.discount;
-
-  }
-
-  calculateStock() {
-
-    //Check if the item has already exist in the list
-    let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == this.searchItem.id);
-
-    if (indexSellItem >= 0) {
-      this.searchItem.stock = this.searchItem.stock - this.invoiceDetails[indexSellItem].quantity;
-    }
+    this.sellInvoice = this.invoiceUtils.calculateDiscount(this.sellInvoice);
 
   }
 
   save() {
 
-    // if (this.sellInvoice.id) {
-    //   // this.update(this.item);
-    // }
-    // else {
-    //   this.create(this.sellInvoice);
-    // }
-    this.create(this.sellInvoice);
+    this.sellInvoice.setTypeForSell();
+    this.invoiceUtils.create(this.sellInvoice, this.invoiceDetails);
 
-  }
-
-  create(sellInvoice: SellInvoice) {
-    this.invoiceService.create(sellInvoice).subscribe(async response => {
-
-      if (response.status) {
-        this.sellInvoice.id = response.result.id;
-
-        if (this.sellInvoice.id) {
-          // Add Details
-          
-          this.invoiceDetailTotalItems = this.invoiceDetails.length;
-          this.invoiceDetailTotalItemsOK = 0;
-          for (let index = 0; index < this.invoiceDetailTotalItems; index++) {
-            this.invoiceDetails[index].invoice_id = this.sellInvoice.id;
-            this.invoiceDetailTotalItemsOK >= 0 ? await this.addDetail(this.invoiceDetails[index]) : null;
-          }
-
-
-          console.log('this.invoiceDetailTotalItemsOK', this.invoiceDetailTotalItemsOK);
-
-          if(this.invoiceDetailTotalItems == this.invoiceDetailTotalItemsOK){
-            this.notificationService.success(response.message);
-            this.openModalAdditionalInfo();
-          }
-        }
-      }
-      else {
-        this.notificationService.error(response.message);
-      }
-
-    }, error => {
-      this.notificationService.error(error);
-      this.authService.raiseError();
-    });
-  }
-
-
-  async addDetail(invoiceDetail: InvoiceDetail) {
-    // this.invoiceDetailService.create(invoiceDetail).subscribe(response => {
-      await this.invoiceDetailService.create(invoiceDetail).toPromise().then(response => {
-
-      if (response.status) {
-        // this.notificationService.success(response.message);
-        console.log(response.message);
-        this.invoiceDetailTotalItemsOK = this.invoiceDetailTotalItemsOK + 1;
-      }
-      else {
-        this.notificationService.error(response.message);
-        this.invoiceDetailTotalItemsOK = -1;
-      }
-
-    }, error => {
-      this.notificationService.error(error);
-      this.authService.raiseError();
-    });
-  }
-
-  openModalAdditionalInfo() {
-    const modalRef = this.modalService.open(AddAditionalInfoComponent, { centered: true, backdrop: 'static' });
-
-    modalRef.componentInstance.invoice_id = this.sellInvoice.id;
-    // modalRef.componentInstance.value = name;
-
-    modalRef.result.then((result) => {
-      result ? this.router.navigate(['/invoices']) : this.notificationService.error('error');
-    });
   }
 
 }

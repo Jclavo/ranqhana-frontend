@@ -74,7 +74,7 @@ export class InvoiceUtils implements OnInit {
         }
         else {
 
-            invoiceDetails[indexSellItem].quantity = invoiceDetails[indexSellItem].quantity + item.quantity;
+            invoiceDetails[indexSellItem].quantity = Number(invoiceDetails[indexSellItem].quantity) + Number(item.quantity);
             invoiceDetails[indexSellItem].price = item.price;
             invoiceDetails[indexSellItem].total = invoiceDetails[indexSellItem].quantity * invoiceDetails[indexSellItem].price;
 

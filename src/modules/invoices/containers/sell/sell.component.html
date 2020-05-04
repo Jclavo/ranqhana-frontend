@@ -12,16 +12,16 @@
             Sell invoice
         </div>
         <div class="card-body">
-            <form>
+            <form [formGroup]="addItemForm">
                 <div class="row">
                     <div class="col-12 col-md-6 col-xl-3">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">Item:</div>
                             </div>
-                            <input class="form-control" type="text" name="searchItem" [(ngModel)]="searchItem"
+                            <input class="form-control" type="text" name="searchItem" formControlName="searchItem"
                                 placeholder="Search Item" [ngbTypeahead]="search" [inputFormatter]="formatter"
-                                [resultFormatter]="formatter" (blur)="calculateStock()" />
+                                [resultFormatter]="formatter" (blur)="assignSearchItemToForm()" />
                         </div>
                     </div>
                     <div class="col-12 col-md-3 col-xl-2">
@@ -29,7 +29,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">Unit:</div>
                             </div>
-                            <input class="form-control" type="text" name="unit" [(ngModel)]="searchItem.unit"
+                            <input class="form-control" type="text" name="unit" formControlName="unit"
                                 readonly />
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">Stock:</div>
                             </div>
-                            <input class="form-control" type="text" name="stock" [(ngModel)]="searchItem.stock"
+                            <input class="form-control" type="text" name="stock" formControlName="stock"
                                 readonly />
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">Price:</div>
                             </div>
-                            <input class="form-control" type="text" name="price" [(ngModel)]="searchItem.price"
+                            <input class="form-control" type="text" name="price" formControlName="price"
                                 readonly />
                         </div>
                     </div>
@@ -56,8 +56,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">Quantity:</div>
                             </div>
-                            <input class="form-control" type="number" name="quantity" placeholder="Quantity" min="1"
-                                [(ngModel)]="quantity" />
+                            <input class="form-control" type="text" name="quantity" formControlName="quantity"
+                               />
                         </div>
                     </div>
 
