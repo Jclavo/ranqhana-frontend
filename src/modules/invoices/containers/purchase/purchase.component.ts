@@ -11,12 +11,12 @@ import { PurchaseInvoice, InvoiceDetail, SearchItem } from '../../models';
 
 //SERVICES
 import { ItemService } from "@modules/items/services";
-import { NotificationService, CustomValidatorService } from '@modules/utility/services';
+import { NotificationService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 
 //UTILS
 import { InvoiceUtils } from "../../utils/invoiceUtils";
-import { FormUtils } from "@modules/utility/utils";
+import { FormUtils, CustomValidator } from "@modules/utility/utils";
 
 
 @Component({
@@ -37,8 +37,8 @@ export class PurchaseComponent implements OnInit {
   addItemForm: FormGroup = this.formBuilder.group({
     searchItem: ['', [Validators.required]],
     unit: [''],
-    price: [0, [Validators.required, CustomValidatorService.validatePositiveNumbers]],
-    quantity: [0, [Validators.required, CustomValidatorService.validatePositiveNumbers]]
+    price: [0, [Validators.required, CustomValidator.validatePositiveNumbers]],
+    quantity: [0, [Validators.required, CustomValidator.validatePositiveNumbers]]
   });
 
   public errorsListForm: Array<string> = [];

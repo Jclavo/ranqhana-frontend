@@ -10,11 +10,11 @@ import { SellInvoice, InvoiceDetail, SearchItem } from '../../models';
 //SERVICES
 import { ItemService } from "@modules/items/services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService, CustomValidatorService } from '@modules/utility/services';
+import { NotificationService } from '@modules/utility/services';
 
 //UTILS
 import { InvoiceUtils } from "../../utils/invoiceUtils";
-import { FormUtils } from "@modules/utility/utils";
+import { FormUtils, CustomValidator } from "@modules/utility/utils";
 
 
 @Component({
@@ -40,7 +40,7 @@ export class SellComponent implements OnInit {
     unit: [''],
     stock: [''],
     price: [''],
-    quantity: [0, [Validators.required, CustomValidatorService.validatePositiveNumbers]]
+    quantity: [0, [Validators.required, CustomValidator.validatePositiveNumbers]]
   });
 
   private errorsListForm: Array<string> = [];
