@@ -7,15 +7,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 //MODELS
 import { SearchOptions } from '@modules/items/models';
-import { PurchaseInvoice, InvoiceDetail, SearchItem, Invoice } from '../../models';
-
-
+import { PurchaseInvoice, InvoiceDetail, SearchItem } from '../../models';
 
 //SERVICES
 import { ItemService } from "@modules/items/services";
-import { NotificationService, UtilityService, CustomValidatorService } from '@modules/utility/services';
+import { NotificationService, CustomValidatorService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
-
 
 //UTILS
 import { InvoiceUtils } from "../../utils/invoiceUtils";
@@ -51,7 +48,6 @@ export class PurchaseComponent implements OnInit {
     private itemService: ItemService,
     private notificationService: NotificationService,
     private formBuilder: FormBuilder,
-    private utilityService: UtilityService,
     private invoiceUtils: InvoiceUtils,
     private authService: AuthService
   ) { }
