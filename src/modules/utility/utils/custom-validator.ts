@@ -4,7 +4,7 @@ import { AbstractControl } from '@angular/forms'
 @Injectable({
   providedIn: 'root'
 })
-export class CustomValidatorService {
+export class CustomValidator {
 
   // static validCharacters = /[^\s\w,.:&\/()+%'`@-]/;
   // static validNumbers = /^\d+$/;
@@ -14,13 +14,12 @@ export class CustomValidatorService {
 
   static validatePositiveNumbers(control: AbstractControl): { [key: string]: any } | null {
 
-    const valid = CustomValidatorService.validNumbers.test(control.value)
+    const valid = CustomValidator.validNumbers.test(control.value)
     
     return valid
     ? null
     : { invalidPositiveNumber: true }
 
   }
-
 
 }
