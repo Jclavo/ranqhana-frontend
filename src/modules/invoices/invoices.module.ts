@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
 import { UtilityModule } from '@modules/utility/utility.module';
+import { ChartsModule } from '@modules/charts/charts.module';
 
 /* Components */
 import * as invoicesComponents from './components';
@@ -32,7 +33,8 @@ import * as invoicesUtils from './utils';
     HttpClientModule,
     AppCommonModule,
     NavigationModule,
-    UtilityModule
+    UtilityModule,
+    ChartsModule
   ],
   providers: [
     ...invoicesServices.services,
