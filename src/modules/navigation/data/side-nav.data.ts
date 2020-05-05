@@ -115,6 +115,10 @@ export const sideNavItems: SideNavItems = {
                 text: 'Purcharse Invoice',
                 link: '/invoices/purchase',
             },
+            {
+                text: 'Charts',
+                link: '/invoices/chart',
+            },
         ],
     },
     units: {

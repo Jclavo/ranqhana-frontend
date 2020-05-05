@@ -50,22 +50,40 @@ export const ROUTES: Routes = [
     } as SBRouteData,
   },
   {
-      path: 'purchase',
-      canActivate: [GlobalGuard],
-      component: invoicesContainers.PurchaseComponent,
-      data: {
-          title: 'Purcharse Invoice - Store App',
-          breadcrumbs: [
-              {
-                  text: 'Dashboard',
-                  link: '/dashboard',
-              },
-              {
-                  text: 'Purcharse Invoice',
-                  active: true,
-              },
-          ],
-      } as SBRouteData,
+    path: 'purchase',
+    canActivate: [GlobalGuard],
+    component: invoicesContainers.PurchaseComponent,
+    data: {
+      title: 'Purcharse Invoice - Store App',
+      breadcrumbs: [
+        {
+          text: 'Dashboard',
+          link: '/dashboard',
+        },
+        {
+          text: 'Purcharse Invoice',
+          active: true,
+        },
+      ],
+    } as SBRouteData,
+  },
+  {
+    path: 'chart',
+    canActivate: [GlobalGuard],
+    component: invoicesContainers.ChartComponent,
+    data: {
+      title: 'Chart Invoice - Store App',
+      breadcrumbs: [
+        {
+          text: 'Dashboard',
+          link: '/dashboard',
+        },
+        {
+          text: 'Chart Invoice',
+          active: true,
+        },
+      ],
+    } as SBRouteData,
   },
   {
     path: ':typeInvoice',
