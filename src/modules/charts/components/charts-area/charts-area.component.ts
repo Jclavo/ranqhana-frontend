@@ -5,6 +5,9 @@ import {
     ElementRef,
     OnInit,
     ViewChild,
+    Input,
+    KeyValueDiffer,
+    KeyValueDiffers,
 } from '@angular/core';
 import { Chart } from 'chart.js';
 
@@ -17,29 +20,50 @@ import { Chart } from 'chart.js';
 export class ChartsAreaComponent implements OnInit, AfterViewInit {
     @ViewChild('myAreaChart') myAreaChart!: ElementRef<HTMLCanvasElement>;
     chart!: Chart;
+    @Input() graphicData: Array<any> = [];
+    @Input() gg: string = '';
 
-    constructor() {}
-    ngOnInit() {}
+    private graphicDataDiffers: KeyValueDiffer<string, any>;
+
+    constructor(
+        private differs: KeyValueDiffers, // to get changes in a object
+    ) {
+        this.graphicDataDiffers = this.differs.find(this.graphicData).create();
+
+    }
+    ngOnInit() {
+    }
+
+    ngDoCheck(): void {
+
+        if (!this.myAreaChart) return;
+
+        const changes = this.graphicDataDiffers.diff(this.graphicData);
+        if (changes) {
+            this.loadChart();
+        }
+    }
 
     ngAfterViewInit() {
+        this.loadChart();
+    }
+
+    loadChart() {
+
+        let _labels = [];
+        let _data = [];
+
+        for (let index = 0; index < this.graphicData.length; index++) {
+            _labels.push(this.graphicData[index].X);
+            _data.push(this.graphicData[index].Y);
+
+        }
+
+        //start loading chart
         this.chart = new Chart(this.myAreaChart.nativeElement, {
             type: 'line',
             data: {
-                labels: [
-                    'Mar 1',
-                    'Mar 2',
-                    'Mar 3',
-                    'Mar 4',
-                    'Mar 5',
-                    'Mar 6',
-                    'Mar 7',
-                    'Mar 8',
-                    'Mar 9',
-                    'Mar 10',
-                    'Mar 11',
-                    'Mar 12',
-                    'Mar 13',
-                ],
+                labels: _labels,
                 datasets: [
                     {
                         label: 'Sessions',
@@ -53,21 +77,7 @@ export class ChartsAreaComponent implements OnInit, AfterViewInit {
                         pointHoverBackgroundColor: 'rgba(2,117,216,1)',
                         pointHitRadius: 50,
                         pointBorderWidth: 2,
-                        data: [
-                            10000,
-                            30162,
-                            26263,
-                            18394,
-                            18287,
-                            28682,
-                            31274,
-                            33259,
-                            25849,
-                            24159,
-                            32651,
-                            31984,
-                            38451,
-                        ],
+                        data: _data,
                     },
                 ],
             },
@@ -89,8 +99,6 @@ export class ChartsAreaComponent implements OnInit, AfterViewInit {
                     yAxes: [
                         {
                             ticks: {
-                                min: 0,
-                                max: 40000,
                                 maxTicksLimit: 5,
                             },
                             gridLines: {
