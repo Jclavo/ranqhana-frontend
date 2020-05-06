@@ -60,6 +60,11 @@ export class ChartsAreaComponent implements OnInit, AfterViewInit {
         }
 
         //start loading chart
+        // this.myAreaChart.nativeElement.innerHTML = "";
+        if(this.chart !== undefined) {
+            this.chart.destroy();
+         }
+
         this.chart = new Chart(this.myAreaChart.nativeElement, {
             type: 'line',
             data: {
@@ -112,5 +117,7 @@ export class ChartsAreaComponent implements OnInit, AfterViewInit {
                 },
             },
         });
+
+        this.chart.update();
     }
 }
