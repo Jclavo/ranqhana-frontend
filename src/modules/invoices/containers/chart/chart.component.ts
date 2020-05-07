@@ -29,6 +29,7 @@ export class ChartComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.search();
   }
 
 
