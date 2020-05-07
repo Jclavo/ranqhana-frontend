@@ -12,7 +12,25 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4 col-xl-3">
+                <div class="col-md-6 col-xl-3">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend ">
+                            <div class="input-group-text font-weight-bold">From:</div>
+                        </div>
+                        <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="fromDate"
+                            [(ngModel)]="searchInvoiceOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()">
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text font-weight-bold">To:</div>
+                        </div>
+                        <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate" [(ngModel)]="searchInvoiceOption.toDate"
+                            ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
+                    </div>
+                </div>
+                <div class="col-md-4 col-xl-2">
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
                             <div class="input-group-text font-weight-bold">Type:</div>
@@ -23,25 +41,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 col-xl-3">
-                    <div class="input-group mb-4">
-                        <div class="input-group-prepend ">
-                            <div class="input-group-text font-weight-bold">From:</div>
-                        </div>
-                        <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="fromDate"
-                            [(ngModel)]="searchInvoiceOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()">
-                    </div>
-                </div>
-                <div class="col-md-4 col-xl-3">
-                    <div class="input-group mb-4">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text font-weight-bold">To:</div>
-                        </div>
-                        <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate" [(ngModel)]="searchInvoiceOption.toDate"
-                            ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
-                    </div>
-                </div>
-                <div class="col-md-4 col-xl-3">
+                <div class="col-md-4 col-xl-2">
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
                             <div class="input-group-text font-weight-bold">By:</div>
@@ -53,7 +53,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 col-xl-3">
+                <div class="col-md-4 col-xl-2">
                     <button type="button" class="btn btn-primary btn-block" (click)="search()">Search</button>
                 </div>
             </div>
