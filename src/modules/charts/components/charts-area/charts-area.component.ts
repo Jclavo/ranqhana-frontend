@@ -21,7 +21,8 @@ export class ChartsAreaComponent implements OnInit, AfterViewInit {
     @ViewChild('myAreaChart') myAreaChart!: ElementRef<HTMLCanvasElement>;
     chart!: Chart;
     @Input() graphicData: Array<any> = [];
-    @Input() gg: string = '';
+    @Input() labelX: string = '';
+    @Input() labelY: string = '';
 
     private graphicDataDiffers: KeyValueDiffer<string, any>;
 
@@ -59,19 +60,19 @@ export class ChartsAreaComponent implements OnInit, AfterViewInit {
 
         }
 
-        //start loading chart
-        // this.myAreaChart.nativeElement.innerHTML = "";
+        //destroy chart if it exist
         if(this.chart !== undefined) {
             this.chart.destroy();
          }
 
+        //start loading chart
         this.chart = new Chart(this.myAreaChart.nativeElement, {
             type: 'line',
             data: {
                 labels: _labels,
                 datasets: [
                     {
-                        label: 'Sessions',
+                        label: this.labelY,
                         lineTension: 0.3,
                         backgroundColor: 'rgba(2,117,216,0.2)',
                         borderColor: 'rgba(2,117,216,1)',
