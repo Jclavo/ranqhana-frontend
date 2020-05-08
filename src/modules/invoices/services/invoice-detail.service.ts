@@ -51,4 +51,39 @@ export class InvoiceDetailService {
       }));
 
   }
+
+  getById(id: number): Observable<Response> {
+
+    let apiRoot = this.apiRoot + id;
+
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      response.result = resultRAW.result?.map((data: any) => {
+
+        let invoiceDetails = new InvoiceDetail();
+        invoiceDetails.id       = data.id;
+        invoiceDetails.item_id  = data.item_id;
+        invoiceDetails.item     = data.item;
+        invoiceDetails.unit     = data.unit;
+        invoiceDetails.quantity = data.quantity;
+        invoiceDetails.price    = data.price;
+        invoiceDetails.total    = data.total;
+        
+        return invoiceDetails;
+      });
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
 }

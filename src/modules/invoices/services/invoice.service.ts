@@ -66,6 +66,43 @@ export class InvoiceService {
       }));
   }
 
+  getById(id: number): Observable<Response> {
+
+    let apiRoot = this.apiRoot + id;
+
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      if (resultRAW.result) {
+
+        let invoice = new Invoice();
+        invoice.id       = resultRAW.result[0].id;
+        invoice.serie    = resultRAW.result[0].serie;
+        invoice.subtotal = resultRAW.result[0].subtotal;
+        invoice.discount = resultRAW.result[0].discount;
+        invoice.total    = resultRAW.result[0].total;
+        invoice.stage    = resultRAW.result[0].stage;
+        invoice.created_at = this.customDateService.formatStringDDMMYYYY(resultRAW.result[0].created_at); 
+        invoice.store    = resultRAW.result[0].store;
+        invoice.type     = resultRAW.result[0].type;
+
+        response.result = invoice;
+      }
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
   create(sellInvoice: Invoice): Observable<Response> {
 
     return this.http.post(this.apiRoot, sellInvoice, this.authService.getHeaders()).pipe(map(res => {
