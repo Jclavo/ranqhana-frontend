@@ -50,6 +50,7 @@ import * as invoicesUtils from './utils';
   ],
   entryComponents: [
     invoicesComponents.AddAditionalInfoComponent,
+    invoicesComponents.ShowInvoiceComponent,
     utilitiesComponents.ConfirmModalComponent,
   ]
 })

@@ -8,6 +8,7 @@ import { SellInvoice, SearchInvoice } from "../../models";
 
 // COMPONENT 
 import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal/confirm-modal.component";
+import { ShowInvoiceComponent } from "../show-invoice/show-invoice.component";
 
 //SERVICES
 import { InvoiceService } from "../../services";
@@ -133,6 +134,20 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
       this.notificationService.error(error);
       this.authService.raiseError();
     });
+  }
+
+  modalShow(id: string) {
+    
+    const modalRef = this.ngbModal.open(ShowInvoiceComponent, { centered: true, backdrop: 'static' });
+
+    // modalRef.componentInstance.title = 'Invoice';
+    // modalRef.componentInstance.action = 'Anull/Cancel';
+    // modalRef.componentInstance.value = id;
+
+    // modalRef.result.then((result) => {
+    //   result ? this.anull(id) : null;
+    // });
+
   }
 
 }
