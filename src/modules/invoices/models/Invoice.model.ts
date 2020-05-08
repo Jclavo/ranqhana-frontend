@@ -7,10 +7,12 @@ export class Invoice {
     discount: number = 0.0;
     total: number = 0.0;
     type_id: number = 0;
+    type: string = '';
     stage: string = '';
     user_id: number = 0;
     external_user_id: number = 0;
     created_at: string = '';
+    store: string = '';
 
     setTypeForSell(){
         this.type_id = 1;
