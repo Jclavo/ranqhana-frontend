@@ -139,14 +139,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
   modalShow(id: string) {
     
     const modalRef = this.ngbModal.open(ShowInvoiceComponent, { centered: true, backdrop: 'static' });
-
-    // modalRef.componentInstance.title = 'Invoice';
-    // modalRef.componentInstance.action = 'Anull/Cancel';
-    // modalRef.componentInstance.value = id;
-
-    // modalRef.result.then((result) => {
-    //   result ? this.anull(id) : null;
-    // });
+    modalRef.componentInstance.invoice_id = id;
 
   }
 
