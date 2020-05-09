@@ -47,7 +47,8 @@
                             <div class="input-group-text font-weight-bold">By:</div>
                         </div>
                         <select class="custom-select" [(ngModel)]="searchInvoiceOption.searchBy" placeholder="Type">
-                            <option value="D" selected>Day</option>
+                            <option value="H" selected>Hour</option>
+                            <option value="D">Day</option>
                             <option value="M">Month</option>
                             <option value="Y">Year</option>
                         </select>
@@ -60,7 +61,7 @@
         </div>
         <div class="card-body">
             <div class="card-body">
-                <sb-charts-area [graphicData]="graphicData" labelY="Coins">
+                <sb-charts-area [graphicData]="graphicData" labelY="Money">
 
                 </sb-charts-area>
             </div>
