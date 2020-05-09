@@ -31,7 +31,6 @@ export class SellComponent implements OnInit {
   public items: Array<Item> = [];
   public invoiceDetails: Array<InvoiceDetail> = [];
 
-  public quantity: number = 1;
   public invoiceDetailTotalItems: number = 0;
   public invoiceDetailTotalItemsOK: number = 0;
 
@@ -40,7 +39,7 @@ export class SellComponent implements OnInit {
     unit: [''],
     stock: [''],
     price: [''],
-    quantity: [0, [Validators.required, CustomValidator.validatePositiveNumbers]]
+    quantity: [0, [Validators.required, CustomValidator.validatePositiveNumbers, Validators.maxLength(5)]]
   });
 
   private errorsListForm: Array<string> = [];
@@ -135,7 +134,7 @@ export class SellComponent implements OnInit {
     this.searchItem = this.getFormValues();
 
     // check the stock
-    if (this.searchItem.stocked && this.quantity > this.searchItem.stock) {
+    if (this.searchItem.stocked && this.searchItem.quantity > this.searchItem.stock) {
       this.notificationService.error("There is not stock for this quantity");
       return;
     }
