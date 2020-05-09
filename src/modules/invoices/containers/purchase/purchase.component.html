@@ -1,7 +1,7 @@
 <sb-layout-dashboard>
     <sb-dashboard-head title="" [hideBreadcrumbs]="false"></sb-dashboard-head>
     <!-- <sb-card>
-        <div class="card-body">This page is to create a sell invoice .
+        <div class="card-body">This page is to create a purchase invoice .
             <a target="_blank" href="jclavotafur@gmail.com">Contact me clicking here.</a>
         </div>
     </sb-card> -->
@@ -9,7 +9,7 @@
     <sb-card>
         <div class="card-header">
             <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
-            Sell invoice
+            Purchase invoice
         </div>
         <div class="card-body">
             <form [formGroup]="addItemForm">
@@ -39,7 +39,7 @@
                                 <div class="input-group-text font-weight-bold">Price:</div>
                             </div>
                             <input class="form-control" type="text" name="price" formControlName="price"
-                                />
+                            maxlength="8"/>
                         </div>
                     </div>
                     <div class="col-12 col-md-5 col-xl-3">
@@ -48,7 +48,7 @@
                                 <div class="input-group-text font-weight-bold">Quantity:</div>
                             </div>
                             <input class="form-control" type="text" name="quantity" placeholder="Quantity"
-                            formControlName="quantity" />
+                            formControlName="quantity" maxlength="5"/>
                         </div>
                     </div>
 
