@@ -32,6 +32,24 @@ export const ROUTES: Routes = [
       ],
     } as SBRouteData,
   },
+  {
+    path: 'user',
+    canActivate: [GlobalGuard],
+    component: usersContainers.UserComponent,
+    data: {
+      title: 'Users  Store App',
+      breadcrumbs: [
+        {
+          text: 'Dashboard',
+          link: '/dashboard',
+        },
+        {
+          text: 'User',
+          active: true,
+        },
+      ],
+    } as SBRouteData,
+  },
 ];
 
 @NgModule({
