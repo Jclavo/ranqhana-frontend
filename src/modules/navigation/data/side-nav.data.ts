@@ -129,6 +129,15 @@ export const sideNavItems: SideNavItems = {
     users: {
         icon: 'user',
         text: 'Users',
-        link: '/users',
+        submenu: [
+            {
+                text: 'Users List',
+                link: '/users/',
+            },
+            {
+                text: 'User',
+                link: '/users/user',
+            }
+        ],
     },
 };
