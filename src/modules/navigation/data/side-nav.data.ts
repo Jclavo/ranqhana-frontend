@@ -11,7 +11,7 @@ export const sideNavSections: SideNavSection[] = [
     },
     {
         text: 'ADDONS',
-        items: ['charts', 'tables', 'invoices', 'items', 'units'],
+        items: ['charts', 'tables', 'invoices', 'items', 'units', 'users'],
     },
 ];
 
@@ -125,5 +125,10 @@ export const sideNavItems: SideNavItems = {
         icon: 'table',
         text: 'Units',
         link: '/units',
+    },
+    users: {
+        icon: 'user',
+        text: 'Users',
+        link: '/users',
     },
 };
