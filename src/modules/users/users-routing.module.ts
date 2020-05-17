@@ -19,14 +19,14 @@ export const ROUTES: Routes = [
     canActivate: [GlobalGuard],
     component: usersContainers.UserListComponent,
     data: {
-      title: 'Invoices List - Store App',
+      title: 'Users List - Store App',
       breadcrumbs: [
         {
           text: 'Dashboard',
           link: '/dashboard',
         },
         {
-          text: 'Invoice List',
+          text: 'Users List',
           active: true,
         },
       ],

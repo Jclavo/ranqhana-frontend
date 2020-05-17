@@ -1,1 +1,80 @@
-<p>ng-bootstrap-table-users works!</p>
+<form>
+    <div class="form-group form-inline">Full search:
+        <input class="form-control ml-sm-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" sbSortable="name" (sort)="onSort($event)">
+                        <span>Name</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon>
+                    </th>
+                    <th scope="col" sbSortable="identification" (sort)="onSort($event)">
+                        <span>Identification</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "identification"' [direction]="sortedDirection">
+                        </sb-sort-icon>
+                    </th>
+                    <th scope="col" sbSortable="email" (sort)="onSort($event)">
+                        <span>Email</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "email"' [direction]="sortedDirection"></sb-sort-icon>
+                    </th>
+                    <th scope="col" sbSortable="store" (sort)="onSort($event)">
+                        <span>Store</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "store"' [direction]="sortedDirection"></sb-sort-icon>
+                    </th>
+
+                    <th scope="col">
+                        <span>Options</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <th scope="row" class="col-auto">{{ user.id }}</th>
+                    <td>
+                        <ngb-highlight [result]="user.name" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="user.identification" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="user.email" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="user.store" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <div class="row ">
+                            <div class="col-2 mb-1 ml-3">
+                                <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}"
+                                    size="lg" routerLink="/users/user/{{user.id}}"></fa-icon>
+                            </div>
+                            <div class="col-2 mb-1 ml-3">
+                                <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
+                                    size="lg" (click)="modalDelete(user.id, user.name)"></fa-icon>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6 mt-3">
+            <ngb-pagination class="d-flex justify-content-start" [collectionSize]="searchOption.total"
+                [(page)]="searchOption.page" [maxSize]="maxSizePagination" [pageSize]="searchOption.pageSize"
+                [rotate]="true" [boundaryLinks]="true">
+            </ngb-pagination>
+        </div>
+        <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
+            <select class="custom-select" name="pageSize" [(ngModel)]="searchOption.pageSize">
+                <option [ngValue]="10">10 users per page</option>
+                <option [ngValue]="20">20 users per page</option>
+                <option [ngValue]="50">50 users per page</option>
+            </select>
+        </div>
+    </div>
+</form>
