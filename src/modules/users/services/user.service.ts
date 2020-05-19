@@ -84,4 +84,60 @@ export class UserService {
       }));
   }
 
+  getById(id: number): Observable<Response> {
+
+    let apiRoot = this.apiRoot + id;
+
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      if (resultRAW.result) {
+        let user = new User();
+        user.id = resultRAW.result?.id;
+        user.name = resultRAW.result?.name;
+        user.identification = resultRAW.result?.identification;
+        user.email = resultRAW.result?.email;
+        user.store_id = resultRAW.result?.store_id;
+
+        response.result = user;
+      }
+
+      // response.records = resultRAW.result?.length;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  update(user: User): Observable<Response> {
+
+    let apiRoot = this.apiRoot + user.id;
+
+    return this.http.put(apiRoot, user, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
 }
