@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 //Services
 import { StoreService } from "@modules/stores/services";
@@ -14,7 +14,7 @@ import { Store } from '@modules/stores/models';
 import { User } from '../../models';
 
 //UTILS
-import { FormUtils } from "@modules/utility/utils";
+import { FormUtils, CustomValidator } from "@modules/utility/utils";
 
 @Component({
   selector: 'sb-user',
@@ -29,12 +29,18 @@ export class UserComponent implements OnInit {
   private errorsListForm: Array<string> = [];
 
   userForm: FormGroup = this.formBuilder.group({
-    id: [''],
-    name: ['', [Validators.required, Validators.maxLength(45)]],
-    identification: ['', [Validators.required, Validators.maxLength(11)] ],
-    email: ['', [Validators.email,Validators.maxLength(45)]],
-    store_id: ['', [Validators.required]]
-  });
+      id: [''],
+      name: ['', [Validators.required, Validators.maxLength(45)]],
+      identification: ['', [Validators.required, Validators.maxLength(11)] ],
+      email: ['', [Validators.email,Validators.maxLength(45)]],
+      store_id: ['', [Validators.required]],
+      password: ['', [CustomValidator.validatePassword]],
+      repassword: ['', [CustomValidator.validatePassword]]
+    },
+    {
+      validator: CustomValidator.mustMatch('password', 'repassword')
+    }
+  );
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,15 +50,36 @@ export class UserComponent implements OnInit {
     private storeService: StoreService,
     private utilityService: UtilityService,
     private router: Router,
-  ) { }
+    private activatedRoute: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
     this.getStores();
+    this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
+    this.user.id ? this.getById(this.user.id) : null;
   }
   
   getStores(){
     this.storeService.get(new SearchOptions()).subscribe(response => {
       response.status ? this.stores = response.result : this.notificationService.error(response.message);
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+  getById(id: number)
+  {
+    this.userService.getById(id).subscribe(response => {
+
+      if (response.status){ 
+        this.user = response.result;
+        this.userForm = FormUtils.moveModelValuesToForm(this.userForm,this.user);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
     }, error => {
       this.notificationService.error(error);
       this.authService.raiseError();
@@ -70,7 +97,7 @@ export class UserComponent implements OnInit {
     this.user = FormUtils.moveFormValuesToModel(this.userForm.value, this.user);
 
     if(this.user.id){
-      //update
+      this.update(this.user);
     }
     else{
       this.create(this.user);
@@ -79,6 +106,23 @@ export class UserComponent implements OnInit {
 
   create(user: User) {
     this.userService.create(user).subscribe(response => {
+
+      if (response.status) {
+        this.notificationService.success(response.message);
+        this.router.navigate(['/users']);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+  update(user: User) {
+    this.userService.update(user).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
