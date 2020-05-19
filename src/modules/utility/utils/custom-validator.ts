@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl } from '@angular/forms'
+import { AbstractControl, FormGroup } from '@angular/forms'
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,34 @@ export class CustomValidator {
     : { invalidPositiveNumber: true }
 
   }
+
+  static validatePassword(control: AbstractControl): { [key: string]: any } | null {
+
+    let valid = true;
+
+    if(!control.value) valid = true;
+    else if (control.value.length < 8) valid = false;
+    else if (control.value.length > 45) valid = false;
+     
+    return valid
+    ? null
+    : { invalidPassword: true }
+
+  }
+
+  static mustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
+
+        // set error on matchingControl if validation fails
+        if (control.value !== matchingControl.value) {
+            matchingControl.setErrors({ mustMatch: true });
+        } else {
+            matchingControl.setErrors(null);
+        }
+    }
+}
 
 
 }
