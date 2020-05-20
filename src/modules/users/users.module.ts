@@ -11,7 +11,7 @@ import { UtilityModule } from '@modules/utility/utility.module';
 
 /* Components */
 import * as usersComponents from './components';
-// import * as utilitiesComponents from '@modules/utility/components';
+import * as utilitiesComponents from '@modules/utility/components';
 
 /* Containers */
 import * as usersContainers from './containers';
@@ -41,5 +41,8 @@ import * as usersServices from './services';
     ...usersContainers.containers,
     ...usersComponents.components
   ],
+  entryComponents: [
+    utilitiesComponents.ConfirmModalComponent
+  ]
 })
 export class UsersModule { }

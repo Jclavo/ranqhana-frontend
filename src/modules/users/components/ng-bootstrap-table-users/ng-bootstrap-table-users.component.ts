@@ -7,7 +7,7 @@ import { SearchOptions } from '@modules/utility/models';
 import { User} from "../../models";
 
 // COMPONENT 
-// import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal/confirm-modal.component";
+import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal/confirm-modal.component";
 
 //SERVICES
 import { UserService } from "../../services";
@@ -40,6 +40,7 @@ export class NgBootstrapTableUsersComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private ngbModal: NgbModal,
+    private modalService: NgbModal,
     private utilityService: UtilityService,
   ) {
 
@@ -87,6 +88,38 @@ export class NgBootstrapTableUsersComponent implements OnInit {
       this.authService.raiseError();
     });
 
+  }
+
+  modalDelete(id: string, name: string) {
+    
+    const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.title = 'Item';
+    modalRef.componentInstance.action = 'delete';
+    modalRef.componentInstance.value = name;
+
+    modalRef.result.then((result) => {
+      result ? this.delete(id) : null;
+    });
+
+  }
+
+  delete(id: string) {
+
+    this.userService.delete(id).subscribe(response => {
+
+      if (response.status) {
+        this.notificationService.success(response.message);
+        this.getUsers();
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
   }
 
 }
