@@ -112,6 +112,7 @@ export class UserService {
         user.address = resultRAW.result?.address;
         user.email = resultRAW.result?.email;
         user.store_id = resultRAW.result?.store_id;
+        user.countryCode = resultRAW.result?.country_code;
 
         response.result = user;
       }

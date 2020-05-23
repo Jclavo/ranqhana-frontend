@@ -83,6 +83,7 @@ export class UserComponent implements OnInit {
       if (response.status) {
         this.user = response.result;
         this.userForm = FormUtils.moveModelValuesToForm(this.userForm, this.user);
+        this.mask = FormUtils.getMaskValidationByCountry(this.user.countryCode);
       }
       else {
         this.notificationService.error(response.message);
