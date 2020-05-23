@@ -11,4 +11,5 @@ export class User {
     repassword: string = '';
     store_id: number = 0;
     store: string = '';
+    countryCode: string = '';
 }
