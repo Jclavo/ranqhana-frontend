@@ -43,9 +43,13 @@ export class UserService {
 
         let user = new User();
         user.id = data.id;
-        user.name = data.name;
+        user.login = data.login;
         user.identification = data.identification;
+        user.name = data.name;
+        user.lastname = data.lastname;
         user.email = data.email;
+        user.phone = data.phone;
+        user.address = data.address;
         user.store_id = data.store_id;
         user.store = data.store;
 
@@ -100,8 +104,12 @@ export class UserService {
       if (resultRAW.result) {
         let user = new User();
         user.id = resultRAW.result?.id;
-        user.name = resultRAW.result?.name;
+        user.login = resultRAW.result?.login;
         user.identification = resultRAW.result?.identification;
+        user.name = resultRAW.result?.name;
+        user.lastname = resultRAW.result?.lastname;
+        user.phone = resultRAW.result?.phone;
+        user.address = resultRAW.result?.address;
         user.email = resultRAW.result?.email;
         user.store_id = resultRAW.result?.store_id;
 
