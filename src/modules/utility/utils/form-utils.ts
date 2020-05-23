@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
+//models
+import { Mask } from '../models';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -42,6 +45,31 @@ export class FormUtils {
             }
         }
         return form;
+    }
+
+    static getMaskValidationByCountry(countryCode: string): Mask{
+        let maskByCountry = new Mask();
+        switch (countryCode) {
+            case '55':
+              console.log('I am brazil');
+              maskByCountry.identification = '000.000.000-00';
+              maskByCountry.prefixPhone = '+55 ';
+              // this.maskPhone='(0{2}) 0{5}-0{4}'
+              maskByCountry.phone = '(00) 00000-0000'
+              break;
+            case '51':
+              console.log('I am Peru');
+              maskByCountry.identification = '00000000';
+              maskByCountry.prefixPhone ='+51 ';
+              maskByCountry.phone ='0{9}'
+              break;
+      
+            default:
+              break;
+          }
+
+        return maskByCountry;
+
     }
 
 }
