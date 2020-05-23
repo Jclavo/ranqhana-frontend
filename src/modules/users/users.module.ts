@@ -19,6 +19,8 @@ import * as usersContainers from './containers';
 /* Services */
 import * as usersServices from './services';
 
+import { NgxMaskModule } from 'ngx-mask'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ import * as usersServices from './services';
     AppCommonModule,
     NavigationModule,
     UtilityModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     ...usersServices.services,

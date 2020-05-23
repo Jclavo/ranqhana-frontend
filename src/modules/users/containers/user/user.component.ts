@@ -6,10 +6,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { StoreService } from "@modules/stores/services";
 import { UserService } from "../../services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService, UtilityService} from '@modules/utility/services';
+import { NotificationService, UtilityService } from '@modules/utility/services';
 
 //MODELS
-import { SearchOptions } from '@modules/utility/models';
+import { SearchOptions, Mask } from '@modules/utility/models';
 import { Store } from '@modules/stores/models';
 import { User } from '../../models';
 
@@ -28,15 +28,20 @@ export class UserComponent implements OnInit {
 
   private errorsListForm: Array<string> = [];
 
+  public mask = new Mask();
+
   userForm: FormGroup = this.formBuilder.group({
-      id: [''],
-      name: ['', [Validators.required, Validators.maxLength(45)]],
-      identification: ['', [Validators.required, Validators.maxLength(11)] ],
-      email: ['', [Validators.email,Validators.maxLength(45)]],
-      store_id: ['', [Validators.required]],
-      password: ['', [CustomValidator.validatePassword]],
-      repassword: ['', [CustomValidator.validatePassword]]
-    },
+    id: [''],
+    store_id: ['', [Validators.required]],
+    identification: ['', [Validators.required]],
+    name: ['', [Validators.required, Validators.maxLength(45)]],
+    lastname: ['', [Validators.required, Validators.maxLength(45)]],
+    password: ['', [CustomValidator.validatePassword]],
+    repassword: ['', [CustomValidator.validatePassword]],
+    email: ['', [Validators.email, Validators.maxLength(45)]],
+    phone: [''],
+    address: [''],
+  },
     {
       validator: CustomValidator.mustMatch('password', 'repassword')
     }
@@ -51,15 +56,15 @@ export class UserComponent implements OnInit {
     private utilityService: UtilityService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getStores();
     this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
     this.user.id ? this.getById(this.user.id) : null;
   }
-  
-  getStores(){
+
+  getStores() {
     this.storeService.get(new SearchOptions()).subscribe(response => {
       response.status ? this.stores = response.result : this.notificationService.error(response.message);
     }, error => {
@@ -68,13 +73,16 @@ export class UserComponent implements OnInit {
     });
   }
 
-  getById(id: number)
-  {
+  onClickStores(store: Store) {
+    this.mask = FormUtils.getMaskValidationByCountry(store.code);
+  }
+
+  getById(id: number) {
     this.userService.getById(id).subscribe(response => {
 
-      if (response.status){ 
+      if (response.status) {
         this.user = response.result;
-        this.userForm = FormUtils.moveModelValuesToForm(this.userForm,this.user);
+        this.userForm = FormUtils.moveModelValuesToForm(this.userForm, this.user);
       }
       else {
         this.notificationService.error(response.message);
@@ -86,7 +94,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  save(){
+  save() {
 
     if (this.userForm.invalid) {
       this.errorsListForm = FormUtils.getFormError(this.userForm);
@@ -96,10 +104,12 @@ export class UserComponent implements OnInit {
 
     this.user = FormUtils.moveFormValuesToModel(this.userForm.value, this.user);
 
-    if(this.user.id){
+    // console.log('user: ', this.user);
+
+    if (this.user.id) {
       this.update(this.user);
     }
-    else{
+    else {
       this.create(this.user);
     }
   }
