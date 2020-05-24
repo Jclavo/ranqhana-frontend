@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UserService } from '@modules/auth/services';
+import { UserService } from '@modules/users/services';
 
 @Component({
     selector: 'sb-top-nav-user',
