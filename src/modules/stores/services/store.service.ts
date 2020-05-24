@@ -59,4 +59,39 @@ export class StoreService {
         return throwError(error.message);
       }));
   }
+
+  getById(id: number): Observable<Response> {
+
+    let apiRoot = this.apiRoot + id;
+
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      if (resultRAW.result) {
+        let store = new Store();
+        store.id = resultRAW.result?.id;
+        store.name = resultRAW.result?.name;
+        store.code = resultRAW.result?.code;
+        store.country = resultRAW.result?.country;
+        store.country_id = resultRAW.result?.country_id;
+        store.countryCode = resultRAW.result?.country_code;
+
+        response.result = store;
+      }
+
+      // response.records = resultRAW.result?.length;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
 }
