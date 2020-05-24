@@ -169,4 +169,40 @@ export class UserService {
       }));
   }
 
+  login(user: User): Observable<Response> {
+
+    let apiRoot = environment.apiURL + 'login';
+
+    return this.http.post(apiRoot, user, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      if (resultRAW.result) {
+        let user = new User();
+        user.id = resultRAW.result?.id;
+        user.name = resultRAW.result?.name;
+        user.email = resultRAW.result?.email;
+        user.identification = resultRAW.result?.identification;
+        // user.countryCode = resultRAW.result?.country_code;
+        user.api_token = resultRAW.result?.api_token;
+        user.store_id = resultRAW.result?.store_id;
+        user.login = user.identification + '/' + user.store_id;
+
+        response.result = user;
+        //response.records = resultRAW.result?.length;
+
+      }
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
 }

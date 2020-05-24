@@ -1,5 +1,5 @@
 <sb-layout-auth>
-    <div class="container">
+    <div class="container mt-3">
         <div class="row justify-content-center">
             <div class="col-lg-5">
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
@@ -9,29 +9,21 @@
                     <div class="card-body">
                         <form [formGroup]="loginForm">
                             <div class="form-group">
-                                <label class="small mb-1">Country</label>
-                                <select class="form-control" formControlName="country_code" placeholder="Country">
-                                    <option *ngFor="let country of countries" [value]="country.code">
-                                        {{country.name}}
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="small mb-1" for="inputEmailAddress">identification</label>
-                                <input class="form-control py-4" formControlName="identification"                                     placeholder="Enter identification" />
+                                <label class="small mb-1" for="inputEmailAddress">Login</label>
+                                <input class="form-control py-4" formControlName="login" placeholder="Enter Login" />
                             </div>
                             <div class="form-group">
                                 <label class="small mb-1" for="inputPassword">Password</label>
                                 <input class="form-control py-4" formControlName="password" type="password"
                                     placeholder="Enter password" />
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
                                     <label class="custom-control-label" for="rememberPasswordCheck">Remember
                                         password</label>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                 <a class="small" routerLink="/auth/forgot-password">Forgot Password?</a>
                                 <a class="btn btn-primary" type="submit" (click)="login()">Login</a>
