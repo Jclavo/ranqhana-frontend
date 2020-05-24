@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMaskModule } from 'ngx-mask'
 
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
@@ -24,7 +25,7 @@ import * as utilityServices from '../utility/services';
 import * as countryServices from '../country/services';
 
 @NgModule({
-    imports: [
+    imports: [ 
         CommonModule,
         RouterModule,
         ReactiveFormsModule,
@@ -32,6 +33,7 @@ import * as countryServices from '../country/services';
         HttpClientModule,
         AppCommonModule,
         NavigationModule,
+        NgxMaskModule.forRoot(),
     ],
     providers: [...authServices.services, ...authGuards.guards, utilityServices.UtilityService, countryServices.CountryService],
     declarations: [...authContainers.containers, ...authComponents.components],

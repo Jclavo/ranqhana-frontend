@@ -1,16 +1,20 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // MODELS
-import { User } from '../../models/user.model';
-import { Country } from '../../../country/models';
-import { Response } from '../../../utility/models/index';
+import { User } from '@modules/users/models';
+import { Response, Mask } from '@modules/utility/models/index';
 
 // SERVICE
-import { UtilityService, NotificationService } from '../../../utility/services';
-import { UserService } from '../../services';
-import { CountryService } from '../../../country/services';
+import { UtilityService, NotificationService } from '@modules/utility/services';
+import { UserService } from '@modules/users/services';
+import { StoreService } from '@modules/stores/services';
+
+//UTILS
+import { FormUtils } from "@modules/utility/utils";
+import { AuthService } from '@modules/auth/services';
+import { Store } from '@modules/stores/models';
 
 @Component({
     selector: 'sb-register',
@@ -20,70 +24,54 @@ import { CountryService } from '../../../country/services';
 })
 export class RegisterComponent implements OnInit {
 
-    public countries: Array<Country> = [];
-
     public errorsList: Array<string> = [];
 
-    public userRegister = new User();
+    public user = new User();
+    public mask = new Mask();
+    private store = new Store();
 
     registerForm: FormGroup = this.fb.group({
-        country_code: ['', [Validators.required]],
-        name: ['', [Validators.required]],
+        store_id: ['', [Validators.required]],
         identification: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required]],
-        c_password: ['', [Validators.required]],
-        store_id: ['1', [Validators.required]]
-    },
-        {
-            validator: this.MustMatch('password', 'c_password')
-        });
-
+        name: ['', [Validators.required, Validators.maxLength(45)]],
+        lastname: ['', [Validators.required, Validators.maxLength(45)]],
+        email: ['', [Validators.email, Validators.maxLength(45)]],
+        phone: [''],
+        address: ['']
+    });
 
     constructor(
         private fb: FormBuilder,
         private utilityService: UtilityService,
         private notificationService: NotificationService,
         private userService: UserService,
-        private countryService: CountryService,
-        private router: Router
+        private storeService: StoreService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
+        private authService: AuthService,
     ) {
-        this.getAllCountries();
-
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.store.id = this.activatedRoute.snapshot.paramMap.get('store_id') ?
+                        Number(this.activatedRoute.snapshot.paramMap.get('store_id')) : 0;
+        this.store.id  ? this.getStoreById(this.store.id) : null;
+    }
 
-    getAllCountries() {
-        this.countryService.getAll().subscribe((response: Response) => {
+    getStoreById(id: number) {
 
-            if (response.status)
-                this.countries = response.result;
-
+        this.storeService.getById(id).subscribe(response => {
+          if(response.status){
+            this.store = response.result; 
+            this.mask = FormUtils.getMaskValidationByCountry(this.store.countryCode);
+            this.registerForm.controls['store_id'].setValue(this.store.id);
+          }else{
+            this.notificationService.error(response.message);
+          } 
         }, error => {
-            this.notificationService.error(error);
+          this.notificationService.error(error);
+          this.authService.raiseError();
         });
-    }
-
-    getFormValues() {
-
-        let userRegister = new User();
-
-        userRegister.country_code = this.registerForm.value.country_code;
-        userRegister.name = this.registerForm.value.identification;
-        userRegister.email = this.registerForm.value.email;
-        userRegister.identification = this.registerForm.value.identification;
-        userRegister.password = this.registerForm.value.password;
-        userRegister.c_password = this.registerForm.value.c_password;
-        userRegister.store_id = this.registerForm.value.store_id;
-
-        console.log('userRegister', userRegister);
-
-        return userRegister;
-    }
-
-    signUp() {
-        console.log('register...');
     }
 
     register() {
@@ -91,42 +79,25 @@ export class RegisterComponent implements OnInit {
         if (this.registerForm.invalid) {
             this.errorsList = this.utilityService.getFormError(this.registerForm);
             this.notificationService.error(this.errorsList[0]);
+            return;
         }
 
-        this.userRegister = this.getFormValues();
+        this.user = FormUtils.moveFormValuesToModel(this.registerForm.value, this.user);
 
-        this.userService.register(this.userRegister).subscribe((response: Response) => {
+        this.userService.register(this.user).subscribe((response: Response) => {
 
             if (response.status) {
                 this.notificationService.success(response.message);
                 this.router.navigate(['/login']);
-              }
-              else {
+            }
+            else {
                 this.notificationService.error(response.message);
-              }
+            }
 
         }, (error: any) => {
             console.log(error);
             this.notificationService.error(error);
-          });
+        });
     }
 
-    MustMatch(controlName: string, matchingControlName: string) {
-        return (formGroup: FormGroup) => {
-            const control = formGroup.controls[controlName];
-            const matchingControl = formGroup.controls[matchingControlName];
-
-            if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-                // return if another validator has already found an error on the matchingControl
-                return;
-            }
-
-            // set error on matchingControl if validation fails
-            if (control.value !== matchingControl.value) {
-                matchingControl.setErrors({ mustMatch: true });
-            } else {
-                matchingControl.setErrors(null);
-            }
-        }
-    }
 }

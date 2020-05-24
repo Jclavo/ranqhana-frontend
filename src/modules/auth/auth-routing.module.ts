@@ -36,6 +36,14 @@ export const ROUTES: Routes = [
         } as SBRouteData,
     },
     {
+        path: 'register/:store_id',
+        canActivate: [],
+        component: authContainers.RegisterComponent,
+        data: {
+            title: 'Pages Register - Store App',
+        } as SBRouteData,
+    },
+    {
         path: 'forgot-password',
         canActivate: [],
         component: authContainers.ForgotPasswordComponent,
