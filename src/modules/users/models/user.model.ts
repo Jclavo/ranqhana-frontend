@@ -12,4 +12,6 @@ export class User {
     store_id: number = 0;
     store: string = '';
     countryCode: string = '';
+
+    api_token: string = '';
 }
