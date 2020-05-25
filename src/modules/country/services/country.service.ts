@@ -9,21 +9,26 @@ import { environment } from "../../../environments/environment";
 //Models
 import { Country } from '../models';
 import { Response } from '../../utility/models';
+import { AuthService } from '@modules/auth/services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CountryService {
 
-  private apiRoot: string = environment.apiURL;
+  static service: string = 'countries/'
+  private apiRoot: string = environment.apiURL + CountryService.service;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,  
+  ) { }
 
   getAll() : Observable<Response> { 
 
-    let apiRoot = this.apiRoot + 'country';
+    let apiRoot = this.apiRoot;
 
-    return this.http.get(apiRoot).pipe(map(res => {
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
