@@ -94,4 +94,68 @@ export class StoreService {
         return throwError(error.message);
       }));
   }
+
+  create(store: Store): Observable<Response> {
+
+    let apiRoot = this.apiRoot;
+
+    return this.http.post(apiRoot, store, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  delete(id: string): Observable<Response> {
+
+    let apiRoot = this.apiRoot + id;
+
+    return this.http.delete(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  update(store: Store): Observable<Response> {
+
+    let apiRoot = this.apiRoot + store.id;
+
+    return this.http.put(apiRoot, store, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
 }

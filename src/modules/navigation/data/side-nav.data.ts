@@ -5,13 +5,13 @@ export const sideNavSections: SideNavSection[] = [
         text: 'CORE',
         items: ['dashboard'],
     },
-    {
-        text: 'INTERFACE',
-        items: ['layouts', 'pages'],
-    },
+    // {
+    //     text: 'INTERFACE',
+    //     items: ['layouts', 'pages'],
+    // },
     {
         text: 'ADDONS',
-        items: ['charts', 'tables', 'invoices', 'items', 'units', 'users'],
+        items: ['charts', 'tables', 'invoices', 'items', 'units', 'users', 'stores'],
     },
 ];
 
@@ -137,6 +137,20 @@ export const sideNavItems: SideNavItems = {
             {
                 text: 'User',
                 link: '/users/user',
+            }
+        ],
+    },
+    stores: {
+        icon: 'table',
+        text: 'Stores',
+        submenu: [
+            {
+                text: 'Stores List',
+                link: '/stores/',
+            },
+            {
+                text: 'Store',
+                link: '/stores/store',
             }
         ],
     },

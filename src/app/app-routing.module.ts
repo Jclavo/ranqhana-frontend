@@ -65,7 +65,13 @@ const routes: Routes = [
             import('modules/users/users-routing.module').then(m => m.UsersRoutingModule),
         canActivate: [GlobalGuard]
     },
-    
+    {
+        path: 'stores',
+        loadChildren: () =>
+            import('modules/stores/stores-routing.module').then(m => m.StoresRoutingModule),
+        canActivate: [GlobalGuard]
+    },
+
     {
         path: 'version',
         loadChildren: () =>
