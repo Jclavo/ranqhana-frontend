@@ -100,8 +100,8 @@ export class PurchaseComponent implements OnInit {
     searchItem = FormUtils.moveFormValuesToModel(this.addItemForm.value.searchItem, searchItem);
 
     //Other values
-    searchItem.price = this.addItemForm.value.price;
-    searchItem.quantity = this.addItemForm.value.quantity;
+    searchItem.price = Number(this.addItemForm.value.price);
+    searchItem.quantity = Number(this.addItemForm.value.quantity);
 
     return searchItem;
   }

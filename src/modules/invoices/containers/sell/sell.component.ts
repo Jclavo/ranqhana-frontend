@@ -103,7 +103,7 @@ export class SellComponent implements OnInit {
     //Check if the item has already exist in the list
     let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == searchItem.id);
 
-    if (indexSellItem >= 0) {
+    if (indexSellItem >= 0 && searchItem.stocked) {
       searchItem.stock = searchItem.stock - this.invoiceDetails[indexSellItem].quantity;
     }
 
@@ -118,7 +118,7 @@ export class SellComponent implements OnInit {
     searchItem = FormUtils.moveFormValuesToModel(this.addItemForm.value.searchItem, searchItem);
 
     //Other values
-    searchItem.quantity = this.addItemForm.value.quantity;
+    searchItem.quantity = Number(this.addItemForm.value.quantity);
 
     return searchItem;
   }
