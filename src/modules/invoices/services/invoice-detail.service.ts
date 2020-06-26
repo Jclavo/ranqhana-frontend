@@ -70,8 +70,8 @@ export class InvoiceDetailService {
         let invoiceDetails = new InvoiceDetail();
         invoiceDetails.id       = data.id;
         invoiceDetails.item_id  = data.item_id;
-        invoiceDetails.item     = data.item;
-        invoiceDetails.unit     = data.unit;
+        invoiceDetails.item     = data.item?.name;
+        invoiceDetails.unit     = data.item?.unit?.code;
         invoiceDetails.quantity = data.quantity;
         invoiceDetails.price    = data.price;
         invoiceDetails.total    = data.total;
