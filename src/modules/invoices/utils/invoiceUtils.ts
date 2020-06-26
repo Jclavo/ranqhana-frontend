@@ -40,7 +40,7 @@ export class InvoiceUtils implements OnInit {
 
     hasStock(item: SearchItem): boolean {
         if (item.stocked && item.quantity > item.stock) {
-            this.notificationService.error("There is not stock for this quantity");
+            this.notificationService.error("There is not stock for this quantity.");
             return false;
         }
         return true;
@@ -49,7 +49,7 @@ export class InvoiceUtils implements OnInit {
     unitAllowDecimal(item: SearchItem): boolean {
         if (!item.fractioned) {
             if (!Number.isInteger(item.quantity)) {
-                this.notificationService.error("The quantity should be an integer");
+                this.notificationService.error("The quantity should be an integer.");
                 return false;
             }
         }
