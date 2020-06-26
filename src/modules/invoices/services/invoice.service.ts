@@ -50,7 +50,7 @@ export class InvoiceService {
         invoice.subtotal = data.subtotal;
         invoice.discount = data.discount;
         invoice.total    = data.total;
-        invoice.stage    = data.stage;
+        invoice.stage    = data.stage?.description;
         invoice.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at); 
 
         return invoice;
@@ -82,15 +82,15 @@ export class InvoiceService {
       if (resultRAW.result) {
 
         let invoice = new Invoice();
-        invoice.id       = resultRAW.result[0].id;
-        invoice.serie    = resultRAW.result[0].serie;
-        invoice.subtotal = resultRAW.result[0].subtotal;
-        invoice.discount = resultRAW.result[0].discount;
-        invoice.total    = resultRAW.result[0].total;
-        invoice.stage    = resultRAW.result[0].stage;
-        invoice.created_at = this.customDateService.formatStringDDMMYYYY(resultRAW.result[0].created_at); 
-        invoice.store    = resultRAW.result[0].store;
-        invoice.type     = resultRAW.result[0].type;
+        invoice.id       = resultRAW.result.id;
+        invoice.serie    = resultRAW.result.serie;
+        invoice.subtotal = resultRAW.result.subtotal;
+        invoice.discount = resultRAW.result.discount;
+        invoice.total    = resultRAW.result.total;
+        // invoice.stage    = resultRAW.result.stage?.description;
+        invoice.created_at = this.customDateService.formatStringDDMMYYYY(resultRAW.result.created_at); 
+        // invoice.store    = resultRAW.result[0].store;
+        invoice.type     = resultRAW.result.type?.description;
 
         response.result = invoice;
       }
