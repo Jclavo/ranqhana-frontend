@@ -60,19 +60,19 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     // this.getStores();
     this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
-    this.user.id ? this.getById(this.user.id) : null;
+    this.user.id ? this.getUserById(this.user.id) : null;
     
     // get mask by country
     this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode());
   }
 
-  getById(id: number) {
+  getUserById(id: number) {
     this.userService.getById(id).subscribe(response => {
 
       if (response.status) {
         this.user = response.result;
         this.userForm = FormUtils.moveModelValuesToForm(this.userForm, this.user);
-        this.mask = FormUtils.getMaskValidationByCountry(this.user.countryCode);
+        this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode());
       }
       else {
         this.notificationService.error(response.message);
