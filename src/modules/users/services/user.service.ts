@@ -19,8 +19,8 @@ import { AuthService } from '@modules/auth/services';
 export class UserService {
 
   static service: string = 'users/'
-  private apiRoot: string = environment.apiURL + UserService.service;
-
+  private apiRoot: string = environment.apiURLTaapaq + UserService.service;
+  
   constructor(
     private http: HttpClient,
     private authService: AuthService,
@@ -44,14 +44,14 @@ export class UserService {
         let user = new User();
         user.id = data.id;
         user.login = data.login;
-        user.identification = data.identification;
-        user.name = data.name;
-        user.lastname = data.lastname;
-        user.email = data.email;
-        user.phone = data.phone;
-        user.address = data.address;
-        user.store_id = data.store_id;
-        user.store = data.store;
+        user.identification = data.user_detail?.identification;
+        user.name = data.user_detail?.name;
+        user.lastname = data.user_detail?.lastname;
+        user.email = data.user_detail?.email;
+        user.phone = data.user_detail?.phone;
+        user.address = data.user_detail?.address;
+        user.company_id = data.company.id;
+        user.company = data.company.name;
 
         return user;
       });
@@ -111,7 +111,7 @@ export class UserService {
         user.phone = resultRAW.result?.phone;
         user.address = resultRAW.result?.address;
         user.email = resultRAW.result?.email;
-        user.store_id = resultRAW.result?.store_id;
+        user.company_id = resultRAW.result?.store_id;
         user.countryCode = resultRAW.result?.country_code;
 
         response.result = user;
@@ -183,14 +183,36 @@ export class UserService {
 
       if (resultRAW.result) {
         let user = new User();
+
         user.id = resultRAW.result?.id;
-        user.name = resultRAW.result?.name;
-        user.email = resultRAW.result?.email;
-        user.identification = resultRAW.result?.identification;
-        // user.countryCode = resultRAW.result?.country_code;
+        user.login = resultRAW.result?.login;
         user.api_token = resultRAW.result?.api_token;
-        user.store_id = resultRAW.result?.store_id;
-        user.login = user.identification + '/' + user.store_id;
+    
+        //user info
+        // user.identification = resultRAW.result?.id;
+        // user.name = resultRAW.result?.id;
+        // user.lastname = resultRAW.result?.id;
+        // user.email = resultRAW.result?.id;
+        // user.phone = resultRAW.result?.id;
+        // user.address = resultRAW.result?.id;
+       
+        //company info
+        user.company_id = resultRAW.result?.company?.id; 
+        user.company = resultRAW.result?.company?.name; 
+    
+        //project info
+        user.project_id = resultRAW.result?.project?.id;
+        user.project = resultRAW.result?.project?.name;
+    
+        //country info
+        user.country_id = resultRAW.result?.country?.id;
+        user.country = resultRAW.result?.country?.name;
+        user.countryCode = resultRAW.result?.country?.code;
+        user.currency = resultRAW.result?.country?.currency;
+        
+        //FK
+        user.company_project_id = resultRAW.result?.id;
+        user.user_detail_id = resultRAW.result?.id;
 
         response.result = user;
         //response.records = resultRAW.result?.length;
