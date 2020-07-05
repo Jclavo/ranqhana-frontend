@@ -97,7 +97,7 @@ export class UserComponent implements OnInit {
     // console.log('user: ', this.user);
 
     if (this.user.id) {
-      this.update(this.user);
+      this.updateUserDetail(this.user);
     }
     else {
       this.createUserDetail(this.user);
@@ -125,8 +125,25 @@ export class UserComponent implements OnInit {
     });
   }
 
-  update(user: User) {
-    this.userService.update(user).subscribe(response => {
+  updateUserDetail(user: User) {
+    this.userDetailsService.update(user).subscribe(response => {
+
+      if (response.status) {
+        // this.notificationService.success(response.message);
+        this.updateUser(this.user);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+  createUser(user: User) {
+    this.userService.create(user).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
@@ -142,8 +159,8 @@ export class UserComponent implements OnInit {
     });
   }
 
-  createUser(user: User) {
-    this.userService.create(user).subscribe(response => {
+  updateUser(user: User) {
+    this.userService.update(user).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
