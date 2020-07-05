@@ -105,6 +105,7 @@ export class UserService {
         let user = new User();
         user.id = resultRAW.result?.id;
         user.login = resultRAW.result?.login;
+        user.user_detail_id = resultRAW.result?.user_detail_id;
 
         //user detail
         user.identification = resultRAW.result?.user_detail?.identification;
