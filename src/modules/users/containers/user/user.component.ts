@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 //Services
 import { StoreService } from "@modules/stores/services";
-import { UserService } from "../../services";
+import { UserService, UserDetailsService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService, UtilityService } from '@modules/utility/services';
 
@@ -32,7 +32,6 @@ export class UserComponent implements OnInit {
 
   userForm: FormGroup = this.formBuilder.group({
     id: [''],
-    store_id: ['', [Validators.required]],
     identification: ['', [Validators.required]],
     name: ['', [Validators.required, Validators.maxLength(45)]],
     lastname: ['', [Validators.required, Validators.maxLength(45)]],
@@ -52,29 +51,19 @@ export class UserComponent implements OnInit {
     private notificationService: NotificationService,
     private userService: UserService,
     private authService: AuthService,
-    private storeService: StoreService,
+    private userDetailsService: UserDetailsService,
     private utilityService: UtilityService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
-    this.getStores();
+    // this.getStores();
     this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
     this.user.id ? this.getById(this.user.id) : null;
-  }
-
-  getStores() {
-    this.storeService.get(new SearchOptions()).subscribe(response => {
-      response.status ? this.stores = response.result : this.notificationService.error(response.message);
-    }, error => {
-      this.notificationService.error(error);
-      this.authService.raiseError();
-    });
-  }
-
-  onClickStores(store: Store) {
-    this.mask = FormUtils.getMaskValidationByCountry(store.code);
+    
+    // get mask by country
+    this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode());
   }
 
   getById(id: number) {
@@ -111,12 +100,33 @@ export class UserComponent implements OnInit {
       this.update(this.user);
     }
     else {
-      this.create(this.user);
+      this.createUserDetail(this.user);
     }
   }
 
-  create(user: User) {
-    this.userService.create(user).subscribe(response => {
+  createUserDetail(user: User) {
+    this.userDetailsService.create(user).subscribe(response => {
+
+      if (response.status) {
+        // this.notificationService.success(response.message);
+        this.user.user_detail_id = response.result?.user_detail_id;
+        this.user.company_id = this.authService.getUserCompanyID();
+        this.user.project_id = this.authService.getUserProjectID();
+        this.user.user_detail_id ? this.createUser(this.user) : null;
+        
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+  update(user: User) {
+    this.userService.update(user).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
@@ -132,8 +142,8 @@ export class UserComponent implements OnInit {
     });
   }
 
-  update(user: User) {
-    this.userService.update(user).subscribe(response => {
+  createUser(user: User) {
+    this.userService.create(user).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
