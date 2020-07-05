@@ -47,6 +47,27 @@ export class UserDetailsService {
 
       }
       
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  update(user: User): Observable<Response> {
+
+    let apiRoot = this.apiRoot + user.user_detail_id;
+
+    return this.http.put(apiRoot, user, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
 
       return response;
 
@@ -55,4 +76,5 @@ export class UserDetailsService {
         return throwError(error.message);
       }));
   }
+
 }
