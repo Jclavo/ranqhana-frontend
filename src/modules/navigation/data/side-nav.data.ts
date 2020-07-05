@@ -11,7 +11,8 @@ export const sideNavSections: SideNavSection[] = [
     // },
     {
         text: 'ADDONS',
-        items: ['charts', 'tables', 'invoices', 'items', 'units', 'users', 'stores'],
+        // items: ['charts', 'tables', 'invoices', 'items', 'units', 'users'],
+        items: ['invoices', 'items', 'units', 'users'],
     },
 ];
 
@@ -140,18 +141,18 @@ export const sideNavItems: SideNavItems = {
             }
         ],
     },
-    stores: {
-        icon: 'table',
-        text: 'Stores',
-        submenu: [
-            {
-                text: 'Stores List',
-                link: '/stores/',
-            },
-            {
-                text: 'Store',
-                link: '/stores/store',
-            }
-        ],
-    },
+    // stores: {
+    //     icon: 'table',
+    //     text: 'Stores',
+    //     submenu: [
+    //         {
+    //             text: 'Stores List',
+    //             link: '/stores/',
+    //         },
+    //         {
+    //             text: 'Store',
+    //             link: '/stores/store',
+    //         }
+    //     ],
+    // },
 };
