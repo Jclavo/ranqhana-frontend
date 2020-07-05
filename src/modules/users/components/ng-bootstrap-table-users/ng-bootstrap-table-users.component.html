@@ -11,34 +11,27 @@
                         <span>Login</span>
                         <sb-sort-icon *ngIf='sortedColumn === "login"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
-                    <th scope="col" sbSortable="identification" (sort)="onSort($event)">
+                    <th>
                         <span>Identification</span>
-                        <sb-sort-icon *ngIf='sortedColumn === "identification"' [direction]="sortedDirection">
-                        </sb-sort-icon>
                     </th>
-                    <th scope="col" sbSortable="name" (sort)="onSort($event)">
+                    <th>
                         <span>Name</span>
-                        <sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
-                    <th scope="col" sbSortable="lastname" (sort)="onSort($event)">
+                    <th>
                         <span>Lastname</span>
-                        <sb-sort-icon *ngIf='sortedColumn === "lastname"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
                     <!-- <th scope="col" sbSortable="email" (sort)="onSort($event)">
                         <span>Email</span>
                         <sb-sort-icon *ngIf='sortedColumn === "email"' [direction]="sortedDirection"></sb-sort-icon>
                     </th> -->
-                    <th scope="col" sbSortable="phone" (sort)="onSort($event)">
+                    <th>
                         <span>Phone</span>
-                        <sb-sort-icon *ngIf='sortedColumn === "phone"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
-                    <th scope="col" sbSortable="address" (sort)="onSort($event)">
+                    <th>
                         <span>Address</span>
-                        <sb-sort-icon *ngIf='sortedColumn === "address"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
-                    <th scope="col" sbSortable="store" (sort)="onSort($event)">
+                    <th>
                         <span>Store</span>
-                        <sb-sort-icon *ngIf='sortedColumn === "store"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
 
                     <th scope="col">
@@ -71,7 +64,7 @@
                         <ngb-highlight [result]="user.address" [term]="searchOption.searchValue"></ngb-highlight>
                     </td>
                     <td>
-                        <ngb-highlight [result]="user.store" [term]="searchOption.searchValue"></ngb-highlight>
+                        <ngb-highlight [result]="user.company" [term]="searchOption.searchValue"></ngb-highlight>
                     </td>
                     <td>
                         <div class="row ">
