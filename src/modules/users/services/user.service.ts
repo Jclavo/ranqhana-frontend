@@ -105,14 +105,14 @@ export class UserService {
         let user = new User();
         user.id = resultRAW.result?.id;
         user.login = resultRAW.result?.login;
-        user.identification = resultRAW.result?.identification;
-        user.name = resultRAW.result?.name;
-        user.lastname = resultRAW.result?.lastname;
-        user.phone = resultRAW.result?.phone;
-        user.address = resultRAW.result?.address;
-        user.email = resultRAW.result?.email;
-        user.company_id = resultRAW.result?.store_id;
-        user.countryCode = resultRAW.result?.country_code;
+
+        //user detail
+        user.identification = resultRAW.result?.user_detail?.identification;
+        user.name = resultRAW.result?.user_detail?.name;
+        user.lastname = resultRAW.result?.user_detail?.lastname;
+        user.email = resultRAW.result?.user_detail?.email;
+        user.phone = resultRAW.result?.user_detail?.phone;
+        user.address = resultRAW.result?.user_detail?.address;
 
         response.result = user;
       }
