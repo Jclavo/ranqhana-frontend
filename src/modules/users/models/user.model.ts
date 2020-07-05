@@ -1,3 +1,5 @@
+// import 
+
 export class User {
 
     id: number = 0;
@@ -31,4 +33,8 @@ export class User {
     //FK
     company_project_id: number = 0;
     user_detail_id: number = 0;
+
+    //roles
+    rolesID: Array<string> = [];
+    roles: Array<string> = [];
 }

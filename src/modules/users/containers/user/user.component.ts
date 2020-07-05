@@ -3,18 +3,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 //Services
-import { StoreService } from "@modules/stores/services";
 import { UserService, UserDetailsService } from "../../services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService, UtilityService } from '@modules/utility/services';
+import { RoleService } from "@modules/roles/services";
 
 //MODELS
 import { SearchOptions, Mask } from '@modules/utility/models';
-import { Store } from '@modules/stores/models';
+import { Role, UserRoles  } from '@modules/roles/models';
 import { User } from '../../models';
 
 //UTILS
 import { FormUtils, CustomValidator } from "@modules/utility/utils";
+import { NotificationService } from '@modules/utility/services';
 
 @Component({
   selector: 'sb-user',
@@ -23,7 +23,7 @@ import { FormUtils, CustomValidator } from "@modules/utility/utils";
 })
 export class UserComponent implements OnInit {
 
-  public stores: Array<Store> = [];
+  public roles: Array<Role> = [];
   public user = new User();
 
   private errorsListForm: Array<string> = [];
@@ -40,6 +40,7 @@ export class UserComponent implements OnInit {
     email: ['', [Validators.email, Validators.maxLength(45)]],
     phone: [''],
     address: [''],
+    roles: [[]],
   },
     {
       validator: CustomValidator.mustMatch('password', 'repassword')
@@ -52,18 +53,37 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private authService: AuthService,
     private userDetailsService: UserDetailsService,
-    private utilityService: UtilityService,
+    private roleService: RoleService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
+    this.getRoles(this.authService.getUserProjectID());
     // this.getStores();
     this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
     this.user.id ? this.getUserById(this.user.id) : null;
     
     // get mask by country
     this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode());
+    
+  }
+
+  getRoles(project_id: number) {
+
+    this.roleService.getByProject(project_id).subscribe(response => {
+
+      if (response.status) {
+        this.roles = response.result;
+      }else{
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+
   }
 
   getUserById(id: number) {
@@ -71,7 +91,11 @@ export class UserComponent implements OnInit {
 
       if (response.status) {
         this.user = response.result;
+
         this.userForm = FormUtils.moveModelValuesToForm(this.userForm, this.user);
+        //set roles
+        this.userForm.controls['roles'].setValue(response.result?.rolesID);
+
         this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode());
       }
       else {
@@ -146,8 +170,9 @@ export class UserComponent implements OnInit {
     this.userService.create(user).subscribe(response => {
 
       if (response.status) {
-        this.notificationService.success(response.message);
-        this.router.navigate(['/users']);
+        // this.notificationService.success(response.message);
+        this.assignMassiveRole();
+
       }
       else {
         this.notificationService.error(response.message);
@@ -161,6 +186,30 @@ export class UserComponent implements OnInit {
 
   updateUser(user: User) {
     this.userService.update(user).subscribe(response => {
+
+      if (response.status) {
+        // this.notificationService.success(response.message);
+        // this.router.navigate(['/users']);
+        this.assignMassiveRole();
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+
+  assignMassiveRole() {
+
+    let userRoles = new UserRoles();
+    userRoles.user_id = this.user.id;
+    userRoles.roles = this.userForm.value.roles;
+
+    this.userService.assignMassiveRole(userRoles).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
