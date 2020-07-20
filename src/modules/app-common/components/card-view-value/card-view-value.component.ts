@@ -10,31 +10,31 @@ export class CardViewValueComponent implements OnInit {
 
   @Input() background!: string;
   @Input() title!: string;
-  @Input() value = {value: 0};
+  @Input() data = {value: '-'};
   // @Input() color!: string;
 
-  public quantity: number = 0;
+  // public quantity: string = '-';
 
   customClasses: string[] = [];
 
-  private graphicDataDiffersx: KeyValueDiffer<string, any>;
+  // private graphicDataDiffersx: KeyValueDiffer<string, any>;
 
   constructor(
-    private differs: KeyValueDiffers, // to get changes in a object
+    // private differs: KeyValueDiffers, // to get changes in a object
   ) {
-    this.graphicDataDiffersx = this.differs.find(this.value).create();
+    // this.graphicDataDiffersx = this.differs.find(this.data).create();
 
   }
 
 
-  ngDoCheck(): void {
+  // ngDoCheck(): void {
 
-    const changes = this.graphicDataDiffersx.diff(this.value);
-    if (changes) {
-      this.quantity =  this.value?.value ?? 0;
-    }
+  //   // const changes = this.graphicDataDiffersx.diff(this.value);
+  //   // if (changes) {
+  //   //   this.quantity =  this.value?.value ?? 0;
+  //   // }
     
-  }
+  // }
   ngOnInit() {
     if (this.background) {
       this.customClasses.push(this.background);
