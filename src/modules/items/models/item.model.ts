@@ -11,5 +11,8 @@ export class Item {
     stocked: boolean = true; 
     store_id: number = 0;
     created_at: string = ''; 
-    updated_at: string = '';    
+    updated_at: string = ''; 
+    
+    //extra fields
+    quantity: number = 0;
 }
