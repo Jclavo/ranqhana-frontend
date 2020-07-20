@@ -9,6 +9,7 @@ import { environment } from "../../../environments/environment";
 //Models
 import { Response, Graphic } from '@modules/utility/models';
 import { SearchInvoice } from "@modules/invoices/models";
+import { Item } from "@modules/items/models";
 
 //SERVICES
 import { AuthService } from '@modules/auth/services';
@@ -47,6 +48,41 @@ export class ReportService {
         grafic.Y = data.Y;
 
         return grafic;
+      });
+
+      response.records = resultRAW.records;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  /**
+   * 
+   */
+  popularItems(searchOption: SearchInvoice): Observable<Response> {
+
+    let apiRoot = this.apiRoot + 'popularProducts';
+
+    return this.http.post(apiRoot, searchOption, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      response.result = resultRAW.result?.map((data: any) => {
+          let item = new Item();
+          item.id = data.item_id;
+          item.quantity = data.quantity;
+          item.name = data.item?.name
+
+          return item;
       });
 
       response.records = resultRAW.records;
