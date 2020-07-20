@@ -1,24 +1,21 @@
 <div class="row">
-    <div class="col-xl-3 col-md-6">
-        <sb-card-view-value  background="bg-primary" title="My today's sales" [value]="dailySales">
+    <div class="col-xl-4 col-md-6">
+        <sb-card-view-value  background="bg-primary" title="My today's sales" [data]="dailySales">
         </sb-card-view-value>
-        <!-- <div class="card text-white text-center mb-4 bg-primary">
-            <h5 class="card-header">My today's sales</h5>
-            <h1 class="card-body">{{dailySales}}</h1>
-        </div> -->
-
     </div>
-    <div class="col-xl-3 col-md-6">
+    <!-- <div class="col-xl-3 col-md-6">
         <sb-card-view-details link="/dashboard" background="bg-warning">
             <div class="card-body">Warning Card</div>
         </sb-card-view-details>
+    </div> -->
+    <div class="col-xl-4 col-md-6">
+        <sb-card-view-value  background="bg-success" title="Most Popular Product" [data]="popularItem">
+        </sb-card-view-value>
+        <!-- <sb-card-view-details link="/dashboard" background="bg-success">
+            <div class="card-body">Most Popular Product</div>
+        </sb-card-view-details> -->
     </div>
-    <div class="col-xl-3 col-md-6">
-        <sb-card-view-details link="/dashboard" background="bg-success">
-            <div class="card-body">Success Card</div>
-        </sb-card-view-details>
-    </div>
-    <div class="col-xl-3 col-md-6">
+    <div class="col-xl-4 col-md-6">
         <sb-card-view-details link="/dashboard" background="bg-danger">
             <div class="card-body">Danger Card</div>
         </sb-card-view-details>

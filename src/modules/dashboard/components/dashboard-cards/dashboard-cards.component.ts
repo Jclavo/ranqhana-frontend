@@ -8,6 +8,7 @@ import { AuthService } from "@modules/auth/services";
 //MODEL
 import { SearchInvoice } from "@modules/invoices/models";
 import { Graphic } from "@modules/utility/models";
+import { Item } from "@modules/items/models";
 
 @Component({
     selector: 'sb-dashboard-cards',
@@ -16,10 +17,11 @@ import { Graphic } from "@modules/utility/models";
 })
 export class DashboardCardsComponent implements OnInit {
 
-    public searchInvoiceOption = new SearchInvoice();
-    public graphicData: Array<Graphic> = [];
+    // public searchInvoiceOption = new SearchInvoice();
+   
     // public dailySales: number = 0;
-    public dailySales = {value: 0};
+    public dailySales = {value: '-'};
+    public popularItem = {value: '-'};
     
 
     constructor(
@@ -29,27 +31,58 @@ export class DashboardCardsComponent implements OnInit {
         private customDateService: CustomDateService
     ) {
 
-        //set parameters to search
-        this.searchInvoiceOption.fromDate = this.searchInvoiceOption.toDate = this.customDateService.getToday();
-        this.searchInvoiceOption.searchBy = 'D';
+        
     }
 
 
     ngOnInit(): void {
-        this.search();
+        this.getInvoiceMoney();
+        this.getPopularItems()
     }
 
 
-    search() {
+    getInvoiceMoney() {
 
-        this.reportService.invoiceMoney(this.searchInvoiceOption).subscribe(response => {
+        let graphicData: Array<Graphic> = [];
+        //set parameters to search
+        let searchInvoiceOption = new SearchInvoice();
+        searchInvoiceOption.fromDate = searchInvoiceOption.toDate = this.customDateService.getToday();
+        searchInvoiceOption.searchBy = 'D';
+
+        this.reportService.invoiceMoney(searchInvoiceOption).subscribe(response => {
 
             if (response.status) {
-                this.graphicData = response.result;
-                if(this.graphicData.length > 0){
-                    this.dailySales.value = this.graphicData[0]?.Y;
+                graphicData = response.result;
+                if(graphicData.length > 0){
+                    this.dailySales.value = graphicData[0]?.Y?.toString();
                 }
-                console.log('this.dailySales', this.dailySales);
+                ;
+
+            } else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
+    }
+
+    getPopularItems() {
+
+        let items: Array<Item> = [];
+         //set parameters to search
+         let searchInvoiceOption = new SearchInvoice();
+         searchInvoiceOption.fromDate = searchInvoiceOption.toDate = this.customDateService.getToday();
+
+        this.reportService.popularItems(searchInvoiceOption).subscribe(response => {
+
+            if (response.status) {
+                items = response.result;
+                if(items.length > 0){
+                    // this.popularItem.value = '#' + items[0]?.id + ' - ' + items[0]?.name;
+                    this.popularItem.value = items[0]?.name;
+                }
 
             } else {
                 this.notificationService.error(response.message);
