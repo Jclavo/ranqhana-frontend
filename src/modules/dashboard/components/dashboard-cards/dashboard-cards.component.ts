@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 //SERVICES
-import { InvoiceService } from "@modules/invoices/services/invoice.service";
+import { ReportService } from "@modules/reports/services";
 import { NotificationService, CustomDateService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 
@@ -23,7 +23,7 @@ export class DashboardCardsComponent implements OnInit {
     
 
     constructor(
-        private invoiceService: InvoiceService,
+        private reportService: ReportService,
         private notificationService: NotificationService,
         private authService: AuthService,
         private customDateService: CustomDateService
@@ -42,7 +42,7 @@ export class DashboardCardsComponent implements OnInit {
 
     search() {
 
-        this.invoiceService.report(this.searchInvoiceOption).subscribe(response => {
+        this.reportService.invoiceMoney(this.searchInvoiceOption).subscribe(response => {
 
             if (response.status) {
                 this.graphicData = response.result;

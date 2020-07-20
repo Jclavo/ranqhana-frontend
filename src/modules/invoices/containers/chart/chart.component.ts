@@ -2,6 +2,7 @@ import { Component, OnInit, KeyValueDiffer, KeyValueDiffers } from '@angular/cor
 
 //SERVICES
 import { InvoiceService } from "../../services/invoice.service";
+import { ReportService } from "@modules/reports/services";
 import { NotificationService, CustomDateService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 
@@ -23,7 +24,8 @@ export class ChartComponent implements OnInit {
     private invoiceService: InvoiceService,
     private notificationService: NotificationService,
     private authService: AuthService,
-    private customDateService: CustomDateService
+    private customDateService: CustomDateService,
+    private reportService: ReportService
     ) { 
       this.searchInvoiceOption.fromDate = this.searchInvoiceOption.toDate = this.customDateService.getToday();
     }
@@ -35,7 +37,7 @@ export class ChartComponent implements OnInit {
 
   search(){
 
-    this.invoiceService.report(this.searchInvoiceOption).subscribe(response => {
+    this.reportService.invoiceMoney(this.searchInvoiceOption).subscribe(response => {
 
       if (response.status) {
         this.graphicData = response.result;
