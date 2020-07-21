@@ -20,9 +20,10 @@ export class DashboardCardsComponent implements OnInit {
     // public searchInvoiceOption = new SearchInvoice();
    
     // public dailySales: number = 0;
-    public dailySales = {value: '-'};
+    public dailySale = {value: '-'};
+    public dailyPurchase = {value: '-'};
     public popularItem = {value: '-'};
-    
+    public popularProduction = {value: '-'};
 
     constructor(
         private reportService: ReportService,
@@ -36,12 +37,13 @@ export class DashboardCardsComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.getInvoiceMoney();
+        this.getDailySale();
+        this.getDailyPurchase();
         this.getPopularItems()
     }
 
 
-    getInvoiceMoney() {
+    getDailySale() {
 
         let graphicData: Array<Graphic> = [];
         //set parameters to search
@@ -54,9 +56,35 @@ export class DashboardCardsComponent implements OnInit {
             if (response.status) {
                 graphicData = response.result;
                 if(graphicData.length > 0){
-                    this.dailySales.value = graphicData[0]?.Y?.toString();
+                    this.dailySale.value = graphicData[0]?.Y?.toString();
                 }
-                ;
+
+            } else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
+    }
+
+    getDailyPurchase() {
+
+        let graphicData: Array<Graphic> = [];
+        //set parameters to search
+        let searchInvoiceOption = new SearchInvoice();
+        searchInvoiceOption.fromDate = searchInvoiceOption.toDate = this.customDateService.getToday();
+        searchInvoiceOption.type_id = 2;
+        searchInvoiceOption.searchBy = 'D';
+
+        this.reportService.invoiceMoney(searchInvoiceOption).subscribe(response => {
+
+            if (response.status) {
+                graphicData = response.result;
+                if(graphicData.length > 0){
+                    this.dailyPurchase.value = graphicData[0]?.Y?.toString();
+                }
 
             } else {
                 this.notificationService.error(response.message);
