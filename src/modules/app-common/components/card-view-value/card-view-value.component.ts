@@ -13,7 +13,7 @@ export class CardViewValueComponent implements OnInit {
   @Input() data = {value: '-'};
   // @Input() color!: string;
 
-  // public quantity: string = '-';
+  public value: string = '-';
 
   customClasses: string[] = [];
 
@@ -29,12 +29,15 @@ export class CardViewValueComponent implements OnInit {
 
   // ngDoCheck(): void {
 
-  //   // const changes = this.graphicDataDiffersx.diff(this.value);
+  //   // const changes = this.graphicDataDiffersx.diff(this.data);
   //   // if (changes) {
-  //   //   this.quantity =  this.value?.value ?? 0;
+  //   //   this.value =  this.data?.value ?? '-';
+  //   //   console.log(' entrou ',  this.value );
   //   // }
     
+    
   // }
+
   ngOnInit() {
     if (this.background) {
       this.customClasses.push(this.background);
