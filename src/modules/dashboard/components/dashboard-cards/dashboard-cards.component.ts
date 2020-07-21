@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 //SERVICES
 import { ReportService } from "@modules/reports/services";
@@ -12,6 +12,7 @@ import { Item } from "@modules/items/models";
 
 @Component({
     selector: 'sb-dashboard-cards',
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './dashboard-cards.component.html',
     styleUrls: ['dashboard-cards.component.scss'],
 })
@@ -31,10 +32,8 @@ export class DashboardCardsComponent implements OnInit {
         private authService: AuthService,
         private customDateService: CustomDateService
     ) {
-
-        
+ 
     }
-
 
     ngOnInit(): void {
         this.getDailySale();
@@ -58,6 +57,7 @@ export class DashboardCardsComponent implements OnInit {
                 if(graphicData.length > 0){
                     this.dailySale.value = graphicData[0]?.Y?.toString();
                 }
+                console.log('this.dailySale.value ', this.dailySale.value);
 
             } else {
                 this.notificationService.error(response.message);
