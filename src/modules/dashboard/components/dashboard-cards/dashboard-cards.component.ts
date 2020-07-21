@@ -18,9 +18,6 @@ import { Item } from "@modules/items/models";
 })
 export class DashboardCardsComponent implements OnInit {
 
-    // public searchInvoiceOption = new SearchInvoice();
-   
-    // public dailySales: number = 0;
     public dailySale = {value: '-'};
     public dailyPurchase = {value: '-'};
     public popularItem = {value: '-'};
