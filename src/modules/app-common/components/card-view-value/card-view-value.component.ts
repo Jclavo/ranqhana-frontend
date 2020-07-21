@@ -13,7 +13,7 @@ export class CardViewValueComponent implements OnInit {
   @Input() data = {value: '-'};
   // @Input() color!: string;
 
-  public value: string = '-';
+  // public value: string = '-';
 
   customClasses: string[] = [];
 
