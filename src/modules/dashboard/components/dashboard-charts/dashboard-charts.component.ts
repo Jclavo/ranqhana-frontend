@@ -17,7 +17,8 @@ import { Graphic } from "@modules/utility/models";
 })
 export class DashboardChartsComponent implements OnInit {
     
-    public graphicData: Array<Graphic> = [];
+    public graphicDataForSaleInvoiceMoney: Array<Graphic> = [];
+    public graphicDataForSaleInvoiceByMonth: Array<Graphic> = [];
 
     constructor(
         private reportService: ReportService,
@@ -30,6 +31,7 @@ export class DashboardChartsComponent implements OnInit {
 
     ngOnInit() {
         this.getSaleInvoiceMoney();
+        this.getSaleInvoiceByMonth();
     }
     
     
@@ -42,7 +44,30 @@ export class DashboardChartsComponent implements OnInit {
         this.reportService.invoiceMoney(searchInvoiceOption).subscribe(response => {
 
             if (response.status) {
-                this.graphicData = response.result;
+                this.graphicDataForSaleInvoiceMoney = response.result;
+
+            } else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
+    }
+
+    getSaleInvoiceByMonth() {
+
+        //set parameters to search
+        let searchInvoiceOption = new SearchInvoice();
+        searchInvoiceOption.fromDate = this.customDateService.substractDaysFromToday(1);
+        searchInvoiceOption.toDate = this.customDateService.getToday();
+        searchInvoiceOption.searchBy = "M";
+
+        this.reportService.invoiceMoney(searchInvoiceOption).subscribe(response => {
+
+            if (response.status) {
+                this.graphicDataForSaleInvoiceByMonth = response.result;
 
             } else {
                 this.notificationService.error(response.message);

@@ -5,17 +5,17 @@
                 <fa-icon class="mr-1" [icon]='["fas", "chart-area"]'></fa-icon>Today's sales
             </div>
             <div class="card-body">
-                <sb-charts-area [graphicData]="graphicData" labelY="Money"></sb-charts-area>
+                <sb-charts-area [graphicData]="graphicDataForSaleInvoiceMoney" labelY="Money"></sb-charts-area>
             </div>
         </sb-card>
     </div>
     <div class="col-xl-6">
         <sb-card>
             <div class="card-header">
-                <fa-icon class="mr-1" [icon]='["fas", "chart-bar"]'></fa-icon>Bar Chart Example
+                <fa-icon class="mr-1" [icon]='["fas", "chart-bar"]'></fa-icon>Month's sales
             </div>
             <div class="card-body">
-                <sb-charts-bar></sb-charts-bar>
+                <sb-charts-bar [graphicData]="graphicDataForSaleInvoiceByMonth" labelY="Money"></sb-charts-bar>
             </div>
         </sb-card>
     </div>
