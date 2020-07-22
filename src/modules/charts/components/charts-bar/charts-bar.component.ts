@@ -5,6 +5,9 @@ import {
     ElementRef,
     OnInit,
     ViewChild,
+    Input,
+    KeyValueDiffer,
+    KeyValueDiffers,
 } from '@angular/core';
 import { Chart } from 'chart.js';
 
@@ -17,21 +20,65 @@ import { Chart } from 'chart.js';
 export class ChartsBarComponent implements OnInit, AfterViewInit {
     @ViewChild('myBarChart') myBarChart!: ElementRef<HTMLCanvasElement>;
     chart!: Chart;
+    @Input() graphicData: Array<any> = [];
+    @Input() labelX: string = '';
+    @Input() labelY: string = '';
 
-    constructor() {}
-    ngOnInit() {}
+    private graphicDataDiffers: KeyValueDiffer<string, any>;
+
+    constructor(
+        private differs: KeyValueDiffers, // to get changes in a object
+    ) {
+        this.graphicDataDiffers = this.differs.find(this.graphicData).create();
+
+    }
+    ngOnInit() {
+    }
+
+    ngDoCheck(): void {
+
+        if (!this.myBarChart) return;
+
+        const changes = this.graphicDataDiffers.diff(this.graphicData);
+        if (changes) {
+            this.loadChart();
+        }
+    }
 
     ngAfterViewInit() {
+        this.loadChart();
+    }
+
+    loadChart() {
+
+        let myLabels = [];
+        let myData = [];
+
+        for (let index = 0; index < this.graphicData.length; index++) {
+            myLabels.push(this.graphicData[index].X);
+            myData.push(this.graphicData[index].Y);
+
+        }
+
+        //destroy chart if it exist
+        if (this.chart !== undefined) {
+            this.chart.destroy();
+        }
+
+        //start loading chart
+
         this.chart = new Chart(this.myBarChart.nativeElement, {
             type: 'bar',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                // labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                labels: myLabels,
                 datasets: [
                     {
                         label: 'Revenue',
                         backgroundColor: 'rgba(2,117,216,1)',
                         borderColor: 'rgba(2,117,216,1)',
-                        data: [4215, 5312, 6251, 7841, 9821, 14984],
+                        // data: [4215, 5312, 6251, 7841, 9821, 14984],
+                        data: myData
                     },
                 ],
             },
@@ -68,5 +115,7 @@ export class ChartsBarComponent implements OnInit, AfterViewInit {
                 },
             },
         });
+
+        this.chart.update();
     }
 }
