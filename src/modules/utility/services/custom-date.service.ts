@@ -63,5 +63,18 @@ export class CustomDateService {
     return this.formatYYYYMMDD(this.ngbCalendar.getToday());
   }
 
+  substractDaysFromToday(days: number) {
+    return this.formatYYYYMMDD(this.ngbCalendar.getPrev(this.ngbCalendar.getToday(),'d',days));
+  }
+
+  substractMonthsFromToday(months: number) {
+    return this.formatYYYYMMDD(this.ngbCalendar.getPrev(this.ngbCalendar.getToday(),'m',months));
+  }
+
+
+
+
+
+
 
 }
