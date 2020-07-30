@@ -32,6 +32,10 @@
                         <span>Stocked</span>
                         <sb-sort-icon *ngIf='sortedColumn === "stocked"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
+
+                    <th scope="col">
+                        <span>Stock Types</span>
+                    </th>
                     <th scope="col">
                         <span>Options</span>
                     </th>
@@ -64,6 +68,9 @@
                         </ngb-highlight> -->
                         <fa-icon *ngIf="item.stocked" [icon]='["fas", "check-circle"]'></fa-icon>
 
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.stocks.toString()"></ngb-highlight>
                     </td>
                     <td>
                         <div class="row ">

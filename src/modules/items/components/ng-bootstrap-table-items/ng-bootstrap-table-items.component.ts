@@ -78,6 +78,7 @@ export class NgBootstrapTableItemsComponent implements OnInit {
 
       if (response.status) {
         this.items = response.result;
+        console.log(this.items);
         this.searchOption.total = response.records;
       }else{
         this.notificationService.error(response.message);

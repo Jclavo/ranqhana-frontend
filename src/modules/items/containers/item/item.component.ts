@@ -4,12 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 //MODELS
 import { Item } from "@modules/items/models";
 import { Unit } from "@modules/units/models";
+import { StockTypes } from "@modules/stock-types/models";
 
 //SERVICES
 import { ItemService } from "../../services";
 import { NotificationService } from '@modules/utility/services';
 import { AuthService } from '@modules/auth/services';
 import { UnitService } from '@modules/units/services';
+import { StockTypesService } from '@modules/stock-types/services';
 
 @Component({
   selector: 'sb-item',
@@ -21,6 +23,7 @@ export class ItemComponent implements OnInit {
   public item = new Item();
 
   public units: Array<Unit> = [];
+  public stockTypes: Array<StockTypes> = [];
 
   constructor(
     private notificationService: NotificationService,
@@ -29,12 +32,13 @@ export class ItemComponent implements OnInit {
     private itemService: ItemService,
     private authService: AuthService,
     private unitService: UnitService,
-
+    private stockTypesService: StockTypesService
   ) { }
 
   ngOnInit(): void {
 
     this.getUnits();
+    this.getStockTypes();
 
     this.item.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
     this.item.id ? this.getById(this.item.id) : null;
@@ -45,13 +49,17 @@ export class ItemComponent implements OnInit {
     this.itemService.getById(id).subscribe(response => {
 
       if (response.status) {
-        //this.notificationService.success(response.message);
-        // this.item.name = response.result?.name;
-        // this.item.description = response.result?.description;
-        // this.item.price = response.result?.price;
-        // this.item.store_id = response.result?.store_id;
         this.item = response.result;
 
+        //logic to check as true the stock types selected
+        for (let i = 0; i < this.item.stocks.length; i++) {
+            for (let j = 0; j < this.stockTypes.length; j++) {
+              if(this.item.stocks[i] == this.stockTypes[j].id){
+                this.stockTypes[j].checked = true;
+                break;
+              }
+            }
+        }
       }
       else {
         this.notificationService.error(response.message);
@@ -64,6 +72,8 @@ export class ItemComponent implements OnInit {
   }
 
   save() {
+
+    this.item.stocks = this.getStockTypesChoosen(); // get stock types selected
 
     if(this.item.id){
       this.update(this.item);
@@ -123,6 +133,34 @@ export class ItemComponent implements OnInit {
       this.notificationService.error(error);
       this.authService.raiseError();
     });
+  }
+
+  getStockTypes(){
+
+    this.stockTypesService.get().subscribe(response => {
+
+      if (response.status) {
+        this.stockTypes = response.result;
+      }else{
+        this.notificationService.error(response.message);
+      }
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+  getStockTypesChoosen(){
+
+    let stockTypes: Array<StockTypes> = [];
+    stockTypes = this.stockTypes.filter(function(value) {
+      return value.checked == true;
+    });
+
+    return stockTypes.map(function(value) {
+      return value.id;
+    });
+
   }
 
 }

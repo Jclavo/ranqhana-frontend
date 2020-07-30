@@ -8,6 +8,7 @@ import { environment } from "../../../environments/environment";
 
 //Models
 import { Item, SearchItemOptions } from '@modules/items/models';
+import { StockTypes } from "@modules/stock-types/models";
 import { Response } from '@modules/utility/models';
 
 //SERVICES
@@ -40,7 +41,7 @@ export class ItemService {
       response.status = resultRAW.status;
       response.message = resultRAW.message;
 
-      response.result = resultRAW.result?.map((data: any) => {
+      response.result = resultRAW.result?.map((data: any, index: number) => {
 
         let item = new Item();
         item.id = data.id;
@@ -55,6 +56,11 @@ export class ItemService {
         item.store_id = data.store_id;
         item.created_at = data.created_at;
         item.updated_at = data.updated_at;
+
+        //stock types
+        item.stocks = resultRAW.result[index]?.stock_types?.map(function(value: StockTypes) {
+          return value.name;
+        });
 
         return item;
       });
@@ -94,6 +100,11 @@ export class ItemService {
         item.store_id = resultRAW.result?.store_id;
         item.created_at = resultRAW.result?.created_at;
         item.updated_at = resultRAW.result?.updated_at;
+
+        //stock types
+        item.stocks = resultRAW.result?.stock_types.map(function(value: StockTypes) {
+          return value.id;
+        });
 
         response.result = item;
       }

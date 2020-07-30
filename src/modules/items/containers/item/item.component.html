@@ -44,7 +44,7 @@
 
         </div>
 
-        <div class="form-row ">
+        <div class="form-row">
           <div class="form-group col-12 mt-2">
             <label class="control-label font-weight-bold" for="description">Description</label>
             <textarea class="form-control" id="description" rows="3" name="description" [(ngModel)]="item.description"
@@ -52,6 +52,17 @@
           </div>
         </div>
 
+        <div class="form-row">
+          <label class="control-label font-weight-bold" for="descriptionxx">Check Box</label>
+        </div>
+        <div class="form-row">
+          <div *ngFor="let stockType of stockTypes" class="form-check form-check-inline" >
+            <input class="form-check-input" type="checkbox" [name]="stockType.id" [value]="stockType.id" [(ngModel)]="stockType.checked">
+            <label class="form-check-label" for="inlineCheckbox1">{{stockType.name}}</label>
+          </div>
+        </div>
+
+        <br>
         <div class="form-row align-items-center">
           <div class="col-12 col-md-6 mb-3">
             <button class="btn btn-danger btn-md btn-block" routerLink="/items">Cancel</button>
