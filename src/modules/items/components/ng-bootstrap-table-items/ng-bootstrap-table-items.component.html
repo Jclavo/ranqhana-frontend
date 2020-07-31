@@ -8,7 +8,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col" sbSortable="name" (sort)="onSort($event)">
-                        <span>Country</span>
+                        <span>Item</span>
                         <sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
                     <th scope="col" sbSortable="description" (sort)="onSort($event)">
