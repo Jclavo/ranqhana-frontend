@@ -58,7 +58,7 @@ export class ItemService {
         item.updated_at = data.updated_at;
 
         //stock types
-        item.stocks = resultRAW.result[index]?.stock_types?.map(function(value: StockTypes) {
+        item.stock_types = resultRAW.result[index]?.stock_types?.map(function(value: StockTypes) {
           return value.name;
         });
 
@@ -102,7 +102,7 @@ export class ItemService {
         item.updated_at = resultRAW.result?.updated_at;
 
         //stock types
-        item.stocks = resultRAW.result?.stock_types.map(function(value: StockTypes) {
+        item.stock_types = resultRAW.result?.stock_types.map(function(value: StockTypes) {
           return value.id;
         });
 

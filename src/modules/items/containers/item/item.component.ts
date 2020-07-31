@@ -52,9 +52,9 @@ export class ItemComponent implements OnInit {
         this.item = response.result;
 
         //logic to check as true the stock types selected
-        for (let i = 0; i < this.item.stocks.length; i++) {
+        for (let i = 0; i < this.item.stock_types.length; i++) {
             for (let j = 0; j < this.stockTypes.length; j++) {
-              if(this.item.stocks[i] == this.stockTypes[j].id){
+              if(this.item.stock_types[i] == this.stockTypes[j].id){
                 this.stockTypes[j].checked = true;
                 break;
               }
@@ -73,7 +73,7 @@ export class ItemComponent implements OnInit {
 
   save() {
 
-    this.item.stocks = this.getStockTypesChoosen(); // get stock types selected
+    this.item.stock_types = this.getStockTypesChoosen(); // get stock types selected
 
     if(this.item.id){
       this.update(this.item);

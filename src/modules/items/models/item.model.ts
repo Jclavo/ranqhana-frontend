@@ -13,7 +13,7 @@ export class Item {
     created_at: string = ''; 
     updated_at: string = ''; 
 
-    stocks: Array<number|string> = [];
+    stock_types: Array<number|string> = [];
     
     //extra fields
     quantity: number = 0;
