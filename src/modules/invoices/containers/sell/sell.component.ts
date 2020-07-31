@@ -5,6 +5,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 //MODELS
 import { Item, SearchItemOptions } from '@modules/items/models';
+import { StockTypes } from '@modules/stock-types/models';
 import { SellInvoice, InvoiceDetail, SearchItem } from '../../models';
 
 //SERVICES
@@ -27,6 +28,7 @@ export class SellComponent implements OnInit {
   public searchItemOptions = new SearchItemOptions();
   public searchItem = new SearchItem();
   public sellInvoice = new SellInvoice();
+  public stockType = new StockTypes();
 
   public items: Array<Item> = [];
   public invoiceDetails: Array<InvoiceDetail> = [];
@@ -70,8 +72,9 @@ export class SellComponent implements OnInit {
 
   getItems(searchValue: string) {
 
-    this.searchItemOptions.searchValue = searchValue;
-    this.searchItemOptions.invoice_type_id = this.sellInvoice.getTypeForSell();
+    this.searchItemOptions.searchValue = searchValue; // Assign value to search
+    this.searchItemOptions.stock_type_id = this.stockType.getTypeForSell();
+
 
     return this.itemService.get(this.searchItemOptions).pipe(
       map(response => {
