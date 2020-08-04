@@ -75,6 +75,11 @@ export class ItemComponent implements OnInit {
 
     this.item.stock_types = this.getStockTypesChoosen(); // get stock types selected
 
+    if(this.item.stock_types.length == 0){
+      this.notificationService.error('Select at least one stock type.');
+      return;
+    }
+
     if(this.item.id){
       this.update(this.item);
     }
