@@ -1,4 +1,10 @@
 export class Service {
-    [key: string]: string | number;
-    id: string = '';  
+    id: number = 0; 
+    name: string = '';
+    description: string = '';
+    price: number = 0;
+    created_at: string = ''; 
+    updated_at: string = ''; 
+
+    stock_types: Array<number|string> = [];
 }

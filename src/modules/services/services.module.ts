@@ -7,9 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
+import { UtilityModule } from '@modules/utility/utility.module';
 
 /* Components */
 import * as servicesComponents from './components';
+import * as utilitiesComponents from '@modules/utility/components';
 
 /* Containers */ 
 import * as servicesContainers from './containers';
@@ -30,6 +32,7 @@ import * as servicesServices from './services';
         HttpClientModule,
         AppCommonModule,
         NavigationModule,
+        UtilityModule
   ],
   providers: [
     DecimalPipe,
@@ -40,6 +43,12 @@ import * as servicesServices from './services';
     ...servicesContainers.containers,
     ...servicesComponents.components,
   ],
-  exports: [],
+  exports: [
+    ...servicesContainers.containers, 
+    ...servicesComponents.components
+  ],
+  entryComponents: [
+    utilitiesComponents.ConfirmModalComponent,
+  ]
 })
 export class ServicesModule { }
