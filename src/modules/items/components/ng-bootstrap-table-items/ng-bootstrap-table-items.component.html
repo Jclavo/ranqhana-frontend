@@ -37,6 +37,9 @@
                         <span>Stock Types</span>
                     </th>
                     <th scope="col">
+                        <span>Types</span>
+                    </th>
+                    <th scope="col">
                         <span>Options</span>
                     </th>
                 </tr>
@@ -54,29 +57,25 @@
                         <ngb-highlight [result]="item.price | number" [term]="searchOption.searchValue"></ngb-highlight>
                     </td>
                     <td>
-                        <!-- <ngb-highlight *ngIf="item.stocked" [result]="item.stock | number" [term]="searchOption.searchValue"></ngb-highlight> -->
                         <ngb-highlight [result]="item.stocked ? item.stock : '-' " [term]="searchOption.searchValue"></ngb-highlight>
                     </td>
                     <td>
                         <ngb-highlight [result]="item.unit" [term]="searchOption.searchValue"></ngb-highlight>
                     </td>
-                    <!-- <td class="text-center"> -->
                     <td>
-                        <!-- <ngb-highlight [result]="item.stocked ? 'YES' : 'NO' " [term]="searchOption.searchValue">
-                        </ngb-highlight> -->
-                        <!-- <ngb-highlight [result]="item.stocked ? '' : 'NO' " [term]="searchOption.searchValue">
-                        </ngb-highlight> -->
                         <fa-icon *ngIf="item.stocked" [icon]='["fas", "check-circle"]'></fa-icon>
-
                     </td>
                     <td>
                         <ngb-highlight [result]="item.stock_types.toString()"></ngb-highlight>
                     </td>
                     <td>
+                        <ngb-highlight [result]="item.type"></ngb-highlight>
+                    </td>
+                    <td>
                         <div class="row ">
                             <div class="col-2 mb-1 ml-3">
                                 <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}"
-                                    size="lg" routerLink="/items/item/{{item.id}}"></fa-icon>
+                                    size="lg" routerLink="/items/product/{{item.id}}"></fa-icon>
                             </div>
                             <div class="col-2 mb-1 ml-3">
                                 <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
