@@ -14,11 +14,11 @@ import { UnitService } from '@modules/units/services';
 import { StockTypesService } from '@modules/stock-types/services';
 
 @Component({
-  selector: 'sb-item',
-  templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss']
+  selector: 'sb-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss']
 })
-export class ItemComponent implements OnInit {
+export class ProductComponent implements OnInit {
 
   public item = new Item();
 
@@ -91,7 +91,7 @@ export class ItemComponent implements OnInit {
   }
 
   create(item: Item) {
-    this.itemService.create(item).subscribe(response => {
+    this.itemService.createProduct(item).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
@@ -109,7 +109,7 @@ export class ItemComponent implements OnInit {
 
   update(item: Item)
   {
-    this.itemService.update(item).subscribe(response => {
+    this.itemService.updateProduct(item).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);

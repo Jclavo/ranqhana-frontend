@@ -1,8 +1,8 @@
 import { ItemListComponent } from './item-list/item-list.component';
-import { ItemComponent } from './item/item.component';
+import { ProductComponent } from './product/product.component';
 
-export const containers = [ItemListComponent, ItemComponent ];
+export const containers = [ItemListComponent, ProductComponent ];
 
 export * from './item-list/item-list.component';
-export * from './item/item.component';
+export * from './product/product.component';
 

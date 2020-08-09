@@ -33,36 +33,36 @@ export const ROUTES: Routes = [
         } as SBRouteData,
     },
     {
-        path: 'item',
+        path: 'product',
         canActivate: [GlobalGuard],
-        component: itemsContainers.ItemComponent,
+        component: itemsContainers.ProductComponent,
         data: {
-            title: 'Item - Store App',
+            title: 'Product - Store App',
             breadcrumbs: [
                 {
                     text: 'Dashboard',
                     link: '/dashboard',
                 },
                 {
-                    text: 'Item',
+                    text: 'Product',
                     active: true,
                 },
             ],
         } as SBRouteData,
     },
     {
-        path: 'item/:id',
+        path: 'product/:id',
         canActivate: [GlobalGuard],
-        component: itemsContainers.ItemComponent,
+        component: itemsContainers.ProductComponent,
         data: {
-            title: 'Edit Item - Store App',
+            title: 'Edit Product - Store App',
             breadcrumbs: [
                 {
                     text: 'Dashboard',
                     link: '/dashboard',
                 },
                 {
-                    text: 'Edit Item',
+                    text: 'Product Item',
                     active: true,
                 },
             ],

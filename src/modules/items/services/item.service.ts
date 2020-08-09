@@ -19,14 +19,18 @@ import { AuthService } from '@modules/auth/services';
 })
 export class ItemService {
 
-  static service: string =  'items/'
+  static service: string =  'items/';
+  static sub_service_product: string =  'products/';
+  static sub_service_service: string =  'services/'
 
   private apiRoot: string = environment.apiURL + ItemService.service;
+  private apiRootProduct: string = environment.apiURL + ItemService.service + ItemService.sub_service_product;
 
   constructor(
     private http: HttpClient,
     private authService: AuthService
-  ) {}
+  ) {
+  }
 
   get(searchOption: SearchItemOptions): Observable<Response> {
 
@@ -58,9 +62,12 @@ export class ItemService {
         item.updated_at = data.updated_at;
 
         //stock types
-        item.stock_types = resultRAW.result[index]?.stock_types?.map(function(value: StockTypes) {
+        item.stock_types = data.stock_types?.map(function(value: StockTypes) {
           return value.name;
         });
+
+        //type
+        item.type = data.type?.name;
 
         return item;
       });
@@ -119,28 +126,6 @@ export class ItemService {
       }));
   }
 
-  create(item: Item): Observable<Response> {
-
-    let apiRoot = this.apiRoot;
-
-    return this.http.post(apiRoot, item, this.authService.getHeaders()).pipe(map(res => {
-
-      let response = new Response();
-      let resultRAW: any = res;
-
-      //Set response
-      response.status = resultRAW.status;
-      response.message = resultRAW.message;
-      //response.result = resultRAW.result;
-
-      return response;
-
-    }),
-      catchError(error => {
-        return throwError(error.message);
-      }));
-  }
-
   delete(id: string): Observable<Response> {
 
     let apiRoot = this.apiRoot + id;
@@ -161,9 +146,36 @@ export class ItemService {
       }));
   }
 
-  update(item: Item): Observable<Response> {
+  /**
+   * 
+   * PRODUCT methods
+   */
 
-    let apiRoot = this.apiRoot + item.id;
+  createProduct(item: Item): Observable<Response> {
+
+    let apiRoot = this.apiRootProduct;
+
+    return this.http.post(apiRoot, item, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  updateProduct(item: Item): Observable<Response> {
+
+    let apiRoot = this.apiRootProduct + item.id;
 
     return this.http.put(apiRoot, item, this.authService.getHeaders()).pipe(map(res => {
 

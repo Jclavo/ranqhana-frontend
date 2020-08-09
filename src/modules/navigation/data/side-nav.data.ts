@@ -95,9 +95,14 @@ export const sideNavItems: SideNavItems = {
                 link: '/items',
             },
             {
-                text: 'Item',
-                link: '/items/item',
-            },
+                text: 'Product',
+                link: '/items/product',
+            }
+            // ,
+            // {
+            //     text: 'Service',
+            //     link: '/items/service',
+            // },
         ],
     },
     services: {
