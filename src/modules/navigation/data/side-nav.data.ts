@@ -5,14 +5,9 @@ export const sideNavSections: SideNavSection[] = [
         text: 'CORE',
         items: ['dashboard'],
     },
-    // {
-    //     text: 'INTERFACE',
-    //     items: ['layouts', 'pages'],
-    // },
     {
         text: 'ADDONS',
-        // items: ['charts', 'tables', 'invoices', 'items', 'units', 'users'],
-        items: ['invoices', 'items', 'services', 'units', 'users'],
+        items: ['invoices', 'products', 'services', 'units', 'users'],
     },
 ];
 
@@ -86,23 +81,18 @@ export const sideNavItems: SideNavItems = {
         text: 'Tables',
         link: '/tables',
     },
-    items: {
+    products: {
         icon: 'table',
-        text: 'Items',
+        text: 'Products',
         submenu: [
             {
-                text: 'Item List',
-                link: '/items',
+                text: 'Product List',
+                link: '/items/products',
             },
             {
                 text: 'Product',
                 link: '/items/product',
-            }
-            // ,
-            // {
-            //     text: 'Service',
-            //     link: '/items/service',
-            // },
+            },
         ],
     },
     services: {
@@ -111,14 +101,28 @@ export const sideNavItems: SideNavItems = {
         submenu: [
             {
                 text: 'Service List',
-                link: '/services',
+                link: '/items/services',
             },
             {
                 text: 'Service',
-                link: '/services/service',
+                link: '/items/service',
             },
         ],
     },
+    // services: {
+    //     icon: 'table',
+    //     text: 'Services',
+    //     submenu: [
+    //         {
+    //             text: 'Service List',
+    //             link: '/services',
+    //         },
+    //         {
+    //             text: 'Service',
+    //             link: '/services/service',
+    //         },
+    //     ],
+    // },
     invoices: {
         icon: 'table',
         text: 'Invoices',

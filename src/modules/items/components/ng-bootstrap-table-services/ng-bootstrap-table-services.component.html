@@ -1,0 +1,78 @@
+<form>
+    <div class="form-group form-inline">Full search:
+        <input class="form-control ml-sm-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" sbSortable="name" (sort)="onSort($event)">
+                        <span>Service</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon>
+                    </th>
+                    <th scope="col" sbSortable="description" (sort)="onSort($event)">
+                        <span>Description</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "description"' [direction]="sortedDirection">
+                        </sb-sort-icon>
+                    </th>
+                    <th scope="col" sbSortable="price" (sort)="onSort($event)">
+                        <span>Price $</span>
+                        <sb-sort-icon *ngIf='sortedColumn === "price"' [direction]="sortedDirection"></sb-sort-icon>
+                    </th>
+                    <th scope="col">
+                        <span>Stock Types</span>
+                    </th>
+                    <th scope="col">
+                        <span>Options</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let service of services">
+                    <th scope="row" class="col-auto">{{ service.id }}</th>
+                    <td>
+                        <ngb-highlight [result]="service.name" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="service.description" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="service.price | number" [term]="searchOption.searchValue"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="service.stock_types.toString()"></ngb-highlight>
+                    </td>
+                    <td>
+                        <div class="row ">
+                            <div class="col-2 mb-1 ml-3">
+                                <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}"
+                                    size="lg" routerLink="/items/service/{{service.id}}"></fa-icon>
+                            </div>
+                            <div class="col-2 mb-1 ml-3">
+                                <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
+                                    size="lg" (click)="modalDelete(service.id, service.name)"></fa-icon>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6 mt-3">
+            <ngb-pagination class="d-flex justify-content-start" [collectionSize]="searchOption.total"
+                [(page)]="searchOption.page" [maxSize]="maxSizePagination" [pageSize]="searchOption.per_page"
+                [rotate]="true" [boundaryLinks]="true">
+            </ngb-pagination>
+        </div>
+        <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
+            <select class="custom-select" name="per_page" [(ngModel)]="searchOption.per_page">
+                <option [ngValue]="10">10 services per page</option>
+                <option [ngValue]="20">20 services per page</option>
+                <option [ngValue]="50">50 services per page</option>
+            </select>
+        </div>
+    </div>
+</form>

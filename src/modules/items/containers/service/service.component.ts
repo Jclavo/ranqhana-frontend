@@ -14,13 +14,13 @@ import { UnitService } from '@modules/units/services';
 import { StockTypesService } from '@modules/stock-types/services';
 
 @Component({
-  selector: 'sb-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  selector: 'sb-service',
+  templateUrl: './service.component.html',
+  styleUrls: ['./service.component.scss']
 })
-export class ProductComponent implements OnInit {
+export class ServiceComponent implements OnInit {
 
-  public product = new Item();
+  public service = new Item();
 
   public units: Array<Unit> = [];
   public stockTypes: Array<StockTypes> = [];
@@ -40,8 +40,8 @@ export class ProductComponent implements OnInit {
     this.getUnits();
     this.getStockTypes();
 
-    this.product.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
-    this.product.id ? this.getById(this.product.id) : null;
+    this.service.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
+    this.service.id ? this.getById(this.service.id) : null;
   }
   
   getById(id: number)
@@ -49,12 +49,12 @@ export class ProductComponent implements OnInit {
     this.itemService.getById(id).subscribe(response => {
 
       if (response.status) {
-        this.product = response.result;
+        this.service = response.result;
 
         //logic to check as true the stock types selected
-        for (let i = 0; i < this.product.stock_types.length; i++) {
+        for (let i = 0; i < this.service.stock_types.length; i++) {
             for (let j = 0; j < this.stockTypes.length; j++) {
-              if(this.product.stock_types[i] == this.stockTypes[j].id){
+              if(this.service.stock_types[i] == this.stockTypes[j].id){
                 this.stockTypes[j].checked = true;
                 break;
               }
@@ -73,29 +73,29 @@ export class ProductComponent implements OnInit {
 
   save() {
 
-    this.product.stock_types = this.getStockTypesChoosen(); // get stock types selected
+    this.service.stock_types = this.getStockTypesChoosen(); // get stock types selected
 
-    if(this.product.stock_types.length == 0){
+    if(this.service.stock_types.length == 0){
       this.notificationService.error('Select at least one stock type.');
       return;
     }
 
-    if(this.product.id){
-      this.update(this.product);
+    if(this.service.id){
+      this.update(this.service);
     }
     else{
-      this.product.store_id = this.authService.getUserStoreID();
-      this.create(this.product);
+      this.service.store_id = this.authService.getUserStoreID();
+      this.create(this.service);
     }
 
   }
 
-  create(product: Item) {
-    this.itemService.createProduct(product).subscribe(response => {
+  create(service: Item) {
+    this.itemService.createService(service).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
-        this.router.navigate(['/items/products']);
+        this.router.navigate(['/items/services']);
       }
       else {
         this.notificationService.error(response.message);
@@ -107,13 +107,13 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  update(product: Item)
+  update(service: Item)
   {
-    this.itemService.updateProduct(product).subscribe(response => {
+    this.itemService.updateService(service).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message);
-        this.router.navigate(['/items/products']);
+        this.router.navigate(['/items/services']);
       }
       else {
         this.notificationService.error(response.message);

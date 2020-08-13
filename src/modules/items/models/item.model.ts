@@ -14,7 +14,25 @@ export class Item {
     updated_at: string = ''; 
 
     stock_types: Array<number|string> = [];
+    type_id: number = 0;
     
     //extra fields
     quantity: number = 0;
+
+
+    /**
+     * Getter and setters
+     */
+    setTypeProduct(){
+        this.type_id = 1;
+    }
+
+    setTypeService(){
+        this.type_id = 2;
+    }
+
+    getType(){
+        return this.type_id;
+    }
+
 }

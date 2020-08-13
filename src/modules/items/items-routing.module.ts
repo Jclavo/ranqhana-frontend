@@ -15,18 +15,18 @@ import { SBRouteData } from '@modules/navigation/models';
 /* Routes */
 export const ROUTES: Routes = [
     {
-        path: '',
+        path: 'products',
         canActivate: [GlobalGuard],
-        component: itemsContainers.ItemListComponent,
+        component: itemsContainers.ProductListComponent,
         data: {
-            title: 'Items List - Store App',
+            title: 'Product List - Store App',
             breadcrumbs: [
                 {
                     text: 'Dashboard ',
                     link: '/dashboard',
                 },
                 {
-                    text: 'Items List',
+                    text: 'Product List',
                     active: true,
                 }
             ],
@@ -63,6 +63,60 @@ export const ROUTES: Routes = [
                 },
                 {
                     text: 'Product Item',
+                    active: true,
+                },
+            ],
+        } as SBRouteData,
+    },
+    {
+        path: 'services',
+        canActivate: [GlobalGuard],
+        component: itemsContainers.ServiceListComponent,
+        data: {
+            title: 'Service List - Store App',
+            breadcrumbs: [
+                {
+                    text: 'Dashboard ',
+                    link: '/dashboard',
+                },
+                {
+                    text: 'Service List',
+                    active: true,
+                }
+            ],
+        } as SBRouteData,
+    },
+    {
+        path: 'service',
+        canActivate: [GlobalGuard],
+        component: itemsContainers.ServiceComponent,
+        data: {
+            title: 'Service - Store App',
+            breadcrumbs: [
+                {
+                    text: 'Dashboard',
+                    link: '/dashboard',
+                },
+                {
+                    text: 'Service',
+                    active: true,
+                },
+            ],
+        } as SBRouteData,
+    },
+    {
+        path: 'service/:id',
+        canActivate: [GlobalGuard],
+        component: itemsContainers.ServiceComponent,
+        data: {
+            title: 'Edit Service - Store App',
+            breadcrumbs: [
+                {
+                    text: 'Dashboard',
+                    link: '/dashboard',
+                },
+                {
+                    text: 'Service Item',
                     active: true,
                 },
             ],

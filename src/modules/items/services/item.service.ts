@@ -25,6 +25,7 @@ export class ItemService {
 
   private apiRoot: string = environment.apiURL + ItemService.service;
   private apiRootProduct: string = environment.apiURL + ItemService.service + ItemService.sub_service_product;
+  private apiRootService: string = environment.apiURL + ItemService.service + ItemService.sub_service_service;
 
   constructor(
     private http: HttpClient,
@@ -67,7 +68,7 @@ export class ItemService {
         });
 
         //type
-        item.type = data.type?.name;
+        // item.type = data.type?.name;
 
         return item;
       });
@@ -176,6 +177,55 @@ export class ItemService {
   updateProduct(item: Item): Observable<Response> {
 
     let apiRoot = this.apiRootProduct + item.id;
+
+    return this.http.put(apiRoot, item, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  /**
+   * 
+   * SERVICE methods
+   */
+
+  createService(item: Item): Observable<Response> {
+
+    let apiRoot = this.apiRootService;
+
+    return this.http.post(apiRoot, item, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  updateService(item: Item): Observable<Response> {
+
+    let apiRoot = this.apiRootService + item.id;
 
     return this.http.put(apiRoot, item, this.authService.getHeaders()).pipe(map(res => {
 
