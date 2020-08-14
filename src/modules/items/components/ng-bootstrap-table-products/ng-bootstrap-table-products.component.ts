@@ -74,10 +74,7 @@ export class NgBootstrapTableProductsComponent implements OnInit {
 
   getItems() {
 
-    let _item = new Item();
-    _item.setTypeProduct();
-
-    this.searchOption.type_id = _item.getType();
+    this.searchOption.type_id = Item.getTypeProduct();
     this.itemService.get(this.searchOption).subscribe(response => {
 
       if (response.status) {

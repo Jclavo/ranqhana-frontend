@@ -74,10 +74,7 @@ export class NgBootstrapTableServicesComponent implements OnInit {
 
   getServices() {
 
-    let _item = new Item();
-    _item.setTypeService();
-
-    this.searchOption.type_id = _item.getType();
+    this.searchOption.type_id = Item.getTypeService();
 
     this.serviceService.get(this.searchOption).subscribe(response => {
 
