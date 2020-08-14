@@ -30,7 +30,6 @@ export class PurchaseComponent implements OnInit {
   public searchItemOptions = new SearchItemOptions();
   public searchItem = new SearchItem();
   public purchaseInvoice = new PurchaseInvoice();
-  public stockType = new StockTypes();
 
   public items: Array<SearchItem> = [];
   public invoiceDetails: Array<InvoiceDetail> = [];
@@ -72,7 +71,7 @@ export class PurchaseComponent implements OnInit {
   getItems(searchValue: string) {
 
     this.searchItemOptions.searchValue = searchValue;
-    this.searchItemOptions.stock_type_id = this.stockType.getTypeForPurchase();
+    this.searchItemOptions.stock_type_id = StockTypes.getTypeForPurchase();
     
     return this.itemService.get(this.searchItemOptions).pipe(
       map(response => {
@@ -160,7 +159,7 @@ export class PurchaseComponent implements OnInit {
 
   save() {
 
-    this.purchaseInvoice.setTypeForPurchase();
+    this.purchaseInvoice.type_id = StockTypes.getTypeForPurchase();
     this.invoiceUtils.create(this.purchaseInvoice, this.invoiceDetails);
 
   }

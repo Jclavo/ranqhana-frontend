@@ -28,7 +28,6 @@ export class SellComponent implements OnInit {
   public searchItemOptions = new SearchItemOptions();
   public searchItem = new SearchItem();
   public sellInvoice = new SellInvoice();
-  public stockType = new StockTypes();
 
   public items: Array<Item> = [];
   public invoiceDetails: Array<InvoiceDetail> = [];
@@ -73,8 +72,7 @@ export class SellComponent implements OnInit {
   getItems(searchValue: string) {
 
     this.searchItemOptions.searchValue = searchValue; // Assign value to search
-    this.searchItemOptions.stock_type_id = this.stockType.getTypeForSell();
-
+    this.searchItemOptions.stock_type_id = StockTypes.getTypeForSell();
 
     return this.itemService.get(this.searchItemOptions).pipe(
       map(response => {
@@ -83,6 +81,7 @@ export class SellComponent implements OnInit {
           this.items = response.result;
           return this.items;
         } else {
+          this.notificationService.error(response.message);
           return []
         }
       }, (error: any) => {
@@ -177,7 +176,7 @@ export class SellComponent implements OnInit {
 
   save() {
 
-    this.sellInvoice.setTypeForSell();
+    this.sellInvoice.type_id = StockTypes.getTypeForSell();
     this.invoiceUtils.create(this.sellInvoice, this.invoiceDetails);
 
   }
