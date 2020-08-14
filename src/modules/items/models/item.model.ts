@@ -23,16 +23,12 @@ export class Item {
     /**
      * Getter and setters
      */
-    setTypeProduct(){
-        this.type_id = 1;
+    static getTypeProduct(){
+        return 1;
     }
 
-    setTypeService(){
-        this.type_id = 2;
-    }
-
-    getType(){
-        return this.type_id;
+    static getTypeService(){
+        return 2;
     }
 
 }
