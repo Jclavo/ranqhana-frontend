@@ -3,11 +3,11 @@ export class StockTypes {
     name: string = '';
     checked: boolean = false;
 
-    getTypeForSell(){
+    static getTypeForSell(){
         return 1;
     }
 
-    getTypeForPurchase(){
+    static getTypeForPurchase(){
         return 2;
     }
 }
