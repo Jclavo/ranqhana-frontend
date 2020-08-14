@@ -4,7 +4,6 @@ export class SellInvoice extends Invoice {
 
     constructor(){
         super();
-        this.setTypeForSell();
     }
      
 }

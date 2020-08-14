@@ -4,7 +4,6 @@ export class PurchaseInvoice extends Invoice {
 
     constructor(){
         super();
-        this.setTypeForPurchase();
     }
      
 }
