@@ -54,7 +54,7 @@ export class PurchaseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.openModalAdditionalInfo();
+
   }
 
   formatter = (item: SearchItem) => item.name;
