@@ -84,6 +84,10 @@ export class AuthService {
         return this.getUserFeature('company_id');
     }
 
+    public getUserCompanyName() {
+        return this.getUserFeature('company');
+    }
+
     public getUserProjectID() {
         return this.getUserFeature('project_id');
     }
@@ -112,6 +116,8 @@ export class AuthService {
                     return JSON.parse(user)?.countryCode;
                 case 'company_id':
                     return JSON.parse(user)?.company_id;
+                case 'company':
+                    return JSON.parse(user)?.company;
                 case 'project_id':
                     return JSON.parse(user)?.project_id;
                 default:
