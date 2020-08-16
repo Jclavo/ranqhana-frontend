@@ -1,100 +1,121 @@
-<form>
-    <div class="form-group form-inline">Full search:
-        <input class="form-control ml-sm-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
-    </div>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col" sbSortable="login" (sort)="onSort($event)">
-                        <span>Login</span>
-                        <sb-sort-icon *ngIf='sortedColumn === "login"' [direction]="sortedDirection"></sb-sort-icon>
-                    </th>
-                    <th>
-                        <span>Identification</span>
-                    </th>
-                    <th>
-                        <span>Name</span>
-                    </th>
-                    <th>
-                        <span>Lastname</span>
-                    </th>
-                    <!-- <th scope="col" sbSortable="email" (sort)="onSort($event)">
-                        <span>Email</span>
-                        <sb-sort-icon *ngIf='sortedColumn === "email"' [direction]="sortedDirection"></sb-sort-icon>
-                    </th> -->
-                    <th>
-                        <span>Phone</span>
-                    </th>
-                    <th>
-                        <span>Address</span>
-                    </th>
-                    <th>
-                        <span>Roles</span>
-                    </th>
-                    <th scope="col">
-                        <span>Options</span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let user of users">
-                    <th scope="row" class="col-auto">{{ user.id }}</th>
-                    <td>
-                        <ngb-highlight [result]="user.login" [term]="searchOption.searchValue"></ngb-highlight>
-                    </td>
-                    <td>
-                        <ngb-highlight [result]="user.identification" [term]="searchOption.searchValue"></ngb-highlight>
-                    </td>
-                    <td>
-                        <ngb-highlight [result]="user.name" [term]="searchOption.searchValue"></ngb-highlight>
-                    </td>
-                    <td>
-                        <ngb-highlight [result]="user.lastname" [term]="searchOption.searchValue"></ngb-highlight>
-                    </td>
-                    <!-- <td>
-                        <ngb-highlight [result]="user.email" [term]="searchOption.searchValue"></ngb-highlight>
-                    </td> -->
-                    <td>
-                        <ngb-highlight [result]="user.phone" [term]="searchOption.searchValue"></ngb-highlight>
-                    </td>
-                    <td>
-                        <ngb-highlight [result]="user.address" [term]="searchOption.searchValue"></ngb-highlight>
-                    </td>
-                    <td>
-                        <ngb-highlight [result]="user.roles.toString()" [term]="searchOption.searchValue"></ngb-highlight>
-                    </td>
-                    <td>
-                        <div class="row ">
-                            <div class="col-2 mb-1 ml-3">
-                                <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}"
-                                    size="lg" routerLink="/users/user/{{user.id}}"></fa-icon>
-                            </div>
-                            <div class="col-2 mb-1 ml-3">
-                                <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
-                                    size="lg" (click)="modalDelete(user.id, user.name)"></fa-icon>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="row">
-        <div class="col-12 col-md-6 mt-3">
-            <ngb-pagination class="d-flex justify-content-start" [collectionSize]="searchOption.total"
-                [(page)]="searchOption.page" [maxSize]="maxSizePagination" [pageSize]="searchOption.pageSize"
-                [rotate]="true" [boundaryLinks]="true">
-            </ngb-pagination>
+<!-- <div class="form-group form-inline">Full search:
+    <input class="form-control ml-sm-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
+</div> -->
+<div class="row">
+    <div class="col-sm-12 col-md-9 col-xl-6">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold">Full search:</div>
+            </div>
+            <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
         </div>
-        <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
-            <select class="custom-select" name="pageSize" [(ngModel)]="searchOption.pageSize">
-                <option [ngValue]="10">10 users per page</option>
-                <option [ngValue]="20">20 users per page</option>
-                <option [ngValue]="50">50 users per page</option>
+    </div>
+    <div class="col-sm-12 col-md-3 offset-xl-3 col-xl-3">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold">Roles:</div>
+            </div>
+            <select class="custom-select" [(ngModel)]="searchOption.role_id" placeholder="Type">
+                <option *ngFor="let role of roles" [value]="role.id">
+                    {{role.name}}
+                  </option>
             </select>
         </div>
     </div>
-</form>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" sbSortable="login" (sort)="onSort($event)">
+                    <span>Login</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "login"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
+                <th>
+                    <span>Identification</span>
+                </th>
+                <th>
+                    <span>Name</span>
+                </th>
+                <th>
+                    <span>Lastname</span>
+                </th>
+                <!-- <th scope="col" sbSortable="email" (sort)="onSort($event)">
+                    <span>Email</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "email"' [direction]="sortedDirection"></sb-sort-icon>
+                </th> -->
+                <th>
+                    <span>Phone</span>
+                </th>
+                <th>
+                    <span>Address</span>
+                </th>
+                <th>
+                    <span>Roles</span>
+                </th>
+                <th scope="col">
+                    <span>Options</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <th scope="row" class="col-auto">{{ user.id }}</th>
+                <td>
+                    <ngb-highlight [result]="user.login" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="user.identification" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="user.name" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="user.lastname" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <!-- <td>
+                    <ngb-highlight [result]="user.email" [term]="searchOption.searchValue"></ngb-highlight>
+                </td> -->
+                <td>
+                    <ngb-highlight [result]="user.phone" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="user.address" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="user.roles.toString()" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <div class="row ">
+                        <div class="col-2 mb-1 ml-3">
+                            <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}"
+                                size="lg" routerLink="/users/user/{{user.id}}"></fa-icon>
+                        </div>
+                        <div class="col-2 mb-1 ml-3">
+                            <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
+                                size="lg" (click)="modalDelete(user.id, user.name)"></fa-icon>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-6 mt-3">
+        <ngb-pagination class="d-flex justify-content-start" [collectionSize]="searchOption.total"
+            [(page)]="searchOption.page" [maxSize]="maxSizePagination" [pageSize]="searchOption.pageSize"
+            [rotate]="true" [boundaryLinks]="true">
+        </ngb-pagination>
+    </div>
+    <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
+        <select class="custom-select" name="pageSize" [(ngModel)]="searchOption.pageSize">
+            <option [ngValue]="10">10 users per page</option>
+            <option [ngValue]="20">20 users per page</option>
+            <option [ngValue]="50">50 users per page</option>
+        </select>
+    </div>
+</div>

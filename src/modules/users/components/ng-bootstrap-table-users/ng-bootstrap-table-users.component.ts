@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 //MODELS
 import { User, SearchUserOptions} from "../../models";
+import { Role } from '@modules/roles/models';
 
 // COMPONENT 
 import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal/confirm-modal.component";
@@ -12,6 +13,7 @@ import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal
 import { UserService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService, UtilityService} from '@modules/utility/services';
+import { RoleService } from "@modules/roles/services";
 
 @Component({
   selector: 'sb-ng-bootstrap-table-users',
@@ -22,6 +24,7 @@ export class NgBootstrapTableUsersComponent implements OnInit {
 
   public searchOption = new SearchUserOptions();
   public users: Array<User> = [];
+  public roles: Array<Role> = [];
   public parameters: any;
   public maxSizePagination: number = 10;
 
@@ -41,11 +44,14 @@ export class NgBootstrapTableUsersComponent implements OnInit {
     private ngbModal: NgbModal,
     private modalService: NgbModal,
     private utilityService: UtilityService,
+    private roleService: RoleService,
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
     //Assign current company id
     this.searchOption.company_id = this.authService.getUserCompanyID();
+    //Get roles
+    this.getRoles(this.authService.getUserProjectID());
   }
 
   ngOnInit(): void {
@@ -121,6 +127,27 @@ export class NgBootstrapTableUsersComponent implements OnInit {
       this.notificationService.error(error);
       this.authService.raiseError();
     });
+  }
+
+  getRoles(project_id: number) {
+
+    this.roleService.getByProject(project_id).subscribe(response => {
+
+      if (response.status) {
+        this.roles = response.result;
+        let role = new Role;
+        role.name = 'All';
+        role.id = 0;
+        this.roles.push(role);
+      }else{
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+
   }
 
 }
