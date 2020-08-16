@@ -170,9 +170,9 @@ export class UserComponent implements OnInit {
     this.userService.create(user).subscribe(response => {
 
       if (response.status) {
-        // this.notificationService.success(response.message);
-        this.assignMassiveRole();
-
+        this.notificationService.success(response.message);
+        this.user.id = response.result?.id;
+        this.user.id ? this.assignMassiveRole() : null;
       }
       else {
         this.notificationService.error(response.message);
@@ -188,8 +188,7 @@ export class UserComponent implements OnInit {
     this.userService.update(user).subscribe(response => {
 
       if (response.status) {
-        // this.notificationService.success(response.message);
-        // this.router.navigate(['/users']);
+        this.notificationService.success(response.message);
         this.assignMassiveRole();
       }
       else {
@@ -212,7 +211,7 @@ export class UserComponent implements OnInit {
     this.userService.assignMassiveRole(userRoles).subscribe(response => {
 
       if (response.status) {
-        this.notificationService.success(response.message);
+        // this.notificationService.success(response.message);
         this.router.navigate(['/users']);
       }
       else {
