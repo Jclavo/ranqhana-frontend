@@ -87,7 +87,12 @@ export class UserService {
       //Set response
       response.status = resultRAW.status;
       response.message = resultRAW.message;
-      //response.result = resultRAW.result;
+      // response.result = resultRAW.result;
+      if (resultRAW.result) {
+        let user = new User();
+        user.id = resultRAW.result?.id;
+        response.result = user;
+      }
 
       return response;
 
