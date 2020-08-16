@@ -3,8 +3,7 @@ import { SBSortableHeaderDirective, SortEvent } from '@modules/utility/directive
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 //MODELS
-import { SearchOptions } from '@modules/utility/models';
-import { User} from "../../models";
+import { User, SearchUserOptions} from "../../models";
 
 // COMPONENT 
 import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal/confirm-modal.component";
@@ -21,7 +20,7 @@ import { NotificationService, UtilityService} from '@modules/utility/services';
 })
 export class NgBootstrapTableUsersComponent implements OnInit {
 
-  public searchOption = new SearchOptions();
+  public searchOption = new SearchUserOptions();
   public users: Array<User> = [];
   public parameters: any;
   public maxSizePagination: number = 10;
@@ -45,6 +44,8 @@ export class NgBootstrapTableUsersComponent implements OnInit {
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
+    //Assign current company id
+    this.searchOption.company_id = this.authService.getUserCompanyID();
   }
 
   ngOnInit(): void {
