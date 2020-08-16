@@ -11,8 +11,10 @@ export class Invoice {
     stage: string = '';
     user_id: number = 0;
     external_user_id: number = 0;
+    external_user: string = '';
     created_at: string = '';
     store: string = '';
+
 
     // setTypeForSell(){
     //     this.type_id = 1;
