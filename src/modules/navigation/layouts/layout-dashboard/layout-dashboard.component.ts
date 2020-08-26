@@ -11,9 +11,17 @@ import { sideNavItems, sideNavSections } from '@modules/navigation/data';
 import { NavigationService } from '@modules/navigation/services';
 import { Subscription } from 'rxjs';
 
+//MODELS
+import { Module } from '@modules/modules/models';
+
+//SERVICES
+import { ModuleService } from '@modules/modules/services';
+import { AuthService } from "@modules/auth/services";
+import { NotificationService } from '@modules/utility/services';
+
 @Component({
     selector: 'sb-layout-dashboard',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './layout-dashboard.component.html',
     styleUrls: ['layout-dashboard.component.scss'],
 })
@@ -22,14 +30,20 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
     @Input() light = false;
     @HostBinding('class.sb-sidenav-toggled') sideNavHidden = false;
     subscription: Subscription = new Subscription();
-    sideNavItems = sideNavItems;
+    // sideNavItems = sideNavItems;
+    sideNavItems: Array<Module> = [];
     sideNavSections = sideNavSections;
     sidenavStyle = 'sb-sidenav-dark';
 
     constructor(
         public navigationService: NavigationService,
-        private changeDetectorRef: ChangeDetectorRef
-    ) {}
+        private changeDetectorRef: ChangeDetectorRef,
+        public authService: AuthService,
+        private notificationService: NotificationService,
+        private moduleService: ModuleService
+    ) {
+        this.getItems();
+    }
     ngOnInit() {
         if (this.light) {
             this.sidenavStyle = 'sb-sidenav-light';
@@ -40,8 +54,28 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
                 this.changeDetectorRef.markForCheck();
             })
         );
+        
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    getItems() {
+
+        this.moduleService.getMenu().subscribe(response => {
+
+            if (response.status) {
+                // this.notificationService.success(response.message);
+                this.sideNavItems = response.result;
+                console.log(this.sideNavItems);
+            }
+            else {
+                this.notificationService.error('Your user does not have permissions.');
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
     }
 }

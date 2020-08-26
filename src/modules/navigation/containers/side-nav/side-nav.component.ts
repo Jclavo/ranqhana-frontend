@@ -5,7 +5,7 @@ import { NavigationService } from '@modules/navigation/services';
 import { Subscription } from 'rxjs';
 
 //SERVICES
-import { AuthService } from '@modules/auth/services';
+import { AuthService } from "@modules/auth/services";
 
 @Component({
     selector: 'sb-side-nav',
@@ -23,7 +23,8 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
     constructor(
         public navigationService: NavigationService,
-        public authService: AuthService) {
+        public authService: AuthService
+    ) {
 
         console.log('this.authService.getUserEmail()', this.authService.getUserEmail());
     }
@@ -33,4 +34,6 @@ export class SideNavComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
+
+
 }
