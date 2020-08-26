@@ -16,7 +16,14 @@ import {
     faTable,
     faTachometerAlt,
     faUser,
-    faCheckCircle
+    faCheckCircle,
+    faFileInvoiceDollar,
+    faBoxes,
+    faBox,
+    faToolbox,
+    faTools,
+    faICursor,
+    faUsers
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeSolidIcons = {
@@ -35,5 +42,12 @@ export const fontAwesomeSolidIcons = {
     faTable,
     faTachometerAlt,
     faUser,
-    faCheckCircle
+    faCheckCircle,
+    faFileInvoiceDollar,
+    faBoxes,
+    faBox,
+    faToolbox,
+    faTools,
+    faICursor,
+    faUsers
 };
