@@ -47,6 +47,7 @@ export class ModuleService {
         module.project_id = responseModule.project_id;
         module.labeled = responseModule.labeled;
         module.parent_id = responseModule.parent_id;
+        responseModule.icon ? module.icon = responseModule.icon : null;
 
         module.children = responseModule.children?.map(mapModulesChildren);
 
