@@ -93,4 +93,12 @@ export class ShowInvoiceComponent implements OnInit {
     });
   }
 
+  print(){
+
+  }
+
+  exportPDF(){
+    
+  }
+
 }
