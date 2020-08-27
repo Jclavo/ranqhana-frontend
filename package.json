@@ -26,6 +26,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/schematics": "^10.0.8",
     "@angular/animations": "^9.1.12",
     "@angular/common": "9.0.0",
     "@angular/compiler": "9.0.0",
