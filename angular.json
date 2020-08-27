@@ -67,6 +67,20 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "es": {
+              "aot": true,
+              "outputPath": "dist/sb-admin-angular-es",
+              "i18nFile": "src/i18n/messages.es.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "es"
+            },
+            "pt": {
+              "aot": true,
+              "outputPath": "dist/sb-admin-angular-pt",
+              "i18nFile": "src/i18n/messages.pt.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "pt"
             }
           }
         },
@@ -78,6 +92,12 @@
           "configurations": {
             "production": {
               "browserTarget": "sb-admin-angular:build:production"
+            },
+            "es": {
+              "browserTarget": "sb-admin-angular:build:es"
+            },
+            "pt": {
+              "browserTarget": "sb-admin-angular:build:pt"
             }
           }
         },
@@ -132,6 +152,22 @@
           "configurations": {
             "production": {
               "devServerTarget": "sb-admin-angular:serve:production"
+            }
+          }
+        },
+        "xliffmerge": {
+          "builder": "@ngx-i18nsupport/tooling:xliffmerge",
+          "options": {
+            "xliffmergeOptions": {
+              "i18nFormat": "xlf",
+              "srcDir": "src/i18n",
+              "genDir": "src/i18n",
+              "defaultLanguage": "en",
+              "languages": [
+                "en",
+                "es",
+                "pt"
+              ]
             }
           }
         }
