@@ -10,7 +10,7 @@ import { AuthModule } from './auth.module';
 import * as authContainers from './containers';
 
 /* Guards */
-import * as authGuards from './guards';
+// import * as authGuards from './guards';
 
 /* Routes */
 export const ROUTES: Routes = [
@@ -24,7 +24,7 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: authContainers.LoginComponent,
         data: {
-            title: 'Pages Login - Store App',
+            title: $localize`:@@login.title:` + ' - Store App',
         } as SBRouteData,
     },
     {

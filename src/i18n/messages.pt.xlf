@@ -234,6 +234,50 @@
           <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/toast/toast.d.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
+      </trans-unit><trans-unit id="login.title" datatype="html">
+        <source>Login</source>
+        <target state="final">Início de sessão</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="login.identification" datatype="html">
+        <source>Identification</source>
+        <target state="final">Identificação</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit><trans-unit id="login.identification.placeholder" datatype="html">
+        <source>Enter Identification</source>
+        <target state="final">Escreva sua identificação</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit><trans-unit id="login.password" datatype="html">
+        <source>Password</source>
+        <target state="final">Senha</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="login.password.placeholder" datatype="html">
+        <source>Enter password</source>
+        <target state="final">Escreva sua senha</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit><trans-unit id="login.forgotPassword" datatype="html">
+        <source>Forgot Password?</source>
+        <target state="final">Esqueceu Senha?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit><trans-unit id="login.newAccount" datatype="html">
+        <source>Need an account? Sign up!</source>
+        <target state="final">Precisa uma conta? cadastre-se!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
       </trans-unit>
     </body>
   </file>
