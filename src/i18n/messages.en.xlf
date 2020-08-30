@@ -228,15 +228,19 @@
       </trans-unit><trans-unit id="login.title" datatype="html">
         <source>Login</source>
         <target state="final">Login</target>
-        
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">29</context></context-group></trans-unit><trans-unit id="login.identification" datatype="html">
-        <source>Identification</source>
-        <target state="final">Identification</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">7</context>
         </context-group>
-      </trans-unit><trans-unit id="login.identification.placeholder" datatype="html">
+        <context-group purpose="location">
+        <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
+        <context context-type="linenumber">29</context>
+        </context-group>
+        </trans-unit><trans-unit id="login.login" datatype="html">
+        <source>Identification</source>
+        <target state="final">Identification</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">12</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">45</context></context-group></trans-unit><trans-unit id="login.login.placeholder" datatype="html">
         <source>Enter Identification</source>
         <target state="final">Enter Identification</target>
         <context-group purpose="location">
@@ -248,7 +252,7 @@
         <target state="final">Password</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="login.password.placeholder" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">16</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit><trans-unit id="login.password.placeholder" datatype="html">
         <source>Enter password</source>
         <target state="final">Enter password</target>
         <context-group purpose="location">
@@ -270,6 +274,37 @@
           <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="form.required" datatype="html">
+        <source>required</source>
+        <target state="final">required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/form-validations/form-validations.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="form.is" datatype="html">
+        <source>is</source>
+        <target state="final">is</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/form-validations/form-validations.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="form.invalidPositiveNumber" datatype="html">
+        <source>should be a positive number</source>
+        <target state="final">should be a positive number</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/form-validations/form-validations.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit><trans-unit id="form.minlength" datatype="html">
+        <source>should have at least the number of characters of:</source>
+        <target state="final">should have at least the number of characters of:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/form-validations/form-validations.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="login.pagetitle" datatype="html">
         <source>Login Page</source>
         <target state="final">Login Page</target>
@@ -278,7 +313,6 @@
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      
     </body>
   </file>
 </xliff>
