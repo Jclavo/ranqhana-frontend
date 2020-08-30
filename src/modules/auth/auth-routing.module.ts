@@ -24,7 +24,7 @@ export const ROUTES: Routes = [
         canActivate: [],
         component: authContainers.LoginComponent,
         data: {
-            title: $localize`:@@login.title:` + ' - Store App',
+            title: 'login.pagetitle',
         } as SBRouteData,
     },
     {

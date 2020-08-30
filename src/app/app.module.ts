@@ -9,6 +9,9 @@ import { AuthModule } from '@modules/auth/auth.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+/* Modules */
+import { UtilityModule } from '@modules/utility/utility.module';
+
 @NgModule({
     declarations: [AppComponent],
     imports: [BrowserModule,
@@ -16,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
               BrowserAnimationsModule,
               ToastrModule.forRoot(), // ToastrModule added
               AuthModule,
+              UtilityModule
             ],
     providers: [],
     bootstrap: [AppComponent],

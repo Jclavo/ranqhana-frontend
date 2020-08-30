@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,7 @@ import { User } from '@modules/users/models';
 import { Response } from '../../../utility/models/index';
 
 // SERVICE
-import { UtilityService, NotificationService } from '../../../utility/services';
+import { UtilityService, NotificationService, LanguageService } from '../../../utility/services';
 import { AuthService } from '../../services';
 import { UserService } from '@modules/users/services';
 
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
     private notificationService: NotificationService,
     private userService: UserService,
     private authService: AuthService,
+    private languageService: LanguageService
   ) {
     this.authService.cleanStorage();
   }
