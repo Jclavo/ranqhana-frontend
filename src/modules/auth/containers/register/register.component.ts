@@ -77,8 +77,8 @@ export class RegisterComponent implements OnInit {
     register() {
 
         if (this.registerForm.invalid) {
-            this.errorsList = this.utilityService.getFormError(this.registerForm);
-            this.notificationService.error(this.errorsList[0]);
+            // this.errorsList = this.utilityService.getFormError(this.registerForm);
+            // this.notificationService.error(this.errorsList[0]);
             return;
         }
 
