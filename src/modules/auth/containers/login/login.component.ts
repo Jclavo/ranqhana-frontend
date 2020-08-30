@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 // MODELS
 import { User } from '@modules/users/models';
-import { Response } from '../../../utility/models/index';
+import { Response, FormMessage } from '@modules/utility/models';
 
 // SERVICE
 import { UtilityService, NotificationService, LanguageService } from '../../../utility/services';
@@ -23,7 +23,7 @@ import { FormUtils, CustomValidator } from "@modules/utility/utils";
 })
 export class LoginComponent implements OnInit {
 
-  public errorsList: Array<string> = [];
+  public errorsList: Array<FormMessage> = [];
 
   public user = new User;
 
@@ -46,11 +46,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() { }
 
-  login() {
+  login() {;
 
     if (this.loginForm.invalid) {
       this.errorsList = this.utilityService.getFormError(this.loginForm);
-      this.notificationService.error(this.errorsList[0]);
+      if(this.errorsList.length > 0){
+        this.errorsList[0].setKey(this.languageService.getI18n('login.' + this.errorsList[0].getKey()));
+        this.notificationService.error(this.errorsList[0].getMessage());
+      }
+      
+      
       return;
     }
 
@@ -59,7 +64,6 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.user).subscribe((response: Response) => {
 
       if (response.status) {
-        // console.log('user', response.result);
         this.authService.setUser(response.result);
         this.notificationService.success(response.message);
         this.router.navigate(['/dashboard']);
