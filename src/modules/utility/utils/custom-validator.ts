@@ -33,19 +33,19 @@ export class CustomValidator {
 
   }
 
-  static validatePassword(control: AbstractControl): { [key: string]: any } | null {
+  // static validatePassword(control: AbstractControl): { [key: string]: any } | null {
 
-    let valid = true;
+  //   let valid = true;
 
-    if(!control.value) valid = true;
-    else if (control.value.length < 8) valid = false;
-    else if (control.value.length > 45) valid = false;
+  //   if(!control.value) valid = true;
+  //   // else if (control.value.length < 8) valid = false;
+  //   // else if (control.value.length > 45) valid = false;
      
-    return valid
-    ? null
-    : { invalidPassword: true }
+  //   return valid
+  //   ? null
+  //   : { invalidPassword: true }
 
-  }
+  // }
 
   static mustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
