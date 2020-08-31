@@ -8,13 +8,13 @@ import { AuthService } from "@modules/auth/services";
 import { RoleService } from "@modules/roles/services";
 
 //MODELS
-import { SearchOptions, Mask } from '@modules/utility/models';
+import { Mask, FormMessage } from '@modules/utility/models';
 import { Role, UserRoles  } from '@modules/roles/models';
 import { User } from '../../models';
 
 //UTILS
 import { FormUtils, CustomValidator } from "@modules/utility/utils";
-import { NotificationService } from '@modules/utility/services';
+import { NotificationService, UtilityService, LanguageService } from '@modules/utility/services';
 
 @Component({
   selector: 'sb-user',
@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
   public roles: Array<Role> = [];
   public user = new User();
 
-  private errorsListForm: Array<string> = [];
+  private errorsListForm: Array<FormMessage> = [];
 
   public mask = new Mask();
 
@@ -35,11 +35,11 @@ export class UserComponent implements OnInit {
     identification: ['', [Validators.required]],
     name: ['', [Validators.required, Validators.maxLength(45)]],
     lastname: ['', [Validators.required, Validators.maxLength(45)]],
-    password: ['', [CustomValidator.validatePassword]],
-    repassword: ['', [CustomValidator.validatePassword]],
+    password: ['', [Validators.minLength(8), Validators.maxLength(45)]],
+    repassword: ['', [Validators.minLength(8), Validators.maxLength(45)]],
     email: ['', [Validators.email, Validators.maxLength(45)]],
-    phone: [''],
-    address: [''],
+    phone: ['', [Validators.required]],
+    address: ['', [Validators.required]],
     roles: [[]],
   },
     {
@@ -56,6 +56,8 @@ export class UserComponent implements OnInit {
     private roleService: RoleService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private utilityService: UtilityService,
+    private languageService: LanguageService
   ) { }
 
   ngOnInit(): void {
@@ -111,8 +113,11 @@ export class UserComponent implements OnInit {
   save() {
 
     if (this.userForm.invalid) {
-      this.errorsListForm = FormUtils.getFormError(this.userForm);
-      this.notificationService.error(this.errorsListForm[0]);
+      this.errorsListForm = this.utilityService.getFormError(this.userForm);
+      if(this.errorsListForm.length > 0){
+        this.errorsListForm[0].setKey(this.languageService.getI18n('user.field.' + this.errorsListForm[0].getKey()));
+        this.notificationService.error(this.errorsListForm[0].getMessage());
+      }
       return;
     }
 
