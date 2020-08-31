@@ -5,7 +5,10 @@
     <div class="col-sm-12 col-md-9 col-xl-6">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
-                <div class="input-group-text font-weight-bold">Full search:</div>
+                <div class="input-group-text font-weight-bold">
+                    <ng-container i18n="@@button.search"> Search:</ng-container>
+                    
+                </div>
             </div>
             <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
         </div>
@@ -13,7 +16,9 @@
     <div class="col-sm-12 col-md-3 offset-xl-3 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
-                <div class="input-group-text font-weight-bold">Roles:</div>
+                <div class="input-group-text font-weight-bold">
+                    <ng-container i18n="@@user.field.roles">Roles</ng-container>
+                </div>
             </div>
             <select class="custom-select" [(ngModel)]="searchOption.role_id" placeholder="Type">
                 <option *ngFor="let role of roles" [value]="role.id">
@@ -30,33 +35,29 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col" sbSortable="login" (sort)="onSort($event)">
-                    <span>Login</span>
+                    <span i18n="@@user.field.login">Login</span>
                     <sb-sort-icon *ngIf='sortedColumn === "login"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
                 <th>
-                    <span>Identification</span>
+                    <span i18n="@@user.field.identification">Identification</span>
                 </th>
                 <th>
-                    <span>Name</span>
+                    <span i18n="@@user.field.name">Name</span>
                 </th>
                 <th>
-                    <span>Lastname</span>
-                </th>
-                <!-- <th scope="col" sbSortable="email" (sort)="onSort($event)">
-                    <span>Email</span>
-                    <sb-sort-icon *ngIf='sortedColumn === "email"' [direction]="sortedDirection"></sb-sort-icon>
-                </th> -->
-                <th>
-                    <span>Phone</span>
+                    <span i18n="@@user.field.lastname">Lastname</span>
                 </th>
                 <th>
-                    <span>Address</span>
+                    <span i18n="@@user.field.phone">Phone</span>
                 </th>
                 <th>
-                    <span>Roles</span>
+                    <span i18n="@@user.field.address">Address</span>
+                </th>
+                <th>
+                    <span i18n="@@user.field.roles">Roles</span>
                 </th>
                 <th scope="col">
-                    <span>Options</span>
+                    <span i18n="@@user.field.options">Options</span>
                 </th>
             </tr>
         </thead>
@@ -75,9 +76,6 @@
                 <td>
                     <ngb-highlight [result]="user.lastname" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
-                <!-- <td>
-                    <ngb-highlight [result]="user.email" [term]="searchOption.searchValue"></ngb-highlight>
-                </td> -->
                 <td>
                     <ngb-highlight [result]="user.phone" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
@@ -113,9 +111,13 @@
     </div>
     <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
         <select class="custom-select" name="pageSize" [(ngModel)]="searchOption.pageSize">
-            <option [ngValue]="10">10 users per page</option>
-            <option [ngValue]="20">20 users per page</option>
-            <option [ngValue]="50">50 users per page</option>
+            <option [ngValue]="10">10 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+            <option [ngValue]="20">20 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+            <option [ngValue]="50">50 <ng-container i18n="@@button.perPage">per page</ng-container></option>
         </select>
     </div>
 </div>
+
+<!-- <div sbLanguage hidden >
+    <span id="user.list." i18n="@@user.field.login">Login</span>
+</div> -->

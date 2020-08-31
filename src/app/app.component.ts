@@ -23,7 +23,8 @@ export class AppComponent {
                     snapshot = snapshot.firstChild;
                 }
 
-                this.titleService.setTitle(this.languageService.getI18n(snapshot.data.title) || 'Store App');
+                // this.titleService.setTitle('Store App - ' + this.languageService.getI18n(snapshot.data.title) || 'Store App');
+                this.titleService.setTitle('Store App');
             });
     }
 }

@@ -1,14 +1,14 @@
 <sb-layout-dashboard>
-    <sb-dashboard-head [hideBreadcrumbs]="false"></sb-dashboard-head>
-    <sb-card>
-        <div class="card-body">This page is using pagination to show all the users in the system, also you can edit or delete them. 
-            <a target="_blank" href="jclavotafur@gmail.com">Contact me clicking here.</a>
+    <sb-dashboard-head [hideBreadcrumbs]="true"></sb-dashboard-head>
+    <!-- <sb-card>
+        <div class="card-body">
+            <ng-container i18n="@@user.pageList.description">This page is using pagination to show all the users in the system, also you can edit or delete them.</ng-container> 
         </div>
-    </sb-card>
+    </sb-card> -->
     <sb-card>
         <div class="card-header">
             <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
-            Users List
+            <ng-container i18n="@@user.pageList.title">Users List</ng-container>
         </div>
         <div class="card-body">
             <sb-ng-bootstrap-table-users>

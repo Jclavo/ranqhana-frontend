@@ -273,32 +273,55 @@
       <trans-unit id="form.required" datatype="html">
         <source>required</source>
         <target state="final">obrigatório</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/utility/containers/form-validations/form-validations.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context><context context-type="linenumber">2</context></context-group></trans-unit>
       <trans-unit id="form.is" datatype="html">
         <source>is</source>
         <target state="final">é</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/utility/containers/form-validations/form-validations.component.html</context>
-          <context context-type="linenumber">3</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context><context context-type="linenumber">3</context></context-group></trans-unit>
       <trans-unit id="form.invalidPositiveNumber" datatype="html">
         <source>should be a positive number</source>
         <target state="final">tem que ser um número positivo</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/utility/containers/form-validations/form-validations.component.html</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit><trans-unit id="form.minlength" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context><context context-type="linenumber">4</context></context-group></trans-unit><trans-unit id="form.minlength" datatype="html">
         <source>should have at least the number of characters of:</source>
         <target state="final">deve ter um número de caracteres de :</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context><context context-type="linenumber">5</context></context-group></trans-unit><trans-unit id="button.cancel" datatype="html">
+        <source>Cancel</source><target state="final">Cancelar</target>
+        
+      
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">83</context></context-group></trans-unit><trans-unit id="button.save" datatype="html">
+        <source>Save</source><target state="final">Salvar</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">88</context></context-group></trans-unit><trans-unit id="button.search" datatype="html">
+        <source>Search</source><target state="final">Pesquisar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/utility/containers/form-validations/form-validations.component.html</context>
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit><trans-unit id="button.perPage" datatype="html">
+        <source>per page</source><target state="final">por página</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
           <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context>
+          <context context-type="linenumber">116</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.pagetitle" datatype="html">
@@ -364,7 +387,109 @@
           <context context-type="sourcefile">src/modules/dashboard/components/dashboard-charts/dashboard-charts.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
+      </trans-unit><trans-unit id="user.page.title" datatype="html">
+        <source>User</source><target state="final">Usuário</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
       </trans-unit>
+      <trans-unit id="user.pageList.title" datatype="html">
+        <source>Users List</source>
+        <target state="final">Relatório dos usuários</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/app.component.html</context><context context-type="linenumber">6</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user-list/user-list.component.html</context><context context-type="linenumber">11</context></context-group></trans-unit>
+      
+      
+      <trans-unit id="user.field.login" datatype="html">
+        <source>Login</source>
+        <target state="final">Login</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">38</context></context-group></trans-unit>
+      <trans-unit id="user.field.identification" datatype="html">
+        <source>Identification</source>
+        <target state="final">Identificação</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">18</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">42</context></context-group></trans-unit>
+      <trans-unit id="user.field.name" datatype="html">
+        <source>Name</source>
+        <target state="final">Nome</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">26</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">27</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context><context context-type="linenumber">4</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">45</context></context-group></trans-unit>
+      <trans-unit id="user.field.lastname" datatype="html">
+        <source>Lastname</source>
+        <target state="final">Sobrenome</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">31</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">32</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context><context context-type="linenumber">5</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">48</context></context-group></trans-unit><trans-unit id="user.field.password" datatype="html">
+        <source>Password</source><target state="final">Senha</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit><trans-unit id="user.field.repassword" datatype="html">
+        <source>Confirm Password</source><target state="final">Confirme sua senha</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit><trans-unit id="user.field.email" datatype="html">
+        <source>Email</source><target state="final">Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.field.phone" datatype="html">
+        <source>Phone</source>
+        <target state="final">Telefone</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">55</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">56</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context><context context-type="linenumber">6</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">51</context></context-group></trans-unit>
+      <trans-unit id="user.field.address" datatype="html">
+        <source>Address</source>
+        <target state="final">Endereço</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">63</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">64</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">54</context></context-group></trans-unit>
+      <trans-unit id="user.field.roles" datatype="html">
+        <source>Roles</source>
+        <target state="final">Roles</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">71</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context><context context-type="linenumber">8</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">20</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">57</context></context-group></trans-unit>
+      <trans-unit id="user.field.options" datatype="html">
+        <source>Options</source>
+        <target state="final">Opções</target>
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user-i18n/user-i18n.component.html</context><context context-type="linenumber">9</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">60</context></context-group></trans-unit>
       
     </body>
   </file>

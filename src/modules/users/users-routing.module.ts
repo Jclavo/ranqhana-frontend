@@ -19,17 +19,17 @@ export const ROUTES: Routes = [
     canActivate: [GlobalGuard],
     component: usersContainers.UserListComponent,
     data: {
-      title: 'Users List - Store App',
-      breadcrumbs: [
-        {
-          text: 'Dashboard',
-          link: '/dashboard',
-        },
-        {
-          text: 'Users List',
-          active: true,
-        },
-      ],
+      title: 'user.pageList.title',
+      // breadcrumbs: [
+      //   {
+      //     text: 'Dashboard',
+      //     link: '/dashboard',
+      //   },
+      //   {
+      //     text: 'Users List',
+      //     active: true,
+      //   },
+      // ],
     } as SBRouteData,
   },
   {

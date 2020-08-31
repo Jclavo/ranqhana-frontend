@@ -1,74 +1,74 @@
 <sb-layout-dashboard>
-    <sb-dashboard-head [hideBreadcrumbs]="false"></sb-dashboard-head>
-    <sb-card>
+    <sb-dashboard-head [hideBreadcrumbs]="true"></sb-dashboard-head>
+    <!-- <sb-card>
         <div class="card-body">This page is to add a new user or edit an existing one .
             <a target="_blank" href="jclavotafur@gmail.com">Contact me clicking here.</a>
         </div>
-    </sb-card>
+    </sb-card> -->
 
     <sb-card>
         <div class="card-header">
             <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
-            User
+            <ng-container i18n="@@user.page.title">User</ng-container>
         </div>
         <div class="card-body">
             <form [formGroup]="userForm">
                 <div class="form-row">
                     <div class="form-group col-12 col-md-12">
-                        <label class="control-label font-weight-bold" for="identification">Identification</label>
+                        <label class="control-label font-weight-bold" for="identification" i18n="@@user.field.identification">Identification</label>
                         <input type="text" class="form-control" id="identification" name="identification"
-                            placeholder="Identification" formControlName="identification" mask="{{mask.identification}}"
+                        i18n-placeholder="@@user.field.identification" placeholder="Identification" formControlName="identification" mask="{{mask.identification}}"
                             [validation]="true">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-12 col-md-6">
-                        <label class="control-label font-weight-bold" for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Name"
-                            formControlName="name" maxlength="45">
+                        <label class="control-label font-weight-bold" for="name" i18n="@@user.field.name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" i18n-placeholder="@@user.field.name" placeholder="Name"
+                           formControlName="name" maxlength="45">
                     </div>
                     <div class="form-group col-12 col-md-6">
-                        <label class="control-label font-weight-bold" for="lastname">Lastname</label>
-                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Lastname"
+                        <label class="control-label font-weight-bold" for="lastname" i18n="@@user.field.lastname">Lastname</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" i18n-placeholder="@@user.field.lastname" placeholder="Lastname"
                             formControlName="lastname" maxlength="45">
                     </div>
                 </div>
                 <div class="form-row" *ngIf="user.id">
                     <div class="form-group col-12 col-md-6">
-                        <label class="control-label font-weight-bold" for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                        <label class="control-label font-weight-bold" for="password" i18n="@@user.field.password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" i18n-placeholder="@@user.field.password" placeholder="Password"
                             formControlName="password" maxlength="45">
                     </div>
                     <div class="form-group col-12 col-md-6">
-                        <label class="control-label font-weight-bold" for="repassword">Confirm Password</label>
+                        <label class="control-label font-weight-bold" for="repassword" i18n="@@user.field.repassword">Confirm Password</label>
                         <input type="password" class="form-control" id="repassword" name="repassword"
-                            placeholder="Confirm Password" formControlName="repassword" maxlength="45">
+                        i18n-placeholder="@@user.field.repassword" placeholder="Confirm Password" formControlName="repassword" maxlength="45">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-12 col-md-6">
-                        <label class="control-label font-weight-bold" for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                        <label class="control-label font-weight-bold" for="email" i18n="@@user.field.email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" i18n-placeholder="@@user.field.email" placeholder="Email"
                             formControlName="email" maxlength="45">
                     </div>
                     <div class="form-group col-12 col-md-6">
-                        <label class="control-label font-weight-bold" for="phone">Phone</label>
-                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone"
+                        <label class="control-label font-weight-bold" for="phone" i18n="@@user.field.phone">Phone</label>
+                        <input type="text" class="form-control" id="phone" name="phone" i18n-placeholder="@@user.field.phone" placeholder="Phone"
                             formControlName="phone" prefix="{{mask.prefixPhone}}" mask="{{mask.phone}}"
                             [validation]="true">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-12 col-md-12">
-                        <label class="control-label font-weight-bold" for="address">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Address"
+                        <label class="control-label font-weight-bold" for="address" i18n="@@user.field.address">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" i18n-placeholder="@@user.field.address" placeholder="Address"
                             formControlName="address" maxlength="100">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-12 col-md-12">
-                        <label class="mb-1 font-weight-bold">Roles</label>
+                        <label class="mb-1 font-weight-bold" i18n="@@user.field.roles">Roles</label>
                         <select class="form-control" placeholder="Roles" name="roles" formControlName="roles" multiple>
                             <option *ngFor="let role of roles" [value]="role.id">
                                 {{role.name}}
@@ -79,10 +79,14 @@
                 
                 <div class="form-row align-items-center">
                     <div class="col-12 col-md-6 mb-3">
-                        <button class="btn btn-danger btn-md btn-block" routerLink="/users">Cancel</button>
+                        <button class="btn btn-danger btn-md btn-block" routerLink="/users">
+                            <ng-container i18n="@@button.cancel">Cancel</ng-container>
+                        </button>
                     </div>
                     <div class="col-12 col-md-6 mb-3">
-                        <button (click)="save()" class="btn btn-success btn-md btn-block">Save</button>
+                        <button (click)="save()" class="btn btn-success btn-md btn-block">
+                            <ng-container i18n="@@button.save">Save</ng-container>
+                        </button>
                     </div>
                 </div>
 

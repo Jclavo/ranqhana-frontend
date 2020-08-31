@@ -19,7 +19,7 @@ import * as usersContainers from './containers';
 /* Services */
 import * as usersServices from './services';
 
-import { NgxMaskModule } from 'ngx-mask'
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   imports: [
