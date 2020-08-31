@@ -1,18 +1,20 @@
 <div class="row">
     <div class="col-xl-6">
         <sb-card>
-            <div class="card-header">
-                <fa-icon class="mr-1" [icon]='["fas", "chart-area"]'></fa-icon>Today's sales
+            <div class="card-header" >
+                <fa-icon class="mr-1" [icon]='["fas", "chart-area"]'></fa-icon>
+                <ng-container i18n="@@dashboard.chart.todaySales">Today's sales</ng-container>
             </div>
             <div class="card-body">
-                <sb-charts-area [graphicData]="graphicDataForSaleInvoiceMoney" labelY="Money"></sb-charts-area>
+                <sb-charts-area [graphicData]="graphicDataForSaleInvoiceMoney" i18n-labelY="@@dashboard.chart.labelY" labelY="Money"></sb-charts-area>
             </div>
         </sb-card>
     </div>
     <div class="col-xl-6">
         <sb-card>
             <div class="card-header">
-                <fa-icon class="mr-1" [icon]='["fas", "chart-bar"]'></fa-icon>Month's sales
+                <fa-icon class="mr-1" [icon]='["fas", "chart-bar"]'></fa-icon>
+                <ng-container i18n="@@dashboard.chart.monthSales">Month's sales</ng-container>
             </div>
             <div class="card-body">
                 <sb-charts-bar [graphicData]="graphicDataForSaleInvoiceByMonth" labelY="Money"></sb-charts-bar>
