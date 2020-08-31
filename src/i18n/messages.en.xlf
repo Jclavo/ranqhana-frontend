@@ -292,7 +292,19 @@
         <source>should have at least the number of characters of:</source>
         <target state="final">should have at least the number of characters of:</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context><context context-type="linenumber">5</context></context-group></trans-unit><trans-unit id="button.cancel" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context><context context-type="linenumber">5</context></context-group></trans-unit><trans-unit id="form.email" datatype="html">
+        <source>should have the correct format</source><target state="final">should have the correct format</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit><trans-unit id="form.mustMatch" datatype="html">
+        <source>does not match</source><target state="final">does not match</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit><trans-unit id="button.cancel" datatype="html">
         <source>Cancel</source><target state="final">Cancel</target>
         
       <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">83</context></context-group></trans-unit><trans-unit id="button.save" datatype="html">
