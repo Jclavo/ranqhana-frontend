@@ -1,17 +1,17 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">{{title}} {{action}}</h4>
+    <h4 class="modal-title" id="modal-title">{{title}}</h4>
     <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="activeModal.close(false)">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body" *ngIf="value">
-    <p><strong>Are you sure you want to {{action}} <span class="text-primary">"{{value}}"</span></strong></p>
-    <p><span class="text-danger">This operation can not be undone.</span></p>
+    <p><strong><ng-container i18n="@@confirmModal.areyousure">Are you sure you want to</ng-container> {{action}} <span class="text-primary">"{{value}}"</span></strong></p>
+    <p><span class="text-danger" ><ng-container i18n="@@confirmModal.undoneOperation">This operation can not be undone.</ng-container></span></p>
   </div>
   <div class="modal-body" *ngIf="!value">
-    <p><strong>Are you sure you want to {{action}}</strong></p>
+    <p><strong><ng-container i18n="@@confirmModal.areyousure">Are you sure you want to</ng-container> {{action}}</strong></p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Cancel</button>
-    <button type="button" ngbAutofocus class="btn btn-danger" (click)="activeModal.close(true)">Ok</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)" i18n="@@button.cancel">Cancel</button>
+    <button type="button" ngbAutofocus class="btn btn-danger" (click)="activeModal.close(true)" i18n="@@button.yes">OK</button>
   </div>
