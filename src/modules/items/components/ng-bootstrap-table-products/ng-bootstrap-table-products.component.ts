@@ -11,7 +11,7 @@ import { ConfirmModalComponent } from '@modules/utility/components';
 //SERVICES
 import { ItemService } from "../../services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService, UtilityService } from '@modules/utility/services';
+import { NotificationService, UtilityService, LanguageService } from '@modules/utility/services';
 
 @Component({
   selector: 'sb-ng-bootstrap-table-products',
@@ -38,7 +38,8 @@ export class NgBootstrapTableProductsComponent implements OnInit {
     private itemService: ItemService,
     private modalService: NgbModal,
     private authService: AuthService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private languageService: LanguageService
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -96,8 +97,8 @@ export class NgBootstrapTableProductsComponent implements OnInit {
     
     const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
-    modalRef.componentInstance.title = 'Item';
-    modalRef.componentInstance.action = 'delete';
+    modalRef.componentInstance.title = this.languageService.getI18n('product.page.title');
+    modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
     modalRef.componentInstance.value = name;
 
     modalRef.result.then((result) => {

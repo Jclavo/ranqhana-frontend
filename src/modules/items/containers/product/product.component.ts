@@ -8,7 +8,7 @@ import { StockTypes } from "@modules/stock-types/models";
 
 //SERVICES
 import { ItemService } from "../../services";
-import { NotificationService } from '@modules/utility/services';
+import { NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from '@modules/auth/services';
 import { UnitService } from '@modules/units/services';
 import { StockTypesService } from '@modules/stock-types/services';
@@ -32,7 +32,8 @@ export class ProductComponent implements OnInit {
     private itemService: ItemService,
     private authService: AuthService,
     private unitService: UnitService,
-    private stockTypesService: StockTypesService
+    private stockTypesService: StockTypesService,
+    private languageService: LanguageService
   ) { }
 
   ngOnInit(): void {
@@ -76,7 +77,7 @@ export class ProductComponent implements OnInit {
     this.product.stock_types = this.getStockTypesChoosen(); // get stock types selected
 
     if(this.product.stock_types.length == 0){
-      this.notificationService.error('Select at least one stock type.');
+      this.notificationService.error(this.languageService.getI18n('item.emptyStockType'));
       return;
     }
 
