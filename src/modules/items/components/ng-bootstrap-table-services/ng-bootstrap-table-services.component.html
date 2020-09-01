@@ -1,5 +1,6 @@
 <form>
-    <div class="form-group form-inline">Full search:
+    <div class="form-group form-inline">
+        <ng-container i18n="@@button.search"> Search:</ng-container>
         <input class="form-control ml-sm-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
     </div>
     <div class="table-responsive">
@@ -8,23 +9,23 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col" sbSortable="name" (sort)="onSort($event)">
-                        <span>Service</span>
+                        <span i18n="@@service.page.title">Service</span>
                         <sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
                     <th scope="col" sbSortable="description" (sort)="onSort($event)">
-                        <span>Description</span>
+                        <span i18n="@@button.description">Description</span>
                         <sb-sort-icon *ngIf='sortedColumn === "description"' [direction]="sortedDirection">
                         </sb-sort-icon>
                     </th>
                     <th scope="col" sbSortable="price" (sort)="onSort($event)">
-                        <span>Price $</span>
+                        <span i18n="@@item.field.price">Price</span>
                         <sb-sort-icon *ngIf='sortedColumn === "price"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
                     <th scope="col">
-                        <span>Stock Types</span>
+                        <span i18n="@@item.field.stockTypes">Stock Types</span>
                     </th>
                     <th scope="col">
-                        <span>Options</span>
+                        <span i18n="@@button.options">Options</span>
                     </th>
                 </tr>
             </thead>
@@ -69,10 +70,12 @@
         </div>
         <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
             <select class="custom-select" name="per_page" [(ngModel)]="searchOption.per_page">
-                <option [ngValue]="10">10 services per page</option>
-                <option [ngValue]="20">20 services per page</option>
-                <option [ngValue]="50">50 services per page</option>
+                <option [ngValue]="10">10 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+                <option [ngValue]="20">20 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+                <option [ngValue]="50">50 <ng-container i18n="@@button.perPage">per page</ng-container></option>
             </select>
         </div>
     </div>
 </form>
+<sb-item-i18n></sb-item-i18n>
+<sb-buttons></sb-buttons>

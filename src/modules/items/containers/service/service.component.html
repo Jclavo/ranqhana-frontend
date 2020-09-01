@@ -1,16 +1,9 @@
 <sb-layout-dashboard>
-    <!-- <sb-dashboard-head title="Add/Edit" [hideBreadcrumbs]="false"></sb-dashboard-head> -->
-    <sb-dashboard-head [hideBreadcrumbs]="false"></sb-dashboard-head>
-    <sb-card>
-      <div class="card-body">This page is to add a new service or edit an existing one .
-        <a target="_blank" href="jclavotafur@gmail.com">Contact me clicking here.</a>
-      </div>
-    </sb-card>
-  
+    <sb-dashboard-head [hideBreadcrumbs]="true"></sb-dashboard-head>
     <sb-card>
       <div class="card-header">
         <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
-        Service
+        <ng-container i18n="@@service.page.title">Service</ng-container>
       </div>
       <div class="card-body">
   
@@ -18,12 +11,12 @@
   
           <div class="form-row">
             <div class="form-group col-12 col-md-6">
-              <label class="control-label font-weight-bold" for="name">Service</label>
+              <label class="control-label font-weight-bold" for="name" i18n="@@service.page.title">Service</label>
               <input type="text" class="form-control" id="name" name="name" [(ngModel)]="service.name" placeholder="Service"
                 required>
             </div>
             <div class="form-group col-12 col-md-6">
-              <label class="control-label font-weight-bold" for="price">Price</label>
+              <label class="control-label font-weight-bold" for="price" i18n="@@item.field.price">Price</label>
               <input type="number" step="0.01" min="0" class="form-control" id="price" name="price"
                 [(ngModel)]="service.price" placeholder="Price">
             </div>
@@ -31,14 +24,14 @@
   
           <div class="form-row">
             <div class="form-group col-12 mt-2">
-              <label class="control-label font-weight-bold" for="description">Description</label>
+              <label class="control-label font-weight-bold" for="description" i18n="@@button.description">Description</label>
               <textarea class="form-control" id="description" rows="3" name="description" [(ngModel)]="service.description"
                 placeholder="Description"></textarea>
             </div>
           </div>
   
           <div class="form-row">
-            <label class="control-label font-weight-bold" for="stocktypes">Stock types</label>
+            <label class="control-label font-weight-bold" for="stocktypes" i18n="@@item.field.stockTypes">Stock types</label>
           </div>
           <div class="form-row">
             <div *ngFor="let stockType of stockTypes" class="form-check form-check-inline" >
@@ -50,10 +43,10 @@
           <br>
           <div class="form-row align-items-center">
             <div class="col-12 col-md-6 mb-3">
-              <button class="btn btn-danger btn-md btn-block" routerLink="/items/services">Cancel</button>
+              <button class="btn btn-danger btn-md btn-block" routerLink="/items/services" i18n="@@button.cancel">Cancel</button>
             </div>
             <div class="col-12 col-md-6 mb-3">
-              <button type="submit" [disabled]="!form.valid" class="btn btn-success btn-md btn-block">Save</button>
+              <button type="submit" [disabled]="!form.valid" class="btn btn-success btn-md btn-block" i18n="@@button.save">Save</button>
             </div>
           </div>
         </form>
@@ -61,3 +54,4 @@
       </div>
     </sb-card>
   </sb-layout-dashboard>
+  <sb-item-i18n></sb-item-i18n>
