@@ -294,15 +294,18 @@
         
       <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context><context context-type="linenumber">5</context></context-group></trans-unit><trans-unit id="form.email" datatype="html">
         <source>should have the correct format</source><target state="final">should have the correct format</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context>
-          <context context-type="linenumber">6</context>
-        </context-group>
-      </trans-unit><trans-unit id="form.mustMatch" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context><context context-type="linenumber">6</context></context-group></trans-unit><trans-unit id="form.mustMatch" datatype="html">
         <source>does not match</source><target state="final">does not match</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context>
           <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit><trans-unit id="form.mask" datatype="html">
+        <source>does not have the rigth format</source><target state="final">does not have the rigth format</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit><trans-unit id="button.cancel" datatype="html">
         <source>Cancel</source><target state="final">Cancel</target>
@@ -346,11 +349,8 @@
         </context-group>
       </trans-unit><trans-unit id="button.yes" datatype="html">
         <source>Yes</source><target state="final">Yes</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit><trans-unit id="confirmModal.areyousure" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/utility/components/confirm-modal/confirm-modal.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="confirmModal.areyousure" datatype="html">
         <source>Are you sure you want to</source><target state="final">Are you sure you want to</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/components/confirm-modal/confirm-modal.component.html</context>
