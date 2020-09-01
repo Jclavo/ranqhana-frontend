@@ -13,7 +13,7 @@ import { UnitModalComponent } from '../unit-modal/unit-modal.component';
 //SERVICES
 import { UnitService } from "../../services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService, UtilityService } from '@modules/utility/services';
+import { NotificationService, UtilityService, LanguageService } from '@modules/utility/services';
 
 
 @Component({
@@ -41,7 +41,8 @@ export class NgBootstrapTableUnitsComponent implements OnInit {
     private unitService: UnitService,
     private modalService: NgbModal,
     private authService: AuthService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private languageService: LanguageService
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -95,13 +96,13 @@ export class NgBootstrapTableUnitsComponent implements OnInit {
 
   }
 
-  modalDelete(id: string, name: string) {
+  modalDelete(id: string, description: string) {
     
     const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
-    modalRef.componentInstance.title = 'Unit';
-    modalRef.componentInstance.action = 'delete';
-    modalRef.componentInstance.value = name;
+    modalRef.componentInstance.title = this.languageService.getI18n('unit.page.title');
+    modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
+    modalRef.componentInstance.value = description;
 
     modalRef.result.then((result) => {
       result ? this.delete(id) : null;

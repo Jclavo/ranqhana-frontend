@@ -2,13 +2,15 @@
     <div class="col-sm-8 col-md-5">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <div class="input-group-text font-weight-bold">Full search:</div>
+                <div class="input-group-text font-weight-bold">
+                    <ng-container i18n="@@button.search"> Search:</ng-container>
+                </div>
             </div>
             <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
         </div>
     </div>
     <div class="col-12 offset-sm-1 col-sm-3 offset-md-4 col-md-3 offset-lg-5 col-lg-2">
-        <button type="button" class="btn btn-primary btn-block" (click)="openUnitModal()">ADD</button>
+        <button type="button" class="btn btn-primary btn-block" (click)="openUnitModal()" i18n="@@button.new">ADD</button>
     </div>
 </div>
 
@@ -18,21 +20,21 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col" sbSortable="code" (sort)="onSort($event)">
-                    <span>Code</span>
+                    <span i18n="@@unit.field.code">Code</span>
                     <sb-sort-icon *ngIf='sortedColumn === "code"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
                 <th scope="col" sbSortable="description" (sort)="onSort($event)">
-                    <span>Description</span>
+                    <span i18n="@@button.description">Description</span>
                     <sb-sort-icon *ngIf='sortedColumn === "description"' [direction]="sortedDirection">
                     </sb-sort-icon>
                 </th>
                 <th scope="col" sbSortable="fractioned" (sort)="onSort($event)">
-                    <span>Fractioned</span>
+                    <span i18n="@@unit.allowDecimal">Fractioned</span>
                     <sb-sort-icon *ngIf='sortedColumn === "fractioned"' [direction]="sortedDirection">
                     </sb-sort-icon>
                 </th>
                 <th scope="col">
-                    <span>Options</span>
+                    <span i18n="@@button.options">Options</span>
                 </th>
             </tr>
         </thead>
@@ -57,7 +59,7 @@
                         </div>
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
-                                size="lg" (click)="modalDelete(unit.id, unit.name)"></fa-icon>
+                                size="lg" (click)="modalDelete(unit.id, unit.description)"></fa-icon>
                         </div>
                     </div>
                 </td>
@@ -75,9 +77,11 @@
     </div>
     <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
         <select class="custom-select" name="per_page" [(ngModel)]="searchOption.per_page">
-            <option [ngValue]="10">10 units per page</option>
-            <option [ngValue]="20">20 units per page</option>
-            <option [ngValue]="50">50 units per page</option>
+            <option [ngValue]="10">10 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+            <option [ngValue]="20">20 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+            <option [ngValue]="50">50 <ng-container i18n="@@button.perPage">per page</ng-container></option>
         </select>
     </div>
 </div>
+<sb-unit-i18n></sb-unit-i18n>
+<sb-buttons></sb-buttons>
