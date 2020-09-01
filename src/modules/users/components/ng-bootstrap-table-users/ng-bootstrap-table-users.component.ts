@@ -12,7 +12,7 @@ import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal
 //SERVICES
 import { UserService } from "../../services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService, UtilityService} from '@modules/utility/services';
+import { NotificationService, UtilityService, LanguageService} from '@modules/utility/services';
 import { RoleService } from "@modules/roles/services";
 
 @Component({
@@ -37,14 +37,13 @@ export class NgBootstrapTableUsersComponent implements OnInit {
 
   constructor(
     private differs: KeyValueDiffers, // to get changes in a object
-    private activatedRoute: ActivatedRoute,
     private notificationService: NotificationService,
     private userService: UserService,
     private authService: AuthService,
-    private ngbModal: NgbModal,
     private modalService: NgbModal,
     private utilityService: UtilityService,
     private roleService: RoleService,
+    private languageService: LanguageService
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -101,8 +100,8 @@ export class NgBootstrapTableUsersComponent implements OnInit {
     
     const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
-    modalRef.componentInstance.title = 'Item';
-    modalRef.componentInstance.action = 'delete';
+    modalRef.componentInstance.title = this.languageService.getI18n('user.page.title');
+    modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
     modalRef.componentInstance.value = name;
 
     modalRef.result.then((result) => {
