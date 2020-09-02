@@ -15,6 +15,9 @@ import { InvoiceService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService, UtilityService, CustomDateService } from '@modules/utility/services';
 
+//Utils
+import { FormUtils } from "@modules/utility/utils";
+
 
 @Component({
   selector: 'sb-ng-bootstrap-table-invoices',
@@ -44,6 +47,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     private ngbModal: NgbModal,
     private utilityService: UtilityService,
     private customDateService: CustomDateService,
+    private formUtils: FormUtils
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();

@@ -2,7 +2,7 @@
     <div class="col-md-12 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
-                <div class="input-group-text font-weight-bold">Full search:</div>
+                <div class="input-group-text font-weight-bold" i18n="@@button.search">Search</div>
             </div>
             <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
         </div>
@@ -10,7 +10,7 @@
     <div class="col-md-4 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend ">
-                <div class="input-group-text font-weight-bold">From:</div>
+                <div class="input-group-text font-weight-bold" i18n="@@button.from">From</div>
             </div>
             <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="fromDate"
                 [(ngModel)]="searchOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()">
@@ -19,7 +19,7 @@
     <div class="col-md-4 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
-                <div class="input-group-text font-weight-bold">To:</div>
+                <div class="input-group-text font-weight-bold" i18n="@@button.to">To</div>
             </div>
             <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate" [(ngModel)]="searchOption.toDate"
                 ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
@@ -28,7 +28,7 @@
     <div class="col-md-4 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
-                <div class="input-group-text font-weight-bold">Type:</div>
+                <div class="input-group-text font-weight-bold" i18n="@@button.type">Type</div>
             </div>
             <select class="custom-select" [(ngModel)]="searchOption.type_id" placeholder="Type">
                 <option value="1" selected>Sell Invoice</option>
@@ -48,19 +48,19 @@
                     <sb-sort-icon *ngIf='sortedColumn === "serie"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
                 <th scope="col" sbSortable="subtotal" (sort)="onSort($event)">
-                    <span>Subtotal $</span>
+                    <span>Subtotal</span>
                     <sb-sort-icon *ngIf='sortedColumn === "subtotal"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
                 <th scope="col" sbSortable="taxes" (sort)="onSort($event)">
-                    <span>Taxes $</span>
+                    <span i18n="@@invoice.field.taxes">Taxes</span>
                     <sb-sort-icon *ngIf='sortedColumn === "taxes"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
                 <th scope="col" sbSortable="discount" (sort)="onSort($event)">
-                    <span>Discount $</span>
+                    <span i18n="@@invoice.field.discount">Discount</span>
                     <sb-sort-icon *ngIf='sortedColumn === "discount"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
                 <th scope="col" sbSortable="total" (sort)="onSort($event)">
-                    <span>Total $</span>
+                    <span>Total</span>
                     <sb-sort-icon *ngIf='sortedColumn === "total"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
                 <th scope="col" sbSortable="stage" (sort)="onSort($event)">
@@ -73,7 +73,7 @@
                 </th>
 
                 <th scope="col">
-                    <span>Options</span>
+                    <span i18n="@@button.options">Options</span>
                 </th>
             </tr>
         </thead>
@@ -84,18 +84,18 @@
                     <ngb-highlight [result]="invoice.serie" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="invoice.subtotal | number" [term]="searchOption.searchValue">
+                    <ngb-highlight [result]="formUtils.customToFixed(invoice.subtotal)" [term]="searchOption.searchValue">
                     </ngb-highlight>
                 </td>
                 <td>
                     <ngb-highlight [result]="invoice.taxes | number" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="invoice.discount | number" [term]="searchOption.searchValue">
+                    <ngb-highlight [result]="formUtils.customToFixed(invoice.discount)" [term]="searchOption.searchValue">
                     </ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="invoice.total | number" [term]="searchOption.searchValue"></ngb-highlight>
+                    <ngb-highlight [result]="formUtils.customToFixed(invoice.total)" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
                     <ngb-highlight [result]="invoice.stage" [term]="searchOption.searchValue"></ngb-highlight>
@@ -129,9 +129,9 @@
     </div>
     <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
         <select class="custom-select" name="per_page" [(ngModel)]="searchOption.per_page">
-            <option [ngValue]="10">10 items per page</option>
-            <option [ngValue]="20">20 items per page</option>
-            <option [ngValue]="50">50 items per page</option>
+            <option [ngValue]="10">10 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+            <option [ngValue]="20">20 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+            <option [ngValue]="50">50 <ng-container i18n="@@button.perPage">per page</ng-container></option>
         </select>
     </div>
 </div>

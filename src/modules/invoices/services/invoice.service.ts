@@ -46,9 +46,9 @@ export class InvoiceService {
         let invoice = new Invoice();
         invoice.id       = data.id;
         invoice.serie    = data.serie;
-        invoice.subtotal = data.subtotal;
-        invoice.discount = data.discount;
-        invoice.total    = data.total;
+        invoice.subtotal = Number(data.subtotal);
+        invoice.discount = Number(data.discount);
+        invoice.total    = Number(data.total);
         invoice.stage    = data.stage?.description;
         invoice.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at); 
 
