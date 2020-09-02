@@ -1,21 +1,16 @@
 <sb-layout-dashboard>
-    <sb-dashboard-head title="" [hideBreadcrumbs]="false"></sb-dashboard-head>
-    <sb-card>
-        <div class="card-body">This page is using Chart.js to show these amazing. 
-            <a target="_blank" href="jclavotafur@gmail.com">Contact me clicking here.</a>
-        </div>
-    </sb-card>
+    <sb-dashboard-head title="" [hideBreadcrumbs]="true"></sb-dashboard-head>
     <sb-card>
         <div class="card-header">
             <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
-            Chart Invoices
+            <ng-container i18n="@@invoice.chart.title">Chart Invoices</ng-container>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6 col-xl-3">
                     <div class="input-group mb-4">
                         <div class="input-group-prepend ">
-                            <div class="input-group-text font-weight-bold">From:</div>
+                            <div class="input-group-text font-weight-bold" i18n="@@button.from">From</div>
                         </div>
                         <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="fromDate"
                             [(ngModel)]="searchInvoiceOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()">
@@ -24,7 +19,7 @@
                 <div class="col-md-6 col-xl-3">
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <div class="input-group-text font-weight-bold">To:</div>
+                            <div class="input-group-text font-weight-bold" i18n="@@button.to">To</div>
                         </div>
                         <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate" [(ngModel)]="searchInvoiceOption.toDate"
                             ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
@@ -33,7 +28,7 @@
                 <div class="col-md-4 col-xl-2">
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <div class="input-group-text font-weight-bold">Type:</div>
+                            <div class="input-group-text font-weight-bold" i18n="@@button.type">Type</div>
                         </div>
                         <select class="custom-select" [(ngModel)]="searchInvoiceOption.type_id" placeholder="Type">
                             <option value="1" selected>Sell Invoice</option>
@@ -44,7 +39,7 @@
                 <div class="col-md-4 col-xl-2">
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <div class="input-group-text font-weight-bold">By:</div>
+                            <div class="input-group-text font-weight-bold" i18n="@@button.by">By</div>
                         </div>
                         <select class="custom-select" [(ngModel)]="searchInvoiceOption.searchBy" placeholder="Type">
                             <option value="H" selected>Hour</option>
@@ -55,7 +50,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-xl-2">
-                    <button type="button" class="btn btn-primary btn-block" (click)="search()">Search</button>
+                    <button type="button" class="btn btn-primary btn-block" (click)="search()" i18n="@@button.search">Search</button>
                 </div>
             </div>
         </div>
