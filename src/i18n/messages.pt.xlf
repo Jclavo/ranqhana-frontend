@@ -355,15 +355,13 @@
       <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">11</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/sell/sell.component.html</context><context context-type="linenumber">60</context></context-group>
       </trans-unit><trans-unit id="button.create" datatype="html">
         <source>Create</source><target state="final">Criar</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/invoices/containers/sell/sell.component.html</context>
-          <context context-type="linenumber">154</context>
-        </context-group>
-      </trans-unit><trans-unit id="confirmModal.areyousure" datatype="html">
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">12</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/sell/sell.component.html</context><context context-type="linenumber">153</context></context-group>
+      </trans-unit><trans-unit id="button.print" datatype="html">
+        <source>Print</source><target state="final">Imprimir</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">13</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context><context context-type="linenumber">32</context></context-group></trans-unit><trans-unit id="confirmModal.areyousure" datatype="html">
         <source>Are you sure you want to</source><target state="final">Você tem certeza que quer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/components/confirm-modal/confirm-modal.component.html</context>
@@ -474,8 +472,8 @@
         <source>Sell invoice</source><target state="final">Fatura de venda</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/sell/sell.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">11</context></context-group>
-      </trans-unit><trans-unit id="invoice.field.searchItem" datatype="html">
+      
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/sell/sell.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">14</context></context-group></trans-unit><trans-unit id="invoice.field.searchItem" datatype="html">
         <source>Search Item</source><target state="final">Pesquisar Item</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/sell/sell.component.html</context>
@@ -537,24 +535,48 @@
         <source>Discount</source><target state="final">Desconto</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/sell/sell.component.html</context><context context-type="linenumber">136</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">8</context></context-group>
+      
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/sell/sell.component.html</context><context context-type="linenumber">136</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">8</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit><trans-unit id="invoice.field.serie" datatype="html">
+        <source>Serie</source><target state="new">Serie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit><trans-unit id="invoice.field.client" datatype="html">
+        <source>Client</source><target state="final">Cliente</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context><context context-type="linenumber">21</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">11</context></context-group>
+      </trans-unit><trans-unit id="invoice.aditional.searchClient" datatype="html">
+        <source>Search Client</source><target state="final">Pesquisar cliente</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
       </trans-unit><trans-unit id="invoice.message.nostock" datatype="html">
         <source>There is not stock for this quantity</source><target state="final">Não tem stock pra quantidade preenchada.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      </trans-unit><trans-unit id="invoice.message.negativeDiscount" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">16</context></context-group></trans-unit><trans-unit id="invoice.message.negativeDiscount" datatype="html">
         <source>The discount is a negative number</source><target state="final">O desconto tem que ser um número positivo</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">14</context>
-        </context-group>
-      </trans-unit><trans-unit id="invoice.message.quantityInteger" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">17</context></context-group></trans-unit><trans-unit id="invoice.message.quantityInteger" datatype="html">
         <source>The quantity should be an integer</source><target state="final">A quantidade tem que ser um número inteiro</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">18</context></context-group>
+      </trans-unit><trans-unit id="invoice.message.additionalInformation" datatype="html">
+        <source>Additional Information</source><target state="final">Informação adicional</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">20</context></context-group>
+      </trans-unit><trans-unit id="invoice.aditional.wasCreated" datatype="html">
+        <source>The invoice was created succesfully</source><target state="final">A Fatura foi criada com sucesso</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit><trans-unit id="invoice.aditional.addAdditionalInformation" datatype="html">
+        <source>Do you want to add additional information?</source><target state="translated">Você quer adicionar mais informação?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit><trans-unit id="product.page.title" datatype="html">
         <source>Product</source><target state="final">Produto</target>

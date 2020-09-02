@@ -1,13 +1,14 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-title">Invoice Information </h4>
+  <h4 class="modal-title" id="modal-title" i18n="@@invoice.message.additionalInformation">Additional Information</h4>
   <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
     (click)="activeModal.close(false)">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  <p>The invoice <span class="text-primary">"{{invoice_id}}"</span> was created <strong><span class="text-success">succesfully</span>.</strong></p>
-  <p><strong>Do you want to add additional information?.</strong></p>
+  <!-- <p>The invoice <span class="text-primary">"{{invoice_id}}"</span> was created <strong><span class="text-success">succesfully</span>.</strong></p> -->
+  <p><strong i18n="@@invoice.aditional.wasCreated">The invoice was created succesfully</strong></p>
+  <p><strong i18n="@@invoice.aditional.addAdditionalInformation">Do you want to add additional information?</strong></p>
 
   <form>
     <div class="form-group">
@@ -17,10 +18,10 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="client">Client</label>
+      <label for="client" i18n="@@invoice.field.client">Client</label>
       <div class="input-group">
         <input class="form-control" type="text" name="searchClient" [(ngModel)]="externalUser"
-        placeholder="Search Cient" [ngbTypeahead]="search" [inputFormatter]="formatter"
+        i18n-placeholder="@@invoice.aditional.searchClient"  placeholder="Search Client" [ngbTypeahead]="search" [inputFormatter]="formatter"
         [resultFormatter]="formatter"/>
       </div>
     </div>
@@ -28,6 +29,6 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-primary" (click)="print()">Print</button>
+  <button type="button" class="btn btn-outline-primary" (click)="print()" i18n="@@button.print">Print</button>
   <button type="button" ngbAutofocus class="btn btn-success" (click)="save()">OK</button>
 </div>
