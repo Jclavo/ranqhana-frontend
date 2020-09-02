@@ -126,7 +126,7 @@ export class SellComponent implements OnInit {
     searchItem = FormUtils.moveFormValuesToModel(this.addItemForm.value.searchItem, searchItem);
 
     //Other values
-    searchItem.quantity = Number(this.addItemForm.value?.quantity.replace(",", "."));
+    searchItem.quantity = Number(this.addItemForm.value?.quantity);
 
     return searchItem;
   }

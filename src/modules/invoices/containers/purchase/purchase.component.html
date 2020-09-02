@@ -1,15 +1,10 @@
 <sb-layout-dashboard>
-    <sb-dashboard-head title="" [hideBreadcrumbs]="false"></sb-dashboard-head>
-    <!-- <sb-card>
-        <div class="card-body">This page is to create a purchase invoice .
-            <a target="_blank" href="jclavotafur@gmail.com">Contact me clicking here.</a>
-        </div>
-    </sb-card> -->
+    <sb-dashboard-head title="" [hideBreadcrumbs]="true"></sb-dashboard-head>
 
     <sb-card>
         <div class="card-header">
             <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
-            Purchase invoice
+            <ng-container i18n="@@invoice.purchase.title">Purchase invoice</ng-container>
         </div>
         <div class="card-body">
             <form [formGroup]="addItemForm">
@@ -17,17 +12,17 @@
                     <div class="col-12 col-md-8 col-xl-3">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">Item:</div>
+                                <div class="input-group-text font-weight-bold">Item</div>
                             </div>
                             <input class="form-control" type="text" name="searchItem" formControlName="searchItem"
-                                placeholder="Search Item" [ngbTypeahead]="search" [inputFormatter]="formatter"
+                            i18n-placeholder="@@invoice.field.searchItem" placeholder="Search Item" [ngbTypeahead]="search" [inputFormatter]="formatter"
                                 [resultFormatter]="formatter" (blur)="assignSearchItemToForm()"/>
                         </div>
                     </div>
                     <div class="col-12 col-md-4 col-xl-2">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">Unit:</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@unit.page.title">Unit</div>
                             </div>
                             <input class="form-control" type="text" name="unit" formControlName="unit"
                                 readonly />
@@ -36,7 +31,7 @@
                     <div class="col-12 col-md-5 col-xl-3">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">Price:</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@invoice.field.price">Price</div>
                             </div>
                             <input class="form-control" type="text" name="price" formControlName="price"
                             maxlength="8"/>
@@ -45,15 +40,14 @@
                     <div class="col-12 col-md-5 col-xl-3">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">Quantity:</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@invoice.field.quantity">Quantity</div>
                             </div>
-                            <input class="form-control" type="text" name="quantity" placeholder="Quantity"
-                            formControlName="quantity" maxlength="5"/>
+                            <input class="form-control" type="text" name="quantity" formControlName="quantity" maxlength="5"/>
                         </div>
                     </div>
 
                     <div class="col-12 col-md-2 col-xl-1">
-                        <button type="button" class="btn btn-primary btn-block" type="submit" (click)="addItem()">ADD</button>
+                        <button type="button" class="btn btn-primary btn-block" type="submit" (click)="addItem()" i18n="@@button.add">ADD</button>
                     </div>
 
                 </div>
@@ -70,12 +64,12 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col"><span>ID</span></th>
-                            <th scope="col"><span>Description</span></th>
-                            <th scope="col"><span>Unit</span></th>
-                            <th scope="col"><span>Quantity</span></th>
-                            <th scope="col"><span>Unit Price</span></th>
-                            <th scope="col"><span>Line Total</span></th>
-                            <th scope="col"><span>Options</span></th>
+                            <th scope="col"><span i18n="@@button.description">Description</span></th>
+                            <th scope="col"><span i18n="@@unit.page.title">Unit</span></th>
+                            <th scope="col"><span i18n="@@invoice.field.quantity">Quantity</span></th>
+                            <th scope="col"><span i18n="@@invoice.field.unitPrice">Unit Price</span></th>
+                            <th scope="col"><span i18n="@@invoice.field.lineTotal">Line Total</span></th>
+                            <th scope="col"><span i18n="@@button.options">Options</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,9 +78,9 @@
                             <th scope="row">{{ invoiceDetail.item_id }}</th>
                             <td scope="row">{{ invoiceDetail.item }}</td>
                             <td scope="row">{{ invoiceDetail.unit }}</td>
-                            <td scope="row">{{ invoiceDetail.quantity }}</td>
-                            <td scope="row">{{ invoiceDetail.price | number : '1.2'}}</td>
-                            <td scope="row">{{ invoiceDetail.total | number : '1.2'}}</td>
+                            <td scope="row">{{ invoiceDetail.quantity?.toString().includes('.') ? formUtils.customToFixed(invoiceDetail.quantity) : invoiceDetail.quantity }}</td>
+                            <td scope="row">{{ formUtils.customToFixed(invoiceDetail.price)}}</td>
+                            <td scope="row">{{ formUtils.customToFixed(invoiceDetail.total)}}</td>
                             <td>
                                 <div class="row">
                                     <div class="col-3">
@@ -110,26 +104,26 @@
                     <div class="col-md-3">
                         <div class="input-group mb-2 mb-md-3">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">SUBTOTAL:</div>
+                                <div class="input-group-text font-weight-bold">SUBTOTAL</div>
                             </div>
                             <input class="form-control" type="text" name="subtotal" 
-                            value="{{purchaseInvoice.subtotal| number : '1.2'}}" readonly />
+                            value="{{formUtils.customToFixed(purchaseInvoice.subtotal)}}" readonly />
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="input-group mb-2 mb-md-3">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">TAXES:</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@invoice.field.taxes">Taxes</div>
                             </div>
-                            <input class="form-control" type="text" name="taxes" value="{{purchaseInvoice.taxes | number : '1.2'}}"
+                            <input class="form-control" type="text" name="taxes" value="{{formUtils.customToFixed(purchaseInvoice.taxes)}}"
                                 readonly />
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="input-group mb-2 mb-md-3">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">DISCOUNT:</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@invoice.field.discount">Discount</div>
                             </div>
                             <input class="form-control" type="text" name="discount" [(ngModel)]="purchaseInvoice.discount"
                                 min="0.0" (blur)="calculateDiscount()" />
@@ -138,19 +132,19 @@
                     <div class="col-md-3">
                         <div class="input-group mb-2 mb-md-3">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">TOTAL:</div>
+                                <div class="input-group-text font-weight-bold">TOTAL</div>
                             </div>
-                            <!-- [(ngModel)]="purchaseInvoice.total | number : '1.2'" -->
-                            <input class="form-control" type="text" name="total" value="{{purchaseInvoice.total | number : '1.2'}}"
+                            <input class="form-control" type="text" name="total" value="{{formUtils.customToFixed(purchaseInvoice.total)}}"
                                 readonly />
                         </div>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-success btn-block" (click)="save()">Create
-                    Purchase Invoice</button>
+                <button type="button" class="btn btn-success btn-block" (click)="save()" i18n="@@button.create">Create</button>
             </form>
         </div>
     </sb-card>
 
 </sb-layout-dashboard>
+<sb-invoice-i18n></sb-invoice-i18n>
+<sb-form-validations></sb-form-validations>

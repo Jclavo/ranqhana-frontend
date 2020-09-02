@@ -6,13 +6,14 @@ import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operato
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 //MODELS
-import { SearchItemOptions } from '@modules/items/models';
+import { Item, SearchItemOptions } from '@modules/items/models';
 import { StockTypes } from '@modules/stock-types/models';
 import { PurchaseInvoice, InvoiceDetail, SearchItem } from '../../models';
+import { FormMessage } from "@modules/utility/models";
 
 //SERVICES
 import { ItemService } from "@modules/items/services";
-import { NotificationService } from '@modules/utility/services';
+import { NotificationService, LanguageService, UtilityService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 
 //UTILS
@@ -38,11 +39,11 @@ export class PurchaseComponent implements OnInit {
   addItemForm: FormGroup = this.formBuilder.group({
     searchItem: ['', [Validators.required]],
     unit: [''],
-    price: [0, [Validators.required, CustomValidator.validatePositiveNumbers, CustomValidator.validateDecimalNumbers, Validators.maxLength(8)]],
-    quantity: [0, [Validators.required, CustomValidator.validatePositiveNumbers, Validators.maxLength(5)]]
+    price: [0, [Validators.required, CustomValidator.validateDecimalNumbers, Validators.maxLength(8)]],
+    quantity: [0, [Validators.required, CustomValidator.validateDecimalNumbers, Validators.maxLength(5)]]
   });
 
-  public errorsListForm: Array<string> = [];
+  public errorsListForm: Array<FormMessage> = [];
 
   constructor(
 
@@ -50,7 +51,10 @@ export class PurchaseComponent implements OnInit {
     private notificationService: NotificationService,
     private formBuilder: FormBuilder,
     private invoiceUtils: InvoiceUtils,
-    private authService: AuthService
+    private authService: AuthService,
+    private languageService: LanguageService,
+    private utilityService: UtilityService,
+    public  formUtils: FormUtils
   ) { }
 
   ngOnInit(): void {
@@ -91,6 +95,9 @@ export class PurchaseComponent implements OnInit {
   assignSearchItemToForm(){
 
     this.addItemForm.controls['unit'].setValue(this.addItemForm.value.searchItem.unit);
+    if(this.addItemForm.value.searchItem.type_id == Item.getTypeService()){
+      this.addItemForm.controls['unit'].setValue('-');
+    }
 
   }
 
@@ -110,8 +117,11 @@ export class PurchaseComponent implements OnInit {
   addItem() {
 
     if (this.addItemForm.invalid) {
-      this.errorsListForm = FormUtils.getFormError(this.addItemForm);
-      this.notificationService.error(this.errorsListForm[0]);
+      this.errorsListForm = this.utilityService.getFormError(this.addItemForm);
+      if(this.errorsListForm.length > 0){
+        this.errorsListForm[0].setKey(this.languageService.getI18n('invoice.field.' + this.errorsListForm[0].getKey()));
+        this.notificationService.error(this.errorsListForm[0].getMessage());
+      }
       return;
     }
 
@@ -119,7 +129,7 @@ export class PurchaseComponent implements OnInit {
 
     // check if item is not stocked
     if(!this.searchItem.stocked){
-      this.notificationService.error("Item is not stocked");
+      this.notificationService.error(this.languageService.getI18n('invoice.message.nostocked'));
       return;
     } 
 
