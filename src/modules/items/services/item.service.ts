@@ -52,13 +52,14 @@ export class ItemService {
         item.id = data.id;
         item.name = data.name;
         item.description = data.description;
-        item.price = data.price;
-        item.stock = data.stock;
+        item.price = Number(data.price);
+        item.stock = Number(data.stock);
         item.unit_id = data.unit_id;
         item.unit = data.unit;
         item.fractioned = data.fractioned;
         item.stocked = data.stocked;
         item.store_id = data.store_id;
+        item.type_id = data.type_id;
         item.created_at = data.created_at;
         item.updated_at = data.updated_at;
 

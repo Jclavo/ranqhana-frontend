@@ -44,8 +44,8 @@ export class UtilityService {
             case 'invalidPositiveNumber':
               keyError = this.languageService.getI18n('form.invalidPositiveNumber');
               break;
-            case 'mustMatch':
-                keyError = this.languageService.getI18n('form.mustMatch');
+            case 'invalidDecimalNumber':
+                keyError = this.languageService.getI18n('form.mask');
                 break;
             case 'mask':
                 keyError = this.languageService.getI18n('form.mask');

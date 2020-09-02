@@ -3,17 +3,20 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 //MODELS
-// import { SearchOptions } from '@modules/items/models';
+import { Item } from '@modules/items/models';
 import { InvoiceDetail, SearchItem, Invoice } from '../models';
 
 //SERVICES
-import { NotificationService } from '@modules/utility/services';
+import { NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 import { InvoiceService, InvoiceDetailService } from '../services';
 
 
 // COMPONENT 
 import { AddAditionalInfoComponent } from "../components/add-aditional-info/add-aditional-info.component";
+
+//Utilities
+import { CustomValidator } from "@modules/utility/utils";
 
 @Injectable({
     providedIn: 'root'
@@ -31,6 +34,7 @@ export class InvoiceUtils implements OnInit {
         private authService: AuthService,
         private modalService: NgbModal,
         private router: Router,
+        private languageService: LanguageService
     ) { }
 
 
@@ -40,16 +44,16 @@ export class InvoiceUtils implements OnInit {
 
     hasStock(item: SearchItem): boolean {
         if (item.stocked && item.quantity > item.stock) {
-            this.notificationService.error("There is not stock for this quantity.");
+            this.notificationService.error(this.languageService.getI18n('invoice.message.nostock'));
             return false;
         }
         return true;
     }
 
     unitAllowDecimal(item: SearchItem): boolean {
-        if (!item.fractioned) {
+        if (!item.fractioned || item.type_id == Item.getTypeService()) {
             if (!Number.isInteger(item.quantity)) {
-                this.notificationService.error("The quantity should be an integer.");
+                this.notificationService.error(this.languageService.getI18n('invoice.message.quantityInteger'));
                 return false;
             }
         }
@@ -93,25 +97,39 @@ export class InvoiceUtils implements OnInit {
         }
 
         //Get total
+        // newInvoice.total = newInvoice.subtotal + invoice.taxes - invoice.discount;
         newInvoice.total = newInvoice.subtotal + invoice.taxes - invoice.discount;
+        newInvoice.discount = invoice.discount;
+        if(newInvoice.total < 0){
+            newInvoice.total = newInvoice.subtotal;
+            newInvoice.discount = 0;
+        }
 
         return newInvoice;
     }
 
     calculateDiscount(invoice: Invoice): Invoice {
 
-        if (invoice.discount < 0) {
-            this.notificationService.error("The discount is a negative number");
-            invoice.discount = 0.0;
-            return invoice;
+        if (invoice.discount != 0) {
+            if (invoice.discount < 0) {
+                this.notificationService.error(this.languageService.getI18n('invoice.message.negativeDiscount'));
+                invoice.discount = 0.0;
+                return invoice;
+            }
+
+            if (!CustomValidator.validDecimalNumbers.test(invoice.discount.toString())) {
+                this.notificationService.error(this.languageService.getI18n('form.invalidDecimalNumber'));
+                return invoice;
+            }
+
+            if (invoice.discount > invoice.subtotal) {
+                this.notificationService.error(this.languageService.getI18n('invoice.message.discountGTsubtotal'));
+                invoice.discount = 0.0;
+                return invoice;
+            }
         }
 
-        if (invoice.discount > invoice.subtotal) {
-            this.notificationService.error("The discount is great than the subtotal");
-            invoice.discount = 0.0;
-            return invoice;
-        }
-
+        // invoice.total = invoice.subtotal + invoice.taxes - invoice.discount;
         invoice.total = invoice.subtotal + invoice.taxes - invoice.discount;
 
         return invoice;
@@ -134,9 +152,6 @@ export class InvoiceUtils implements OnInit {
                         invoiceDetails[index].invoice_id = invoice.id;
                         this.invoiceDetailTotalItemsOK >= 0 ? await this.addDetail(invoiceDetails[index]) : null;
                     }
-
-
-                    console.log('this.invoiceDetailTotalItemsOK', this.invoiceDetailTotalItemsOK);
 
                     if (this.invoiceDetailTotalItems == this.invoiceDetailTotalItemsOK) {
                         this.notificationService.success(response.message);
@@ -188,7 +203,7 @@ export class InvoiceUtils implements OnInit {
     }
 
     delete(index: number, invoiceDetails: Array<InvoiceDetail>): Array<InvoiceDetail> {
-        
+
         invoiceDetails.splice(index, 1);
 
         return invoiceDetails;

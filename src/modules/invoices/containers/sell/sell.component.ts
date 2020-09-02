@@ -7,11 +7,12 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Item, SearchItemOptions } from '@modules/items/models';
 import { StockTypes } from '@modules/stock-types/models';
 import { SellInvoice, InvoiceDetail, SearchItem } from '../../models';
+import { FormMessage } from "@modules/utility/models";
 
 //SERVICES
 import { ItemService } from "@modules/items/services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService } from '@modules/utility/services';
+import { NotificationService, LanguageService, UtilityService } from '@modules/utility/services';
 
 //UTILS
 import { InvoiceUtils } from "../../utils/invoiceUtils";
@@ -40,10 +41,10 @@ export class SellComponent implements OnInit {
     unit: [''],
     stock: [''],
     price: [''],
-    quantity: [0, [Validators.required, CustomValidator.validatePositiveNumbers, Validators.maxLength(5)]]
+    quantity: [0, [Validators.required, CustomValidator.validateDecimalNumbers, Validators.maxLength(5)]]
   });
 
-  private errorsListForm: Array<string> = [];
+  private errorsListForm: Array<FormMessage> = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,7 +52,9 @@ export class SellComponent implements OnInit {
     private authService: AuthService,
     private notificationService: NotificationService,
     private invoiceUtils: InvoiceUtils,
-
+    private languageService: LanguageService,
+    private utilityService: UtilityService,
+    public  formUtils: FormUtils
   ) { }
 
   ngOnInit(): void {
@@ -95,9 +98,12 @@ export class SellComponent implements OnInit {
     this.addItemForm.controls['searchItem'].setValue(this.calculateStock(this.addItemForm.value.searchItem));
 
     this.addItemForm.controls['unit'].setValue(this.addItemForm.value.searchItem.unit);
-    this.addItemForm.controls['price'].setValue(this.addItemForm.value.searchItem.price);
-    this.addItemForm.controls['stock'].setValue(this.addItemForm.value.searchItem.stock);
-
+    this.addItemForm.controls['price'].setValue(this.formUtils.customToFixed(this.addItemForm.value.searchItem.price));
+    this.addItemForm.value.searchItem.stocked ?  this.addItemForm.controls['stock'].setValue(this.addItemForm.value.searchItem.stock) : this.addItemForm.controls['stock'].setValue('-');
+    if(this.addItemForm.value.searchItem.type_id == Item.getTypeService()){
+      this.addItemForm.controls['unit'].setValue('-');
+      this.addItemForm.controls['stock'].setValue('-');
+    }
   }
 
   calculateStock(searchItem: SearchItem): SearchItem {
@@ -120,7 +126,7 @@ export class SellComponent implements OnInit {
     searchItem = FormUtils.moveFormValuesToModel(this.addItemForm.value.searchItem, searchItem);
 
     //Other values
-    searchItem.quantity = Number(this.addItemForm.value.quantity);
+    searchItem.quantity = Number(this.addItemForm.value?.quantity.replace(",", "."));
 
     return searchItem;
   }
@@ -128,16 +134,19 @@ export class SellComponent implements OnInit {
   addItem() {
 
     if (this.addItemForm.invalid) {
-      this.errorsListForm = FormUtils.getFormError(this.addItemForm);
-      this.notificationService.error(this.errorsListForm[0]);
+      this.errorsListForm = this.utilityService.getFormError(this.addItemForm);
+      if(this.errorsListForm.length > 0){
+        this.errorsListForm[0].setKey(this.languageService.getI18n('invoice.field.' + this.errorsListForm[0].getKey()));
+        this.notificationService.error(this.errorsListForm[0].getMessage());
+      }
       return;
     }
 
     this.searchItem = this.getFormValues();
 
     // check the stock
-    if (this.searchItem.stocked && this.searchItem.quantity > this.searchItem.stock) {
-      this.notificationService.error("There is not stock for this quantity");
+    if (this.searchItem.type_id == Item.getTypeProduct() && this.searchItem.stocked && this.searchItem.quantity > this.searchItem.stock) {
+      this.notificationService.error(this.languageService.getI18n('invoice.message.nostock'));
       return;
     }
 

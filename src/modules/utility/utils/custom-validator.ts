@@ -16,20 +16,20 @@ export class CustomValidator {
   static validatePositiveNumbers(control: AbstractControl): { [key: string]: any } | null {
 
     const valid = CustomValidator.validNumbers.test(control.value)
-    
+
     return valid
-    ? null
-    : { invalidPositiveNumber: true }
+      ? null
+      : { invalidPositiveNumber: true }
 
   }
 
-  static validatePositiveDecimalNumbers(control: AbstractControl): { [key: string]: any } | null {
+  static validateDecimalNumbers(control: AbstractControl): { [key: string]: any } | null {
 
     const valid = CustomValidator.validDecimalNumbers.test(control.value)
-    
+
     return valid
-    ? null
-    : { invalidPositiveNumber: true }
+      ? null
+      : { invalidDecimalNumber: true }
 
   }
 
@@ -40,7 +40,7 @@ export class CustomValidator {
   //   if(!control.value) valid = true;
   //   // else if (control.value.length < 8) valid = false;
   //   // else if (control.value.length > 45) valid = false;
-     
+
   //   return valid
   //   ? null
   //   : { invalidPassword: true }
@@ -49,17 +49,17 @@ export class CustomValidator {
 
   static mustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
-        const control = formGroup.controls[controlName];
-        const matchingControl = formGroup.controls[matchingControlName];
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
 
-        // set error on matchingControl if validation fails
-        if (control.value !== matchingControl.value) {
-            matchingControl.setErrors({ mustMatch: true });
-        } else {
-            matchingControl.setErrors(null);
-        }
+      // set error on matchingControl if validation fails
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
     }
-}
+  }
 
 
 }

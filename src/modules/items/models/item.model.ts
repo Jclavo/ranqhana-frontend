@@ -3,7 +3,7 @@ export class Item {
     id: number = 0;
     name: string = '';
     description: string = '';
-    price: number = 0;
+    price: number = 0.0;
     stock: number = 0;
     unit: string = '';
     unit_id: number = 0;

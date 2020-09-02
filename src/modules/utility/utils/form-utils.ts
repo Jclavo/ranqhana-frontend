@@ -69,7 +69,11 @@ export class FormUtils {
           }
 
         return maskByCountry;
+    }
 
+
+    customToFixed(value: number){
+        return value?.toFixed(2);
     }
 
 }
