@@ -47,7 +47,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     private ngbModal: NgbModal,
     private utilityService: UtilityService,
     private customDateService: CustomDateService,
-    private formUtils: FormUtils
+    public formUtils: FormUtils
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();

@@ -1,20 +1,20 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Invoice Information </h4>
+    <h4 class="modal-title" id="modal-title" i18n="@@invoice.message.information">Invoice Information</h4>
     <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
       (click)="activeModal.close(false)">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <p><strong>Store:</strong> {{invoice.store}}</p>
-    <p><strong>Type:</strong> {{invoice.type}}</p>
+    <p><strong i18n="@@button.company">Company</strong> {{invoice.store}}</p>
+    <p><strong i18n="@@button.type">Type</strong> {{invoice.type}}</p>
     <table>
       <tr>
         <th>ID</th>
-        <th>Description</th>
-        <th>Unit</th>
-        <th>Quantity</th>
-        <th>Price</th>
+        <th i18n="@@button.description">Description</th>
+        <th i18n="@@unit.page.title">Unit</th>
+        <th i18n="@@invoice.field.quantity">Quantity</th>
+        <th i18n="@@invoice.field.price">Price</th>
         <th>Total</th>
       </tr>
       <tr *ngFor="let invoiceDetail of invoiceDetails">
@@ -32,12 +32,12 @@
       </tr>
       <tr>
         <td style="border:none" colspan="4"></td>
-        <th>Taxes</th>
+        <th  i18n="@@invoice.field.taxes">Taxes</th>
         <td>{{invoice.taxes}}</td>
       </tr>
       <tr>
         <td style="border:none" colspan="4"></td>
-        <th>Discounts</th>
+        <th i18n="@@invoice.field.discount">Discounts</th>
         <td>{{invoice.discount}}</td>
       </tr>
       <tr>
@@ -47,10 +47,10 @@
       </tr>
     </table>
     <br>
-    <p><strong>User:</strong> {{invoice.external_user}}</p>
-    <p><strong>Date:</strong> {{invoice.created_at}}</p>
+    <p><strong i18n="@@button.user">User</strong> {{invoice.external_user}}</p>
+    <p><strong i18n="@@button.createAt">Create at</strong> {{invoice.created_at}}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="print()">Print</button>
-    <button type="button" ngbAutofocus class="btn btn-success" (click)="exportPDF()">Export PDF</button>
+    <button type="button" class="btn btn-outline-primary" (click)="print()" i18n="@@button.print">Print</button>
+    <button type="button" ngbAutofocus class="btn btn-success" (click)="exportPDF()" i18n="@@button.exportPDF">Export PDF</button>
   </div>
