@@ -29,6 +29,7 @@ export class User {
     country: string = '';
     countryCode: string = '';
     currency: string = '';
+    locale: string = '';
     
     //FK
     company_project_id: number = 0;

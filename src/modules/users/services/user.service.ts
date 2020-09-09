@@ -229,6 +229,7 @@ export class UserService {
         user.country = resultRAW.result?.country?.name;
         user.countryCode = resultRAW.result?.country?.code;
         user.currency = resultRAW.result?.country?.currency;
+        user.locale = resultRAW.result?.country?.locale;
 
         //FK
         user.company_project_id = resultRAW.result?.id;
