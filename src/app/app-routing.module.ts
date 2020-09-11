@@ -3,13 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { GlobalGuard } from '@modules/utility/guards';
 
 const routes: Routes = [
+    // {
+    //     path: '',
+    //     pathMatch: 'full',
+    //     redirectTo: '/login',
+    // },
     {
+        // path: 'login',
         path: '',
-        pathMatch: 'full',
-        redirectTo: '/login',
-    },
-    {
-        path: 'login',
         loadChildren: () =>
             import('modules/auth/auth-routing.module').then(m => m.AuthRoutingModule),
     },
