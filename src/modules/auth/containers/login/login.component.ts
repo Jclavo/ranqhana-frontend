@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 // MODELS
 import { User } from '@modules/users/models';
@@ -16,7 +17,6 @@ import { ChangeLanguageModalComponent } from "@modules/languages/components";
 
 //UTILS
 import { FormUtils, CustomValidator } from "@modules/utility/utils";
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -86,12 +86,6 @@ export class LoginComponent implements OnInit {
 
     const modalRef = this.ngbModal.open(ChangeLanguageModalComponent, { centered: true, backdrop: 'static' });
 
-    // modalRef.componentInstance.title = 'Invoice';
-    // modalRef.componentInstance.action = 'Anull/Cancel';
-
-    // modalRef.result.then((result) => {
-     
-    // });
   }
 
 }
