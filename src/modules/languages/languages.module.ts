@@ -16,7 +16,7 @@ import * as languagesContainers from './containers';
 
 /* Services */
 import * as languagesServices from './services';
- 
+
 
 @NgModule({
   imports: [
@@ -41,6 +41,7 @@ import * as languagesServices from './services';
     ...languagesContainers.containers
   ],
   entryComponents: [
+    ...languagesComponents.components,
   ]
 
 })
