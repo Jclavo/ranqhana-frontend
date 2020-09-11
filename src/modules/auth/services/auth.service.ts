@@ -21,28 +21,29 @@ export class AuthService {
 
         this.user.id = _user.id;
         this.user.login = _user.login;
-        
+
         //user info
         // this.user.identification = _user.id;
-        // this.user.name = _user.id;
-        // this.user.lastname = _user.id;
+        this.user.name = _user.name;
+        this.user.lastname = _user.lastname;
         // this.user.email = _user.id;
         // this.user.phone = _user.id;
         // this.user.address = _user.id;
-       
+
         //company info
         this.user.company_id = _user.company_id;
         this.user.company = _user.company;
-    
+
         //project info
         this.user.project_id = _user.project_id;
-        this.user.project =  _user.project;
+        this.user.project = _user.project;
         //country info
         this.user.country_id = _user.country_id;
         this.user.country = _user.country;
         this.user.countryCode = _user.countryCode;
         this.user.currency = _user.currency;
-        
+        this.user.locale = _user.locale;
+
         //FK
         this.user.company_project_id = _user.company_project_id;
         this.user.user_detail_id = _user.user_detail_id;
@@ -75,6 +76,10 @@ export class AuthService {
         return this.getUserFeature('email');
     }
 
+    public getUserFullName() {
+        return this.getUserFeature('name') + ' ' + this.getUserFeature('lastname');
+    }
+
     public getLogin() {
         return this.getUserFeature('login');
     }
@@ -101,12 +106,12 @@ export class AuthService {
 
     public getHeaders() {
         return {
-          headers: new HttpHeaders({
-            'Authorization': 'Bearer ' + this.getAPITOKEN(),
-            'X-lang': this.getLocale(),
-          })
+            headers: new HttpHeaders({
+                'Authorization': 'Bearer ' + this.getAPITOKEN(),
+                'X-lang': this.getLocale(),
+            })
         };
-      }
+    }
 
     private getUserFeature(feature: string) {
         let user: any;
@@ -128,6 +133,10 @@ export class AuthService {
                     return JSON.parse(user)?.company;
                 case 'project_id':
                     return JSON.parse(user)?.project_id;
+                case 'name':
+                    return JSON.parse(user)?.name;
+                case 'lastname':
+                    return JSON.parse(user)?.lastname;
                 default:
                     return;
             }
@@ -137,7 +146,7 @@ export class AuthService {
     }
 
     public isLogged() {
-        if(this.getAPITOKEN())
+        if (this.getAPITOKEN())
             return true;
         return false;
     }
@@ -147,11 +156,11 @@ export class AuthService {
         this.router.navigate(['/']);
     }
 
-    public raiseError(){
+    public raiseError() {
         this.logout();
     }
 
-    public cleanStorage(){
+    public cleanStorage() {
         localStorage.removeItem('API_TOKEN');
         localStorage.removeItem('LOCALE');
         localStorage.removeItem('user');
