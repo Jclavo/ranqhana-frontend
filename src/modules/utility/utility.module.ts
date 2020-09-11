@@ -9,6 +9,7 @@ import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstr
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
+import { LanguagesModule } from '@modules/languages/languages.module';
 
 /* Components */
 import * as utilityComponents from './components';
@@ -37,6 +38,7 @@ import * as utilityServices from './services';
         HttpClientModule,
         AppCommonModule,
         NavigationModule,
+        LanguagesModule
     ],
     providers: [
         ...utilityServices.services, 
