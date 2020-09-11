@@ -229,46 +229,35 @@
         <source>Login</source>
         <target state="final">Iniciar sesión</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">29</context></context-group>
-      </trans-unit>
+      
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">7</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">34</context></context-group></trans-unit>
       <trans-unit id="login.login" datatype="html">
         <source>Identification</source>
         <target state="final">Identificación</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">12</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">45</context></context-group></trans-unit><trans-unit id="login.login.placeholder" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">13</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">51</context></context-group></trans-unit><trans-unit id="login.login.placeholder" datatype="html">
         <source>Enter Identification</source>
         <target state="final">Ingrese su identificación</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      </trans-unit><trans-unit id="login.password" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">15</context></context-group></trans-unit><trans-unit id="login.password" datatype="html">
         <source>Password</source>
         <target state="final">Contraseña</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">16</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">46</context></context-group></trans-unit><trans-unit id="login.password.placeholder" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">19</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">52</context></context-group></trans-unit><trans-unit id="login.password.placeholder" datatype="html">
         <source>Enter password</source>
         <target state="final">Ingrese su contraseña</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-      </trans-unit><trans-unit id="login.forgotPassword" datatype="html">
-        <source>Forgot Password?</source>
-        <target state="final">Olvido su contraseña?</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-      </trans-unit><trans-unit id="login.newAccount" datatype="html">
-        <source>Need an account? Sign up!</source>
-        <target state="final">No tienes cuenta? Registrate!</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-      </trans-unit>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">21</context></context-group></trans-unit><trans-unit id="login.forgotPassword" datatype="html">
+        <source>Forgot
+                                    Password?</source>
+        <target state="translated">Olvido su contraseña?</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">32</context></context-group></trans-unit>
+      <trans-unit id="button.changeLanguage" datatype="html">
+        <source>Change language</source><target state="final">Cambiar lenguaje</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/auth/containers/login/login.component.html</context><context context-type="linenumber">41</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">23</context></context-group></trans-unit>
       <trans-unit id="form.required" datatype="html">
         <source>required</source>
         <target state="final">obligatorio</target>
@@ -312,10 +301,10 @@
         <source>Cancel</source><target state="final">Cancelar</target>
         
       
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/utility/components/confirm-modal/confirm-modal.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context><context context-type="linenumber">61</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context><context context-type="linenumber">46</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/units/components/unit-modal/unit-modal.component.html</context><context context-type="linenumber">31</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">83</context></context-group></trans-unit><trans-unit id="button.save" datatype="html">
-        <source>Save</source><target state="final">Guardar</target>
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/languages/components/change-language-modal/change-language-modal.component.html</context><context context-type="linenumber">26</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">2</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/utility/components/confirm-modal/confirm-modal.component.html</context><context context-type="linenumber">15</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context><context context-type="linenumber">61</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context><context context-type="linenumber">46</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/units/components/unit-modal/unit-modal.component.html</context><context context-type="linenumber">31</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">83</context></context-group></trans-unit><trans-unit id="button.save" datatype="html">
+        <source>Change</source><target state="translated">Guardar</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context><context context-type="linenumber">64</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context><context context-type="linenumber">49</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/units/components/unit-modal/unit-modal.component.html</context><context context-type="linenumber">32</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">88</context></context-group></trans-unit><trans-unit id="button.search" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/languages/components/change-language-modal/change-language-modal.component.html</context><context context-type="linenumber">27</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">3</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context><context context-type="linenumber">64</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context><context context-type="linenumber">49</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/units/components/unit-modal/unit-modal.component.html</context><context context-type="linenumber">32</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/containers/user/user.component.html</context><context context-type="linenumber">88</context></context-group></trans-unit><trans-unit id="button.search" datatype="html">
         <source>Search</source><target state="final">Buscar</target>
         
         
