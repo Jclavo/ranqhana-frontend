@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 //Models
 import { Language } from '@modules/languages/models';
@@ -8,7 +9,6 @@ import { Language } from '@modules/languages/models';
 import { LanguageService} from '@modules/languages/services';
 import { NotificationService } from '@modules/utility/services';
 import { AuthService } from '@modules/auth/services';
-
 
 @Component({
   selector: 'sb-change-language-modal',
@@ -19,12 +19,14 @@ export class ChangeLanguageModalComponent implements OnInit {
 
   public languages: Array<Language> = [];
   public locale: string = '';
+  public customURL: string = '';
 
   constructor(
     private languageService: LanguageService,
     private notificationService: NotificationService,
     private authService: AuthService,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private router: Router
   )
   { }
 
@@ -50,8 +52,11 @@ export class ChangeLanguageModalComponent implements OnInit {
 
   }
 
+  onSelectLanguage(){
+    this.customURL = this.locale + this.router.url;
+  }
+
   change(){
-    console.log('you change the language');
     this.authService.setLocale(this.locale);
     this.activeModal.close(false);
 

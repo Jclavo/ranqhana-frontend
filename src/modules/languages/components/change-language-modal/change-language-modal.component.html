@@ -9,7 +9,7 @@
     <form>
         <div class="form-group">
             <label class="small mb-1" i18n="@@button.languages">Language</label>
-            <select class="form-control" [(ngModel)]="locale" placeholder="Language" name="locale">
+            <select class="form-control" [(ngModel)]="locale" placeholder="Language" name="locale" (change)="onSelectLanguage()">
                 <option *ngFor="let language of languages" [value]="language.locale">
                     {{language.name}}
                 </option>
@@ -19,5 +19,5 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)" i18n="@@button.cancel">Cancel</button>
-    <a type="button" ngbAutofocus class="btn btn-danger" href="/{{locale}}/" (click)="change()" i18n="@@button.change">Change</a>
+    <a type="button" ngbAutofocus class="btn btn-danger" href="/{{customURL}}" (click)="change()" i18n="@@button.change">Change</a>
 </div>
