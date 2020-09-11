@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -11,13 +11,17 @@ import { UtilityService, NotificationService, LanguageService } from '../../../u
 import { AuthService } from '../../services';
 import { UserService } from '@modules/users/services';
 
+// COMPONENT 
+import { ChangeLanguageModalComponent } from "@modules/languages/components";
+
 //UTILS
 import { FormUtils, CustomValidator } from "@modules/utility/utils";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
   selector: 'sb-login',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './login.component.html',
   styleUrls: ['login.component.scss'],
 })
@@ -29,7 +33,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup = this.fb.group({
     login: ['', [Validators.required, Validators.maxLength(15), CustomValidator.validatePositiveNumbers]],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]]
+    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]],
+    language: ['']
   });
 
   constructor(
@@ -39,23 +44,23 @@ export class LoginComponent implements OnInit {
     private notificationService: NotificationService,
     private userService: UserService,
     private authService: AuthService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private ngbModal: NgbModal,
   ) {
     this.authService.cleanStorage();
   }
 
   ngOnInit() { }
 
-  login() {;
-
+  login() {
     if (this.loginForm.invalid) {
       this.errorsList = this.utilityService.getFormError(this.loginForm);
-      if(this.errorsList.length > 0){
+      if (this.errorsList.length > 0) {
         this.errorsList[0].setKey(this.languageService.getI18n('login.' + this.errorsList[0].getKey()));
         this.notificationService.error(this.errorsList[0].getMessage());
       }
-      
-      
+
+
       return;
     }
 
@@ -76,4 +81,17 @@ export class LoginComponent implements OnInit {
       this.notificationService.error(error);
     });
   }
+
+  openLanguageModal(){
+
+    const modalRef = this.ngbModal.open(ChangeLanguageModalComponent, { centered: true, backdrop: 'static' });
+
+    // modalRef.componentInstance.title = 'Invoice';
+    // modalRef.componentInstance.action = 'Anull/Cancel';
+
+    // modalRef.result.then((result) => {
+     
+    // });
+  }
+
 }

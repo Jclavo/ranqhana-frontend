@@ -10,6 +10,7 @@ import { NgxMaskModule } from 'ngx-mask'
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
 import { UtilityModule } from '@modules/utility/utility.module';
+import { LanguagesModule } from '@modules/languages/languages.module';
 
 /* Components */
 import * as authComponents from './components';
@@ -35,7 +36,8 @@ import * as countryServices from '../country/services';
         AppCommonModule,
         NavigationModule,
         NgxMaskModule.forRoot(),
-        UtilityModule
+        UtilityModule,
+        LanguagesModule
     ],
     providers: [...authServices.services, ...authGuards.guards, utilityServices.UtilityService, countryServices.CountryService],
     declarations: [...authContainers.containers, ...authComponents.components],
