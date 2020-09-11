@@ -191,7 +191,7 @@ export class UserService {
 
   login(user: User): Observable<Response> {
 
-    let apiRoot = environment.apiURL + 'login';
+    let apiRoot = environment.apiURLTaapaq + 'login';
 
     return this.http.post(apiRoot, user, this.authService.getHeaders()).pipe(map(res => {
 
@@ -210,8 +210,8 @@ export class UserService {
 
         //user info
         // user.identification = resultRAW.result?.id;
-        // user.name = resultRAW.result?.id;
-        // user.lastname = resultRAW.result?.id;
+        user.name = resultRAW.result?.user_detail?.name;
+        user.lastname = resultRAW.result?.user_detail?.lastname;
         // user.email = resultRAW.result?.id;
         // user.phone = resultRAW.result?.id;
         // user.address = resultRAW.result?.id;
@@ -221,15 +221,15 @@ export class UserService {
         user.company = resultRAW.result?.company?.name;
 
         //project info
-        user.project_id = resultRAW.result?.project?.id;
-        user.project = resultRAW.result?.project?.name;
+        user.project_id = resultRAW.result?.company_project?.project_id;
+        // user.project = resultRAW.result?.project?.name;
 
         //country info
-        user.country_id = resultRAW.result?.country?.id;
-        user.country = resultRAW.result?.country?.name;
-        user.countryCode = resultRAW.result?.country?.code;
-        user.currency = resultRAW.result?.country?.currency;
-        user.locale = resultRAW.result?.country?.locale;
+        user.country_id = resultRAW.result?.company?.country?.id;
+        user.country = resultRAW.result?.company?.country?.name;
+        user.countryCode = resultRAW.result?.company?.country?.code;
+        user.currency = resultRAW.result?.company?.country?.currency;
+        user.locale = resultRAW.result?.company?.country?.locale;
 
         //FK
         user.company_project_id = resultRAW.result?.id;
