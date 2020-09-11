@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Choose Language</h4>
+    <h4 class="modal-title" id="modal-title" i18n="@@button.changeLanguage">Choose Language</h4>
     <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
         (click)="activeModal.close(false)">
         <span aria-hidden="true">&times;</span>
@@ -7,13 +7,8 @@
 </div>
 <div class="modal-body">
     <form>
-        <!-- <div class="form-group">
-            <label class="control-label font-weight-bold" for="code" i18n="@@unit.field.code">Code</label>
-            <input type="text" class="form-control" id="code" name="code" [(ngModel)]="unit.code" placeholder="Code"
-                required>
-        </div> -->
         <div class="form-group">
-            <label class="small mb-1">Language</label>
+            <label class="small mb-1" i18n="@@button.languages">Language</label>
             <select class="form-control" [(ngModel)]="locale" placeholder="Language" name="locale">
                 <option *ngFor="let language of languages" [value]="language.locale">
                     {{language.name}}
@@ -24,5 +19,5 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)" i18n="@@button.cancel">Cancel</button>
-    <a type="button" ngbAutofocus class="btn btn-danger" href="/{{locale}}/" (click)="activeModal.close(false)" i18n="@@button.save">Change</a>
+    <a type="button" ngbAutofocus class="btn btn-danger" href="/{{locale}}/" (click)="activeModal.close(false)" i18n="@@button.change">Change</a>
 </div>
