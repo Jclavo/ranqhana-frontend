@@ -1,4 +1,4 @@
-import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 //Models
@@ -21,7 +21,6 @@ export class ChangeLanguageModalComponent implements OnInit {
   public locale: string = '';
 
   constructor(
-    @Inject(LOCALE_ID) public localeId: string,
     private languageService: LanguageService,
     private notificationService: NotificationService,
     private authService: AuthService,
@@ -31,6 +30,7 @@ export class ChangeLanguageModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLanguages();
+    this.setBrowserLanguage();
   }
 
   getLanguages() {
@@ -39,13 +39,6 @@ export class ChangeLanguageModalComponent implements OnInit {
 
       if (response.status) {
         this.languages = response.result;
-        
-        //Set locale 
-        for (let index = 0; index < this.languages.length; index++) {
-          if(this.localeId.includes(this.languages[index].locale)){
-            this.locale = this.languages[index].locale;
-          }
-        }
       } else {
         this.notificationService.error(response.message);
       }
@@ -58,7 +51,14 @@ export class ChangeLanguageModalComponent implements OnInit {
   }
 
   change(){
-    
+    console.log('you change the language');
+    this.authService.setLocale(this.locale);
+    this.activeModal.close(false);
+
+  }
+
+  setBrowserLanguage(){
+    this.locale = this.authService.getLocale();
   }
 
 }

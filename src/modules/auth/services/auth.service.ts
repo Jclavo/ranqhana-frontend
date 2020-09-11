@@ -50,18 +50,25 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(this.user));
     }
 
-    public getUser() {
-        return this.user;
-    }
-
     private setAPITOKEN(token: string) {
         this.api_token = token;
         localStorage.setItem('API_TOKEN', token);
     }
 
+    public setLocale(locale: string) {
+        localStorage.setItem('LOCALE', locale?.substring(0, 2));
+    }
+
+    public getUser() {
+        return this.user;
+    }
+
     public getAPITOKEN() {
-        // return this.api_token;
         return localStorage.getItem('API_TOKEN');
+    }
+
+    public getLocale() {
+        return localStorage.getItem('LOCALE') ?? 'es';
     }
 
     public getUserEmail() {
@@ -95,7 +102,8 @@ export class AuthService {
     public getHeaders() {
         return {
           headers: new HttpHeaders({
-            'Authorization': 'Bearer ' + this.getAPITOKEN()
+            'Authorization': 'Bearer ' + this.getAPITOKEN(),
+            'X-lang': this.getLocale(),
           })
         };
       }
@@ -136,7 +144,7 @@ export class AuthService {
 
     public logout() {
         this.cleanStorage();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
     }
 
     public raiseError(){
@@ -145,6 +153,7 @@ export class AuthService {
 
     public cleanStorage(){
         localStorage.removeItem('API_TOKEN');
+        localStorage.removeItem('LOCALE');
         localStorage.removeItem('user');
     }
 

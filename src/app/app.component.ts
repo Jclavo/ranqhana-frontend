@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, LOCALE_ID, Inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ChildActivationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { LanguageService } from "@modules/utility/services";
+import { AuthService } from "@modules/auth/services";
 
 @Component({
     selector: 'app-root',
@@ -14,7 +14,10 @@ export class AppComponent {
     title = 'sb-admin-angular';
     constructor(public router: Router,
                 private titleService: Title,
-                private languageService: LanguageService) {
+                private authService: AuthService,
+                @Inject(LOCALE_ID) public localeId: string,            
+    )
+    {
         this.router.events
             .pipe(filter(event => event instanceof ChildActivationEnd))
             .subscribe(event => {
@@ -26,5 +29,14 @@ export class AppComponent {
                 // this.titleService.setTitle('Store App - ' + this.languageService.getI18n(snapshot.data.title) || 'Store App');
                 this.titleService.setTitle('Store App');
             });
+           this.setBrowserLanguage();
     }
+
+    setBrowserLanguage(){
+        if(!this.authService.getLocale()){
+            this.authService.setLocale(this.localeId);
+        }
+    }
+
+
 }
