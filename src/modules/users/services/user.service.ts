@@ -292,4 +292,26 @@ export class UserService {
       }));
   }
 
+
+  logout() {
+
+    let apiRoot = environment.apiURLTaapaq + 'logout';
+
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
 }
