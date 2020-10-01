@@ -193,6 +193,9 @@ export class UserService {
 
     let apiRoot = environment.apiURLTaapaq + 'login';
 
+    //Encrypt
+    user.password = btoa(user.password);
+
     return this.http.post(apiRoot, user, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
