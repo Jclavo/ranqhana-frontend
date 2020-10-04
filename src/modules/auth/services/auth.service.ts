@@ -43,6 +43,7 @@ export class AuthService {
         this.user.countryCode = _user.countryCode;
         this.user.currency = _user.currency;
         this.user.locale = _user.locale;
+        this.user.tax = _user.tax;
 
         //FK
         this.user.company_project_id = _user.company_project_id;
@@ -108,6 +109,10 @@ export class AuthService {
         return this.getUserFeature('id');
     }
 
+    public getStoreTax() {
+        return this.getUserFeature('tax');
+    }
+
     public getHeaders() {
         return {
             headers: new HttpHeaders({
@@ -143,6 +148,8 @@ export class AuthService {
                     return JSON.parse(user)?.lastname;
                 case 'id':
                     return JSON.parse(user)?.id;
+                case 'tax':
+                    return JSON.parse(user)?.tax;
                 default:
                     return;
             }

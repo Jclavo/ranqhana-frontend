@@ -30,7 +30,8 @@ export class User {
     countryCode: string = '';
     currency: string = '';
     locale: string = '';
-    
+    tax: number = 0;
+
     //FK
     company_project_id: number = 0;
     user_detail_id: number = 0;

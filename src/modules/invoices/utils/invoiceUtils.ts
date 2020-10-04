@@ -98,8 +98,9 @@ export class InvoiceUtils implements OnInit {
 
         //Get total
         // newInvoice.total = newInvoice.subtotal + invoice.taxes - invoice.discount;
-        newInvoice.total = newInvoice.subtotal + invoice.taxes - invoice.discount;
+        newInvoice.total = newInvoice.subtotal - invoice.discount;
         newInvoice.discount = invoice.discount;
+        newInvoice.taxes = newInvoice.total * (this.authService.getStoreTax() / 100);
         if(newInvoice.total < 0){
             newInvoice.total = newInvoice.subtotal;
             newInvoice.discount = 0;
@@ -130,7 +131,8 @@ export class InvoiceUtils implements OnInit {
         }
 
         // invoice.total = invoice.subtotal + invoice.taxes - invoice.discount;
-        invoice.total = invoice.subtotal + invoice.taxes - invoice.discount;
+        invoice.total = invoice.subtotal - invoice.discount;
+        invoice.taxes = invoice.total * (this.authService.getStoreTax() / 100);
 
         return invoice;
 

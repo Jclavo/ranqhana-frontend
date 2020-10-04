@@ -114,7 +114,9 @@
                     <div class="col-md-3">
                         <div class="input-group mb-2 mb-md-3">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold" i18n="@@invoice.field.taxes">Taxes</div>
+                                <div class="input-group-text font-weight-bold">
+                                    <ng-container i18n="@@invoice.field.taxes">Taxes</ng-container> ({{authService.getStoreTax()}})%
+                                </div>
                             </div>
                             <input class="form-control" type="text" name="taxes" value="{{formUtils.customToFixed(purchaseInvoice.taxes)}}"
                                 readonly />

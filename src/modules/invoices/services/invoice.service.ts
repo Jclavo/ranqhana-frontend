@@ -44,13 +44,14 @@ export class InvoiceService {
       response.result = resultRAW.result?.map((data: any) => {
 
         let invoice = new Invoice();
-        invoice.id       = data.id;
-        invoice.serie    = data.serie;
+        invoice.id = data.id;
+        invoice.serie = data.serie;
         invoice.subtotal = Number(data.subtotal);
         invoice.discount = Number(data.discount);
-        invoice.total    = Number(data.total);
-        invoice.stage    = data.stage?.description;
-        invoice.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at); 
+        invoice.total = Number(data.total);
+        invoice.taxes = Number(data.taxes);
+        invoice.stage = data.stage?.description;
+        invoice.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at);
 
         return invoice;
       });
@@ -81,16 +82,17 @@ export class InvoiceService {
       if (resultRAW.result) {
 
         let invoice = new Invoice();
-        invoice.id       = resultRAW.result.id;
-        invoice.serie    = resultRAW.result.serie;
+        invoice.id = resultRAW.result.id;
+        invoice.serie = resultRAW.result.serie;
         invoice.subtotal = resultRAW.result.subtotal;
         invoice.discount = resultRAW.result.discount;
-        invoice.total    = resultRAW.result.total;
+        invoice.taxes = resultRAW.result.taxes;
+        invoice.total = resultRAW.result.total;
         // invoice.stage    = resultRAW.result.stage?.description;
-        invoice.created_at = this.customDateService.formatStringDDMMYYYY(resultRAW.result.created_at); 
+        invoice.created_at = this.customDateService.formatStringDDMMYYYY(resultRAW.result.created_at);
         // invoice.store    = resultRAW.result[0].store;
-        invoice.type     = resultRAW.result.type?.description;
-        invoice.external_user_id  = resultRAW.result?.external_user_id;
+        invoice.type = resultRAW.result.type?.description;
+        invoice.external_user_id = resultRAW.result?.external_user_id;
 
         response.result = invoice;
       }
