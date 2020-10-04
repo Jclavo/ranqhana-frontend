@@ -104,6 +104,10 @@ export class AuthService {
         return this.getUserFeature('project_id');
     }
 
+    public getUserID() {
+        return this.getUserFeature('id');
+    }
+
     public getHeaders() {
         return {
             headers: new HttpHeaders({
@@ -137,6 +141,8 @@ export class AuthService {
                     return JSON.parse(user)?.name;
                 case 'lastname':
                     return JSON.parse(user)?.lastname;
+                case 'id':
+                    return JSON.parse(user)?.id;
                 default:
                     return;
             }
