@@ -151,6 +151,10 @@ export class UserService {
 
     let apiRoot = this.apiRoot + user.id;
 
+    //Encrypt
+    user.password = btoa(user.password);
+    user.repassword = btoa(user.repassword);
+
     return this.http.put(apiRoot, user, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
