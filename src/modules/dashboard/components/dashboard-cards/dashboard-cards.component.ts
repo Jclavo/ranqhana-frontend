@@ -10,6 +10,9 @@ import { SearchInvoice } from "@modules/invoices/models";
 import { Graphic } from "@modules/utility/models";
 import { Item } from "@modules/items/models";
 
+//UTILS
+import { FormUtils } from "@modules/utility/utils";
+
 @Component({
     selector: 'sb-dashboard-cards',
     // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,7 +30,8 @@ export class DashboardCardsComponent implements OnInit {
         private reportService: ReportService,
         private notificationService: NotificationService,
         private authService: AuthService,
-        private customDateService: CustomDateService
+        private customDateService: CustomDateService,
+        private formUtils: FormUtils
     ) {
  
     }
@@ -52,9 +56,8 @@ export class DashboardCardsComponent implements OnInit {
             if (response.status) {
                 graphicData = response.result;
                 if(graphicData.length > 0){
-                    this.dailySale.value = graphicData[0]?.Y?.toString();
+                    this.dailySale.value = this.formUtils.customToFixed(graphicData[0]?.Y).toString();
                 }
-                console.log('this.dailySale.value ', this.dailySale.value);
 
             } else {
                 this.notificationService.error(response.message);
@@ -80,7 +83,7 @@ export class DashboardCardsComponent implements OnInit {
             if (response.status) {
                 graphicData = response.result;
                 if(graphicData.length > 0){
-                    this.dailyPurchase.value = graphicData[0]?.Y?.toString();
+                    this.dailyPurchase.value = this.formUtils.customToFixed(graphicData[0]?.Y).toString();
                 }
 
             } else {
