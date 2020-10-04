@@ -6,8 +6,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <p><strong i18n="@@button.company">Company</strong> {{invoice.store}}</p>
-    <p><strong i18n="@@button.type">Type</strong> {{invoice.type}}</p>
+    <p><strong i18n="@@button.company">Company</strong>: {{invoice.store}}</p>
+    <p><strong i18n="@@button.type">Type</strong>: {{invoice.type}}</p>
     <table>
       <tr>
         <th>ID</th>
@@ -47,8 +47,8 @@
       </tr>
     </table>
     <br>
-    <p><strong i18n="@@button.user">User</strong> {{invoice.external_user}}</p>
-    <p><strong i18n="@@button.createAt">Create at</strong> {{invoice.created_at}}</p>
+    <p><strong i18n="@@button.user">User</strong>: {{invoice.external_user?.length > 0 ? invoice.external_user : '-'}}</p>
+    <p><strong i18n="@@button.createAt">Create at</strong>: {{invoice.created_at}}</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-primary" (click)="print()" i18n="@@button.print">Print</button>
