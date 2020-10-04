@@ -94,11 +94,11 @@ export class ShowInvoiceComponent implements OnInit {
   }
 
   print(){
-
+    this.notificationService.error('Feature not developed yet');
   }
 
   exportPDF(){
-    
+    this.notificationService.error('Feature not developed yet');
   }
 
 }
