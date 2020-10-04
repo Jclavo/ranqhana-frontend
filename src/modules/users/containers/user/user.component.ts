@@ -29,6 +29,7 @@ export class UserComponent implements OnInit {
   private errorsListForm: Array<FormMessage> = [];
 
   public mask = new Mask();
+  public initialUserRolesIDs: Array<any> = [];
 
   userForm: FormGroup = this.formBuilder.group({
     id: [''],
@@ -95,9 +96,12 @@ export class UserComponent implements OnInit {
         this.user = response.result;
 
         this.userForm = FormUtils.moveModelValuesToForm(this.userForm, this.user);
+        
         //set roles
-        this.userForm.controls['roles'].setValue(response.result?.rolesID);
-
+        this.initialUserRolesIDs = response.result?.rolesID;
+        this.userForm.controls['roles'].setValue(this.initialUserRolesIDs);
+        
+        //set mask
         this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode());
       }
       else {
@@ -213,11 +217,16 @@ export class UserComponent implements OnInit {
     userRoles.user_id = this.user.id;
     userRoles.roles = this.userForm.value.roles;
 
+    //Check if roles have been modified.
+    if(this.initialUserRolesIDs.toString() == userRoles.roles.toString()){
+      this.authService.getUserID() == this.user.id ? this.router.navigate(['/dashboard']) : this.router.navigate(['/users']);
+      return;
+    }
+
     this.userService.assignMassiveRole(userRoles).subscribe(response => {
 
       if (response.status) {
-        // this.notificationService.success(response.message);
-        this.router.navigate(['/users']);
+        this.authService.getUserID() == this.user.id ? this.router.navigate(['/dashboard']) : this.router.navigate(['/users']);
       }
       else {
         this.notificationService.error(response.message);
