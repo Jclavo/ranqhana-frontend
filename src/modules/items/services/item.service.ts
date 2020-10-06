@@ -69,6 +69,14 @@ export class ItemService {
           return value.name;
         });
 
+        //stock images
+        item.images =  data.images?.map(function(value: Image) {
+          let image = new Image();
+          image.id = value.id;
+          image.name = value.name;
+          return image;
+        });
+
         //type
         // item.type = data.type?.name;
 
