@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { User } from '@modules/users/models';
 import { HttpHeaders } from '@angular/common/http';
 
+//ENVIRONMENT
+import { environment } from "../../../environments/environment";
+
 @Injectable()
 export class AuthService {
 
@@ -109,8 +112,16 @@ export class AuthService {
         return this.getUserFeature('id');
     }
 
+    public getUserCompanyProjectID() {
+        return this.getUserFeature('company_project_id');
+    }
+
     public getStoreTax() {
         return this.getUserFeature('tax');
+    }
+
+    public getURLImage() {
+        return environment.apiURLImage + this.getUserCompanyProjectID() + '/';
     }
 
     public getHeaders() {
@@ -148,6 +159,8 @@ export class AuthService {
                     return JSON.parse(user)?.lastname;
                 case 'id':
                     return JSON.parse(user)?.id;
+                case 'company_project_id':
+                    return JSON.parse(user)?.company_project_id;
                 case 'tax':
                     return JSON.parse(user)?.tax;
                 default:
