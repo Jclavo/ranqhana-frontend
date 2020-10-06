@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
 import { Item } from "@modules/items/models";
@@ -12,6 +13,9 @@ import { NotificationService, LanguageService } from '@modules/utility/services'
 import { AuthService } from '@modules/auth/services';
 import { UnitService } from '@modules/units/services';
 import { StockTypesService } from '@modules/stock-types/services';
+
+// COMPONENT 
+import { ImageModalComponent } from "@modules/utility/components/image-modal/image-modal.component";
 
 @Component({
   selector: 'sb-product',
@@ -33,7 +37,8 @@ export class ProductComponent implements OnInit {
     private authService: AuthService,
     private unitService: UnitService,
     private stockTypesService: StockTypesService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private ngbModal: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -44,9 +49,8 @@ export class ProductComponent implements OnInit {
     this.product.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
     this.product.id ? this.getById(this.product.id) : null;
   }
-  
-  getById(id: number)
-  {
+
+  getById(id: number) {
     this.itemService.getById(id).subscribe(response => {
 
       if (response.status) {
@@ -54,12 +58,12 @@ export class ProductComponent implements OnInit {
 
         //logic to check as true the stock types selected
         for (let i = 0; i < this.product.stock_types.length; i++) {
-            for (let j = 0; j < this.stockTypes.length; j++) {
-              if(this.product.stock_types[i] == this.stockTypes[j].id){
-                this.stockTypes[j].checked = true;
-                break;
-              }
+          for (let j = 0; j < this.stockTypes.length; j++) {
+            if (this.product.stock_types[i] == this.stockTypes[j].id) {
+              this.stockTypes[j].checked = true;
+              break;
             }
+          }
         }
       }
       else {
@@ -76,15 +80,15 @@ export class ProductComponent implements OnInit {
 
     this.product.stock_types = this.getStockTypesChoosen(); // get stock types selected
 
-    if(this.product.stock_types.length == 0){
+    if (this.product.stock_types.length == 0) {
       this.notificationService.error(this.languageService.getI18n('item.emptyStockType'));
       return;
     }
 
-    if(this.product.id){
+    if (this.product.id) {
       this.update(this.product);
     }
-    else{
+    else {
       this.product.store_id = this.authService.getUserStoreID();
       this.create(this.product);
     }
@@ -108,8 +112,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  update(product: Item)
-  {
+  update(product: Item) {
     this.itemService.updateProduct(product).subscribe(response => {
 
       if (response.status) {
@@ -126,13 +129,13 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  getUnits(){
+  getUnits() {
 
     this.unitService.get().subscribe(response => {
 
       if (response.status) {
         this.units = response.result;
-      }else{
+      } else {
         this.notificationService.error(response.message);
       }
     }, error => {
@@ -141,13 +144,13 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  getStockTypes(){
+  getStockTypes() {
 
     this.stockTypesService.get().subscribe(response => {
 
       if (response.status) {
         this.stockTypes = response.result;
-      }else{
+      } else {
         this.notificationService.error(response.message);
       }
     }, error => {
@@ -156,17 +159,28 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  getStockTypesChoosen(){
+  getStockTypesChoosen() {
 
     let stockTypes: Array<StockTypes> = [];
-    stockTypes = this.stockTypes.filter(function(value) {
+    stockTypes = this.stockTypes.filter(function (value) {
       return value.checked == true;
     });
 
-    return stockTypes.map(function(value) {
+    return stockTypes.map(function (value) {
       return value.id;
     });
 
+  }
+
+
+  openImageModal() {
+    
+    const modalRef = this.ngbModal.open(ImageModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.result.then((result) => {
+      console.log(result);
+
+    });
   }
 
 }

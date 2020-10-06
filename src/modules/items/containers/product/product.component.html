@@ -1,72 +1,91 @@
 <sb-layout-dashboard>
-    <sb-dashboard-head [hideBreadcrumbs]="true"></sb-dashboard-head>  
-    <sb-card>
-      <div class="card-header">
-        <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
-        <ng-container i18n="@@product.page.title">Product</ng-container>
-      </div>
-      <div class="card-body">
-  
-        <form #form="ngForm" (ngSubmit)="save()" method="post">
-  
-          <div class="form-row">
-            <div class="form-group col-12 col-md-4">
-              <label class="control-label font-weight-bold" for="name" i18n="@@product.page.title">Product</label>
-              <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name" i18n-placeholder="@@product.page.title" placeholder="Product"
-                required>
-            </div>
-            <div class="form-group col-12 col-md-3">
-              <label class="control-label font-weight-bold" for="price" i18n="@@product.field.price">Price</label>
-              <input type="number" step="0.01" min="0" class="form-control" id="price" name="price"
-                [(ngModel)]="product.price" placeholder="Price">
-            </div>
-            <div class="form-group col-12 col-md-3">
-              <label class="control-label font-weight-bold" for="unit" i18n="@@unit.page.title">Unit</label>
-              <select class="form-control" placeholder="Unit" name="unit_id" id="unit" [(ngModel)]="product.unit_id">
-                <option *ngFor="let unit of units" [value]="unit.id">
-                  {{unit.description}}
-                </option>
-              </select>
-            </div>
-            <div class="form-check col-auto mt-md-4 ml-4 ml-md-5">
-              <input class="form-check-input" type="checkbox" id="stocked" name="unit" [(ngModel)]="product.stocked">
-              <label class="form-check-label font-weight-bold mx-2" for="stocked">
-                Stocked
-              </label>
-            </div>
-  
+  <sb-dashboard-head [hideBreadcrumbs]="true"></sb-dashboard-head>
+  <sb-card>
+    <div class="card-header">
+      <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
+      <ng-container i18n="@@product.page.title">Product</ng-container>
+    </div>
+    <div class="card-body">
+
+      <form #form="ngForm">
+
+        <div class="form-row">
+          <div class="form-group col-12 col-md-4">
+            <label class="control-label font-weight-bold" for="name" i18n="@@product.page.title">Product</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name"
+              i18n-placeholder="@@product.page.title" placeholder="Product" required>
           </div>
-  
-          <div class="form-row">
-            <div class="form-group col-12 mt-2">
-              <label class="control-label font-weight-bold" for="description" i18n="@@button.description">Description</label>
-              <textarea class="form-control" id="description" rows="3" name="description" [(ngModel)]="product.description"
-              i18n-placeholder="@@button.description" placeholder="Description"></textarea>
-            </div>
+          <div class="form-group col-12 col-md-3">
+            <label class="control-label font-weight-bold" for="price" i18n="@@product.field.price">Price</label>
+            <input type="number" step="0.01" min="0" class="form-control" id="price" name="price"
+              [(ngModel)]="product.price" placeholder="Price">
           </div>
-  
-          <div class="form-row">
-            <label class="control-label font-weight-bold" for="stocktypes" i18n="@@item.field.stockTypes">Stock types</label>
+          <div class="form-group col-12 col-md-3">
+            <label class="control-label font-weight-bold" for="unit" i18n="@@unit.page.title">Unit</label>
+            <select class="form-control" placeholder="Unit" name="unit_id" id="unit" [(ngModel)]="product.unit_id">
+              <option *ngFor="let unit of units" [value]="unit.id">
+                {{unit.description}}
+              </option>
+            </select>
           </div>
-          <div class="form-row">
-            <div *ngFor="let stockType of stockTypes" class="form-check form-check-inline" >
-              <input class="form-check-input" type="checkbox" [name]="stockType.id" [value]="stockType.id" [(ngModel)]="stockType.checked">
+          <div class="form-check col-auto mt-md-4 ml-4 ml-md-5">
+            <input class="form-check-input" type="checkbox" id="stocked" name="unit" [(ngModel)]="product.stocked">
+            <label class="form-check-label font-weight-bold mx-2" for="stocked">
+              Stocked
+            </label>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-12 mt-2">
+            <label class="control-label font-weight-bold" for="description"
+              i18n="@@button.description">Description</label>
+            <textarea class="form-control" id="description" rows="3" name="description"
+              [(ngModel)]="product.description" i18n-placeholder="@@button.description"
+              placeholder="Description"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="control-label font-weight-bold" for="stocktypes" i18n="@@item.field.stockTypes">Stock
+            types</label>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-12 col-md-6">
+            <div *ngFor="let stockType of stockTypes" class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" [name]="stockType.id" [value]="stockType.id"
+                [(ngModel)]="stockType.checked">
               <label class="form-check-label" for="stocktypes">{{stockType.name}}</label>
             </div>
           </div>
-  
-          <br>
-          <div class="form-row align-items-center">
+          <!-- <div class="form-group col-12 col-md-6">
             <div class="col-12 col-md-6 mb-3">
-              <button class="btn btn-danger btn-md btn-block" routerLink="/items/products" i18n="@@button.cancel">Cancel</button>
+              <button class="btn btn-info btn-md" i18n="@@button.cancel">Add Image</button>
             </div>
-            <div class="col-12 col-md-6 mb-3">
-              <button type="submit" [disabled]="!form.valid" class="btn btn-success btn-md btn-block" i18n="@@button.save">Save</button>
-            </div>
+          </div> -->
+        </div>
+
+        <div class="form-row">
+          <div class="col-12 col-md-6 mt-1">
+            <button class="btn btn-info btn-md" i18n="@@button.addImage" (click)="openImageModal()">Add Image</button>
           </div>
-        </form>
-  
-      </div>
-    </sb-card>
-  </sb-layout-dashboard>
-  <sb-item-i18n></sb-item-i18n>
+        </div>
+
+        <br>
+        <div class="form-row align-items-center">
+          <div class="col-12 col-md-6 mb-3">
+            <button class="btn btn-danger btn-md btn-block" routerLink="/items/products"
+              i18n="@@button.cancel">Cancel</button>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <button type="submit" [disabled]="!form.valid" class="btn btn-success btn-md btn-block"
+              i18n="@@button.save" (click)="save()">Save</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </sb-card>
+</sb-layout-dashboard>
+<sb-item-i18n></sb-item-i18n>

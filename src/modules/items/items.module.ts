@@ -43,7 +43,8 @@ import * as itemsServices from './services';
     ...itemsComponents.components
   ],
   entryComponents: [
-    utilityComponents.ConfirmModalComponent
+    utilityComponents.ConfirmModalComponent,
+    utilityComponents.ImageModalComponent
   ]
 })
 export class ItemsModule { }
