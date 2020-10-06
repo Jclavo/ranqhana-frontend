@@ -59,16 +59,50 @@
               <label class="form-check-label" for="stocktypes">{{stockType.name}}</label>
             </div>
           </div>
-          <!-- <div class="form-group col-12 col-md-6">
-            <div class="col-12 col-md-6 mb-3">
-              <button class="btn btn-info btn-md" i18n="@@button.cancel">Add Image</button>
-            </div>
-          </div> -->
         </div>
 
         <div class="form-row">
-          <div class="col-12 col-md-6 mt-1">
+          <div class="col-12 col-md-6 mt-1 mb-3">
             <button class="btn btn-info btn-md" i18n="@@button.addImage" (click)="openImageModal()">Add Image</button>
+          </div>
+        </div>
+
+        <div class="form-row" *ngIf="product.images?.length > 0">
+
+          <div class="table-responsive">
+            <table class="table table-image">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">
+                    <span i18n="@@button.description">Description</span>
+                  </th>
+                  <th scope="col">
+                    <span i18n="@@button.description">Image</span>
+                  </th>
+                  <th scope="col">
+                    <span i18n="@@button.options">Options</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let image of product.images">
+                  <th scope="row" class="col-auto">{{ image.id }}</th>
+                  <td >{{ image.name }}</td>
+                  <td class="w-25 ">
+                    <img name="image" src="{{authService.getURLImage() + image.name}}" class="img-fluid" alt="Sheep">
+                  </td>
+                  <td>
+                    <div class="row ">
+                      <div class="col-2 mb-1 ml-3">
+                        <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}" size="lg"
+                          (click)="modalDelete(image.id, image.name)"></fa-icon>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -79,8 +113,8 @@
               i18n="@@button.cancel">Cancel</button>
           </div>
           <div class="col-12 col-md-6 mb-3">
-            <button type="submit" [disabled]="!form.valid" class="btn btn-success btn-md btn-block"
-              i18n="@@button.save" (click)="save()">Save</button>
+            <button type="submit" [disabled]="!form.valid" class="btn btn-success btn-md btn-block" i18n="@@button.save"
+              (click)="save()">Save</button>
           </div>
         </div>
       </form>

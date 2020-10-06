@@ -1,3 +1,5 @@
+import { Image } from "@modules/utility/models";
+
 export class Item {
     // [key: string]: string | number | boolean;
     id: number = 0;
@@ -15,6 +17,7 @@ export class Item {
 
     stock_types: Array<number|string> = [];
     type_id: number = 0;
+    images: Array<Image> = [];
     
     //extra fields
     quantity: number = 0;

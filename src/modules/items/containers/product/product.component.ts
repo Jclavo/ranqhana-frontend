@@ -6,16 +6,18 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Item } from "@modules/items/models";
 import { Unit } from "@modules/units/models";
 import { StockTypes } from "@modules/stock-types/models";
+import { Image } from "@modules/utility/models";
 
 //SERVICES
 import { ItemService } from "../../services";
-import { NotificationService, LanguageService } from '@modules/utility/services';
+import { NotificationService, LanguageService, ImageService } from '@modules/utility/services';
 import { AuthService } from '@modules/auth/services';
 import { UnitService } from '@modules/units/services';
 import { StockTypesService } from '@modules/stock-types/services';
 
 // COMPONENT 
 import { ImageModalComponent } from "@modules/utility/components/image-modal/image-modal.component";
+import { ConfirmModalComponent } from '@modules/utility/components';
 
 @Component({
   selector: 'sb-product',
@@ -28,17 +30,19 @@ export class ProductComponent implements OnInit {
 
   public units: Array<Unit> = [];
   public stockTypes: Array<StockTypes> = [];
+  public images: Array<Image> = [];
 
   constructor(
     private notificationService: NotificationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private itemService: ItemService,
-    private authService: AuthService,
+    public authService: AuthService,
     private unitService: UnitService,
     private stockTypesService: StockTypesService,
     private languageService: LanguageService,
     private ngbModal: NgbModal,
+    private imageService: ImageService
   ) { }
 
   ngOnInit(): void {
@@ -100,6 +104,12 @@ export class ProductComponent implements OnInit {
 
       if (response.status) {
         this.notificationService.success(response.message);
+
+        this.product.id = response.result.id;
+        //save images
+        this.saveArrayImages();
+
+        //return
         this.router.navigate(['/items/products']);
       }
       else {
@@ -117,7 +127,43 @@ export class ProductComponent implements OnInit {
 
       if (response.status) {
         this.notificationService.success(response.message);
+
+        //save images
+        this.saveArrayImages();
+
+        //return
         this.router.navigate(['/items/products']);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+  saveArrayImages(){
+
+    for (let index = 0; index < this.product.images.length; index++) {
+      
+      let newImage = new Image();
+      newImage.name = this.product.images[index].name;
+      newImage.model_id = this.product.id;
+      newImage.model = "ITEM";
+      this.saveImage(newImage);
+      
+    }
+  }
+
+  saveImage(image: Image) {
+
+    this.imageService.save(image).subscribe(response => {
+
+      if (response.status) {
+        // this.notificationService.success(response.message);
+        console.log(response.message);
       }
       else {
         this.notificationService.error(response.message);
@@ -172,15 +218,54 @@ export class ProductComponent implements OnInit {
 
   }
 
-
   openImageModal() {
     
     const modalRef = this.ngbModal.open(ImageModalComponent, { centered: true, backdrop: 'static' });
 
     modalRef.result.then((result) => {
       console.log(result);
+      if(result.status){
+        let newImage = new Image();
+        newImage.name = result.image;
+        this.product.images.push(newImage);
+      }
 
     });
+  }
+
+
+  modalDelete(id: string, name: string) {
+    
+    const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.title = this.languageService.getI18n('product.page.title');
+    modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
+    modalRef.componentInstance.value = name;
+
+    modalRef.result.then((result) => {
+      result ? this.deleteImage(id) : null;
+    });
+
+  }
+
+  deleteImage(id: string){
+
+    this.imageService.delete(id).subscribe(response => {
+
+      if (response.status) {
+        this.notificationService.success(response.message);
+
+        this.getById(this.product.id);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+
   }
 
 }

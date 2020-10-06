@@ -10,6 +10,7 @@ import { environment } from "../../../environments/environment";
 import { Item, SearchItemOptions } from '@modules/items/models';
 import { StockTypes } from "@modules/stock-types/models";
 import { Response } from '@modules/utility/models';
+import { Image } from "@modules/utility/models";
 
 //SERVICES
 import { AuthService } from '@modules/auth/services';
@@ -115,6 +116,15 @@ export class ItemService {
           return value.id;
         });
 
+        //stock images
+        item.images = resultRAW.result?.images.map(function(value: Image) {
+          
+          let image = new Image();
+          image.id = value.id;
+          image.name = value.name;
+          return image;
+        });
+
         response.result = item;
       }
 
@@ -165,7 +175,14 @@ export class ItemService {
       //Set response
       response.status = resultRAW.status;
       response.message = resultRAW.message;
-      //response.result = resultRAW.result;
+
+      if (resultRAW.result) {
+
+        let item = new Item();
+        item.id = resultRAW.result?.id;
+        response.result = item;
+      }
+      
 
       return response;
 
