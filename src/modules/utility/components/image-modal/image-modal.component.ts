@@ -67,7 +67,7 @@ export class ImageModalComponent implements OnInit {
     // formImage.append('image', image.image, image.image.name);
     // formImage.append('path', image.path);
 
-    this.imageService.save(formImage).subscribe(response => {
+    this.imageService.create(formImage).subscribe(response => {
 
       if (response.status) {
         this.notificationService.success(response.message)
