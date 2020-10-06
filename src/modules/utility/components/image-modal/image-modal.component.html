@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Upload Image</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+    (click)="activeModal.close(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+    
+  <button class="btn btn-info btn-md" i18n="@@button.cancel" (click)="openSelectPicture()">Add Image</button>
+
+  <div class="mt-1">
+    <img name="image" [src]="imageFileBase64" class="img-thumbnail">
+  </div>
+
+  <label class="btn btn-default" hidden>
+    <input #inputcamera type="file" accept="image/*" multiple (change)="selectPicture($event)" />
+  </label>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close({'status' : false})"
+    i18n="@@button.cancel">Cancel</button>
+  <button type="button" ngbAutofocus class="btn btn-success" (click)="save()"
+    i18n="@@button.yes">OK</button>
+</div>
