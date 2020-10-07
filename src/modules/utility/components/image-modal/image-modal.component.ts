@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 //SERVICES
-import { NotificationService } from '@modules/utility/services';
+import { NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from '@modules/auth/services';
 import { ImageService } from "../../services";
 
@@ -27,7 +27,8 @@ export class ImageModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private notificationService: NotificationService,
     private authService: AuthService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private languageService: LanguageService
   ) { }
 
   ngOnInit(): void {
@@ -55,7 +56,7 @@ export class ImageModalComponent implements OnInit {
     if(this.image){
       this.saveImage(this.image);
     }else{
-      this.notificationService.error('Select an image.')
+      this.notificationService.error(this.languageService.getI18n('imageModal.selectImage'));
     }
   }
 
