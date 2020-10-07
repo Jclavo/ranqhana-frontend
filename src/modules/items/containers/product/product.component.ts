@@ -243,7 +243,16 @@ export class ProductComponent implements OnInit {
     modalRef.componentInstance.value = name;
 
     modalRef.result.then((result) => {
-      result ? this.deleteImage(id) : null;
+      if(result){
+        if(parseInt(id) > 0){
+          this.deleteImage(id);
+        }else{
+          this.product.images =  this.product.images.filter(function(image: Image) {
+            return image.name != name;
+          });
+
+        }
+      }
     });
 
   }
