@@ -185,7 +185,6 @@ export class ItemService {
       response.message = resultRAW.message;
 
       if (resultRAW.result) {
-
         let item = new Item();
         item.id = resultRAW.result?.id;
         response.result = item;
@@ -240,6 +239,12 @@ export class ItemService {
       response.status = resultRAW.status;
       response.message = resultRAW.message;
       //response.result = resultRAW.result;
+
+      if (resultRAW.result) {
+        let item = new Item();
+        item.id = resultRAW.result?.id;
+        response.result = item;
+      }
 
       return response;
 

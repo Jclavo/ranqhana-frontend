@@ -12,10 +12,8 @@
                         <span i18n="@@service.page.title">Service</span>
                         <sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon>
                     </th>
-                    <th scope="col" sbSortable="description" (sort)="onSort($event)">
-                        <span i18n="@@button.description">Description</span>
-                        <sb-sort-icon *ngIf='sortedColumn === "description"' [direction]="sortedDirection">
-                        </sb-sort-icon>
+                    <th scope="col">
+                        <span i18n="@@button.image">Image</span>
                     </th>
                     <th scope="col" sbSortable="price" (sort)="onSort($event)">
                         <span i18n="@@item.field.price">Price</span>
@@ -36,7 +34,8 @@
                         <ngb-highlight [result]="service.name" [term]="searchOption.searchValue"></ngb-highlight>
                     </td>
                     <td>
-                        <ngb-highlight [result]="service.description" [term]="searchOption.searchValue"></ngb-highlight>
+                        <img name="image" src="{{authService.getURLImage() + service?.images[0]?.name}}" class="img-fluid" 
+                        style="width:70px;height:50px;">
                     </td>
                     <td>
                         <ngb-highlight [result]="service.price | number" [term]="searchOption.searchValue"></ngb-highlight>

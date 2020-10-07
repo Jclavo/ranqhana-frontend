@@ -1,17 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
 import { Item } from "@modules/items/models";
 import { Unit } from "@modules/units/models";
 import { StockTypes } from "@modules/stock-types/models";
+import { Image } from "@modules/utility/models";
 
 //SERVICES
 import { ItemService } from "../../services";
-import { NotificationService, LanguageService } from '@modules/utility/services';
+import { NotificationService, LanguageService, ImageService } from '@modules/utility/services';
 import { AuthService } from '@modules/auth/services';
 import { UnitService } from '@modules/units/services';
 import { StockTypesService } from '@modules/stock-types/services';
+
+// COMPONENT 
+import { ImageModalComponent } from "@modules/utility/components/image-modal/image-modal.component";
+import { ConfirmModalComponent } from '@modules/utility/components';
 
 @Component({
   selector: 'sb-service',
@@ -30,10 +36,12 @@ export class ServiceComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private itemService: ItemService,
-    private authService: AuthService,
+    public authService: AuthService,
     private unitService: UnitService,
     private stockTypesService: StockTypesService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private ngbModal: NgbModal,
+    private imageService: ImageService
   ) { }
 
   ngOnInit(): void {
@@ -96,6 +104,12 @@ export class ServiceComponent implements OnInit {
 
       if (response.status) {
         this.notificationService.success(response.message);
+
+        this.service.id = response.result.id;
+         //save images
+         this.saveArrayImages();
+
+         //return
         this.router.navigate(['/items/services']);
       }
       else {
@@ -114,7 +128,43 @@ export class ServiceComponent implements OnInit {
 
       if (response.status) {
         this.notificationService.success(response.message);
+
+        //save images
+        this.saveArrayImages();
+
+        //return
         this.router.navigate(['/items/services']);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+  saveArrayImages(){
+
+    for (let index = 0; index < this.service.images.length; index++) {
+      
+      let newImage = new Image();
+      newImage.name = this.service.images[index].name;
+      newImage.model_id = this.service.id;
+      newImage.model = "ITEM";
+      this.saveImage(newImage);
+      
+    }
+  }
+
+  saveImage(image: Image) {
+
+    this.imageService.save(image).subscribe(response => {
+
+      if (response.status) {
+        // this.notificationService.success(response.message);
+        console.log(response.message);
       }
       else {
         this.notificationService.error(response.message);
@@ -165,6 +215,66 @@ export class ServiceComponent implements OnInit {
 
     return stockTypes.map(function(value) {
       return value.id;
+    });
+
+  }
+
+  openImageModal() {
+    
+    const modalRef = this.ngbModal.open(ImageModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.result.then((result) => {
+      console.log(result);
+      if(result.status){
+        let newImage = new Image();
+        newImage.name = result.image;
+        this.service.images.push(newImage);
+      }
+
+    });
+  }
+
+
+  modalDelete(id: string, name: string) {
+    
+    const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.title = this.languageService.getI18n('product.page.title');
+    modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
+    modalRef.componentInstance.value = name;
+
+    modalRef.result.then((result) => {
+      if(result){
+        if(parseInt(id) > 0){
+          this.deleteImage(id);
+        }else{
+          this.service.images =  this.service.images.filter(function(image: Image) {
+            return image.name != name;
+          });
+
+        }
+      }
+       
+    });
+
+  }
+
+  deleteImage(id: string){
+
+    this.imageService.delete(id).subscribe(response => {
+
+      if (response.status) {
+        this.notificationService.success(response.message);
+
+        this.getById(this.service.id);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
     });
 
   }

@@ -1,57 +1,111 @@
 <sb-layout-dashboard>
-    <sb-dashboard-head [hideBreadcrumbs]="true"></sb-dashboard-head>
-    <sb-card>
-      <div class="card-header">
-        <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
-        <ng-container i18n="@@service.page.title">Service</ng-container>
-      </div>
-      <div class="card-body">
-  
-        <form #form="ngForm" (ngSubmit)="save()" method="post">
-  
-          <div class="form-row">
-            <div class="form-group col-12 col-md-6">
-              <label class="control-label font-weight-bold" for="name" i18n="@@service.page.title">Service</label>
-              <input type="text" class="form-control" id="name" name="name" [(ngModel)]="service.name" placeholder="Service"
-                required>
-            </div>
-            <div class="form-group col-12 col-md-6">
-              <label class="control-label font-weight-bold" for="price" i18n="@@item.field.price">Price</label>
-              <input type="number" step="0.01" min="0" class="form-control" id="price" name="price"
-                [(ngModel)]="service.price" placeholder="Price">
-            </div>
+  <sb-dashboard-head [hideBreadcrumbs]="true"></sb-dashboard-head>
+  <sb-card>
+    <div class="card-header">
+      <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
+      <ng-container i18n="@@service.page.title">Service</ng-container>
+    </div>
+    <div class="card-body">
+
+      <form #form="ngForm">
+
+        <div class="form-row">
+          <div class="form-group col-12 col-md-6">
+            <label class="control-label font-weight-bold" for="name" i18n="@@service.page.title">Service</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="service.name"
+              placeholder="Service" required>
           </div>
-  
-          <div class="form-row">
-            <div class="form-group col-12 mt-2">
-              <label class="control-label font-weight-bold" for="description" i18n="@@button.description">Description</label>
-              <textarea class="form-control" id="description" rows="3" name="description" [(ngModel)]="service.description"
-                placeholder="Description"></textarea>
-            </div>
+          <div class="form-group col-12 col-md-6">
+            <label class="control-label font-weight-bold" for="price" i18n="@@item.field.price">Price</label>
+            <input type="number" step="0.01" min="0" class="form-control" id="price" name="price"
+              [(ngModel)]="service.price" placeholder="Price">
           </div>
-  
-          <div class="form-row">
-            <label class="control-label font-weight-bold" for="stocktypes" i18n="@@item.field.stockTypes">Stock types</label>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-12 mt-2">
+            <label class="control-label font-weight-bold" for="description"
+              i18n="@@button.description">Description</label>
+            <textarea class="form-control" id="description" rows="3" name="description"
+              [(ngModel)]="service.description" placeholder="Description"></textarea>
           </div>
-          <div class="form-row">
-            <div *ngFor="let stockType of stockTypes" class="form-check form-check-inline" >
-              <input class="form-check-input" type="checkbox" [name]="stockType.id" [value]="stockType.id" [(ngModel)]="stockType.checked">
-              <label class="form-check-label" for="stocktypes">{{stockType.name}}</label>
-            </div>
+        </div>
+
+        <div class="form-row">
+          <label class="control-label font-weight-bold" for="stocktypes" i18n="@@item.field.stockTypes">Stock
+            types</label>
+        </div>
+        <div class="form-row">
+          <div *ngFor="let stockType of stockTypes" class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" [name]="stockType.id" [value]="stockType.id"
+              [(ngModel)]="stockType.checked">
+            <label class="form-check-label" for="stocktypes">{{stockType.name}}</label>
           </div>
-  
-          <br>
-          <div class="form-row align-items-center">
-            <div class="col-12 col-md-6 mb-3">
-              <button class="btn btn-danger btn-md btn-block" routerLink="/items/services" i18n="@@button.cancel">Cancel</button>
-            </div>
-            <div class="col-12 col-md-6 mb-3">
-              <button type="submit" [disabled]="!form.valid" class="btn btn-success btn-md btn-block" i18n="@@button.save">Save</button>
-            </div>
+        </div>
+
+        <!-- Add image -->
+        <div class="form-row">
+          <div class="col-12 col-md-6 mt-1 mb-3">
+            <button class="btn btn-info btn-md" i18n="@@button.addImage" (click)="openImageModal()">Add Image</button>
           </div>
-        </form>
-  
-      </div>
-    </sb-card>
-  </sb-layout-dashboard>
-  <sb-item-i18n></sb-item-i18n>
+        </div>
+
+        <!-- Table for images -->
+        <div class="form-row" *ngIf="service.images?.length > 0">
+
+          <div class="table-responsive">
+            <table class="table table-image">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">
+                    <span i18n="@@button.description">Description</span>
+                  </th>
+                  <th scope="col">
+                    <span i18n="@@button.image">Image</span>
+                  </th>
+                  <th scope="col">
+                    <span i18n="@@button.options">Options</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let image of service.images">
+                  <th scope="row" class="col-auto">{{ image.id }}</th>
+                  <td>{{ image.name }}</td>
+                  <td class="w-25 ">
+                    <img name="image" src="{{authService.getURLImage() + image.name}}" class="img-fluid"
+                      style="width:150px;height:100px;">
+                  </td>
+                  <td>
+                    <div class="row ">
+                      <div class="col-2 mb-1 ml-3">
+                        <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}" size="lg"
+                          (click)="modalDelete(image.id, image.name)"></fa-icon>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <br>
+        <div class="form-row align-items-center">
+          <div class="col-12 col-md-6 mb-3">
+            <button class="btn btn-danger btn-md btn-block" routerLink="/items/services"
+              i18n="@@button.cancel">Cancel</button>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <button [disabled]="!form.valid" class="btn btn-success btn-md btn-block" (click)="save()"
+              i18n="@@button.save">Save</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </sb-card>
+</sb-layout-dashboard>
+<sb-item-i18n></sb-item-i18n>
