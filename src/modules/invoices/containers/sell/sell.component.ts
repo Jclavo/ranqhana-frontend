@@ -49,12 +49,12 @@ export class SellComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private itemService: ItemService,
-    private authService: AuthService,
+    public authService: AuthService,
     private notificationService: NotificationService,
     private invoiceUtils: InvoiceUtils,
     private languageService: LanguageService,
     private utilityService: UtilityService,
-    public  formUtils: FormUtils
+    public formUtils: FormUtils
   ) { }
 
   ngOnInit(): void {
@@ -99,8 +99,8 @@ export class SellComponent implements OnInit {
 
     this.addItemForm.controls['unit'].setValue(this.addItemForm.value.searchItem.unit);
     this.addItemForm.controls['price'].setValue(this.formUtils.customToFixed(this.addItemForm.value.searchItem.price));
-    this.addItemForm.value.searchItem.stocked ?  this.addItemForm.controls['stock'].setValue(this.addItemForm.value.searchItem.stock) : this.addItemForm.controls['stock'].setValue('-');
-    if(this.addItemForm.value.searchItem.type_id == Item.getTypeService()){
+    this.addItemForm.value.searchItem.stocked ? this.addItemForm.controls['stock'].setValue(this.addItemForm.value.searchItem.stock) : this.addItemForm.controls['stock'].setValue('-');
+    if (this.addItemForm.value.searchItem.type_id == Item.getTypeService()) {
       this.addItemForm.controls['unit'].setValue('-');
       this.addItemForm.controls['stock'].setValue('-');
     }
@@ -135,7 +135,7 @@ export class SellComponent implements OnInit {
 
     if (this.addItemForm.invalid) {
       this.errorsListForm = this.utilityService.getFormError(this.addItemForm);
-      if(this.errorsListForm.length > 0){
+      if (this.errorsListForm.length > 0) {
         this.errorsListForm[0].setKey(this.languageService.getI18n('invoice.field.' + this.errorsListForm[0].getKey()));
         this.notificationService.error(this.errorsListForm[0].getMessage());
       }
@@ -164,7 +164,7 @@ export class SellComponent implements OnInit {
   }
 
   delete(index: number) {
-    
+
     this.invoiceDetails = this.invoiceUtils.delete(index, this.invoiceDetails);
     this.calculateInvoice();
   }

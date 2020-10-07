@@ -37,7 +37,7 @@ export class NgBootstrapTableProductsComponent implements OnInit {
     private notificationService: NotificationService,
     private itemService: ItemService,
     private modalService: NgbModal,
-    private authService: AuthService,
+    public authService: AuthService,
     private utilityService: UtilityService,
     private languageService: LanguageService
   ) {

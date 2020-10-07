@@ -51,7 +51,7 @@ export class PurchaseComponent implements OnInit {
     private notificationService: NotificationService,
     private formBuilder: FormBuilder,
     private invoiceUtils: InvoiceUtils,
-    private authService: AuthService,
+    public authService: AuthService,
     private languageService: LanguageService,
     private utilityService: UtilityService,
     public  formUtils: FormUtils

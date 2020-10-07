@@ -19,7 +19,7 @@ export class TopNavUserComponent implements OnInit {
     constructor(
         public userService: UserService,
         private ngbModal: NgbModal,
-        private authService: AuthService,
+        public authService: AuthService,
         private notificationService: NotificationService
     ) { }
     ngOnInit() { }
