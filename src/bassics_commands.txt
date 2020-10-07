@@ -26,3 +26,13 @@ services/
     index.ts
 xxx-routing.module.ts
 xxx.module.ts
+
+
+
+To generate i18n files
+
+npm run extract-i18n
+
+npm run build-i18n
+
+npm run start-es
