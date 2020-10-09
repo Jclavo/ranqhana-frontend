@@ -27,7 +27,11 @@ services/
 xxx-routing.module.ts
 xxx.module.ts
 
+ng g component ../modules/xxxxx/components/ng-bootstrap-table-xxxxs
+ng g component ../modules/xxxxx/containers/xxxxx-list
+ng g service ../modules/xxxxx/services/xxxxx
 
+ng g module ../modules/xxxxxs --routing
 
 To generate i18n files
 
