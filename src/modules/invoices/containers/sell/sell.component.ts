@@ -18,7 +18,6 @@ import { NotificationService, LanguageService, UtilityService } from '@modules/u
 import { InvoiceUtils } from "../../utils/invoiceUtils";
 import { FormUtils, CustomValidator } from "@modules/utility/utils";
 
-
 @Component({
   selector: 'sb-sell',
   templateUrl: './sell.component.html',
@@ -58,7 +57,6 @@ export class SellComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.openModalAdditionalInfo();
   }
 
   formatter = (item: Item) => item.name;

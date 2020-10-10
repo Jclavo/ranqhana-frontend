@@ -15,7 +15,7 @@
     <div class="form-group">
       <label for="client" >Payment type</label>
       <div class="input-group">
-      <select class="form-control" placeholder="Payment type" name="payment_type"  [(ngModel)]="invoice.payment_type_id" name="payment_type" >
+      <select class="form-control" placeholder="Payment type" name="payment_type_id"  [(ngModel)]="invoice.payment_type_id" >
         <option *ngFor="let payment_type of paymentTypes" [value]="payment_type.id">
             {{payment_type.name}}
         </option>
