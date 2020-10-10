@@ -14,17 +14,17 @@ import { AuthService } from '@modules/auth/services';
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentsService {
+export class PaymentService {
 
-  static service: string = 'payment-types/'
-  private apiRoot: string = environment.apiURL + PaymentsService.service;
+  static service: string = 'payments/'
+  private apiRoot: string = environment.apiURL + PaymentService.service;
 
   constructor(
     private http: HttpClient,
     private authService: AuthService,  
   ) { }
 
-  createProduct(payment: Payment): Observable<Response> {
+  create(payment: Payment): Observable<Response> {
 
     let apiRoot = this.apiRoot;
 
