@@ -7,4 +7,10 @@ export class Payment {
     invoice_id: number = 0;
     payment_method_id: number = 0;
     payment_stage_id: number = 0;
+
+    //extra
+    change : number = 0;
+    transaction_code: string = '';
+
+    
 }
