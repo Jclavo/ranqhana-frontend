@@ -14,6 +14,7 @@ export class Invoice {
     external_user: string = '';
     created_at: string = '';
     store: string = '';
+    payment_type_id: number = 0;
 
     getType(){
         return this.type_id;

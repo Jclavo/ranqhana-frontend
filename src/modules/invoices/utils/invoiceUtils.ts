@@ -14,9 +14,11 @@ import { InvoiceService, InvoiceDetailService } from '../services';
 
 // COMPONENT 
 import { AddAditionalInfoComponent } from "../components/add-aditional-info/add-aditional-info.component";
+import { MadePaymentModalComponent } from "@modules/payments/components/made-payment-modal/made-payment-modal.component";
 
 //Utilities
 import { CustomValidator } from "@modules/utility/utils";
+import { Response } from '@modules/utility/models';
 
 @Injectable({
     providedIn: 'root'
@@ -197,10 +199,21 @@ export class InvoiceUtils implements OnInit {
         const modalRef = this.modalService.open(AddAditionalInfoComponent, { centered: true, backdrop: 'static' });
 
         modalRef.componentInstance.invoice_id = invoice.id;
-        // modalRef.componentInstance.value = name;
 
-        modalRef.result.then((result) => {
-            result ? this.router.navigate(['/invoices', invoice.getType()]) : this.notificationService.error('error');
+        modalRef.result.then((result: Response) => {
+
+            if(!result.status){
+                this.notificationService.error('error');
+                return;
+            }
+
+            if(result?.result){
+                if(result?.result?.credit){
+                    this.router.navigate(['/invoices', invoice.getType()])
+                }else{
+                    this.openModalMadePayment(result?.result?.payment_id,invoice);
+                }
+            }
         });
     }
 
@@ -210,6 +223,23 @@ export class InvoiceUtils implements OnInit {
 
         return invoiceDetails;
 
+    }
+
+
+    openModalMadePayment(payment_id: Number,invoice: Invoice) {
+        const modalRef = this.modalService.open(MadePaymentModalComponent, { centered: true, backdrop: 'static' });
+
+        modalRef.componentInstance.payment_id = payment_id;
+
+        modalRef.result.then((result: Response) => {
+
+            if(!result.status){
+                this.notificationService.error('error');
+                return;
+            }
+
+            this.router.navigate(['/invoices', invoice.getType()]);
+        });
     }
 
 }

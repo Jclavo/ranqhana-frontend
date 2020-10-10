@@ -7,17 +7,12 @@ import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operato
 import { SellInvoice, Invoice } from "../../models";
 import { User, SearchUserOptions } from "@modules/users/models";
 import { Role } from "@modules/roles/models";
-import { PaymentType } from "@modules/payment-types/models";
-import { Payment } from "@modules/payments/models";
-import { Response } from "@modules/utility/models";
 
 //SERVICES
-import { InvoiceService } from '../../services';
 import { NotificationService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 import { UserService } from "@modules/users/services";
-import { PaymentTypeService } from "@modules/payment-types/services";
-import { PaymentService } from "@modules/payments/services";
+import { InvoiceService } from '../../services';
 
 @Component({
   selector: 'sb-add-aditional-info',
@@ -31,8 +26,6 @@ export class AddAditionalInfoComponent implements OnInit {
   public invoice = new Invoice();
   public searchUserOption = new SearchUserOptions();
   public externalUser: any;
-  public paymentTypes: Array<PaymentType> = [];
-  public modalResponse = new Response();
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -40,14 +33,8 @@ export class AddAditionalInfoComponent implements OnInit {
     public invoiceService: InvoiceService,
     public authService: AuthService,
     public userService: UserService,
-    private paymentTypeService: PaymentTypeService,
-    private paymentService: PaymentService
   ) { }
 
-  ngOnInit(): void {
-    this.getInvoiceById(this.invoice_id);
-    this.getPaymentTypes();
-  }
 
   formatter = (user: User) => user.identification + ' - ' + user.name + ' ' + user.lastname;
 
@@ -82,26 +69,15 @@ export class AddAditionalInfoComponent implements OnInit {
 
   }
 
+  ngOnInit(): void {
+    this.getInvoiceById(this.invoice_id);
+  }
+
   getInvoiceById(id: number) {
     this.invoiceService.getById(id).subscribe(response => {
 
       if (response.status) {
         this.invoice = response.result;
-      }
-      else {
-        this.notificationService.error(response.message);
-      }
-
-    }, error => {
-      this.notificationService.error(error);
-      this.authService.raiseError();
-    });
-  }
-
-  getPaymentTypes() {
-    this.paymentTypeService.getAll().subscribe(response => {
-      if (response.status) {
-        this.paymentTypes = response.result;
       }
       else {
         this.notificationService.error(response.message);
@@ -128,21 +104,11 @@ export class AddAditionalInfoComponent implements OnInit {
 
       if (response.status) {
         this.notificationService.success(response.message);
-
-        if (this.invoice.payment_type_id == PaymentType.getTypeDebit()) {
-          //create full payment and then go to payment modal
-          this.createPaymentCompleted();
-        } else {
-          //go to modal that generates credit payments
-          this.modalResponse.status = true;
-          this.modalResponse.result = { 'credit': true };
-          this.activeModal.close(this.modalResponse);
-        }
-
+        this.activeModal.close(true);
       }
       else {
         this.notificationService.error(response.message);
-        this.activeModal.close(this.modalResponse);
+        this.activeModal.close(false);
       }
 
     }, error => {
@@ -151,49 +117,8 @@ export class AddAditionalInfoComponent implements OnInit {
     });
   }
 
-  next() {
-
-    if (this.invoice.payment_type_id <= 0) {
-      this.notificationService.error('Select payment type.');
-      return;
-    }
-
-    if (this.invoice.payment_type_id == PaymentType.getTypeCredit()) {
-      if (!this.externalUser) {
-        this.notificationService.error('Select who is going to pay this invoice.');
-        return;
-      }
-    }
-
-    this.save();
+  print() {
   }
 
-  createPaymentCompleted() {
-
-    let payment = new Payment();
-
-    //assign payment values
-    payment.amount = this.invoice.total;
-    payment.invoice_id = this.invoice.id;
-
-    this.paymentService.create(payment).subscribe(response => {
-      if (response.status) {
-        payment.id = response.result?.id;
-        this.modalResponse.status = true;
-        this.modalResponse.result = { 'payment_id': payment.id };
-        this.activeModal.close(this.modalResponse);
-
-      }
-      else {
-        this.notificationService.error(response.message);
-        this.modalResponse.status = false;
-        this.activeModal.close(this.modalResponse);
-      }
-
-    }, error => {
-      this.notificationService.error(error);
-      this.authService.raiseError();
-    });
-  }
 
 }

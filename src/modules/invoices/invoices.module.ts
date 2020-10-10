@@ -9,10 +9,12 @@ import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
 import { UtilityModule } from '@modules/utility/utility.module';
 import { ChartsModule } from '@modules/charts/charts.module';
+import { PaymentsModule } from '@modules/payments/payments.module';
 
 /* Components */
 import * as invoicesComponents from './components';
 import * as utilitiesComponents from '@modules/utility/components';
+import * as paymentsComponents from '@modules/payments/components';
 
 /* Containers */
 import * as invoicesContainers from './containers';
@@ -34,7 +36,8 @@ import * as invoicesUtils from './utils';
     AppCommonModule,
     NavigationModule,
     UtilityModule,
-    ChartsModule
+    ChartsModule,
+    PaymentsModule
   ],
   providers: [
     ...invoicesServices.services,
@@ -52,6 +55,7 @@ import * as invoicesUtils from './utils';
     invoicesComponents.AddAditionalInfoComponent,
     invoicesComponents.ShowInvoiceComponent,
     utilitiesComponents.ConfirmModalComponent,
+    paymentsComponents.MadePaymentModalComponent
   ]
 })
 export class InvoicesModule { }
