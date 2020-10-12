@@ -55,7 +55,7 @@ import * as invoicesUtils from './utils';
     invoicesComponents.AddAditionalInfoComponent,
     invoicesComponents.ShowInvoiceComponent,
     utilitiesComponents.ConfirmModalComponent,
-    paymentsComponents.MadePaymentModalComponent
+    paymentsComponents.MadePaymentModalComponent,
   ]
 })
 export class InvoicesModule { }

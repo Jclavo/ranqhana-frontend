@@ -59,6 +59,17 @@ export class CustomDateService {
       (localDate.getSeconds() < 10 ? '0' + localDate.getSeconds() : localDate.getSeconds());
   }
 
+  formatShortStringDDMMYYYY(date: string, DELIMITER: string = this.DELIMITER) {
+
+    if (!date) return '';
+
+    let localDate = new Date(date);
+
+    return (localDate.getDate() < 10 ? '0' + localDate.getDate() : localDate.getDate()) + DELIMITER +
+      (localDate.getMonth() < 10 ? '0' + localDate.getMonth() : localDate.getMonth()) + DELIMITER +
+      localDate.getFullYear();
+  }
+
   getToday() {
     return this.formatYYYYMMDD(this.ngbCalendar.getToday());
   }

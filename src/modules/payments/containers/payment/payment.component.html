@@ -1,0 +1,119 @@
+<sb-layout-dashboard>
+    <sb-dashboard-head [hideBreadcrumbs]="true"></sb-dashboard-head>
+    <sb-card>
+        <div class="card-header">
+            <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
+            <ng-container>Payments</ng-container>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">Total Payment</div>
+                            </div>
+                            <input class="form-control" type="text" name="total" 
+                            [(ngModel)]="installment.total" readonly>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">Remain</div>
+                            </div>
+                            <input class="form-control" type="text" name="remain" [(ngModel)]="installment.remain"
+                                readonly>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-2">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">Installment</div>
+                            </div>
+                            <input class="form-control" type="text" name="quantity" [(ngModel)]="installment.quantity"
+                                (blur)="validateInstallment()">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-2">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">Money</div>
+                            </div>
+                            <input class="form-control" type="text" name="money" [(ngModel)]="installment.money">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-2 mb-2">
+                        <button type="button" class="btn btn-success btn-block"
+                            (click)="generatePayments()">Generate</button>
+                    </div>
+                    <div class="col-12 col-md-6 offset-xl-10 col-xl-2">
+                        <button type="button" class="btn btn-primary btn-block" (click)="reset()">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </sb-card>
+
+    <sb-card>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"><span>ID</span></th>
+                            <th scope="col"><span>Amount</span></th>
+                            <th scope="col"><span>Money</span></th>
+                            <th scope="col"><span>Transaction Code</span></th>
+                            <th scope="col"><span>Payment Date</span></th>
+                            <th scope="col"><span>Real Payment Date</span></th>
+                            <th scope="col"><span>Payment Method</span></th>
+                            <th scope="col"><span>Payment Stage</span></th>
+                            <th scope="col"><span i18n="@@button.options">Options</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let payment of payments; index as index">
+                            <th scope="row">{{ payment.id }}</th>
+                            <td scope="row">{{ payment.amount }}</td>
+                            <td scope="row">{{ payment.money }}</td>
+                            <td scope="row">{{ payment.transaction_code }}</td>
+                            <td scope="row" (click)="dFrom.toggle()">{{ payment.payment_date }}</td>
+                            <input cplaceholder="dd-mm-yyyy" name="real_payment_date" [(ngModel)]="payment.payment_date"
+                                ngbDatepicker #dFrom="ngbDatepicker" hidden>
+                            <td scope="row">{{ payment.real_payment_date }}</td>
+                            <td scope="row">{{ payment.payment_method_name }}</td>
+                            <td scope="row">{{ payment.payment_stage_name }}</td>
+                            <td>
+                                <div class="row" *ngIf="payment.payment_stage_id != 3 && payment.id > 0">
+                                    <div class="col-3">
+                                        <fa-icon [icon]='["far", "money-bill-alt"]'
+                                            [styles]="{'stroke': 'red', 'color': 'green'}" size="md"
+                                            (click)="openModalMadePayment(payment.id)"></fa-icon>
+                                    </div>
+                                    <div class="col-3">
+                                        <fa-icon [icon]='["far", "trash-alt"]'
+                                            [styles]="{'stroke': 'red', 'color': 'red'}" size="md"
+                                            (click)="delete(index, payment.id)"></fa-icon>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </sb-card>
+    <sb-card *ngIf="payments.length > 0">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-2">
+                    <button type="button" class="btn btn-primary btn-block" (click)="save()" >Save</button>
+                </div>
+                <div class="col-12 col-md-6">
+                    <button type="button" class="btn btn-success btn-block" (click)="finish()">Finish</button>
+                </div>
+            </div>
+        </div>
+    </sb-card>
+</sb-layout-dashboard>

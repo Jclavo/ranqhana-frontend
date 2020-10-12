@@ -1,5 +1,5 @@
 export class Payment {
-    id: string = '';
+    id: number = 0;
     amount: number = 0;
     money: number = 0;
     payment_date: string = '';
@@ -11,6 +11,6 @@ export class Payment {
     //extra
     change : number = 0;
     transaction_code: string = '';
-
-    
+    payment_method_name: string = '';
+    payment_stage_name: string = '';
 }

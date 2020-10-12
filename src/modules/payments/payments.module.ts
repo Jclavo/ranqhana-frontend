@@ -11,7 +11,7 @@ import { NavigationModule } from '@modules/navigation/navigation.module';
 /* Components */
 import * as paymentsComponents from './components';
 
-/* Containers */ 
+/* Containers */
 import * as paymentsContainers from './containers';
 
 /* Guards */
@@ -23,23 +23,26 @@ import * as paymentsServices from './services';
 @NgModule({
   imports: [
     CommonModule,
-        RouterModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HttpClientModule,
-        AppCommonModule,
-        NavigationModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    AppCommonModule,
+    NavigationModule,
   ],
   providers: [
     DecimalPipe,
     ...paymentsServices.services,
     // ...tablesGuards.guards,
-],
+  ],
   declarations: [
     ...paymentsContainers.containers,
     ...paymentsComponents.components,
 
   ],
   exports: [...paymentsContainers.containers, ...paymentsComponents.components],
+  entryComponents: [
+    paymentsComponents.MadePaymentModalComponent,
+  ]
 })
 export class PaymentsModule { }

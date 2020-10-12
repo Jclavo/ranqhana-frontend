@@ -31,6 +31,24 @@ export const ROUTES: Routes = [
             ],
         } as SBRouteData,
     },
+    {
+        path: ':invoice_id',
+        // canActivate: [GlobalGuard],
+        component: paymentsContainers.PaymentComponent,
+        data: {
+          title: 'Payment - Store App',
+          breadcrumbs: [
+            {
+              text: 'Dashboard',
+              link: '/dashboard',
+            },
+            {
+              text: 'Payment',
+              active: true,
+            },
+          ],
+        } as SBRouteData,
+      },
 ];
 
 @NgModule({

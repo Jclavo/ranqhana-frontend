@@ -88,7 +88,7 @@
                     </ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="invoice.taxes | number" [term]="searchOption.searchValue"></ngb-highlight>
+                    <ngb-highlight [result]="formUtils.customToFixed(invoice.taxes)" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
                     <ngb-highlight [result]="formUtils.customToFixed(invoice.discount)" [term]="searchOption.searchValue">
@@ -105,6 +105,11 @@
                 </td>
                 <td>
                     <div class="row">
+                        <div class="col-auto mb-1">
+                            <fa-icon [icon]='["far", "money-bill-alt"]'
+                                [styles]="{'stroke': 'red', 'color': 'green'}" size="md"
+                                routerLink="/payments/{{invoice.id}}"></fa-icon>
+                        </div>
                         <div class="col-auto mb-1">
                             <fa-icon [icon]='["far", "eye"]' [styles]="{'stroke': 'blue', 'color': 'blue'}"
                                 size="lg" (click)="modalShow(invoice.id)"></fa-icon>

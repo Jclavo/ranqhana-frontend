@@ -1,55 +1,55 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-title" >Payment</h4>
-    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
-      (click)="activeModal.close(modalResponse)">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body"> 
-    <!-- <p>Payment: <strong>{{invoice.total}}</strong></p> -->
-    <div class="form-group">
-        <label for="amount">Payment</label>
-        <div class="input-group">
-          <input id="amount" class="form-control" name="amount" [(ngModel)]="payment.amount">
-        </div>
+  <h4 class="modal-title" id="modal-title">Payment</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+    (click)="activeModal.close(modalResponse)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <!-- <p>Payment: <strong>{{invoice.total}}</strong></p> -->
+  <div class="form-group">
+    <label for="amount">Payment</label>
+    <div class="input-group">
+      <input id="amount" class="form-control" name="amount" [(ngModel)]="payment.amount">
     </div>
-    <form>
+  </div>
+  <form>
+    <div class="form-group">
+      <label for="payment_method_id">Payment Method</label>
+      <div class="input-group">
+        <select class="form-control" placeholder="Payment method" [(ngModel)]="payment.payment_method_id"
+          name="payment_method_id">
+          <option *ngFor="let payment_method of paymentMethods" [value]="payment_method.id">
+            {{payment_method.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div *ngIf="payment.payment_method_id == PAYMENT_METHOD_MONEY">
       <div class="form-group">
-        <label for="payment_method_id" >Payment Method</label>
+        <label for="money">Money</label>
         <div class="input-group">
-          <select class="form-control" placeholder="Payment method" 
-                  [(ngModel)]="payment.payment_method_id" name="payment_method_id" >
-            <option *ngFor="let payment_method of paymentMethods" [value]="payment_method.id">
-                {{payment_method.name}}
-            </option>
-          </select>
+          <input class="form-control" type="text" name="money" [(ngModel)]="payment.money" placeholder="Money"
+            (blur)="calculateChange()" />
         </div>
       </div>
-      <div *ngIf="payment.payment_method_id == PAYMENT_METHOD_MONEY">
-        <div class="form-group">
-          <label for="money">Money</label>
-          <div class="input-group">
-            <input class="form-control" type="text" name="money" [(ngModel)]="payment.money" 
-                   placeholder="Money" (blur)="calculateChange()"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="change">Change</label>
-          <div class="input-group">
-            <input id="change" class="form-control" name="change" [(ngModel)]="payment.change">
-          </div>
-        </div>
-      </div>
-      <div class="form-group" *ngIf="payment.payment_method_id == PAYMENT_METHOD_CARD">
-        <label for="transaction_code">Transaction Code</label>
+      <div class="form-group">
+        <label for="change">Change</label>
         <div class="input-group">
-          <input id="transaction_code" class="form-control" name="transaction_code" [(ngModel)]="payment.transaction_code">
+          <input id="change" class="form-control" name="change" [(ngModel)]="payment.change">
         </div>
       </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="back()">Back</button>
-    <button type="button" ngbAutofocus class="btn btn-success" (click)="finish()">Finish</button>
-  </div>
-  
+    </div>
+    <div class="form-group" *ngIf="payment.payment_method_id == PAYMENT_METHOD_CARD">
+      <label for="transaction_code">Transaction Code</label>
+      <div class="input-group">
+        <input id="transaction_code" class="form-control" name="transaction_code"
+          [(ngModel)]="payment.transaction_code">
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="back()">Back</button>
+  <button type="button" ngbAutofocus class="btn btn-success" (click)="finish()">Finish</button>
+</div>

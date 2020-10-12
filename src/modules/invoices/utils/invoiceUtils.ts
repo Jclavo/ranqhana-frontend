@@ -209,7 +209,7 @@ export class InvoiceUtils implements OnInit {
 
             if(result?.result){
                 if(result?.result?.credit){
-                    this.router.navigate(['/invoices', invoice.getType()])
+                    this.router.navigate(['/payments', invoice.id]);
                 }else{
                     this.openModalMadePayment(result?.result?.payment_id,invoice);
                 }

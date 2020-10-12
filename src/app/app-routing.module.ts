@@ -78,7 +78,12 @@ const routes: Routes = [
             import('modules/stores/stores-routing.module').then(m => m.StoresRoutingModule),
         canActivate: [GlobalGuard]
     },
-
+    {
+        path: 'payments',
+        loadChildren: () =>
+            import('modules/payments/payments-routing.module').then(m => m.PaymentsRoutingModule),
+        canActivate: [GlobalGuard]
+    },
     {
         path: 'version',
         loadChildren: () =>
