@@ -8,17 +8,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Payment, Installment } from "../../models";
 import { Response } from "@modules/utility/models";
 import { Invoice } from "@modules/invoices/models";
-// import { Invoice } from "@modules/p";
+import { PaymentStage } from "@modules/payment-stages/models";
 
 //SERVICES
 import { PaymentService } from '../../services';
-import { CustomDateService, NotificationService } from '@modules/utility/services';
+import { CustomDateService, NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 import { UserService } from "@modules/users/services";
 import { InvoiceService } from "@modules/invoices/services";
 
 // COMPONENT 
 import { MadePaymentModalComponent } from "../../components/made-payment-modal/made-payment-modal.component";
+import { ConfirmModalComponent } from '@modules/utility/components';
 
 //UTILS
 import { FormUtils } from '@modules/utility/utils';
@@ -30,7 +31,7 @@ import { FormUtils } from '@modules/utility/utils';
 })
 export class PaymentComponent implements OnInit {
 
-  // @Input() invoice_id: number = 0;
+  public PAYMENT_STAGE_PAID: number = PaymentStage.getStagePaid();
 
   public payments: Array<Payment> = [];
   private invoice = new Invoice();
@@ -46,7 +47,8 @@ export class PaymentComponent implements OnInit {
     private ngbModal: NgbModal,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    public formUtils: FormUtils
+    public formUtils: FormUtils,
+    private languageService: LanguageService
   ) { }
 
   ngOnInit() {}
@@ -61,6 +63,32 @@ export class PaymentComponent implements OnInit {
     this.getPaymentByInvoice(invoice_id);
   }
 
+  validateInstallment() {
+    this.installment.money = Math.floor(this.installment.remain / this.installment.quantity);
+  }
+
+  reset() {
+    this.payments = this.payments.filter(function (value: any) {
+      return value.id > 0;
+    });
+
+    this.installment.quantity = 0;
+    this.installment.money = 0.0;
+    this.calculateRemain();
+  }
+
+  calculateRemain() {
+    let total = 0;
+    for (let index = 0; index < this.payments.length; index++) {
+      total += Number(this.payments[index].amount);
+    }
+    this.installment.remain = this.installment.total - total;
+  }
+
+  finish(){
+    this.router.navigate(['/invoices', this.invoice.getType()])
+  }
+
   getInvoiceById(id: number) {
     this.invoiceService.getById(id).subscribe(response => {
 
@@ -68,7 +96,7 @@ export class PaymentComponent implements OnInit {
         this.invoice = response.result;
         if (this.invoice) {
           this.installment.total = response.result.total;
-          this.installment.remain = response.result.total;
+          // this.installment.remain = response.result.total;
         }
 
       }
@@ -118,8 +146,6 @@ export class PaymentComponent implements OnInit {
     }
 
     //generate
-    // this.payments = [];
-    // let remain = this.installment.total;
     for (let index = 0; index < this.installment.quantity; index++) {
       let newPayment = new Payment();
 
@@ -141,39 +167,6 @@ export class PaymentComponent implements OnInit {
 
     this.installment.quantity = 0;
     this.installment.money = 0.0;
-
-  }
-
-  validateInstallment() {
-    this.installment.money = Math.floor(this.installment.remain / this.installment.quantity);
-  }
-
-  delete(index: number, payment_id: number) {
-
-    if (payment_id > 0) {
-      this.deletePayment(index, payment_id);
-    } else {
-      this.deleteLocal(index);
-    }
-
-  }
-
-  deleteLocal(index: number) {
-    this.installment.remain += Number(this.payments[index].amount);
-    this.payments.splice(index, 1);
-  }
-
-  reset() {
-    // this.payments = [];
-    // this.installment.remain = this.installment.total;
-
-    this.payments = this.payments.filter(function (value: any) {
-      return value.id > 0;
-    });
-
-    this.installment.quantity = 0;
-    this.installment.money = 0.0;
-    this.calculateRemain();
 
   }
 
@@ -226,14 +219,6 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  calculateRemain() {
-    let total = 0;
-    for (let index = 0; index < this.payments.length; index++) {
-      total += Number(this.payments[index].amount);
-    }
-    this.installment.remain = this.installment.total - total;
-  }
-
   openModalMadePayment(payment_id: Number) {
     const modalRef = this.ngbModal.open(MadePaymentModalComponent, { centered: true, backdrop: 'static' });
 
@@ -248,8 +233,34 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  finish(){
-    this.router.navigate(['/invoices', this.invoice.getType()])
+  modalDelete(index: number, payment_id: number, name: string) {
+    
+    const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.title = this.languageService.getI18n('product.page.title');
+    modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
+    // modalRef.componentInstance.title = 'AAA';
+    // modalRef.componentInstance.action = 'BBB';
+    modalRef.componentInstance.value = name;
+
+    modalRef.result.then((result) => {
+      result ? this.delete(index, payment_id) : null;
+    });
+  }
+
+  delete(index: number, payment_id: number) {
+
+    if (payment_id > 0) {
+      this.deletePayment(index, payment_id);
+    } else {
+      this.deleteLocal(index);
+    }
+
+  }
+
+  deleteLocal(index: number) {
+    this.installment.remain += Number(this.payments[index].amount);
+    this.payments.splice(index, 1);
   }
 
 }
