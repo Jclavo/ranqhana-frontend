@@ -6,14 +6,15 @@
   </button>
 </div>
 <div class="modal-body">
-  <!-- <p>The invoice <span class="text-primary">"{{invoice_id}}"</span> was created <strong><span class="text-success">succesfully</span>.</strong></p> -->
-  <!-- <p><strong i18n="@@invoice.aditional.wasCreated">The invoice was created succesfully</strong></p>
-  <p><strong i18n="@@invoice.aditional.addAdditionalInformation">Do you want to add additional information?</strong></p> -->
-
-  <p>Total Payment: <strong>{{invoice.total}}</strong></p>
   <form>
     <div class="form-group">
-      <label for="client" >Payment type</label>
+      <label for="total" i18n="@@invoice.aditional.totalPayment">Total Payment</label>
+      <div class="input-group">
+        <input id="total" class="form-control" name="total" [(ngModel)]="invoice.total" readonly>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="client" i18n="@@invoice.aditional.paymentType">Payment type</label>
       <div class="input-group">
       <select class="form-control" placeholder="Payment type" name="payment_type_id"  [(ngModel)]="invoice.payment_type_id" >
         <option *ngFor="let payment_type of paymentTypes" [value]="payment_type.id">
@@ -39,7 +40,6 @@
   </form>
 </div>
 <div class="modal-footer">
-  <!-- <button type="button" class="btn btn-outline-primary" (click)="print()" i18n="@@button.print">Print</button> -->
-  <!-- <button type="button" ngbAutofocus class="btn btn-success" (click)="save()">OK</button> -->
-  <button type="button" ngbAutofocus class="btn btn-primary" (click)="next()">Next</button>
+  <button type="button" ngbAutofocus class="btn btn-primary" i18n="@@button.next" (click)="next()">Next</button>
 </div>
+<sb-message></sb-message>

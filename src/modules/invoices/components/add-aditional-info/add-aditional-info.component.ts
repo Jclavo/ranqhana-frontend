@@ -13,7 +13,7 @@ import { Response } from "@modules/utility/models";
 
 //SERVICES
 import { InvoiceService } from '../../services';
-import { NotificationService } from '@modules/utility/services';
+import { NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 import { UserService } from "@modules/users/services";
 import { PaymentTypeService } from "@modules/payment-types/services";
@@ -41,7 +41,8 @@ export class AddAditionalInfoComponent implements OnInit {
     public authService: AuthService,
     public userService: UserService,
     private paymentTypeService: PaymentTypeService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private languageService: LanguageService
   ) { }
 
   ngOnInit(): void {
@@ -133,7 +134,7 @@ export class AddAditionalInfoComponent implements OnInit {
           //create full payment and then go to payment modal
           this.createPaymentCompleted();
         } else {
-          //go to modal that generates credit payments
+          //generates credit payments
           this.modalResponse.status = true;
           this.modalResponse.result = { 'credit': true };
           this.activeModal.close(this.modalResponse);
@@ -154,13 +155,13 @@ export class AddAditionalInfoComponent implements OnInit {
   next() {
 
     if (this.invoice.payment_type_id <= 0) {
-      this.notificationService.error('Select payment type.');
+      this.notificationService.error(this.languageService.getI18n('invoice.message.selectPaymentType'));
       return;
     }
 
     if (this.invoice.payment_type_id == PaymentType.getTypeCredit()) {
       if (!this.externalUser) {
-        this.notificationService.error('Select who is going to pay this invoice.');
+        this.notificationService.error(this.languageService.getI18n('invoice.message.invoicePayer'));
         return;
       }
     }
