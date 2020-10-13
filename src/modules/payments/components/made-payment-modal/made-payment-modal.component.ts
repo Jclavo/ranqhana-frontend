@@ -86,7 +86,7 @@ export class MadePaymentModalComponent implements OnInit {
     this.payment.change = this.payment.money - this.payment.amount;
   }
 
-  finish() {
+  madePayment() {
     this.savePayment(this.payment);
   }
 
@@ -107,6 +107,10 @@ export class MadePaymentModalComponent implements OnInit {
       this.authService.raiseError();
     });
   }
+
+  // back(){
+
+  // }
 
 
 }
