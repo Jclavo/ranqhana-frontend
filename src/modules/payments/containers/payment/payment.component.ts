@@ -64,7 +64,9 @@ export class PaymentComponent implements OnInit {
   }
 
   validateInstallment() {
-    this.installment.money = Math.floor(this.installment.remain / this.installment.quantity);
+    if(this.installment.quantity > 0){
+      this.installment.money = Math.floor(this.installment.remain / this.installment.quantity);
+    }
   }
 
   reset() {
@@ -131,17 +133,17 @@ export class PaymentComponent implements OnInit {
 
     //validations
     if (this.installment.remain == 0) {
-      this.notificationService.error('There is no remain to add more payments.');
+      this.notificationService.error(this.languageService.getI18n('payment.message.noRemain'));
       return;
     }
 
     if (this.installment.quantity <= 0) {
-      this.notificationService.error('The installments quantity should be one or more.');
+      this.notificationService.error(this.languageService.getI18n('payment.message.quantityEmpty'));
       return;
     }
 
     if (this.installment.money <= 0 || ((this.installment.money * this.installment.quantity) > this.installment.remain)) {
-      this.notificationService.error('The installments money should be in total range.');
+      this.notificationService.error(this.languageService.getI18n('payment.message.moneyInRange'));
       return;
     }
 
@@ -173,7 +175,7 @@ export class PaymentComponent implements OnInit {
   save() {
 
     if (this.installment.remain > 0) {
-      this.notificationService.error('There is still a remain, please create all the payments.');
+      this.notificationService.error(this.languageService.getI18n('payment.message.stillRemain'));
       return;
     }
 
@@ -237,10 +239,8 @@ export class PaymentComponent implements OnInit {
     
     const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
-    modalRef.componentInstance.title = this.languageService.getI18n('product.page.title');
+    modalRef.componentInstance.title = this.languageService.getI18n('payment.field.payment');
     modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
-    // modalRef.componentInstance.title = 'AAA';
-    // modalRef.componentInstance.action = 'BBB';
     modalRef.componentInstance.value = name;
 
     modalRef.result.then((result) => {

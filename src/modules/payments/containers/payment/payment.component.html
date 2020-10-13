@@ -3,7 +3,7 @@
     <sb-card>
         <div class="card-header">
             <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
-            <ng-container>Payments</ng-container>
+            <ng-container i18n="@@payment.field.payment">Payment</ng-container>
         </div>
         <div class="card-body">
             <form>
@@ -11,7 +11,7 @@
                     <div class="col-12 col-md-6 col-xl-3">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">Total Payment</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.totalPayment">Total Payment</div>
                             </div>
                             <input class="form-control" type="text" name="total" 
                             [(ngModel)]="installment.total" readonly>
@@ -20,7 +20,7 @@
                     <div class="col-12 col-md-6 col-xl-3">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">Remain</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.remain">Remain</div>
                             </div>
                             <input class="form-control" type="text" name="remain" [(ngModel)]="installment.remain"
                                 readonly>
@@ -29,7 +29,7 @@
                     <div class="col-12 col-md-6 col-xl-2">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">Installment</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.installment">Installment</div>
                             </div>
                             <input class="form-control" type="text" name="quantity" [(ngModel)]="installment.quantity"
                                 (blur)="validateInstallment()">
@@ -38,17 +38,17 @@
                     <div class="col-12 col-md-6 col-xl-2">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">Money</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.money">Money</div>
                             </div>
                             <input class="form-control" type="text" name="money" [(ngModel)]="installment.money">
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-xl-2 mb-2">
                         <button type="button" class="btn btn-success btn-block"
-                            (click)="generatePayments()">Generate</button>
+                            (click)="generatePayments()" i18n="@@button.generate">Generate</button>
                     </div>
                     <div class="col-12 col-md-6 offset-xl-10 col-xl-2">
-                        <button type="button" class="btn btn-primary btn-block" (click)="reset()">Reset</button>
+                        <button type="button" class="btn btn-primary btn-block" (click)="reset()" i18n="@@button.clean">Clean</button>
                     </div>
                 </div>
             </form>
@@ -62,13 +62,13 @@
                     <thead>
                         <tr>
                             <th scope="col"><span>ID</span></th>
-                            <th scope="col"><span>Amount</span></th>
-                            <th scope="col"><span>Money</span></th>
-                            <th scope="col"><span>Transaction Code</span></th>
-                            <th scope="col"><span>Payment Date</span></th>
-                            <th scope="col"><span>Real Payment Date</span></th>
-                            <th scope="col"><span>Payment Method</span></th>
-                            <th scope="col"><span>Payment Stage</span></th>
+                            <th scope="col"><span i18n="@@payment.field.amount">Amount</span></th>
+                            <th scope="col"><span i18n="@@payment.field.money">Money</span></th>
+                            <th scope="col"><span i18n="@@payment.field.transactionCode">Transaction Code</span></th>
+                            <th scope="col"><span i18n="@@payment.field.paymentDate">Payment Date</span></th>
+                            <th scope="col"><span i18n="@@payment.field.realPaymentDate">Real Payment Date</span></th>
+                            <th scope="col"><span i18n="@@payment.field.paymentMethod">Payment Method</span></th>
+                            <th scope="col"><span i18n="@@payment.field.paymentStage">Payment Stage</span></th>
                             <th scope="col"><span i18n="@@button.options">Options</span></th>
                         </tr>
                     </thead>
@@ -108,13 +108,14 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-md-6 mb-2">
-                    <button type="button" class="btn btn-primary btn-block" (click)="save()" >Save</button>
+                    <button type="button" class="btn btn-primary btn-block" (click)="save()" i18n="@@button.save">Save</button>
                 </div>
                 <div class="col-12 col-md-6">
-                    <button type="button" class="btn btn-success btn-block" (click)="finish()">Finish</button>
+                    <button type="button" class="btn btn-success btn-block" (click)="finish()" i18n="@@button.finish">Finish</button>
                 </div>
             </div>
         </div>
     </sb-card>
 </sb-layout-dashboard>
 <sb-buttons></sb-buttons>
+<sb-messages></sb-messages>
