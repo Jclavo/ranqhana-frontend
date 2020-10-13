@@ -543,25 +543,39 @@
           <context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context>
           <context context-type="linenumber">43</context>
         </context-group>
+      </trans-unit><trans-unit id="button.pay" datatype="html">
+        <source>Pay</source><target state="final">Pagar</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/payments/components/made-payment-modal/made-payment-modal.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
       </trans-unit><trans-unit id="invoice.message.selectPaymentType" datatype="html">
         <source>
         Select payment type.
     </source><target state="final">
         Seleccione un tipo de pago.
     </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/utility/containers/i18n/message/message.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-      </trans-unit><trans-unit id="invoice.message.invoicePayer" datatype="html">
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/message/message.component.html</context><context context-type="linenumber">3</context></context-group></trans-unit><trans-unit id="invoice.message.invoicePayer" datatype="html">
         <source>
         Select who is going to pay this invoice.
     </source><target state="final">
         Seleccione quien va a pagar la factura.
     </target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/message/message.component.html</context><context context-type="linenumber">6</context></context-group></trans-unit><trans-unit id="payment.message.moneyLess" datatype="html">
+        <source>
+        The money to pay can not be less than the amount to pay.
+    </source><target state="final">
+        El dinero no puede ser menor que la cantidad a pagar.
+    </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/containers/i18n/message/message.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit><trans-unit id="item.emptyStockType" datatype="html">
         <source>Select at least one stock type.</source><target state="final">Seleccione um tipo de stock</target>
@@ -625,7 +639,43 @@
       <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context><context context-type="linenumber">27</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">10</context></context-group></trans-unit><trans-unit id="invoice.aditional.searchClient" datatype="html">
         <source>Search Client</source><target state="final">Buscar cliente</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context><context context-type="linenumber">30</context></context-group></trans-unit><trans-unit id="invoice.message.nostock" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context><context context-type="linenumber">30</context></context-group></trans-unit><trans-unit id="payment.made.title" datatype="html">
+        <source>Made Payment</source><target state="final">Realizar Pago</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/payments/components/made-payment-modal/made-payment-modal.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit><trans-unit id="payment.field.payment" datatype="html">
+        <source>Payment</source><target state="final">Pago</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/payments/components/made-payment-modal/made-payment-modal.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit><trans-unit id="payment.field.paymentMethod" datatype="html">
+        <source>Payment Method</source><target state="final">Método de pago</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/payments/components/made-payment-modal/made-payment-modal.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit><trans-unit id="payment.field.money" datatype="html">
+        <source>Money</source><target state="final">Dinero</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/payments/components/made-payment-modal/made-payment-modal.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit><trans-unit id="payment.field.change" datatype="html">
+        <source>Change</source><target state="final">Vuelto</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/payments/components/made-payment-modal/made-payment-modal.component.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit><trans-unit id="payment.field.transactionCode" datatype="html">
+        <source>Transaction Code</source><target state="final">Código de la transacción</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/payments/components/made-payment-modal/made-payment-modal.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit><trans-unit id="invoice.message.nostock" datatype="html">
         <source>There is not stock for this quantity</source><target state="final">No hay stock para la cantidad ingresada.</target>
         
       <context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context><context context-type="linenumber">18</context></context-group></trans-unit><trans-unit id="invoice.message.negativeDiscount" datatype="html">

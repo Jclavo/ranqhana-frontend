@@ -1,21 +1,20 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-title">Payment</h4>
+  <h4 class="modal-title" id="modal-title" i18n="@@payment.made.title">Made Payment</h4>
   <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
     (click)="activeModal.close(modalResponse)">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  <!-- <p>Payment: <strong>{{invoice.total}}</strong></p> -->
   <div class="form-group">
-    <label for="amount">Payment</label>
+    <label for="amount" i18n="@@payment.field.payment">Payment</label>
     <div class="input-group">
-      <input id="amount" class="form-control" name="amount" [(ngModel)]="payment.amount">
+      <input id="amount" class="form-control" name="amount" [(ngModel)]="payment.amount" readonly>
     </div>
   </div>
   <form>
     <div class="form-group">
-      <label for="payment_method_id">Payment Method</label>
+      <label for="payment_method_id" i18n="@@payment.field.paymentMethod">Payment Method</label>
       <div class="input-group">
         <select class="form-control" placeholder="Payment method" [(ngModel)]="payment.payment_method_id"
           name="payment_method_id">
@@ -27,21 +26,21 @@
     </div>
     <div *ngIf="payment.payment_method_id == PAYMENT_METHOD_MONEY">
       <div class="form-group">
-        <label for="money">Money</label>
+        <label for="money" i18n="@@payment.field.money">Money</label>
         <div class="input-group">
           <input class="form-control" type="text" name="money" [(ngModel)]="payment.money" placeholder="Money"
             (blur)="calculateChange()" />
         </div>
       </div>
       <div class="form-group">
-        <label for="change">Change</label>
+        <label for="change" i18n="@@payment.field.change">Change</label>
         <div class="input-group">
           <input id="change" class="form-control" name="change" [(ngModel)]="payment.change">
         </div>
       </div>
     </div>
     <div class="form-group" *ngIf="payment.payment_method_id == PAYMENT_METHOD_CARD">
-      <label for="transaction_code">Transaction Code</label>
+      <label for="transaction_code" i18n="@@payment.field.transactionCode">Transaction Code</label>
       <div class="input-group">
         <input id="transaction_code" class="form-control" name="transaction_code"
           [(ngModel)]="payment.transaction_code">
@@ -51,5 +50,5 @@
 </div>
 <div class="modal-footer">
   <!-- <button type="button" class="btn btn-light" (click)="back()">Back</button> -->
-  <button type="button" ngbAutofocus class="btn btn-success" (click)="madePayment()">Pay</button>
+  <button type="button" ngbAutofocus class="btn btn-success" (click)="madePayment()" i18n="@@button.pay">Pay</button>
 </div>

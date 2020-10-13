@@ -10,7 +10,7 @@ import { Response } from "@modules/utility/models";
 
 //SERVICES
 import { PaymentService } from '../../services';
-import { NotificationService } from '@modules/utility/services';
+import { NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 import { UserService } from "@modules/users/services";
 import { PaymentMethodService } from "@modules/payment-methods/services";
@@ -39,6 +39,7 @@ export class MadePaymentModalComponent implements OnInit {
     public userService: UserService,
     private paymentService: PaymentService,
     private paymentMethodService: PaymentMethodService,
+    private languageService: LanguageService
   ) { }
 
   ngOnInit(): void {
@@ -79,7 +80,7 @@ export class MadePaymentModalComponent implements OnInit {
 
   calculateChange() {
     if (this.payment.money < this.payment.amount) {
-      this.notificationService.error('The money to pay can not be less than the amount to pay.');
+      this.notificationService.error(this.languageService.getI18n('payment.message.moneyLess'));
       return;
     }
 
