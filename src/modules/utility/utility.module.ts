@@ -32,6 +32,7 @@ import * as utilityServices from './services';
 
 /* Interceptor */
 import * as interceptorServices from './interceptors';
+import { MessageComponent } from './containers/i18n/message/message.component';
 
 @NgModule({
     imports: [
@@ -57,6 +58,7 @@ import * as interceptorServices from './interceptors';
         ...utilityContainers.containers, 
         ...utilityComponents.components,
         ...utilityDirectives.directives,
+        MessageComponent,
     ],
     exports: [
         ...utilityContainers.containers, 
