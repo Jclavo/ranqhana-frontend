@@ -204,7 +204,7 @@ export class InvoiceUtils implements OnInit {
         modalRef.result.then((result: Response) => {
 
             if(!result.status){
-                this.notificationService.error('The process to create the invoice was not complete.');
+                this.notificationService.error(this.languageService.getI18n('invoice.message.notCreated'));
                 return;
             }
 
