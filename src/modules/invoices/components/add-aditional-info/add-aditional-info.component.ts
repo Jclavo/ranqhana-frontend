@@ -27,6 +27,7 @@ import { PaymentService } from "@modules/payments/services";
 export class AddAditionalInfoComponent implements OnInit {
 
   @Input() invoice_id: number = 0;
+  @Input() payment_id: number = 0;
 
   public invoice = new Invoice();
   public searchUserOption = new SearchUserOptions();
@@ -131,8 +132,16 @@ export class AddAditionalInfoComponent implements OnInit {
         this.notificationService.success(response.message);
 
         if (this.invoice.payment_type_id == PaymentType.getTypeDebit()) {
-          //create full payment and then go to payment modal
-          this.createPaymentCompleted();
+
+          if (this.payment_id > 0) {
+            this.modalResponse.status = true;
+            this.modalResponse.result = { 'payment_id': this.payment_id };
+            this.activeModal.close(this.modalResponse);
+          } else {
+            //create full payment and then go to payment modal
+            this.createPaymentCompleted();
+          }
+
         } else {
           //generates credit payments
           this.modalResponse.status = true;

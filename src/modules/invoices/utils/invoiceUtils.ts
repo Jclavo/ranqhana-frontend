@@ -159,7 +159,7 @@ export class InvoiceUtils implements OnInit {
 
                     if (this.invoiceDetailTotalItems == this.invoiceDetailTotalItemsOK) {
                         this.notificationService.success(response.message);
-                        this.openModalAdditionalInfo(invoice);
+                        this.openModalAdditionalInfo(invoice, 0);
                     }
                 }
             }
@@ -195,15 +195,16 @@ export class InvoiceUtils implements OnInit {
         });
     }
 
-    openModalAdditionalInfo(invoice: Invoice) {
+    openModalAdditionalInfo(invoice: Invoice, payment_id: number) {
         const modalRef = this.modalService.open(AddAditionalInfoComponent, { centered: true, backdrop: 'static' });
 
         modalRef.componentInstance.invoice_id = invoice.id;
+        modalRef.componentInstance.payment_id = payment_id;
 
         modalRef.result.then((result: Response) => {
 
             if(!result.status){
-                this.notificationService.error('error');
+                this.notificationService.error('The process to create the invoice was not complete.');
                 return;
             }
 
@@ -211,7 +212,10 @@ export class InvoiceUtils implements OnInit {
                 if(result?.result?.credit){
                     this.router.navigate(['/payments', invoice.id]);
                 }else{
-                    this.openModalMadePayment(result?.result?.payment_id,invoice);
+                    if(payment_id == 0){
+                        payment_id = result?.result?.payment_id;
+                    }
+                    this.openModalMadePayment(invoice, payment_id);
                 }
             }
         });
@@ -226,19 +230,20 @@ export class InvoiceUtils implements OnInit {
     }
 
 
-    openModalMadePayment(payment_id: Number,invoice: Invoice) {
+    openModalMadePayment(invoice: Invoice,payment_id: number) {
         const modalRef = this.modalService.open(MadePaymentModalComponent, { centered: true, backdrop: 'static' });
 
         modalRef.componentInstance.payment_id = payment_id;
 
         modalRef.result.then((result: Response) => {
 
-            if(!result.status){
-                this.notificationService.error('error');
-                return;
+            if(result.status){
+                this.router.navigate(['/invoices', invoice.getType()]);
+            }else{
+                this.openModalAdditionalInfo(invoice, payment_id);
             }
 
-            this.router.navigate(['/invoices', invoice.getType()]);
+            
         });
     }
 

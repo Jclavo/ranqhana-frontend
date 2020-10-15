@@ -79,7 +79,8 @@ export class MadePaymentModalComponent implements OnInit {
   }
 
   calculateChange() {
-    if (this.payment.money < this.payment.amount) {
+    if (Number(this.payment.money) < Number(this.payment.amount)) {
+      this.payment.change = 0;
       this.notificationService.error(this.languageService.getI18n('payment.message.moneyLess'));
       return;
     }
@@ -109,9 +110,11 @@ export class MadePaymentModalComponent implements OnInit {
     });
   }
 
-  // back(){
-
-  // }
+  back(){
+    this.modalResponse.status = false;
+    this.modalResponse.result = {'payment_id' : this.payment.id}
+    this.activeModal.close(this.modalResponse);
+  }
 
 
 }
