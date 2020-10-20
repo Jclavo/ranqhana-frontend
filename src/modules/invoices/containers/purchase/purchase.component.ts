@@ -147,30 +147,30 @@ export class PurchaseComponent implements OnInit {
 
   }
 
-  delete(index: number) {
+  // delete(index: number) {
     
-    this.invoiceDetails = this.invoiceUtils.delete(index, this.invoiceDetails);
-    this.calculateInvoice();
-  }
+  //   this.invoiceDetails = this.invoiceUtils.delete(index, this.invoiceDetails);
+  //   this.calculateInvoice();
+  // }
 
   calculateInvoice() {
 
-    this.purchaseInvoice = this.invoiceUtils.calculateInvoice(this.purchaseInvoice, this.invoiceDetails);
+    // this.purchaseInvoice = this.invoiceUtils.calculateInvoice(this.purchaseInvoice, this.invoiceDetails);
 
     // this.invoiceForm = this.moveModelValuesToForm(this.invoiceForm, this.purchaseInvoice);
 
   }
 
-  calculateDiscount() {
+  // calculateDiscount() {
 
-    this.purchaseInvoice = this.invoiceUtils.calculateDiscount(this.purchaseInvoice);
+  //   this.purchaseInvoice = this.invoiceUtils.calculateDiscount(this.purchaseInvoice);
 
-  }
+  // }
 
   save() {
 
     this.purchaseInvoice.type_id = StockTypes.getTypeForPurchase();
-    this.invoiceUtils.create(this.purchaseInvoice, this.invoiceDetails);
+    // this.invoiceUtils.create(this.purchaseInvoice, this.invoiceDetails);
 
   }
 

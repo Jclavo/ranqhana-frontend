@@ -4,17 +4,21 @@ import { Router } from '@angular/router';
 
 //MODELS
 import { Item } from '@modules/items/models';
+import { Order } from '@modules/orders/models';
+import { OrderStage } from '@modules/order-stages/models';
 import { InvoiceDetail, SearchItem, Invoice } from '../models';
 
 //SERVICES
 import { NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
+import { OrderService } from "@modules/orders/services";
 import { InvoiceService, InvoiceDetailService } from '../services';
 
 
 // COMPONENT 
 import { AddAditionalInfoComponent } from "../components/add-aditional-info/add-aditional-info.component";
 import { MadePaymentModalComponent } from "@modules/payments/components/made-payment-modal/made-payment-modal.component";
+import { ConfirmModalComponent } from '@modules/utility/components';
 
 //Utilities
 import { CustomValidator } from "@modules/utility/utils";
@@ -26,8 +30,14 @@ import { Response } from '@modules/utility/models';
 
 export class InvoiceUtils implements OnInit {
 
-    public invoiceDetailTotalItems: number = 0;
-    public invoiceDetailTotalItemsOK: number = 0;
+    public ORDER_STAGE_NEW = OrderStage.getStageNew();
+
+    // private invoice_id = 0;
+    public isOrder: boolean = false;
+    public invoiceDetails: Array<InvoiceDetail> = [];
+    public invoice = new Invoice();
+    public order = new Order();
+
 
     constructor(
         private notificationService: NotificationService,
@@ -36,12 +46,28 @@ export class InvoiceUtils implements OnInit {
         private authService: AuthService,
         private modalService: NgbModal,
         private router: Router,
-        private languageService: LanguageService
+        private languageService: LanguageService,
+        private orderService: OrderService
     ) { }
 
 
     ngOnInit(): void {
-        throw new Error("Method not implemented.");
+
+    }
+
+    getInvoiceID() {
+        return this.invoice.id
+    }
+
+    setInvoiceID(invoice_id: number) {
+        this.invoice.id = invoice_id;
+    }
+
+    checkIsOrder(){
+
+        if(this.router.url?.trim()?.toLowerCase()?.includes('order')){
+            this.isOrder = true;
+        }
     }
 
     hasStock(item: SearchItem): boolean {
@@ -90,78 +116,93 @@ export class InvoiceUtils implements OnInit {
         return invoiceDetails;
     }
 
-    calculateInvoice(invoice: Invoice, invoiceDetails: Array<InvoiceDetail>): Invoice {
+    calculateInvoice() {
 
-        let newInvoice = new Invoice();
+        // this.invoice = new Invoice();
 
-        for (let index = 0; index < invoiceDetails.length; index++) {
-            newInvoice.subtotal = newInvoice.subtotal + invoiceDetails[index].total
+        this.invoice.subtotal = 0.0;
+        this.invoice.taxes = 0.0;
+        this.invoice.total = 0.0;
+        
+        for (let index = 0; index < this.invoiceDetails.length; index++) {
+            this.invoice.subtotal += Number(this.invoiceDetails[index].total);
         }
 
         //Get total
-        // newInvoice.total = newInvoice.subtotal + invoice.taxes - invoice.discount;
-        newInvoice.total = newInvoice.subtotal - invoice.discount;
-        newInvoice.discount = invoice.discount;
-        newInvoice.taxes = newInvoice.total * (this.authService.getStoreTax() / 100);
-        if(newInvoice.total < 0){
-            newInvoice.total = newInvoice.subtotal;
-            newInvoice.discount = 0;
+        // this.invoice.total = this.invoice.subtotal + invoice.taxes - invoice.discount;
+        this.invoice.total = this.invoice.subtotal - this.invoice.discount;
+        this.invoice.discount = this.invoice.discount;
+        this.invoice.taxes = this.invoice.total * (this.authService.getStoreTax() / 100);
+        if (this.invoice.total < 0) {
+            this.invoice.total = this.invoice.subtotal;
+            this.invoice.discount = 0;
         }
 
-        return newInvoice;
+        // return this.invoice;
     }
 
-    calculateDiscount(invoice: Invoice): Invoice {
+    calculateDiscount() {
 
-        if (invoice.discount != 0) {
-            if (invoice.discount < 0) {
+        if (this.invoice.discount != 0) {
+            if (this.invoice.discount < 0) {
                 this.notificationService.error(this.languageService.getI18n('invoice.message.negativeDiscount'));
-                invoice.discount = 0.0;
-                return invoice;
+                this.invoice.discount = 0.0;
+                return;
             }
 
-            if (!CustomValidator.validDecimalNumbers.test(invoice.discount.toString())) {
+            if (!CustomValidator.validDecimalNumbers.test(this.invoice.discount.toString())) {
                 this.notificationService.error(this.languageService.getI18n('form.invalidDecimalNumber'));
-                return invoice;
+                return;
             }
 
-            if (invoice.discount > invoice.subtotal) {
+            if (this.invoice.discount > this.invoice.subtotal) {
                 this.notificationService.error(this.languageService.getI18n('invoice.message.discountGTsubtotal'));
-                invoice.discount = 0.0;
-                return invoice;
+                this.invoice.discount = 0.0;
+                return;
             }
         }
 
         // invoice.total = invoice.subtotal + invoice.taxes - invoice.discount;
-        invoice.total = invoice.subtotal - invoice.discount;
-        invoice.taxes = invoice.total * (this.authService.getStoreTax() / 100);
-
-        return invoice;
+        this.invoice.total = this.invoice.subtotal - this.invoice.discount;
+        this.invoice.taxes = this.invoice.total * (this.authService.getStoreTax() / 100);
 
     }
 
-    create(invoice: Invoice, invoiceDetails: Array<InvoiceDetail>) {
+    async create(type_id: number, item: SearchItem) {
 
-        this.invoiceService.create(invoice).subscribe(async response => {
+        if (this.getInvoiceID() == 0) {
 
+            let invoice = new Invoice();
+
+            //assign fields
+            invoice.type_id = type_id;
+
+            //Create Invoice with draf stage
+            await this.createInvoice(invoice);
+        }
+
+        if (this.getInvoiceID() > 0) {
+
+            let invoiceDetail = new InvoiceDetail();
+
+            //assign fields
+            invoiceDetail.item_id = item.id;
+            invoiceDetail.quantity = item.quantity;
+            invoiceDetail.price = item.price;
+            invoiceDetail.invoice_id = this.getInvoiceID();
+
+            await this.addDetail(invoiceDetail);
+        }
+
+        this.getInvoiceDetails(this.getInvoiceID());
+    }
+
+    async createInvoice(invoice: Invoice) {
+
+        await this.invoiceService.create(invoice).toPromise().then(response => {
             if (response.status) {
-                invoice.id = response.result.id;
-
-                if (invoice.id) {
-                    // Add Details
-
-                    this.invoiceDetailTotalItems = invoiceDetails.length;
-                    this.invoiceDetailTotalItemsOK = 0;
-                    for (let index = 0; index < this.invoiceDetailTotalItems; index++) {
-                        invoiceDetails[index].invoice_id = invoice.id;
-                        this.invoiceDetailTotalItemsOK >= 0 ? await this.addDetail(invoiceDetails[index]) : null;
-                    }
-
-                    if (this.invoiceDetailTotalItems == this.invoiceDetailTotalItemsOK) {
-                        this.notificationService.success(response.message);
-                        this.openModalAdditionalInfo(invoice, 0);
-                    }
-                }
+                this.setInvoiceID(response.result?.id);
+                this.getOrder(response.result?.order_id);
             }
             else {
                 this.notificationService.error(response.message);
@@ -180,13 +221,10 @@ export class InvoiceUtils implements OnInit {
         await this.invoiceDetailService.create(invoiceDetail).toPromise().then(response => {
 
             if (response.status) {
-                // this.notificationService.success(response.message);
-                console.log(response.message);
-                this.invoiceDetailTotalItemsOK = this.invoiceDetailTotalItemsOK + 1;
+                this.notificationService.success(response.message);
             }
             else {
                 this.notificationService.error(response.message);
-                this.invoiceDetailTotalItemsOK = -1;
             }
 
         }, (error: string) => {
@@ -194,6 +232,140 @@ export class InvoiceUtils implements OnInit {
             this.authService.raiseError();
         });
     }
+
+    getInvoice(invoice_id: number) {
+        this.invoiceService.getById(invoice_id).subscribe(async response => {
+
+            if (response.status) {
+                this.invoice = response.result;
+            } else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
+    }
+
+    getInvoiceDetails(invoice_id: number) {
+        this.invoiceDetailService.getById(invoice_id).subscribe(async response => {
+
+            if (response.status) {
+                this.invoiceDetails = response.result;
+                this.calculateInvoice();
+            } else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
+    }
+
+    getOrder(order_id: number) {
+        this.orderService.getById(order_id).subscribe(async response => {
+            if (response.status) {
+                this.order = response.result;
+                // this.calculateInvoice();
+            } else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
+    }
+
+    deleteInvoiceDetail(invoice_id: number) {
+        this.invoiceDetailService.delete(invoice_id).subscribe(async response => {
+
+            if (response.status) {
+                this.notificationService.success(response.message);
+                this.getInvoiceDetails(this.getInvoiceID());
+            } else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
+    }
+
+    setOrderRequested(){
+        this.setOrderStatus(OrderStage.getStageRequested());
+    }
+
+    setOrderStatus(status_id: number){
+        let order = new Order();
+        order.id = this.order.id;
+        order.stage_id = status_id;
+        this.changeStatus(order);
+    }
+
+    changeStatus(order: Order) {
+        this.orderService.changeStatus(order).subscribe(async response => {
+
+            if (response.status) {
+                this.notificationService.success(response.message);
+                if(this.isOrder){
+                    this.router.navigate(['/orders']);
+                }
+                
+            } else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
+    }
+
+    saveInvoice() {
+
+        if(!this.isOrder){
+            this.setOrderStatus(OrderStage.getStageAutomatic());
+        }
+        this.generate(this.invoice);
+
+    }
+
+    generate(invoice: Invoice) {
+        this.invoiceService.generate(invoice).subscribe(async response => {
+
+            if (response.status) {
+                this.notificationService.success(response.message);
+                this.openModalAdditionalInfo(invoice, 0);
+            } else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
+    }
+
+    
+
+    modalDelete(id: number, name: string) {
+    
+        const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
+    
+        modalRef.componentInstance.title = this.languageService.getI18n('invoice.page.title');
+        modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
+        modalRef.componentInstance.value = name;
+    
+        modalRef.result.then((result) => {
+          result ? this.deleteInvoiceDetail(id) : null;
+        });
+    
+      }
+
 
     openModalAdditionalInfo(invoice: Invoice, payment_id: number) {
         const modalRef = this.modalService.open(AddAditionalInfoComponent, { centered: true, backdrop: 'static' });
@@ -203,16 +375,16 @@ export class InvoiceUtils implements OnInit {
 
         modalRef.result.then((result: Response) => {
 
-            if(!result.status){
+            if (!result.status) {
                 this.notificationService.error(this.languageService.getI18n('invoice.message.notCreated'));
                 return;
             }
 
-            if(result?.result){
-                if(result?.result?.credit){
+            if (result?.result) {
+                if (result?.result?.credit) {
                     this.router.navigate(['/payments', invoice.id]);
-                }else{
-                    if(payment_id == 0){
+                } else {
+                    if (payment_id == 0) {
                         payment_id = result?.result?.payment_id;
                     }
                     this.openModalMadePayment(invoice, payment_id);
@@ -221,29 +393,21 @@ export class InvoiceUtils implements OnInit {
         });
     }
 
-    delete(index: number, invoiceDetails: Array<InvoiceDetail>): Array<InvoiceDetail> {
 
-        invoiceDetails.splice(index, 1);
-
-        return invoiceDetails;
-
-    }
-
-
-    openModalMadePayment(invoice: Invoice,payment_id: number) {
+    openModalMadePayment(invoice: Invoice, payment_id: number) {
         const modalRef = this.modalService.open(MadePaymentModalComponent, { centered: true, backdrop: 'static' });
 
         modalRef.componentInstance.payment_id = payment_id;
 
         modalRef.result.then((result: Response) => {
 
-            if(result.status){
+            if (result.status) {
                 this.router.navigate(['/invoices', invoice.getType()]);
-            }else{
+            } else {
                 this.openModalAdditionalInfo(invoice, payment_id);
             }
 
-            
+
         });
     }
 

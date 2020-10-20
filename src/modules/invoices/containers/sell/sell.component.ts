@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 //MODELS
+import { SellInvoice, InvoiceDetail, SearchItem, Invoice } from '../../models';
 import { Item, SearchItemOptions } from '@modules/items/models';
 import { StockTypes } from '@modules/stock-types/models';
-import { SellInvoice, InvoiceDetail, SearchItem } from '../../models';
 import { FormMessage } from "@modules/utility/models";
+import { Order } from "@modules/orders/models";
 
 //SERVICES
 import { ItemService } from "@modules/items/services";
@@ -18,6 +20,7 @@ import { NotificationService, LanguageService, UtilityService } from '@modules/u
 import { InvoiceUtils } from "../../utils/invoiceUtils";
 import { FormUtils, CustomValidator } from "@modules/utility/utils";
 
+
 @Component({
   selector: 'sb-sell',
   templateUrl: './sell.component.html',
@@ -25,15 +28,16 @@ import { FormUtils, CustomValidator } from "@modules/utility/utils";
 })
 export class SellComponent implements OnInit {
 
+  // @Input() invoice_id: number = 0;
+  // @Input() order_id: number = 0;
+
   public searchItemOptions = new SearchItemOptions();
   public searchItem = new SearchItem();
-  public sellInvoice = new SellInvoice();
+
+  public order = new Order();
 
   public items: Array<Item> = [];
   public invoiceDetails: Array<InvoiceDetail> = [];
-
-  public invoiceDetailTotalItems: number = 0;
-  public invoiceDetailTotalItemsOK: number = 0;
 
   addItemForm: FormGroup = this.formBuilder.group({
     searchItem: ['', [Validators.required]],
@@ -50,13 +54,29 @@ export class SellComponent implements OnInit {
     private itemService: ItemService,
     public authService: AuthService,
     private notificationService: NotificationService,
-    private invoiceUtils: InvoiceUtils,
+    public invoiceUtils: InvoiceUtils,
     private languageService: LanguageService,
     private utilityService: UtilityService,
-    public formUtils: FormUtils
+    public formUtils: FormUtils,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+
+    this.invoiceUtils.checkIsOrder();
+    //reset values
+    this.invoiceUtils.invoice = new SellInvoice();
+    this.invoiceUtils.invoiceDetails = [];
+
+    this.invoiceUtils.setInvoiceID(Number(this.activatedRoute.snapshot.paramMap.get('invoice_id')) ?? 0);
+    if (this.invoiceUtils.getInvoiceID() > 0) {
+
+      this.invoiceUtils.getInvoice(this.invoiceUtils.getInvoiceID());
+      this.invoiceUtils.getInvoiceDetails(this.invoiceUtils.getInvoiceID());
+
+      this.invoiceUtils.getOrder(Number(this.activatedRoute.snapshot.paramMap.get('order_id')) ?? 0);
+    }
+    
   }
 
   formatter = (item: Item) => item.name;
@@ -129,7 +149,7 @@ export class SellComponent implements OnInit {
     return searchItem;
   }
 
-  addItem() {
+  async addItem() {
 
     if (this.addItemForm.invalid) {
       this.errorsListForm = this.utilityService.getFormError(this.addItemForm);
@@ -151,40 +171,14 @@ export class SellComponent implements OnInit {
     //Check if the item UNIT allows DECIMAL number
     if (!this.invoiceUtils.unitAllowDecimal(this.searchItem)) return;
 
-    this.invoiceDetails = this.invoiceUtils.addInvoiceDetail(this.searchItem, this.invoiceDetails);
+
+    await this.invoiceUtils.create(StockTypes.getTypeForSell(), this.searchItem);
 
     this.searchItem = new SearchItem();
-    this.addItemForm.reset()
+    this.addItemForm.reset();
 
-    // Calculate final values for sellInvoice
-    this.calculateInvoice();
-
-  }
-
-  delete(index: number) {
-
-    this.invoiceDetails = this.invoiceUtils.delete(index, this.invoiceDetails);
-    this.calculateInvoice();
-  }
-
-  calculateInvoice() {
-
-    this.sellInvoice = this.invoiceUtils.calculateInvoice(this.sellInvoice, this.invoiceDetails);
-
-    // this.invoiceForm = this.moveModelValuesToForm(this.invoiceForm, this.sellInvoice);
-
-  }
-
-  calculateDiscount() {
-
-    this.sellInvoice = this.invoiceUtils.calculateDiscount(this.sellInvoice);
-
-  }
-
-  save() {
-
-    this.sellInvoice.type_id = StockTypes.getTypeForSell();
-    this.invoiceUtils.create(this.sellInvoice, this.invoiceDetails);
+    // console.log('this.invoiceUtils.order.stage_id', this.invoiceUtils.order.stage_id);
+    // console,
 
   }
 

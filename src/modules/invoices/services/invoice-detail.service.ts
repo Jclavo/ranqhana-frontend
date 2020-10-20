@@ -86,4 +86,24 @@ export class InvoiceDetailService {
         return throwError(error.message);
       }));
   }
+
+  delete(id: number): Observable<Response> {
+
+    let apiRoot = this.apiRoot + id;
+
+    return this.http.delete(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
 }

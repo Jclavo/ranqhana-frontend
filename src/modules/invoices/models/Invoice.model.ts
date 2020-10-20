@@ -8,6 +8,7 @@ export class Invoice {
     total: number = 0.0;
     type_id: number = 0;
     type: string = '';
+    stage_id: number = 0;
     stage: string = '';
     user_id: number = 0;
     external_user_id: number = 0;
@@ -15,6 +16,7 @@ export class Invoice {
     created_at: string = '';
     store: string = '';
     payment_type_id: number = 0;
+    order_id: number = 0;
 
     getType(){
         return this.type_id;

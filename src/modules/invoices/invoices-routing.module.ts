@@ -50,6 +50,24 @@ export const ROUTES: Routes = [
     } as SBRouteData,
   },
   {
+    path: 'sell/:invoice_id/:order_id',
+    canActivate: [GlobalGuard],
+    component: invoicesContainers.SellComponent,
+    data: {
+      title: 'Sell Invoice - Store App',
+      breadcrumbs: [
+        {
+          text: 'Dashboard',
+          link: '/dashboard',
+        },
+        {
+          text: 'Sell Invoice',
+          active: true,
+        },
+      ],
+    } as SBRouteData,
+  },
+  {
     path: 'purchase',
     canActivate: [GlobalGuard],
     component: invoicesContainers.PurchaseComponent,

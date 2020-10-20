@@ -93,6 +93,7 @@ export class InvoiceService {
         // invoice.store    = resultRAW.result[0].store;
         invoice.type_id = resultRAW.result.type?.id;
         invoice.type = resultRAW.result.type?.description;
+        invoice.stage_id = resultRAW.result.stage?.id;
         invoice.external_user_id = resultRAW.result?.external_user_id;
 
         response.result = invoice;
@@ -118,10 +119,11 @@ export class InvoiceService {
       response.message = resultRAW.message;
 
       if (resultRAW.result) {
-        let sellInvoice = new Invoice();
-        sellInvoice.id = resultRAW.result?.id;
+        let invoice = new Invoice();
+        invoice.id = resultRAW.result?.id;
+        invoice.order_id = resultRAW.result?.order?.id;
 
-        response.result = sellInvoice;
+        response.result = invoice;
       }
 
       return response;
@@ -180,10 +182,25 @@ export class InvoiceService {
       }));
   }
 
+  generate(invoice: Invoice): Observable<Response> {
 
+    let apiRoot = this.apiRoot + 'generate';
 
+    return this.http.post(apiRoot, invoice, this.authService.getHeaders()).pipe(map(res => {
 
+      let response = new Response();
+      let resultRAW: any = res;
 
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
 
 
 }
