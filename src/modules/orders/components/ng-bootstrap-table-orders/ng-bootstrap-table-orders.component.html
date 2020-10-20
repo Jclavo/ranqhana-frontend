@@ -1,0 +1,109 @@
+<div class="row">
+    <div class="col-md-12 col-xl-3">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold" i18n="@@button.search">Search</div>
+            </div>
+            <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
+        </div>
+    </div>
+    <div class="col-md-4 col-xl-3">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend ">
+                <div class="input-group-text font-weight-bold" i18n="@@button.from">From</div>
+            </div>
+            <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="fromDate"
+                [(ngModel)]="searchOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()">
+        </div>
+    </div>
+    <div class="col-md-4 col-xl-3">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold" i18n="@@button.to">To</div>
+            </div>
+            <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate" [(ngModel)]="searchOption.toDate"
+                ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
+        </div>
+    </div>
+    <!-- <div class="col-md-4 col-xl-3">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold" i18n="@@button.type">Type</div>
+            </div>
+            <select class="custom-select" [(ngModel)]="searchOption.type_id" placeholder="Type">
+                <option value="1" selected>A</option>
+                <option value="2">B</option>
+            </select>
+        </div>
+    </div> -->
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <!-- <th scope="col" sbSortable="serie" (sort)="onSort($event)">
+                    <span>Serie</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "serie"' [direction]="sortedDirection"></sb-sort-icon>
+                </th> -->
+                <th scope="col" sbSortable="stage" (sort)="onSort($event)">
+                    <span>Stage</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "stage"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
+                <th scope="col">
+                    <span>Invoice Stage</span>
+                </th>
+                <th scope="col" sbSortable="created_at" (sort)="onSort($event)">
+                    <span>Created at</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "created_at"' [direction]="sortedDirection"></sb-sort-icon>
+                </th>
+
+                <th scope="col">
+                    <span i18n="@@button.options">Options</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <th scope="row">{{ order.id }}</th>
+                <!-- <td>
+                    <ngb-highlight [result]="invoice.serie" [term]="searchOption.searchValue"></ngb-highlight>
+                </td> -->
+                <td>{{order.stage_name }} </td>
+                <td>{{order.invoice_stage_name }} </td>
+                <td>
+                    <ngb-highlight [result]="order.created_at" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-auto mb-1">
+                            <fa-icon [icon]='["far", "eye"]' [styles]="{'stroke': 'blue', 'color': 'blue'}"
+                                size="lg" routerLink="/orders/sell/{{order.invoice_id}}/{{order.id}}"></fa-icon>
+                        </div>
+                        <div class="col-auto mb-1">
+                            <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
+                                size="lg" (click)="modalAnull(order.id)"></fa-icon>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-6 mt-3">
+        <ngb-pagination class="d-flex justify-content-start" [collectionSize]="searchOption.total"
+            [(page)]="searchOption.page" [maxSize]="maxSizePagination" [pageSize]="searchOption.per_page"
+            [rotate]="true" [boundaryLinks]="true">
+        </ngb-pagination>
+    </div>
+    <div class="col-8 col-sm-4 col-md-3 offset-md-3 mt-3">
+        <select class="custom-select" name="per_page" [(ngModel)]="searchOption.per_page">
+            <option [ngValue]="10">10 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+            <option [ngValue]="20">20 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+            <option [ngValue]="50">50 <ng-container i18n="@@button.perPage">per page</ng-container></option>
+        </select>
+    </div>
+</div>

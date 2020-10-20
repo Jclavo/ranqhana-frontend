@@ -60,6 +60,12 @@ const routes: Routes = [
             import('modules/invoices/invoices-routing.module').then(m => m.InvoicesRoutingModule),
         canActivate: [GlobalGuard]
     },
+    // {
+    //     path: 'orders',
+    //     loadChildren: () =>
+    //         import('modules/invoices/invoices-routing.module').then(m => m.InvoicesRoutingModule),
+    //     canActivate: [GlobalGuard]
+    // },
     {
         path: 'units',
         loadChildren: () =>
@@ -82,6 +88,12 @@ const routes: Routes = [
         path: 'payments',
         loadChildren: () =>
             import('modules/payments/payments-routing.module').then(m => m.PaymentsRoutingModule),
+        canActivate: [GlobalGuard]
+    },
+    {
+        path: 'orders',
+        loadChildren: () =>
+            import('modules/orders/orders-routing.module').then(m => m.OrdersRoutingModule),
         canActivate: [GlobalGuard]
     },
     {
