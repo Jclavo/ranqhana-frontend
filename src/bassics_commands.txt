@@ -27,9 +27,9 @@ services/
 xxx-routing.module.ts
 xxx.module.ts
 
-ng g component ../modules/xxxxx/components/ng-bootstrap-table-xxxxxs
-ng g component ../modules/xxxxx/containers/xxxxx-list
-ng g service ../modules/xxxxx/services/xxxxx
+ng g component ../modules/xxxxxs/components/ng-bootstrap-table-xxxxxs
+ng g component ../modules/xxxxxs/containers/xxxxx-list
+ng g service ../modules/xxxxxs/services/xxxxx
 
 ng g module ../modules/xxxxxs --routing
 
