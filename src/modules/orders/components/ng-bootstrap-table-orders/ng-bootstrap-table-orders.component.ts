@@ -13,6 +13,7 @@ import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal
 import { OrderService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService, UtilityService, CustomDateService } from '@modules/utility/services';
+import { InvoiceService } from "@modules/invoices/services";
 
 //Utils
 import { FormUtils } from "@modules/utility/utils";
@@ -45,7 +46,8 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
     private ngbModal: NgbModal,
     private utilityService: UtilityService,
     private customDateService: CustomDateService,
-    public formUtils: FormUtils
+    public formUtils: FormUtils,
+    private invoiceService: InvoiceService
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -104,5 +106,37 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
       this.authService.raiseError();
     });
 
+  }
+
+  modalAnull(id: string) {
+    
+    const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.title = 'Order';
+    modalRef.componentInstance.action = 'Anull/Cancel';
+    modalRef.componentInstance.value = id;
+
+    modalRef.result.then((result) => {
+      result ? this.anull(id) : null;
+    });
+
+  }
+
+  anull(id: string) {
+
+    this.invoiceService.anull(id).subscribe(response => {
+
+      if (response.status) {
+        this.notificationService.success(response.message);
+        this.getOrders();
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
   }
 }
