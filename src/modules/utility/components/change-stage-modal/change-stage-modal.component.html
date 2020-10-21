@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title" i18n="@changeStageModal.title">Change Stage</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+    (click)="activeModal.close(modalResponse)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="stage" i18n="@@button.stage">Stage</label>
+      <div class="input-group">
+        <select class="form-control" placeholder="Stage" name="stage_id" [(ngModel)]="stage_id">
+          <option *ngFor="let stage of stages" [value]="stage.id">
+            {{stage.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(modalResponse)"
+    i18n="@@button.cancel">Cancel</button>
+  <button type="button" ngbAutofocus class="btn btn-success" (click)="change()" i18n="@@button.change">Change</button>
+</div>

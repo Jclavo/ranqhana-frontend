@@ -6,3 +6,4 @@ export * from './mask.model';
 export * from './i18n.model';
 export * from './formMessage.model';
 export * from './image.model';
+export * from './stage.model';
