@@ -32,7 +32,6 @@ import * as utilityServices from './services';
 
 /* Interceptor */
 import * as interceptorServices from './interceptors';
-import { ChangeStageModalComponent } from './components/change-stage-modal/change-stage-modal.component';
 
 @NgModule({
     imports: [
@@ -58,7 +57,6 @@ import { ChangeStageModalComponent } from './components/change-stage-modal/chang
         ...utilityContainers.containers, 
         ...utilityComponents.components,
         ...utilityDirectives.directives,
-        ChangeStageModalComponent,
     ],
     exports: [
         ...utilityContainers.containers, 

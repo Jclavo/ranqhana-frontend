@@ -288,6 +288,10 @@
           <context context-type="linenumber">26</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/components/change-date-modal/change-date-modal.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
           <context context-type="linenumber">117</context>
         </context-group>
@@ -312,6 +316,14 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/components/change-stage-modal/change-stage-modal.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/components/change-date-modal/change-date-modal.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -560,15 +572,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/orders/components/ng-bootstrap-table-orders/ng-bootstrap-table-orders.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">115</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/orders/components/ng-bootstrap-table-orders/ng-bootstrap-table-orders.component.html</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">116</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/orders/components/ng-bootstrap-table-orders/ng-bootstrap-table-orders.component.html</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="button.delete" datatype="html">
@@ -637,7 +649,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/orders/components/ng-bootstrap-table-orders/ng-bootstrap-table-orders.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="button.new" datatype="html">
@@ -813,6 +825,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
           <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/components/change-stage-modal/change-stage-modal.component.html</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="button.createAt" datatype="html">
@@ -1063,6 +1079,15 @@
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="changeDateModal.message.pastDate" datatype="html">
+        <source>
+        The selected date is in the past.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/messages/messages.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="confirmModal.areyousure" datatype="html">
         <source>Are you sure you want to</source>
         <context-group purpose="location">
@@ -1102,6 +1127,22 @@
           <context context-type="linenumber">2</context>
         </context-group>
         <note priority="1" from="description">@changeStageModal.title</note>
+      </trans-unit>
+      <trans-unit id="032b9a3d607f781d6d734721d280a7a61e77af10" datatype="html">
+        <source>Change Date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/components/change-date-modal/change-date-modal.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">@changeDateModal.title</note>
+      </trans-unit>
+      <trans-unit id="2f933b826a570836cab04f683970a2d22068458c" datatype="html">
+        <source>Date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/components/change-date-modal/change-date-modal.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">@changeDateModal.date</note>
       </trans-unit>
       <trans-unit id="login.pagetitle" datatype="html">
         <source>Login Page</source>
