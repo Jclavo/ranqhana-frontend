@@ -51,12 +51,19 @@ export class CustomDateService {
 
     let localDate = new Date(date);
 
-    return (localDate.getDate() < 10 ? '0' + localDate.getDate() : localDate.getDate()) + DELIMITER +
-      (localDate.getMonth() < 10 ? '0' + localDate.getMonth() : localDate.getMonth()) + DELIMITER +
-      localDate.getFullYear() + ' ' +
-      (localDate.getHours() < 10 ? '0' + localDate.getHours() : localDate.getHours()) + ':' +
-      (localDate.getMinutes() < 10 ? '0' + localDate.getMinutes() : localDate.getMinutes()) + ':' +
-      (localDate.getSeconds() < 10 ? '0' + localDate.getSeconds() : localDate.getSeconds());
+    let day = localDate.getDate();
+    let month = localDate.getMonth() + 1;
+    let year = localDate.getFullYear();
+    let hours = localDate.getHours();
+    let minutes = localDate.getMinutes();
+    let seconds = localDate.getSeconds();
+
+    return (day < 10 ? '0' + day : day) + DELIMITER +
+      (month < 10 ? '0' + month : month) + DELIMITER +
+      year + ' ' +
+      (hours < 10 ? '0' + hours : hours) + ':' +
+      (minutes < 10 ? '0' + minutes : minutes) + ':' +
+      (seconds < 10 ? '0' + seconds : seconds);
   }
 
   formatShortStringDDMMYYYY(date: string, DELIMITER: string = this.DELIMITER) {
@@ -65,9 +72,13 @@ export class CustomDateService {
 
     let localDate = new Date(date);
 
-    return (localDate.getDate() < 10 ? '0' + localDate.getDate() : localDate.getDate()) + DELIMITER +
-      (localDate.getMonth() < 10 ? '0' + localDate.getMonth() : localDate.getMonth()) + DELIMITER +
-      localDate.getFullYear();
+    let day = localDate.getDate();
+    let month = localDate.getMonth() + 1;
+    let year = localDate.getFullYear();
+
+    return (day < 10 ? '0' + day : day) + DELIMITER +
+      (month < 10 ? '0' + month : month) + DELIMITER +
+      year;
   }
 
   getToday() {
@@ -75,11 +86,29 @@ export class CustomDateService {
   }
 
   substractDaysFromToday(days: number) {
-    return this.formatYYYYMMDD(this.ngbCalendar.getPrev(this.ngbCalendar.getToday(),'d',days));
+    return this.formatYYYYMMDD(this.ngbCalendar.getPrev(this.ngbCalendar.getToday(), 'd', days));
   }
 
   substractMonthsFromToday(months: number) {
-    return this.formatYYYYMMDD(this.ngbCalendar.getPrev(this.ngbCalendar.getToday(),'m',months));
+    return this.formatYYYYMMDD(this.ngbCalendar.getPrev(this.ngbCalendar.getToday(), 'm', months));
+  }
+
+  validateShortDate(date: string) {
+
+    if (!date) return false;
+
+    let inputDate = new Date(date + 'T00:00:00');
+    let todaysDate = new Date();
+
+    if (inputDate.setHours(0, 0, 0, 0) < todaysDate.setHours(0, 0, 0, 0)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  formatDDMMYYYYtoYYYYMMDD(date: string){
+    return date.split("-").reverse().join("-");
   }
 
 
