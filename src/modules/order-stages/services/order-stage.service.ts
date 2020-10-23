@@ -46,6 +46,8 @@ export class OrderStageService {
         return orderStage;
       });
 
+      response.result.unshift({id: 0, name: ''}) //Add ALL option
+
       response.records = resultRAW.result.length;
 
       return response;
