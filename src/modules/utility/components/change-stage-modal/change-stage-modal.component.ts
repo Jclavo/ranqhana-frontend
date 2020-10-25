@@ -70,7 +70,7 @@ export class ChangeStageModalComponent implements OnInit {
   }
 
   changeOrderStage(order: Order) {
-    this.orderService.changeStatus(order).subscribe(async response => {
+    this.orderService.updateStage(order).subscribe(async response => {
 
       if (response.status) {
         this.notificationService.success(response.message);

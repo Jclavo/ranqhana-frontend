@@ -186,7 +186,7 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
     });
   }
 
-  modalChangeStage(order_id: number, stage_id: number) {
+  modalUpdateStage(order_id: number, stage_id: number) {
     const modalRef = this.ngbModal.open(ChangeStageModalComponent, { centered: true, backdrop: 'static' });
 
     modalRef.componentInstance.model = Order.getModelName();
@@ -198,7 +198,7 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
     });
   }
 
-  modalChangeDate(order_id: number, date: string) {
+  modalUpdateDate(order_id: number, date: string) {
     const modalRef = this.ngbModal.open(ChangeDateModalComponent, { centered: true, backdrop: 'static' });
 
     modalRef.componentInstance.model = Order.getModelName();

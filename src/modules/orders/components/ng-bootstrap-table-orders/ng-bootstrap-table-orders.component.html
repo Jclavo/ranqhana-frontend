@@ -95,11 +95,11 @@
                     <div class="row">
                         <div class="col-auto mb-1">
                             <fa-icon [icon]='["far", "calendar"]' [styles]="{'stroke': 'black', 'color': 'black'}"
-                                size="lg" (click)="modalChangeDate(order.id, order.delivery_date)"></fa-icon>
+                                size="lg" (click)="modalUpdateDate(order.id, order.delivery_date)"></fa-icon>
                         </div>
                         <div class="col-auto mb-1">
                             <fa-icon [icon]='["fas", "exchange-alt"]' [styles]="{'stroke': 'green', 'color': 'green'}"
-                                size="lg" (click)="modalChangeStage(order.id, order.stage_id)"></fa-icon>
+                                size="lg" (click)="modalUpdateStage(order.id, order.stage_id)"></fa-icon>
                         </div>
                         <div class="col-auto mb-1">
                             <fa-icon [icon]='["far", "eye"]' [styles]="{'stroke': 'blue', 'color': 'blue'}"

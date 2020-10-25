@@ -97,9 +97,9 @@ export class OrderService {
       }));
   }
 
-  changeStatus(order: Order): Observable<Response> {
+  updateStage(order: Order): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'changeStatus';
+    let apiRoot = this.apiRoot + 'updateStage';
 
     return this.http.post(apiRoot, order, this.authService.getHeaders()).pipe(map(res => {
 
@@ -125,9 +125,9 @@ export class OrderService {
       }));
   }
 
-  changeDeliveryDate(order: Order): Observable<Response> {
+  updateDeliveryDate(order: Order): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'changeDeliveryDate';
+    let apiRoot = this.apiRoot + 'updateDeliveryDate';
 
     return this.http.post(apiRoot, order, this.authService.getHeaders()).pipe(map(res => {
 

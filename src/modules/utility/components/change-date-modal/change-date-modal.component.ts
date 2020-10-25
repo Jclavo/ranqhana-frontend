@@ -51,7 +51,7 @@ export class ChangeDateModalComponent implements OnInit {
         let order = new Order();
         order.id = this.model_id;
         order.delivery_date = this.date;
-        this.changeDeliveryDate(order);
+        this.updateDeliveryDate(order);
         break;
       case Payment.getModelName():
         let payment = new Payment();
@@ -65,8 +65,8 @@ export class ChangeDateModalComponent implements OnInit {
     }
   }
 
-  changeDeliveryDate(order: Order) {
-    this.orderService.changeDeliveryDate(order).subscribe(async response => {
+  updateDeliveryDate(order: Order) {
+    this.orderService.updateDeliveryDate(order).subscribe(async response => {
 
       if (response.status) {
         this.notificationService.success(response.message);

@@ -307,11 +307,11 @@ export class InvoiceUtils implements OnInit {
         let order = new Order();
         order.id = this.order.id;
         order.stage_id = status_id;
-        this.changeStatus(order);
+        this.updateStage(order);
     }
 
-    changeStatus(order: Order) {
-        this.orderService.changeStatus(order).subscribe(async response => {
+    updateStage(order: Order) {
+        this.orderService.updateStage(order).subscribe(async response => {
 
             if (response.status) {
                 this.notificationService.success(response.message);
