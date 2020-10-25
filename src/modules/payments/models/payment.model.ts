@@ -11,8 +11,8 @@ export class Payment {
     //extra
     change : number = 0;
     transaction_code: string = '';
-    payment_method_name: string = '';
-    payment_stage_name: string = '';
+    method_name: string = '';
+    stage_name: string = '';
 
     static getModelName(){
         return 'PAYMENT';

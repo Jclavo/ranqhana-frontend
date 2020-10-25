@@ -82,8 +82,8 @@
                             <input cplaceholder="dd-mm-yyyy" name="real_payment_date" [(ngModel)]="payment.payment_date"
                                 ngbDatepicker #dFrom="ngbDatepicker" hidden>
                             <td scope="row">{{ payment.real_payment_date }}</td>
-                            <td scope="row">{{ payment.payment_method_name }}</td>
-                            <td scope="row">{{ payment.payment_stage_name }}</td>
+                            <td scope="row">{{ payment.method_name }}</td>
+                            <td scope="row">{{ payment.stage_name }}</td>
                             <td>
                                 <div class="row" *ngIf="payment.stage_id != PAYMENT_STAGE_PAID && payment.id > 0">
                                     <div class="col-3">
