@@ -159,8 +159,8 @@ export class PaymentComponent implements OnInit {
 
       newPayment.payment_date = this.customDateService.getToday();
       newPayment.invoice_id = this.invoice.id;
-      // newPayment.payment_method_id
-      // newPayment.payment_stage_id
+      // newPayment.method_id
+      // newPayment.stage_id
       this.installment.remain -= Number(newPayment.amount);
 
       this.payments.push(newPayment);

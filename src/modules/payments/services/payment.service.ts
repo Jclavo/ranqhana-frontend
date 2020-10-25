@@ -74,8 +74,8 @@ export class PaymentService {
         payment.payment_date = this.customDateService.formatShortStringDDMMYYYY(resultRAW.result?.payment_date);
         payment.real_payment_date = this.customDateService.formatShortStringDDMMYYYY(resultRAW.result?.real_payment_date);
         payment.invoice_id = resultRAW.result?.invoice_id;
-        payment.payment_method_id = resultRAW.result?.payment_method_id;
-        payment.payment_stage_id = resultRAW.result?.payment_stage_id;
+        payment.method_id = resultRAW.result?.method_id;
+        payment.stage_id = resultRAW.result?.stage_id;
 
         response.result = payment;
       }
@@ -113,8 +113,8 @@ export class PaymentService {
         payment.payment_date = this.customDateService.formatShortStringDDMMYYYY(data.payment_date);
         payment.real_payment_date = this.customDateService.formatShortStringDDMMYYYY(data.real_payment_date);
         payment.invoice_id = data.invoice_id;
-        payment.payment_method_id = data.payment_method_id;
-        payment.payment_stage_id = data.payment_stage_id;
+        payment.method_id = data.method_id;
+        payment.stage_id = data.stage_id;
 
         payment.payment_method_name = data.payment_method?.name;
         payment.payment_stage_name = data.payment_stage?.name;

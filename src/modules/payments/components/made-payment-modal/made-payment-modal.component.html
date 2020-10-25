@@ -14,17 +14,17 @@
   </div>
   <form>
     <div class="form-group">
-      <label for="payment_method_id" i18n="@@payment.field.paymentMethod">Payment Method</label>
+      <label for="method_id" i18n="@@payment.field.paymentMethod">Payment Method</label>
       <div class="input-group">
-        <select class="form-control" placeholder="Payment method" [(ngModel)]="payment.payment_method_id"
-          name="payment_method_id">
+        <select class="form-control" placeholder="Payment method" [(ngModel)]="payment.method_id"
+          name="method_id">
           <option *ngFor="let payment_method of paymentMethods" [value]="payment_method.id">
             {{payment_method.name}}
           </option>
         </select>
       </div>
     </div>
-    <div *ngIf="payment.payment_method_id == PAYMENT_METHOD_MONEY">
+    <div *ngIf="payment.method_id == PAYMENT_METHOD_MONEY">
       <div class="form-group">
         <label for="money" i18n="@@payment.field.money">Money</label>
         <div class="input-group">
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="form-group" *ngIf="payment.payment_method_id == PAYMENT_METHOD_CARD">
+    <div class="form-group" *ngIf="payment.method_id == PAYMENT_METHOD_CARD">
       <label for="transaction_code" i18n="@@payment.field.transactionCode">Transaction Code</label>
       <div class="input-group">
         <input id="transaction_code" class="form-control" name="transaction_code"
