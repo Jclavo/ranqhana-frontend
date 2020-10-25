@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="col-md-12 col-xl-3">
+    <div class="col-md-12 col-xl-12">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
-                <div class="input-group-text font-weight-bold" i18n="@@button.search">Search</div>
+                <div class="input-group-text font-weight-bold">Serie</div>
             </div>
-            <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
+            <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.serie" />
         </div>
     </div>
     <div class="col-md-4 col-xl-3">
@@ -25,17 +25,30 @@
                 ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
         </div>
     </div>
-    <!-- <div class="col-md-4 col-xl-3">
+    <div class="col-md-4 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold" i18n="@@button.type">Type</div>
             </div>
-            <select class="custom-select" [(ngModel)]="searchOption.type_id" placeholder="Type">
-                <option value="1" selected>A</option>
-                <option value="2">B</option>
-            </select>
+            <select class="form-control" placeholder="Type" name="type_id" id="type" [(ngModel)]="searchOption.type_id">
+                <option *ngFor="let invoiceType of invoiceTypes" [value]="invoiceType.id">
+                  {{invoiceType.name}}
+                </option>
+              </select>
         </div>
-    </div> -->
+    </div>
+    <div class="col-md-4 col-xl-3">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold" i18n="@@button.stage">Stage</div>
+            </div>
+            <select class="form-control" placeholder="Stage" name="stage_id" id="stage" [(ngModel)]="searchOption.stage_id">
+                <option *ngFor="let orderStage of orderStages" [value]="orderStage.id">
+                  {{orderStage.name}}
+                </option>
+              </select>
+        </div>
+    </div>
 </div>
 
 <div class="table-responsive">
@@ -43,19 +56,23 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <!-- <th scope="col" sbSortable="serie" (sort)="onSort($event)">
+                <th scope="col" sbSortable="serie" (sort)="onSort($event)">
                     <span>Serie</span>
                     <sb-sort-icon *ngIf='sortedColumn === "serie"' [direction]="sortedDirection"></sb-sort-icon>
-                </th> -->
+                </th>
                 <th scope="col" sbSortable="stage" (sort)="onSort($event)">
-                    <span>Stage</span>
+                    <span i18n="@@button.stage">Stage</span>
                     <sb-sort-icon *ngIf='sortedColumn === "stage"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
                 <th scope="col">
-                    <span>Invoice Stage</span>
+                    <span i18n="@@order.field.invoiceStage">Invoice Stage</span>
+                </th>
+                <th scope="col" sbSortable="delivery_date" (sort)="onSort($event)">
+                    <span i18n="@@order.field.deliveryDate">Delivery Date</span>
+                    <sb-sort-icon *ngIf='sortedColumn === "delivery_date"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
                 <th scope="col" sbSortable="created_at" (sort)="onSort($event)">
-                    <span>Created at</span>
+                    <span i18n="@@button.createAt">Created at</span>
                     <sb-sort-icon *ngIf='sortedColumn === "created_at"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
 
@@ -67,16 +84,23 @@
         <tbody>
             <tr *ngFor="let order of orders">
                 <th scope="row">{{ order.id }}</th>
-                <!-- <td>
-                    <ngb-highlight [result]="invoice.serie" [term]="searchOption.searchValue"></ngb-highlight>
-                </td> -->
+                <td>
+                    <ngb-highlight [result]="order.serie" [term]="searchOption.searchValue"></ngb-highlight>
+                </td>
                 <td>{{order.stage_name }} </td>
                 <td>{{order.invoice_stage_name }} </td>
-                <td>
-                    <ngb-highlight [result]="order.created_at" [term]="searchOption.searchValue"></ngb-highlight>
-                </td>
+                <td>{{order.delivery_date}} </td>
+                <td>{{order.created_at }} </td>
                 <td>
                     <div class="row">
+                        <div class="col-auto mb-1">
+                            <fa-icon [icon]='["far", "calendar"]' [styles]="{'stroke': 'black', 'color': 'black'}"
+                                size="lg" (click)="modalChangeDate(order.id, order.delivery_date)"></fa-icon>
+                        </div>
+                        <div class="col-auto mb-1">
+                            <fa-icon [icon]='["fas", "exchange-alt"]' [styles]="{'stroke': 'green', 'color': 'green'}"
+                                size="lg" (click)="modalChangeStage(order.id, order.stage_id)"></fa-icon>
+                        </div>
                         <div class="col-auto mb-1">
                             <fa-icon [icon]='["far", "eye"]' [styles]="{'stroke': 'blue', 'color': 'blue'}"
                                 size="lg" routerLink="/orders/sell/{{order.invoice_id}}/{{order.id}}"></fa-icon>

@@ -12,8 +12,9 @@ import { InvoicesModule } from '@modules/invoices/invoices.module';
 
 /* Components */
 import * as ordersComponents from './components';
+import * as utilityComponents from '@modules/utility/components';
 
-/* Containers */ 
+/* Containers */
 import * as ordersContainers from './containers';
 
 /* Guards */
@@ -25,24 +26,33 @@ import * as ordersServices from './services';
 @NgModule({
   imports: [
     CommonModule,
-        RouterModule,
-        ReactiveFormsModule,
-        FormsModule,
-        HttpClientModule,
-        AppCommonModule,
-        NavigationModule,
-        UtilityModule,
-        InvoicesModule
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+    AppCommonModule,
+    NavigationModule,
+    UtilityModule,
+    InvoicesModule
   ],
   providers: [
     DecimalPipe,
     ...ordersServices.services,
     // ...tablesGuards.guards,
-],
+  ],
   declarations: [
     ...ordersContainers.containers,
     ...ordersComponents.components,
   ],
-  exports: [...ordersContainers.containers, ...ordersComponents.components],
+  exports: [
+    ...ordersContainers.containers, 
+    ...ordersComponents.components
+  ],
+  entryComponents: [
+    utilityComponents.ConfirmModalComponent,
+    utilityComponents.ImageModalComponent,
+    utilityComponents.ChangeStageModalComponent,
+    utilityComponents.ChangeDateModalComponent
+  ]
 })
 export class OrdersModule { }

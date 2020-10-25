@@ -1,2 +1,2 @@
 export * from './order.model';
-export * from './searchOrder.model';
+export * from './search-order.model';

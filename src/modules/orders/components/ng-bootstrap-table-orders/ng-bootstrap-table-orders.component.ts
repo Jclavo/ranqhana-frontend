@@ -2,21 +2,29 @@ import { Component, OnInit, ViewChildren, QueryList, KeyValueDiffer, KeyValueDif
 import { SBSortableHeaderDirective, SortEvent } from '@modules/utility/directives';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
-//MODELS
-// import { SearchOptions } from '@modules/items/models';
-import { Order, SearchOrder } from "../../models";
 
 // COMPONENT 
 import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal/confirm-modal.component";
+import { ChangeStageModalComponent } from "@modules/utility/components/change-stage-modal/change-stage-modal.component";
+import { ChangeDateModalComponent } from "@modules/utility/components/change-date-modal/change-date-modal.component";
 
 //SERVICES
 import { OrderService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService, UtilityService, CustomDateService } from '@modules/utility/services';
 import { InvoiceService } from "@modules/invoices/services";
+import { InvoiceTypeService } from "@modules/invoice-types/services";
+import { OrderStageService } from "@modules/order-stages/services";
+
+//MODELS
+import { Order, SearchOrder } from "../../models";
+import { Response } from '@modules/utility/models';
+import { InvoiceType } from '@modules/invoice-types/models';
+import { OrderStage } from '@modules/order-stages/models';
 
 //Utils
 import { FormUtils } from "@modules/utility/utils";
+
 
 @Component({
   selector: 'sb-ng-bootstrap-table-orders',
@@ -27,6 +35,8 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
 
   public searchOption = new SearchOrder();
   public orders: Array<Order> = [];
+  public invoiceTypes: Array<InvoiceType> = [];
+  public orderStages: Array<OrderStage> = [];
   public parameters: any;
   public maxSizePagination: number = 10;
 
@@ -47,7 +57,9 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
     private utilityService: UtilityService,
     private customDateService: CustomDateService,
     public formUtils: FormUtils,
-    private invoiceService: InvoiceService
+    private invoiceService: InvoiceService,
+    private invoiceTypeService: InvoiceTypeService,
+    private orderStageService: OrderStageService
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -63,6 +75,8 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
     // }
 
     this.getOrders();
+    this.getInvoiceTypes();
+    this.getOrderStages();
     this.maxSizePagination = this.utilityService.getMaxSizePagination(window.screen.width);
 
   }
@@ -90,8 +104,6 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
 
   getOrders() {
 
-    // let parameters = { 'store_id': this.authService.getUserStoreID(), 'searchOption': this.searchOption };
-
     this.orderService.get(this.searchOption).subscribe(response => {
 
       if (response.status) {
@@ -108,8 +120,42 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
 
   }
 
+  getInvoiceTypes() {
+
+    this.invoiceTypeService.getAll().subscribe(response => {
+
+      if (response.status) {
+        this.invoiceTypes = response.result;
+      } else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+
+  }
+
+  getOrderStages() {
+
+    this.orderStageService.getAll().subscribe(response => {
+
+      if (response.status) {
+        this.orderStages = response.result;
+      } else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+
+  }
+
   modalAnull(id: string) {
-    
+
     const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
     modalRef.componentInstance.title = 'Order';
@@ -137,6 +183,30 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
     }, error => {
       this.notificationService.error(error);
       this.authService.raiseError();
+    });
+  }
+
+  modalChangeStage(order_id: number, stage_id: number) {
+    const modalRef = this.ngbModal.open(ChangeStageModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.model = Order.getModelName();
+    modalRef.componentInstance.model_id = order_id;
+    modalRef.componentInstance.stage_id = stage_id;
+
+    modalRef.result.then((result: Response) => {
+      result.status ? this.getOrders() : null;
+    });
+  }
+
+  modalChangeDate(order_id: number, date: string) {
+    const modalRef = this.ngbModal.open(ChangeDateModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.model = Order.getModelName();
+    modalRef.componentInstance.model_id = order_id;
+    modalRef.componentInstance.date = this.customDateService.formatDDMMYYYYtoYYYYMMDD(date);
+
+    modalRef.result.then((result: Response) => {
+      result.status ? this.getOrders() : null;
     });
   }
 }

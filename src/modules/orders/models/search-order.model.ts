@@ -4,8 +4,9 @@ export class SearchOrder extends SearchOptions {
 
     fromDate: string = '';
     toDate: string = '';
-    // type_id: number = 1;
-    // searchBy: string = 'H';
+    type_id: number = 0;
+    stage_id: number = 0;
+    serie: string = '';
 
     constructor() {
         super();

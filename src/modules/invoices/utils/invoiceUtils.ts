@@ -34,6 +34,7 @@ export class InvoiceUtils implements OnInit {
 
     // private invoice_id = 0;
     public isOrder: boolean = false;
+    private hasInvoice: boolean = false;
     public invoiceDetails: Array<InvoiceDetail> = [];
     public invoice = new Invoice();
     public order = new Order();
@@ -170,7 +171,9 @@ export class InvoiceUtils implements OnInit {
 
     async create(type_id: number, item: SearchItem) {
 
-        if (this.getInvoiceID() == 0) {
+        if (this.getInvoiceID() == 0 && !this.hasInvoice) {
+
+            this.hasInvoice = true;
 
             let invoice = new Invoice();
 
@@ -238,6 +241,7 @@ export class InvoiceUtils implements OnInit {
 
             if (response.status) {
                 this.invoice = response.result;
+                this.hasInvoice = true;
             } else {
                 this.notificationService.error(response.message);
             }
