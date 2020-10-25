@@ -53,7 +53,7 @@ export class InvoiceUtils implements OnInit {
 
 
     ngOnInit(): void {
-
+        
     }
 
     getInvoiceID() {
@@ -62,6 +62,10 @@ export class InvoiceUtils implements OnInit {
 
     setInvoiceID(invoice_id: number) {
         this.invoice.id = invoice_id;
+    }
+
+    setHasInvoice(value: boolean) {
+        this.hasInvoice = value;
     }
 
     checkIsOrder(){
