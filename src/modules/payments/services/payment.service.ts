@@ -173,5 +173,33 @@ export class PaymentService {
       }));
   }
 
+  updatePaymentDate(payment: Payment): Observable<Response> {
+
+    let apiRoot = this.apiRoot + 'updatePaymentDate';
+
+    return this.http.post(apiRoot, payment, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      if (resultRAW.result) {
+        let payment = new Payment();
+        payment.id = resultRAW.result?.id;
+
+        response.result = payment;
+      }
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
 
 }

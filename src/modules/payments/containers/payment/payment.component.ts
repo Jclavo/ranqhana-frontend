@@ -20,6 +20,7 @@ import { InvoiceService } from "@modules/invoices/services";
 // COMPONENT 
 import { MadePaymentModalComponent } from "../../components/made-payment-modal/made-payment-modal.component";
 import { ConfirmModalComponent } from '@modules/utility/components';
+import { ChangeDateModalComponent } from "@modules/utility/components/change-date-modal/change-date-modal.component";
 
 //UTILS
 import { FormUtils } from '@modules/utility/utils';
@@ -261,6 +262,18 @@ export class PaymentComponent implements OnInit {
   deleteLocal(index: number) {
     this.installment.remain += Number(this.payments[index].amount);
     this.payments.splice(index, 1);
+  }
+
+  modalUpdateDate(payment_id: number, date: string) {
+    const modalRef = this.ngbModal.open(ChangeDateModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.model = Payment.getModelName();
+    modalRef.componentInstance.model_id = payment_id;
+    modalRef.componentInstance.date = this.customDateService.formatDDMMYYYYtoYYYYMMDD(date);
+
+    modalRef.result.then((result: Response) => {
+      result.status ? this.getPaymentByInvoice(this.invoice.id) : null;
+    });
   }
 
 }

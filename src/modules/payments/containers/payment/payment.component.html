@@ -87,6 +87,13 @@
                             <td>
                                 <div class="row" *ngIf="payment.stage_id != PAYMENT_STAGE_PAID && payment.id > 0">
                                     <div class="col-3">
+                                        <fa-icon [icon]='["far", "calendar"]' 
+                                            [styles]="{'stroke': 'black', 'color': 'black'}"
+                                            size="lg" (click)="modalUpdateDate(payment.id, payment.payment_date)">
+                                        </fa-icon>
+                                    </div>
+                                    
+                                    <div class="col-3">
                                         <fa-icon [icon]='["far", "money-bill-alt"]'
                                             [styles]="{'stroke': 'red', 'color': 'green'}" size="md"
                                             (click)="openModalMadePayment(payment.id)"></fa-icon>

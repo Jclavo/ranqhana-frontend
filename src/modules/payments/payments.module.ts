@@ -47,6 +47,7 @@ import * as paymentsServices from './services';
   entryComponents: [
     paymentsComponents.MadePaymentModalComponent,
     utilityComponents.ConfirmModalComponent,
+    utilityComponents.ChangeDateModalComponent,
   ]
 })
 export class PaymentsModule { }
