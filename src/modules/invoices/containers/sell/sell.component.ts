@@ -63,6 +63,7 @@ export class SellComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.invoiceUtils.setHasInvoice(false);
     this.invoiceUtils.checkIsOrder();
     //reset values
     this.invoiceUtils.invoice = new SellInvoice();
