@@ -85,7 +85,7 @@
                             <td scope="row">{{ payment.method_name }}</td>
                             <td scope="row">{{ payment.stage_name }}</td>
                             <td>
-                                <div class="row" *ngIf="payment.stage_id != PAYMENT_STAGE_PAID && payment.id > 0">
+                                <div class="row" *ngIf="payment.stage_id != PAYMENT_STAGE_PAID && payment.id > 0 && invoice.stage_id != INVOICE_STAGE_ANNULLED">
                                     <div class="col-3">
                                         <fa-icon [icon]='["far", "calendar"]' 
                                             [styles]="{'stroke': 'black', 'color': 'black'}"

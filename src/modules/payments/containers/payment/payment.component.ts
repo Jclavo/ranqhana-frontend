@@ -9,6 +9,7 @@ import { Payment, Installment } from "../../models";
 import { Response } from "@modules/utility/models";
 import { Invoice } from "@modules/invoices/models";
 import { PaymentStage } from "@modules/payment-stages/models";
+import { InvoiceStage } from "@modules/invoice-stages/models";
 
 //SERVICES
 import { PaymentService } from '../../services';
@@ -33,6 +34,7 @@ import { FormUtils } from '@modules/utility/utils';
 export class PaymentComponent implements OnInit {
 
   public PAYMENT_STAGE_PAID: number = PaymentStage.getStagePaid();
+  public INVOICE_STAGE_ANNULLED: number = InvoiceStage.getForAnnulled();
 
   public payments: Array<Payment> = [];
   private invoice = new Invoice();
