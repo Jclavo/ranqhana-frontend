@@ -104,7 +104,7 @@ export const ROUTES: Routes = [
     } as SBRouteData,
   },
   {
-    path: ':typeInvoice',
+    path: ':type_id',
     canActivate: [GlobalGuard],
     component: invoicesContainers.InvoicesComponent,
     data: {

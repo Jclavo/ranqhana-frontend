@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChildren, QueryList, KeyValueDiffer, KeyValueDif
 import { SBSortableHeaderDirective, SortEvent } from '@modules/utility/directives';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
+
 //MODELS
-// import { SearchOptions } from '@modules/items/models';
+import { InvoiceType } from '@modules/invoice-types/models';
 import { SellInvoice, SearchInvoice } from "../../models";
 
 // COMPONENT 
@@ -14,6 +15,7 @@ import { ShowInvoiceComponent } from "../show-invoice/show-invoice.component";
 import { InvoiceService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService, UtilityService, CustomDateService } from '@modules/utility/services';
+import { InvoiceTypeService } from "@modules/invoice-types/services";
 
 //Utils
 import { FormUtils } from "@modules/utility/utils";
@@ -28,6 +30,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
 
   public searchOption = new SearchInvoice();
   public invoices: Array<SellInvoice> = [];
+  public invoiceTypes: Array<InvoiceType> = [];
   public parameters: any;
   public maxSizePagination: number = 10;
 
@@ -47,7 +50,8 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     private ngbModal: NgbModal,
     private utilityService: UtilityService,
     private customDateService: CustomDateService,
-    public formUtils: FormUtils
+    public formUtils: FormUtils,
+    private invoiceTypeService: InvoiceTypeService,
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -57,12 +61,13 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
   
   ngOnInit(): void {
 
-    let typeInvoice = this.activatedRoute.snapshot.paramMap.get('typeInvoice');
-    if(typeInvoice){
-      this.searchOption.type_id = Number(typeInvoice);
+    let type_id = this.activatedRoute.snapshot.paramMap.get('type_id');
+    if(type_id){
+      this.searchOption.type_id = Number(type_id);
     }
 
     this.getInvoices();
+    this.getInvoiceTypes();
     this.maxSizePagination = this.utilityService.getMaxSizePagination(window.screen.width);
 
   }
@@ -87,10 +92,24 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     this.searchOption.sortDirection = this.sortedDirection;
   }
 
+  getInvoiceTypes() {
+
+    this.invoiceTypeService.getAll().subscribe(response => {
+
+      if (response.status) {
+        this.invoiceTypes = response.result;
+      } else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+
+  }
 
   getInvoices() {
-
-    // let parameters = { 'store_id': this.authService.getUserStoreID(), 'searchOption': this.searchOption };
 
     this.invoiceService.get(this.searchOption).subscribe(response => {
 
