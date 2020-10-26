@@ -97,7 +97,8 @@
                                     <div class="col-3">
                                         <fa-icon [icon]='["far", "trash-alt"]'
                                             [styles]="{'stroke': 'red', 'color': 'red'}" size="md"
-                                            (click)="invoiceUtils.modalDelete(invoiceDetail.id, invoiceDetail.item)"></fa-icon>
+                                            (click)="invoiceUtils.modalDelete(invoiceDetail.id, invoiceDetail.item)">
+                                        </fa-icon>
                                     </div>
                                 </div>
                             </td>
@@ -131,7 +132,7 @@
                                 </div>
                             </div>
                             <input class="form-control" type="text" name="taxes" 
-                            value="{{formUtils.customToFixed(invoiceUtils.invoice.taxes)}}" readonly />
+                                   value="{{formUtils.customToFixed(invoiceUtils.invoice.taxes)}}" readonly />
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -157,11 +158,11 @@
                 <div class="row" *ngIf="invoiceUtils.order.stage_id == invoiceUtils.ORDER_STAGE_NEW && invoiceUtils.isOrder">
                     <div class="col-md-6 mb-md-3">
                         <button type="button" class="btn btn-info btn-block" 
-                        routerLink="/orders/" i18n="@@button.create">Draft Order</button>
+                        routerLink="/orders/{{INVOICE_TYPE_SELL}}" i18n="@@button.create">Draft Order</button>
                     </div>
                     <div class="col-md-6 mb-md-3">
                         <button type="button" class="btn btn-success btn-block" 
-                        (click)="invoiceUtils.setOrderRequested()" i18n="@@button.create">Request Order</button>
+                        (click)="invoiceUtils.setOrderRequested(INVOICE_TYPE_SELL)" i18n="@@button.create">Request Order</button>
                     </div>
                     
                 </div>

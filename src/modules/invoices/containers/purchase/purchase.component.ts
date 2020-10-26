@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
-
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router'
 
 //MODELS
 import { Item, SearchItemOptions } from '@modules/items/models';
 import { StockTypes } from '@modules/stock-types/models';
 import { PurchaseInvoice, InvoiceDetail, SearchItem } from '../../models';
 import { FormMessage } from "@modules/utility/models";
+import { InvoiceType } from '@modules/invoice-types/models';
 
 //SERVICES
 import { ItemService } from "@modules/items/services";
@@ -20,13 +20,14 @@ import { AuthService } from "@modules/auth/services";
 import { InvoiceUtils } from "../../utils/invoiceUtils";
 import { FormUtils, CustomValidator } from "@modules/utility/utils";
 
-
 @Component({
   selector: 'sb-purchase',
   templateUrl: './purchase.component.html',
   styleUrls: ['./purchase.component.scss']
 })
 export class PurchaseComponent implements OnInit {
+
+  public INVOICE_TYPE_PURCHASE = InvoiceType.getForPurchase();
 
   public searchItemOptions = new SearchItemOptions();
   public searchItem = new SearchItem();
@@ -54,10 +55,29 @@ export class PurchaseComponent implements OnInit {
     public authService: AuthService,
     private languageService: LanguageService,
     private utilityService: UtilityService,
-    public  formUtils: FormUtils
+    public  formUtils: FormUtils,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+
+    this.invoiceUtils.setHasInvoice(false);
+    this.invoiceUtils.checkIsOrder();
+    //reset values
+    this.invoiceUtils.invoice = new PurchaseInvoice();
+    this.invoiceUtils.invoiceDetails = [];
+
+    this.invoiceUtils.setInvoiceID(Number(this.activatedRoute.snapshot.paramMap.get('invoice_id')) ?? 0);
+    if (this.invoiceUtils.getInvoiceID() > 0) {
+
+      this.invoiceUtils.getInvoice(this.invoiceUtils.getInvoiceID());
+      this.invoiceUtils.getInvoiceDetails(this.invoiceUtils.getInvoiceID());
+
+      this.invoiceUtils.getOrder(Number(this.activatedRoute.snapshot.paramMap.get('order_id')) ?? 0);
+    }
 
   }
 
@@ -114,7 +134,7 @@ export class PurchaseComponent implements OnInit {
     return searchItem;
   }
 
-  addItem() {
+  async addItem() {
 
     if (this.addItemForm.invalid) {
       this.errorsListForm = this.utilityService.getFormError(this.addItemForm);
@@ -135,42 +155,11 @@ export class PurchaseComponent implements OnInit {
 
     //Check if the item UNIT allows DECIMAL number
     if(!this.invoiceUtils.unitAllowDecimal(this.searchItem)) return;
-    
-    this.invoiceDetails = this.invoiceUtils.addInvoiceDetail(this.searchItem, this.invoiceDetails);
+
+    await this.invoiceUtils.create(StockTypes.getTypeForPurchase(), this.searchItem);
 
     this.searchItem = new SearchItem();
-    this.addItemForm.reset()
-
-    // Calculate final values for purchaseInvoice
-    this.calculateInvoice();
-
-
-  }
-
-  // delete(index: number) {
-    
-  //   this.invoiceDetails = this.invoiceUtils.delete(index, this.invoiceDetails);
-  //   this.calculateInvoice();
-  // }
-
-  calculateInvoice() {
-
-    // this.purchaseInvoice = this.invoiceUtils.calculateInvoice(this.purchaseInvoice, this.invoiceDetails);
-
-    // this.invoiceForm = this.moveModelValuesToForm(this.invoiceForm, this.purchaseInvoice);
-
-  }
-
-  // calculateDiscount() {
-
-  //   this.purchaseInvoice = this.invoiceUtils.calculateDiscount(this.purchaseInvoice);
-
-  // }
-
-  save() {
-
-    this.purchaseInvoice.type_id = StockTypes.getTypeForPurchase();
-    // this.invoiceUtils.create(this.purchaseInvoice, this.invoiceDetails);
+    this.addItemForm.reset();
 
   }
 

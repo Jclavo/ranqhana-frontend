@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 //MODELS
 import { SellInvoice, InvoiceDetail, SearchItem, Invoice } from '../../models';
 import { Item, SearchItemOptions } from '@modules/items/models';
-import { StockTypes } from '@modules/stock-types/models';
+import { InvoiceType } from '@modules/invoice-types/models';
 import { FormMessage } from "@modules/utility/models";
 import { Order } from "@modules/orders/models";
 
@@ -28,9 +28,8 @@ import { FormUtils, CustomValidator } from "@modules/utility/utils";
 })
 export class SellComponent implements OnInit {
 
-  // @Input() invoice_id: number = 0;
-  // @Input() order_id: number = 0;
-
+  public INVOICE_TYPE_SELL = InvoiceType.getForSell();
+  
   public searchItemOptions = new SearchItemOptions();
   public searchItem = new SearchItem();
 
@@ -61,7 +60,9 @@ export class SellComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
 
     this.invoiceUtils.setHasInvoice(false);
     this.invoiceUtils.checkIsOrder();
@@ -77,7 +78,7 @@ export class SellComponent implements OnInit {
 
       this.invoiceUtils.getOrder(Number(this.activatedRoute.snapshot.paramMap.get('order_id')) ?? 0);
     }
-    
+
   }
 
   formatter = (item: Item) => item.name;
@@ -94,7 +95,7 @@ export class SellComponent implements OnInit {
   getItems(searchValue: string) {
 
     this.searchItemOptions.searchValue = searchValue; // Assign value to search
-    this.searchItemOptions.stock_type_id = StockTypes.getTypeForSell();
+    this.searchItemOptions.stock_type_id = InvoiceType.getForSell();
 
     return this.itemService.get(this.searchItemOptions).pipe(
       map(response => {
@@ -173,13 +174,10 @@ export class SellComponent implements OnInit {
     if (!this.invoiceUtils.unitAllowDecimal(this.searchItem)) return;
 
 
-    await this.invoiceUtils.create(StockTypes.getTypeForSell(), this.searchItem);
+    await this.invoiceUtils.create(InvoiceType.getForSell(), this.searchItem);
 
     this.searchItem = new SearchItem();
     this.addItemForm.reset();
-
-    // console.log('this.invoiceUtils.order.stage_id', this.invoiceUtils.order.stage_id);
-    // console,
 
   }
 

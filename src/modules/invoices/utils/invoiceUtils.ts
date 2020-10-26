@@ -31,10 +31,11 @@ import { Response } from '@modules/utility/models';
 export class InvoiceUtils implements OnInit {
 
     public ORDER_STAGE_NEW = OrderStage.getStageNew();
-
+ 
     // private invoice_id = 0;
     public isOrder: boolean = false;
     private hasInvoice: boolean = false;
+    private type_id: number = 0;
     public invoiceDetails: Array<InvoiceDetail> = [];
     public invoice = new Invoice();
     public order = new Order();
@@ -303,7 +304,8 @@ export class InvoiceUtils implements OnInit {
         });
     }
 
-    setOrderRequested(){
+    setOrderRequested(type_id: number){
+        this.type_id = type_id;
         this.setOrderStatus(OrderStage.getStageRequested());
     }
 
@@ -311,6 +313,7 @@ export class InvoiceUtils implements OnInit {
         let order = new Order();
         order.id = this.order.id;
         order.stage_id = status_id;
+        console.log('order', order);
         this.updateStage(order);
     }
 
@@ -320,7 +323,7 @@ export class InvoiceUtils implements OnInit {
             if (response.status) {
                 this.notificationService.success(response.message);
                 if(this.isOrder){
-                    this.router.navigate(['/orders']);
+                    this.router.navigate(['/orders', this.type_id]);
                 }
                 
             } else {
