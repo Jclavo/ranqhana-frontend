@@ -68,6 +68,60 @@ export const ROUTES: Routes = [
           ],
         } as SBRouteData,
       },
+      {
+        path: 'purchase',
+        canActivate: [GlobalGuard],
+        component: invoicesContainers.PurchaseComponent,
+        data: {
+          title: 'Purchase Invoice - Store App',
+          breadcrumbs: [
+            {
+              text: 'Dashboard',
+              link: '/dashboard',
+            },
+            {
+              text: 'Purchase Invoice',
+              active: true,
+            },
+          ],
+        } as SBRouteData,
+      },
+      {
+        path: 'purchase/:invoice_id/:order_id',
+        canActivate: [GlobalGuard],
+        component: invoicesContainers.PurchaseComponent,
+        data: {
+          title: 'Purchase Invoice - Store App',
+          breadcrumbs: [
+            {
+              text: 'Dashboard',
+              link: '/dashboard',
+            },
+            {
+              text: 'Purchase Invoice',
+              active: true,
+            },
+          ],
+        } as SBRouteData,
+      },
+      {
+        path: ':type_id',
+        canActivate: [],
+        component: ordersContainers.OrderListComponent,
+        data: {
+            title: 'Orders List - Store App',
+            breadcrumbs: [
+                {
+                    text: 'Dashboard',
+                    link: '/dashboard',
+                },
+                {
+                    text: 'Order',
+                    active: true,
+                },
+            ],
+        } as SBRouteData,
+    },
 ];
 
 @NgModule({

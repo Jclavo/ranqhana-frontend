@@ -4,10 +4,10 @@
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold">Serie</div>
             </div>
-            <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.serie" />
+            <input class="form-control ml-2" type="text" maxlength="12" name="searchTerm" [(ngModel)]="searchOption.serie" />
         </div>
     </div>
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-6 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend ">
                 <div class="input-group-text font-weight-bold" i18n="@@button.from">From</div>
@@ -16,7 +16,7 @@
                 [(ngModel)]="searchOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()">
         </div>
     </div>
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-6 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold" i18n="@@button.to">To</div>
@@ -25,7 +25,7 @@
                 ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
         </div>
     </div>
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-6 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold" i18n="@@button.type">Type</div>
@@ -37,7 +37,7 @@
               </select>
         </div>
     </div>
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-6 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold" i18n="@@button.stage">Stage</div>
@@ -71,6 +71,9 @@
                     <span i18n="@@order.field.deliveryDate">Delivery Date</span>
                     <sb-sort-icon *ngIf='sortedColumn === "delivery_date"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
+                <th scope="col">
+                    <span i18n="@@xxx">Type</span>
+                </th>
                 <th scope="col" sbSortable="created_at" (sort)="onSort($event)">
                     <span i18n="@@button.createAt">Created at</span>
                     <sb-sort-icon *ngIf='sortedColumn === "created_at"' [direction]="sortedDirection"></sb-sort-icon>
@@ -90,6 +93,7 @@
                 <td>{{order.stage_name }} </td>
                 <td>{{order.invoice_stage_name }} </td>
                 <td>{{order.delivery_date}} </td>
+                <td>{{order.invoice_type_name}} </td>
                 <td>{{order.created_at }} </td>
                 <td>
                     <div class="row">
@@ -101,9 +105,13 @@
                             <fa-icon [icon]='["fas", "exchange-alt"]' [styles]="{'stroke': 'green', 'color': 'green'}"
                                 size="lg" (click)="modalUpdateStage(order.id, order.stage_id)"></fa-icon>
                         </div>
-                        <div class="col-auto mb-1">
+                        <div class="col-auto mb-1" *ngIf="order.invoice_type_id == INVOICE_TYPE_SELL">
                             <fa-icon [icon]='["far", "eye"]' [styles]="{'stroke': 'blue', 'color': 'blue'}"
                                 size="lg" routerLink="/orders/sell/{{order.invoice_id}}/{{order.id}}"></fa-icon>
+                        </div>
+                        <div class="col-auto mb-1" *ngIf="order.invoice_type_id == INVOICE_TYPE_PURCHASE">
+                            <fa-icon [icon]='["far", "eye"]' [styles]="{'stroke': 'blue', 'color': 'blue'}"
+                                size="lg" routerLink="/orders/purchase/{{order.invoice_id}}/{{order.id}}"></fa-icon>
                         </div>
                         <div class="col-auto mb-1">
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"

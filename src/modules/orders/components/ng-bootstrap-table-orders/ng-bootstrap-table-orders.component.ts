@@ -33,6 +33,9 @@ import { FormUtils } from "@modules/utility/utils";
 })
 export class NgBootstrapTableOrdersComponent implements OnInit {
 
+  public INVOICE_TYPE_SELL = InvoiceType.getForSell();
+  public INVOICE_TYPE_PURCHASE = InvoiceType.getForPurchase();
+
   public searchOption = new SearchOrder();
   public orders: Array<Order> = [];
   public invoiceTypes: Array<InvoiceType> = [];
@@ -69,10 +72,10 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // let typeInvoice = this.activatedRoute.snapshot.paramMap.get('typeInvoice');
-    // if (typeInvoice) {
-    //   this.searchOption.type_id = Number(typeInvoice);
-    // }
+    let type_id = this.activatedRoute.snapshot.paramMap.get('type_id');
+    if (type_id) {
+      this.searchOption.type_id = Number(type_id);
+    }
 
     this.getOrders();
     this.getInvoiceTypes();
