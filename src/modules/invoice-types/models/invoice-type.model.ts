@@ -1,4 +1,13 @@
 export class InvoiceType {
+    
     id: string = '';
-    name: string = '';  
+    name: string = ''; 
+    
+    static getForSell(){
+        return 1;
+    }
+
+    static getForPurchase(){
+        return 2;
+    }
 }

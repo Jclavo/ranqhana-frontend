@@ -46,6 +46,8 @@ export class InvoiceTypeService {
         return invoiceType;
       });
 
+      response.result.unshift({id: 0, name: ''}) //Add ALL option
+
       response.records = resultRAW.result.length;
 
       return response;
