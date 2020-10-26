@@ -51,6 +51,7 @@ export class InvoiceService {
         invoice.total = Number(data.total);
         invoice.taxes = Number(data.taxes);
         invoice.stage = data.stage?.description;
+        invoice.type = data.type?.description;
         invoice.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at);
 
         return invoice;
