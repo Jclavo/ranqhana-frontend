@@ -13,7 +13,8 @@
                             <div class="input-group-text font-weight-bold" i18n="@@button.from">From</div>
                         </div>
                         <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="fromDate"
-                            [(ngModel)]="searchInvoiceOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()">
+                            [(ngModel)]="searchInvoiceOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker"
+                            (click)="dFrom.toggle()">
                     </div>
                 </div>
                 <div class="col-md-6 col-xl-3">
@@ -21,8 +22,9 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text font-weight-bold" i18n="@@button.to">To</div>
                         </div>
-                        <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate" [(ngModel)]="searchInvoiceOption.toDate"
-                            ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
+                        <input class="form-control ml-2" placeholder="dd-mm-yyyy" name="toDate"
+                            [(ngModel)]="searchInvoiceOption.toDate" ngbDatepicker #dTo="ngbDatepicker"
+                            (click)="dTo.toggle()">
                     </div>
                 </div>
                 <div class="col-md-4 col-xl-2">
@@ -30,9 +32,11 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text font-weight-bold" i18n="@@button.type">Type</div>
                         </div>
-                        <select class="custom-select" [(ngModel)]="searchInvoiceOption.type_id" placeholder="Type">
-                            <option value="1" selected>Sell Invoice</option>
-                            <option value="2">Purcharse Invoice</option>
+                        <select class="form-control" placeholder="Type" name="type_id" id="type_id"
+                        [(ngModel)]="searchInvoiceOption.type_id">
+                            <option *ngFor="let invoiceType of invoiceTypes" [value]="invoiceType.id">
+                                {{invoiceType.name}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -50,7 +54,8 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-xl-2">
-                    <button type="button" class="btn btn-primary btn-block" (click)="search()" i18n="@@button.search">Search</button>
+                    <button type="button" class="btn btn-primary btn-block" (click)="search()"
+                        i18n="@@button.search">Search</button>
                 </div>
             </div>
         </div>
@@ -63,4 +68,3 @@
         </div>
     </sb-card>
 </sb-layout-dashboard>
-
