@@ -4,8 +4,8 @@
     <sb-card>
         <div class="card-header">
             <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
-            <ng-container i18n="@@invoice.xxx.title" *ngIf="!invoiceUtils.isOrder">Purchase invoice</ng-container>
-            <ng-container i18n="@@invoice.xxx.title" *ngIf="invoiceUtils.isOrder">Purchase order</ng-container>
+            <ng-container i18n="@@invoice.purchaseInvoice.title" *ngIf="!invoiceUtils.isOrder">Purchase invoice</ng-container>
+            <ng-container i18n="@@invoice.purchaseOrder.title" *ngIf="invoiceUtils.isOrder">Purchase order</ng-container>
         </div>
         <div class="card-body">
             <form [formGroup]="addItemForm">
