@@ -7,7 +7,7 @@ import { map, catchError } from "rxjs/operators";
 import { environment } from "../../../environments/environment";
 
 //Models
-import { StockTypes } from '../models';
+import { StockType } from '../models';
 import { Response } from '@modules/utility/models';
 
 //SERVICES
@@ -43,7 +43,7 @@ export class StockTypesService {
 
       response.result = resultRAW.result?.map((data: any) => {
 
-        let stockTypes = new StockTypes();
+        let stockTypes = new StockType();
         stockTypes.id   = data.id;
         stockTypes.name = data.name;
 

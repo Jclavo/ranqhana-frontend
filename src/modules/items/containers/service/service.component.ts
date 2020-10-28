@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 //MODELS
 import { Item } from "@modules/items/models";
 import { Unit } from "@modules/units/models";
-import { StockTypes } from "@modules/stock-types/models";
+import { StockType } from "@modules/stock-types/models";
 import { Image } from "@modules/utility/models";
 
 //SERVICES
@@ -29,7 +29,7 @@ export class ServiceComponent implements OnInit {
   public service = new Item();
 
   public units: Array<Unit> = [];
-  public stockTypes: Array<StockTypes> = [];
+  public stockTypes: Array<StockType> = [];
 
   constructor(
     private notificationService: NotificationService,
@@ -208,7 +208,7 @@ export class ServiceComponent implements OnInit {
 
   getStockTypesChoosen(){
 
-    let stockTypes: Array<StockTypes> = [];
+    let stockTypes: Array<StockType> = [];
     stockTypes = this.stockTypes.filter(function(value) {
       return value.checked == true;
     });

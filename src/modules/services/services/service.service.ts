@@ -8,7 +8,7 @@ import { environment } from "../../../environments/environment";
 
 //Models
 import { Service, SearchServiceOptions } from '@modules/services/models';
-import { StockTypes } from "@modules/stock-types/models";
+import { StockType } from "@modules/stock-types/models";
 import { Response } from '@modules/utility/models';
 
 //SERVICES
@@ -53,7 +53,7 @@ export class ServiceService {
         service.updated_at = data.updated_at;
 
         //stock types
-        service.stock_types = resultRAW.result[index]?.stock_types?.map(function(value: StockTypes) {
+        service.stock_types = resultRAW.result[index]?.stock_types?.map(function(value: StockType) {
           return value.name;
         });
 
@@ -93,7 +93,7 @@ export class ServiceService {
         service.updated_at = resultRAW.result?.updated_at;
 
         //stock types
-        service.stock_types = resultRAW.result?.stock_types.map(function(value: StockTypes) {
+        service.stock_types = resultRAW.result?.stock_types.map(function(value: StockType) {
           return value.id;
         });
 

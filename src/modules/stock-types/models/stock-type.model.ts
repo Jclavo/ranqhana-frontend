@@ -1,13 +1,14 @@
-export class StockTypes {
+export class StockType {
     id: number = 0;
+    code: number = 0;
     name: string = '';
     checked: boolean = false;
 
-    static getTypeForSell(){
+    static getForSell(){
         return 1;
     }
 
-    static getTypeForPurchase(){
+    static getForPurchase(){
         return 2;
     }
 }

@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SellInvoice, InvoiceDetail, SearchItem, Invoice } from '../../models';
 import { Item, SearchItemOptions } from '@modules/items/models';
 import { ItemTypes } from '@modules/item-types/models';
+import { StockType } from '@modules/stock-types/models';
 import { InvoiceType } from '@modules/invoice-types/models';
 import { FormMessage } from "@modules/utility/models";
 import { Order } from "@modules/orders/models";
@@ -96,7 +97,7 @@ export class SellComponent implements OnInit {
   getItems(searchValue: string) {
 
     this.searchItemOptions.searchValue = searchValue; // Assign value to search
-    this.searchItemOptions.stock_type_id = InvoiceType.getForSell();
+    this.searchItemOptions.stock_type_id = StockType.getForSell();
 
     return this.itemService.get(this.searchItemOptions).pipe(
       map(response => {

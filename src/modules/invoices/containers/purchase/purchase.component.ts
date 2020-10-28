@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router'
 //MODELS
 import { SearchItemOptions } from '@modules/items/models';
 import { ItemTypes } from '@modules/item-types/models';
-import { StockTypes } from '@modules/stock-types/models';
+import { StockType } from '@modules/stock-types/models';
 import { PurchaseInvoice, InvoiceDetail, SearchItem } from '../../models';
 import { FormMessage } from "@modules/utility/models";
 import { InvoiceType } from '@modules/invoice-types/models';
@@ -96,7 +96,7 @@ export class PurchaseComponent implements OnInit {
   getItems(searchValue: string) {
 
     this.searchItemOptions.searchValue = searchValue;
-    this.searchItemOptions.stock_type_id = StockTypes.getTypeForPurchase();
+    this.searchItemOptions.stock_type_id = StockType.getForPurchase();
     
     return this.itemService.get(this.searchItemOptions).pipe(
       map(response => {
@@ -157,7 +157,7 @@ export class PurchaseComponent implements OnInit {
     //Check if the item UNIT allows DECIMAL number
     if(!this.invoiceUtils.unitAllowDecimal(this.searchItem)) return;
 
-    await this.invoiceUtils.create(StockTypes.getTypeForPurchase(), this.searchItem);
+    await this.invoiceUtils.create(InvoiceType.getForPurchase(), this.searchItem);
 
     this.searchItem = new SearchItem();
     this.addItemForm.reset();
