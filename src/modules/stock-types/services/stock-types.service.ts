@@ -44,7 +44,7 @@ export class StockTypesService {
       response.result = resultRAW.result?.map((data: any) => {
 
         let stockTypes = new StockType();
-        stockTypes.id   = data.id;
+        stockTypes.id   = data.code;
         stockTypes.name = data.name;
 
         return stockTypes;
