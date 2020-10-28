@@ -40,7 +40,7 @@ export class OrderStageService {
       response.result = resultRAW.result.map((item: any) => {
 
         let orderStage = new OrderStage();
-        orderStage.id = item.id;
+        orderStage.id = item.code;
         orderStage.name = item.name;
 
         return orderStage;

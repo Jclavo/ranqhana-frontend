@@ -3,34 +3,34 @@ export class OrderStage {
     name: string = ''; 
 
 
-    static getStageNew(){
+    static getForNew(){
         return 1;
     }
-    static getStageRequested(){
+    static getForRequested(){
         return 2;
     }
-    static getStageAccepted(){
+    static getForAccepted(){
         return 3;
     }
-    static getStagePreparing(){
+    static getForPreparing(){
         return 4;
     }
-    static getStageWrapped(){
+    static getForWrapped(){
         return 5;
     }
-    static getStageReady(){
+    static getForReady(){
         return 6;
     }
-    static getStageShipped(){
+    static getForShipped(){
         return 7;
     }
-    static getStageDelivered(){
+    static getForDelivered(){
         return 8;
     }
-    static getStageCanceled(){
+    static getForCanceled(){
         return 9;
     }
-    static getStageAutomatic(){
+    static getForAutomatic(){
         return 10;
     }
 }

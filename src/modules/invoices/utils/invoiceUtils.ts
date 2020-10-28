@@ -30,7 +30,7 @@ import { Response } from '@modules/utility/models';
 
 export class InvoiceUtils implements OnInit {
 
-    public ORDER_STAGE_NEW = OrderStage.getStageNew();
+    public ORDER_STAGE_NEW = OrderStage.getForNew();
  
     // private invoice_id = 0;
     public isOrder: boolean = false;
@@ -306,7 +306,7 @@ export class InvoiceUtils implements OnInit {
 
     setOrderRequested(type_id: number){
         this.type_id = type_id;
-        this.setOrderStatus(OrderStage.getStageRequested());
+        this.setOrderStatus(OrderStage.getForRequested());
     }
 
     setOrderStatus(status_id: number){
@@ -339,7 +339,7 @@ export class InvoiceUtils implements OnInit {
     saveInvoice() {
 
         if(!this.isOrder){
-            this.setOrderStatus(OrderStage.getStageAutomatic());
+            this.setOrderStatus(OrderStage.getForAutomatic());
         }
         this.generate(this.invoice);
 
