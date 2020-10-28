@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
 import { Item, SearchItemOptions } from '@modules/items/models';
-import { ItemTypes } from '@modules/item-types/models';
+import { ItemType } from '@modules/item-types/models';
 
 // COMPONENT 
 import { ConfirmModalComponent } from '@modules/utility/components';
@@ -76,7 +76,7 @@ export class NgBootstrapTableProductsComponent implements OnInit {
 
   getItems() {
 
-    this.searchOption.type_id = ItemTypes.getForProduct();
+    this.searchOption.type_id = ItemType.getForProduct();
     this.itemService.get(this.searchOption).subscribe(response => {
 
       if (response.status) {

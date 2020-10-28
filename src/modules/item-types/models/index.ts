@@ -1,1 +1,1 @@
-export * from './item-types.model';
+export * from './item-type.model';

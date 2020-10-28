@@ -1,4 +1,4 @@
-export class ItemTypes {
+export class ItemType {
     [key: string]: string | number;
     id: number = 0;
     code: number = 0;

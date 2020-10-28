@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 //MODELS
 import { SellInvoice, InvoiceDetail, SearchItem, Invoice } from '../../models';
 import { Item, SearchItemOptions } from '@modules/items/models';
-import { ItemTypes } from '@modules/item-types/models';
+import { ItemType } from '@modules/item-types/models';
 import { StockType } from '@modules/stock-types/models';
 import { InvoiceType } from '@modules/invoice-types/models';
 import { FormMessage } from "@modules/utility/models";
@@ -122,7 +122,7 @@ export class SellComponent implements OnInit {
     this.addItemForm.controls['unit'].setValue(this.addItemForm.value.searchItem.unit);
     this.addItemForm.controls['price'].setValue(this.formUtils.customToFixed(this.addItemForm.value.searchItem.price));
     this.addItemForm.value.searchItem.stocked ? this.addItemForm.controls['stock'].setValue(this.addItemForm.value.searchItem.stock) : this.addItemForm.controls['stock'].setValue('-');
-    if (this.addItemForm.value.searchItem.type_id == ItemTypes.getForService()) {
+    if (this.addItemForm.value.searchItem.type_id == ItemType.getForService()) {
       this.addItemForm.controls['unit'].setValue('-');
       this.addItemForm.controls['stock'].setValue('-');
     }
@@ -167,7 +167,7 @@ export class SellComponent implements OnInit {
     this.searchItem = this.getFormValues();
 
     // check the stock
-    if (this.searchItem.type_id == ItemTypes.getForProduct() && this.searchItem.stocked && this.searchItem.quantity > this.searchItem.stock) {
+    if (this.searchItem.type_id == ItemType.getForProduct() && this.searchItem.stocked && this.searchItem.quantity > this.searchItem.stock) {
       this.notificationService.error(this.languageService.getI18n('invoice.message.nostock'));
       return;
     }
