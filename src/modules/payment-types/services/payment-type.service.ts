@@ -40,7 +40,7 @@ export class PaymentTypeService {
       response.result = resultRAW.result.map((item: any) => {
 
         let paymentType = new PaymentType();
-        paymentType.id = item.id;
+        paymentType.id = item.code;
         paymentType.name = item.name;
 
         return paymentType;

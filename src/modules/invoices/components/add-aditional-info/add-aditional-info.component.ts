@@ -131,7 +131,7 @@ export class AddAditionalInfoComponent implements OnInit {
       if (response.status) {
         this.notificationService.success(response.message);
 
-        if (this.invoice.payment_type_id == PaymentType.getTypeDebit()) {
+        if (this.invoice.payment_type_id == PaymentType.getForDebit()) {
 
           if (this.payment_id > 0) {
             this.modalResponse.status = true;
@@ -168,7 +168,7 @@ export class AddAditionalInfoComponent implements OnInit {
       return;
     }
 
-    if (this.invoice.payment_type_id == PaymentType.getTypeCredit()) {
+    if (this.invoice.payment_type_id == PaymentType.getForCredit()) {
       if (!this.externalUser) {
         this.notificationService.error(this.languageService.getI18n('invoice.message.invoicePayer'));
         return;

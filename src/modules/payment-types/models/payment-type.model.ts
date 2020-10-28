@@ -3,11 +3,11 @@ export class PaymentType {
     name: string = '';
 
 
-    static getTypeDebit(){
+    static getForDebit(){
         return 1;
     }
 
-    static getTypeCredit(){
+    static getForCredit(){
         return 2;
     }
 }
