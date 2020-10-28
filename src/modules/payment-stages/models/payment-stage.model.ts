@@ -2,19 +2,19 @@ export class PaymentStage {
     id: number = 0;
     name: string = '';
 
-    static getStageWaiting(){
+    static getForWaiting(){
         return 1;
     }
 
-    static getStageDelayed(){
+    static getForDelayed(){
         return 2;
     }
 
-    static getStagePaid(){
+    static getForPaid(){
         return 3;
     }
 
-    static getStageAnulled(){
+    static getForAnulled(){
         return 4;
     }
 

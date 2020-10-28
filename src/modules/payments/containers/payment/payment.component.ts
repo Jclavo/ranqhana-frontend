@@ -33,7 +33,7 @@ import { FormUtils } from '@modules/utility/utils';
 })
 export class PaymentComponent implements OnInit {
 
-  public PAYMENT_STAGE_PAID: number = PaymentStage.getStagePaid();
+  public PAYMENT_STAGE_PAID: number = PaymentStage.getForPaid();
   public INVOICE_STAGE_ANNULLED: number = InvoiceStage.getForAnnulled();
 
   public payments: Array<Payment> = [];

@@ -40,7 +40,7 @@ export class PaymentStageService {
       response.result = resultRAW.result.map((item: any) => {
 
         let paymentStage = new PaymentStage();
-        paymentStage.id = item.id;
+        paymentStage.id = item.code;
         paymentStage.name = item.name;
 
         return paymentStage;
