@@ -40,7 +40,7 @@ export class InvoiceTypeService {
       response.result = resultRAW.result.map((item: any) => {
 
         let invoiceType = new InvoiceType();
-        invoiceType.id = item.id;
+        invoiceType.id = item.code;
         invoiceType.name = item.description;
 
         return invoiceType;
