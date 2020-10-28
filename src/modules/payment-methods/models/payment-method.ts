@@ -1,12 +1,12 @@
 export class PaymentMethod {
-    id: string = '';
+    id: number = 0;
     name: string = '';
 
-    static getMethodMoney(){
+    static getForMoney(){
         return 1;
     }
 
-    static getMethodCard(){
+    static getForCard(){
         return 2;
     }
 }

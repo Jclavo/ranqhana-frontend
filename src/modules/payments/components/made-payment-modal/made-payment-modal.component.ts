@@ -24,8 +24,8 @@ export class MadePaymentModalComponent implements OnInit {
 
   @Input() payment_id: number = 0;
 
-  public PAYMENT_METHOD_MONEY: number = PaymentMethod.getMethodMoney();
-  public PAYMENT_METHOD_CARD: number = PaymentMethod.getMethodCard();
+  public PAYMENT_METHOD_MONEY: number = PaymentMethod.getForMoney();
+  public PAYMENT_METHOD_CARD: number = PaymentMethod.getForCard();
 
 
   public payment = new Payment();
