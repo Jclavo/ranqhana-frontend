@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 //MODELS
-import { Item } from '@modules/items/models';
+import { ItemTypes } from '@modules/item-types/models';
 import { Order } from '@modules/orders/models';
 import { OrderStage } from '@modules/order-stages/models';
 import { InvoiceDetail, SearchItem, Invoice } from '../models';
@@ -85,7 +85,7 @@ export class InvoiceUtils implements OnInit {
     }
 
     unitAllowDecimal(item: SearchItem): boolean {
-        if (!item.fractioned || item.type_id == Item.getTypeService()) {
+        if (!item.fractioned || item.type_id == ItemTypes.getForService()) {
             if (!Number.isInteger(item.quantity)) {
                 this.notificationService.error(this.languageService.getI18n('invoice.message.quantityInteger'));
                 return false;

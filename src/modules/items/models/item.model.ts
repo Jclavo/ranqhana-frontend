@@ -22,16 +22,4 @@ export class Item {
     //extra fields
     quantity: number = 0;
 
-
-    /**
-     * Getter and setters
-     */
-    static getTypeProduct(){
-        return 1;
-    }
-
-    static getTypeService(){
-        return 2;
-    }
-
 }

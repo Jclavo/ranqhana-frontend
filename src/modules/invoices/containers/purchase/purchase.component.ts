@@ -5,7 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router'
 
 //MODELS
-import { Item, SearchItemOptions } from '@modules/items/models';
+import { SearchItemOptions } from '@modules/items/models';
+import { ItemTypes } from '@modules/item-types/models';
 import { StockTypes } from '@modules/stock-types/models';
 import { PurchaseInvoice, InvoiceDetail, SearchItem } from '../../models';
 import { FormMessage } from "@modules/utility/models";
@@ -115,7 +116,7 @@ export class PurchaseComponent implements OnInit {
   assignSearchItemToForm(){
 
     this.addItemForm.controls['unit'].setValue(this.addItemForm.value.searchItem.unit);
-    if(this.addItemForm.value.searchItem.type_id == Item.getTypeService()){
+    if(this.addItemForm.value.searchItem.type_id == ItemTypes.getForService()){
       this.addItemForm.controls['unit'].setValue('-');
     }
 
