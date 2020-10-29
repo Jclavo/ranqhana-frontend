@@ -71,7 +71,7 @@ export class InvoiceDetailService {
         invoiceDetails.id       = data.id;
         invoiceDetails.item_id  = data.item_id;
         invoiceDetails.item     = data.item?.name;
-        invoiceDetails.unit     = data.item?.unit?.code;
+        invoiceDetails.unit     = data.item?.unit?.abbreviation;
         invoiceDetails.quantity = data.quantity;
         invoiceDetails.price    = data.price;
         invoiceDetails.total    = data.total;

@@ -92,9 +92,9 @@ export class InvoiceService {
         // invoice.stage    = resultRAW.result.stage?.description;
         invoice.created_at = this.customDateService.formatStringDDMMYYYY(resultRAW.result.created_at);
         // invoice.store    = resultRAW.result[0].store;
-        invoice.type_id = resultRAW.result.type?.id;
+        invoice.type_id = resultRAW.result.type?.code;
         invoice.type = resultRAW.result.type?.description;
-        invoice.stage_id = resultRAW.result.stage?.id;
+        invoice.stage_id = resultRAW.result.stage?.code;
         invoice.external_user_id = resultRAW.result?.external_user_id;
 
         response.result = invoice;
