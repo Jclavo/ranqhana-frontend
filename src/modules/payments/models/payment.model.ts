@@ -12,7 +12,7 @@ export class Payment {
     change : number = 0;
     transaction_code: string = '';
     method_name: string = '';
-    stage_name: string = '';
+    stage: string = '';
 
     static getModelName(){
         return 'PAYMENT';

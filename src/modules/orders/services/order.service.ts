@@ -48,10 +48,10 @@ export class OrderService {
         order.serie = data.serie;
         order.invoice_id = data.invoice_id;
         order.stage_id = data.stage_id;
-        order.stage_name = data.stage?.name;
-        order.invoice_stage_name = data.invoice?.stage?.description;
+        order.stage = data.stage?.name;
+        order.invoice_stage = data.invoice?.stage?.name;
         order.invoice_type_id = data.invoice?.type?.id;
-        order.invoice_type_name = data.invoice?.type?.description;
+        order.invoice_type = data.invoice?.type?.name;
         order.delivery_date = this.customDateService.formatShortStringDDMMYYYY(data.delivery_date);
         order.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at);
 

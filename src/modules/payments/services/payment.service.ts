@@ -117,7 +117,7 @@ export class PaymentService {
         payment.stage_id = data.stage_id;
 
         payment.method_name = data.method?.name;
-        payment.stage_name = data.stage?.name;
+        payment.stage = data.stage?.name;
 
         return payment;
       });
