@@ -1,2 +1,2 @@
 export * from './item.model';
-export * from './SearchItemOptions.model';
+export * from './search-item-options.model';
