@@ -46,8 +46,8 @@ export class UnitService {
 
     //     let unit = new Unit();
     //     unit.id = data.id;
-    //     unit.code = data.code;
-    //     unit.description = data.description;
+    //     unit.abbreviation = data.code;
+    //     unit.name = data.description;
     //     return unit;
     //   });
 
@@ -78,9 +78,9 @@ export class UnitService {
       response.result = resultRAW.result?.map((data: any) => {
 
         let unit = new Unit();
-        unit.id = data.id;
-        unit.code = data.code;
-        unit.description = data.description;
+        unit.id = data.code;
+        unit.abbreviation = data.abbreviation;
+        unit.name = data.name;
         unit.fractioned = data.fractioned;
         // unit.created_at = data.created_at;
         // unit.updated_at = data.updated_at;
@@ -113,9 +113,9 @@ export class UnitService {
 
       if (resultRAW.result) {
         let unit = new Unit();
-        unit.id = resultRAW.result?.id;
-        unit.code = resultRAW.result?.code;
-        unit.description = resultRAW.result?.description;
+        unit.id = resultRAW.result?.code;
+        unit.abbreviation = resultRAW.result?.abbreviation;
+        unit.name = resultRAW.result?.name;
         unit.fractioned = resultRAW.result?.fractioned;
 
         response.result = unit;

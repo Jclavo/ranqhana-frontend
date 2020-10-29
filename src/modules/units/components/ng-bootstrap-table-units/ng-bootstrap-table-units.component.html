@@ -42,10 +42,10 @@
             <tr *ngFor="let unit of units">
                 <th scope="row" class="col-auto">{{ unit.id }}</th>
                 <td>
-                    <ngb-highlight [result]="unit.code" [term]="searchOption.searchValue"></ngb-highlight>
+                    <ngb-highlight [result]="unit.abbreviation" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="unit.description" [term]="searchOption.searchValue"></ngb-highlight>
+                    <ngb-highlight [result]="unit.name" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
                     <fa-icon *ngIf="unit.fractioned" [icon]='["fas", "check-circle"]'></fa-icon>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
-                                size="lg" (click)="modalDelete(unit.id, unit.description)"></fa-icon>
+                                size="lg" (click)="modalDelete(unit.id, unit.name)"></fa-icon>
                         </div>
                     </div>
                 </td>

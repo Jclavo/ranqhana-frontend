@@ -24,7 +24,7 @@
             <label class="control-label font-weight-bold" for="unit" i18n="@@unit.page.title">Unit</label>
             <select class="form-control" placeholder="Unit" name="unit_id" id="unit" [(ngModel)]="product.unit_id">
               <option *ngFor="let unit of units" [value]="unit.id">
-                {{unit.description}}
+                {{unit.name}}
               </option>
             </select>
           </div>
