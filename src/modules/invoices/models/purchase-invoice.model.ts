@@ -1,4 +1,4 @@
-import { Invoice } from "./Invoice.model";
+import { Invoice } from "./invoice.model";
 import { InvoiceType } from "@modules/invoice-types/models";
 
 export class PurchaseInvoice extends Invoice {
