@@ -1,2 +1,2 @@
 export * from './user.model';
-export * from './searchUserOptions.model';
+export * from './search-user-options.model';
