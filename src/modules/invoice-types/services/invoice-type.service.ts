@@ -41,7 +41,7 @@ export class InvoiceTypeService {
 
         let invoiceType = new InvoiceType();
         invoiceType.id = item.code;
-        invoiceType.name = item.description;
+        invoiceType.name = item.name;
 
         return invoiceType;
       });
