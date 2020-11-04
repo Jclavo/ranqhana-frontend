@@ -119,15 +119,15 @@ export class UserService {
         let user = new User();
         user.id = resultRAW.result?.id;
         user.login = resultRAW.result?.login;
-        user.user_detail_id = resultRAW.result?.user_detail_id;
+        user.user_detail_id = resultRAW.result?.person_id;
 
         //user detail
-        user.identification = resultRAW.result?.user_detail?.identification;
-        user.name = resultRAW.result?.user_detail?.name;
-        user.lastname = resultRAW.result?.user_detail?.lastname;
-        user.email = resultRAW.result?.user_detail?.email;
-        user.phone = resultRAW.result?.user_detail?.phone;
-        user.address = resultRAW.result?.user_detail?.address;
+        user.identification = resultRAW.result?.person?.identification;
+        user.name = resultRAW.result?.person?.name;
+        user.lastname = resultRAW.result?.person?.lastname;
+        user.email = resultRAW.result?.person?.email;
+        user.phone = resultRAW.result?.person?.phone;
+        user.address = resultRAW.result?.person?.address;
 
         //set Roles IDs
         for (let index = 0; index < resultRAW.result?.roles.length; index++) {
@@ -217,15 +217,15 @@ export class UserService {
 
         //user info
         // user.identification = resultRAW.result?.id;
-        user.name = resultRAW.result?.user_detail?.name;
-        user.lastname = resultRAW.result?.user_detail?.lastname;
+        user.name = resultRAW.result?.person?.name;
+        user.lastname = resultRAW.result?.person?.lastname;
         // user.email = resultRAW.result?.id;
         // user.phone = resultRAW.result?.id;
         // user.address = resultRAW.result?.id;
 
         //company info
         user.company_id = resultRAW.result?.company?.id;
-        user.company = resultRAW.result?.company?.name;
+        user.company = resultRAW.result?.company?.person?.name;
 
         //project info
         user.project_id = resultRAW.result?.company_project?.project_id;
@@ -240,8 +240,8 @@ export class UserService {
         user.tax = resultRAW.result?.company?.country?.tax;
 
         //FK
-        user.company_project_id = resultRAW.result?.id;
-        user.user_detail_id = resultRAW.result?.id;
+        user.company_project_id = resultRAW.result?.company_project?.id;
+        user.user_detail_id = resultRAW.result?.person?.id;
 
         response.result = user;
         //response.records = resultRAW.result?.length;
