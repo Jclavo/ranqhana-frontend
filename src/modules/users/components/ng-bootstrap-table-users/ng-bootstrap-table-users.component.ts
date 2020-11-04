@@ -53,7 +53,7 @@ export class NgBootstrapTableUsersComponent implements OnInit {
     this.searchOption.project_id = this.authService.getUserProjectID();
 
     //Get roles
-    this.getRoles(this.authService.getUserProjectID());
+    this.getRoles(this.authService.getUserCompanyID(), this.authService.getUserProjectID());
   }
 
   ngOnInit(): void {
@@ -131,16 +131,12 @@ export class NgBootstrapTableUsersComponent implements OnInit {
     });
   }
 
-  getRoles(project_id: number) {
+  getRoles(company_id: number, project_id: number) {
 
-    this.roleService.getByProject(project_id).subscribe(response => {
+    this.roleService.getByCompanyProject(company_id, project_id).subscribe(response => {
 
       if (response.status) {
         this.roles = response.result;
-        let role = new Role;
-        role.name = 'All';
-        role.id = 0;
-        this.roles.push(role);
       }else{
         this.notificationService.error(response.message);
       }

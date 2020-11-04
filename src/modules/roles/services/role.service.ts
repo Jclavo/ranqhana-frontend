@@ -27,9 +27,9 @@ export class RoleService {
   ) { }
 
 
-  getByProject(project_id: number): Observable<Response> {
+  getByCompanyProject(company_id: number, project_id: number): Observable<Response> {
 
-    let apiRoot = this.apiRoot + 'projects/' + project_id;
+    let apiRoot = this.apiRoot + 'companies/' + company_id + '/projects/' + project_id;
 
     return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
 
@@ -49,6 +49,8 @@ export class RoleService {
         return role;
       });
 
+      response.result.unshift({id: 0, name: ''}) //Add ALL option
+      
       response.records = resultRAW.records;
 
       return response;
