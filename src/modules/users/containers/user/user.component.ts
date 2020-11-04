@@ -62,7 +62,7 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getRoles(this.authService.getUserProjectID());
+    this.getRoles(this.authService.getUserCompanyID(),this.authService.getUserProjectID());
     // this.getStores();
     this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
     this.user.id ? this.getUserById(this.user.id) : null;
@@ -72,9 +72,9 @@ export class UserComponent implements OnInit {
     
   }
 
-  getRoles(project_id: number) {
+  getRoles(company_id: number, project_id: number) {
 
-    this.roleService.getByProject(project_id).subscribe(response => {
+    this.roleService.getByCompanyProject(company_id, project_id).subscribe(response => {
 
       if (response.status) {
         this.roles = response.result;
