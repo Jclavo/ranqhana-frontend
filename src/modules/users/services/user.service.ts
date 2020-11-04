@@ -45,12 +45,12 @@ export class UserService {
         let user = new User();
         user.id = data.id;
         user.login = data.login;
-        user.identification = data.user_detail?.identification;
-        user.name = data.user_detail?.name;
-        user.lastname = data.user_detail?.lastname;
-        user.email = data.user_detail?.email;
-        user.phone = data.user_detail?.phone;
-        user.address = data.user_detail?.address;
+        user.identification = data.person?.identification;
+        user.name = data.person?.name;
+        user.lastname = data.person?.lastname;
+        user.email = data.person?.email;
+        user.phone = data.person?.phone;
+        user.address = data.person?.address;
         user.company_id = data.company.id;
         user.company = data.company.name;
 
@@ -58,9 +58,6 @@ export class UserService {
         user.roles = data.roles?.map((role: any) => {
           return role.nickname;
         });
-        // for (let index = 0; index < resultRAW.result?.roles.length; index++) {
-        //   user.roles.push((resultRAW.result?.roles[index].nickname));
-        // }
 
         return user;
       });
@@ -228,8 +225,8 @@ export class UserService {
         user.company = resultRAW.result?.company?.person?.name;
 
         //project info
-        user.project_id = resultRAW.result?.company_project?.project_id;
-        // user.project = resultRAW.result?.project?.name;
+        user.project_id = resultRAW.result?.project?.id;
+        user.project = resultRAW.result?.project?.name;
 
         //country info
         user.country_id = resultRAW.result?.company?.country?.id;

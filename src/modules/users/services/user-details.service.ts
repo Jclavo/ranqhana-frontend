@@ -18,7 +18,7 @@ import { AuthService } from '@modules/auth/services';
 })
 export class UserDetailsService {
 
-  static service: string = 'user-details/'
+  static service: string = 'persons/'
   private apiRoot: string = environment.apiURLTaapaq + UserDetailsService.service;
   
   constructor(
