@@ -66,11 +66,21 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
 
             if (response.status) {
                 // this.notificationService.success(response.message);
-                this.sideNavItems = response.result;
-                console.log(this.sideNavItems);
+                // this.sideNavItems = response.result;
+
+                //Filter only taapaq menu
+                this.sideNavItems =  response.result?.filter(function(module: Module) {
+                    return !module.name?.toLowerCase().includes("taapaq".toLowerCase());
+                });
+
+                if(this.sideNavItems.length == 0){
+                    this.notificationService.error('Your user does not have any permissions.');
+                    this.authService.raiseError();
+                }
+                
             }
             else {
-                this.notificationService.error('Your user does not have permissions.');
+                this.notificationService.error('Your user does not have any permissions.');
             }
 
         }, error => {
