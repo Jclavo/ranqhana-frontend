@@ -42,7 +42,7 @@ export class ModuleService {
 
         let module = new Module();
         module.id = responseModule.id;
-        module.name = responseModule.name;
+        module.name = responseModule.nickname;
         module.url = responseModule.url;
         module.project_id = responseModule.project_id;
         module.labeled = responseModule.labeled;
