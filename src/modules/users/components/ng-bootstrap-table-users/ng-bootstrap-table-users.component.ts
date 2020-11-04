@@ -49,6 +49,9 @@ export class NgBootstrapTableUsersComponent implements OnInit {
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
     //Assign current company id
     this.searchOption.company_id = this.authService.getUserCompanyID();
+    //Assign current project id
+    this.searchOption.project_id = this.authService.getUserProjectID();
+
     //Get roles
     this.getRoles(this.authService.getUserProjectID());
   }
