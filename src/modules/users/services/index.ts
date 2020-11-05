@@ -1,7 +1,7 @@
 import { UserService } from './user.service';
-import { UserDetailsService } from './user-details.service';
+import { PersonService } from './person.service';
 
-export const services = [UserService, UserDetailsService ];
+export const services = [UserService, PersonService ];
 
 export * from './user.service';
-export * from './user-details.service';
+export * from './person.service';

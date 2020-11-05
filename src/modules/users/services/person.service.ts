@@ -16,10 +16,10 @@ import { AuthService } from '@modules/auth/services';
 @Injectable({
   providedIn: 'root'
 })
-export class UserDetailsService {
+export class PersonService {
 
   static service: string = 'persons/'
-  private apiRoot: string = environment.apiURLTaapaq + UserDetailsService.service;
+  private apiRoot: string = environment.apiURLTaapaq + PersonService.service;
   
   constructor(
     private http: HttpClient,

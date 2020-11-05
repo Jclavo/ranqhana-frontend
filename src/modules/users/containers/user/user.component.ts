@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 //Services
-import { UserService, UserDetailsService } from "../../services";
+import { UserService, PersonService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { RoleService } from "@modules/roles/services";
 
@@ -53,7 +53,7 @@ export class UserComponent implements OnInit {
     private notificationService: NotificationService,
     private userService: UserService,
     private authService: AuthService,
-    private userDetailsService: UserDetailsService,
+    private personService: PersonService,
     private roleService: RoleService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -137,7 +137,7 @@ export class UserComponent implements OnInit {
   }
 
   createPerson(user: User) {
-    this.userDetailsService.create(user).subscribe(response => {
+    this.personService.create(user).subscribe(response => {
 
       if (response.status) {
         // this.notificationService.success(response.message);
@@ -158,7 +158,7 @@ export class UserComponent implements OnInit {
   }
 
   updatePerson(user: User) {
-    this.userDetailsService.update(user).subscribe(response => {
+    this.personService.update(user).subscribe(response => {
 
       if (response.status) {
         // this.notificationService.success(response.message);
