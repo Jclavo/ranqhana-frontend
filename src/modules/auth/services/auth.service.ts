@@ -50,7 +50,7 @@ export class AuthService {
 
         //FK
         this.user.company_project_id = _user.company_project_id;
-        this.user.user_detail_id = _user.user_detail_id;
+        this.user.universal_person_id = _user.universal_person_id;
 
         localStorage.setItem('user', JSON.stringify(this.user));
     }

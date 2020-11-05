@@ -116,7 +116,7 @@ export class UserService {
         let user = new User();
         user.id = resultRAW.result?.id;
         user.login = resultRAW.result?.login;
-        user.user_detail_id = resultRAW.result?.person_id;
+        user.universal_person_id = resultRAW.result?.universal_person_id;
 
         //user detail
         user.identification = resultRAW.result?.person?.identification;
@@ -238,7 +238,7 @@ export class UserService {
 
         //FK
         user.company_project_id = resultRAW.result?.company_project?.id;
-        user.user_detail_id = resultRAW.result?.person?.id;
+        user.universal_person_id = resultRAW.result?.person?.id;
 
         response.result = user;
         //response.records = resultRAW.result?.length;

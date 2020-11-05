@@ -78,6 +78,7 @@ export class UserComponent implements OnInit {
 
       if (response.status) {
         this.roles = response.result;
+        this.roles.shift(); 
       }else{
         this.notificationService.error(response.message);
       }
@@ -127,25 +128,23 @@ export class UserComponent implements OnInit {
 
     this.user = FormUtils.moveFormValuesToModel(this.userForm.value, this.user);
 
-    // console.log('user: ', this.user);
-
-    if (this.user.id) {
-      this.updateUserDetail(this.user);
+    if (this.user.universal_person_id > 0) {
+      this.updatePerson(this.user);
     }
     else {
-      this.createUserDetail(this.user);
+      this.createPerson(this.user);
     }
   }
 
-  createUserDetail(user: User) {
+  createPerson(user: User) {
     this.userDetailsService.create(user).subscribe(response => {
 
       if (response.status) {
         // this.notificationService.success(response.message);
-        this.user.user_detail_id = response.result?.user_detail_id;
+        this.user.universal_person_id = response.result?.universal_person_id;
         this.user.company_id = this.authService.getUserCompanyID();
         this.user.project_id = this.authService.getUserProjectID();
-        this.user.user_detail_id ? this.createUser(this.user) : null;
+        this.user.universal_person_id ? this.createUser(this.user) : null;
         
       }
       else {
@@ -158,7 +157,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  updateUserDetail(user: User) {
+  updatePerson(user: User) {
     this.userDetailsService.update(user).subscribe(response => {
 
       if (response.status) {

@@ -34,7 +34,7 @@ export class User {
 
     //FK
     company_project_id: number = 0;
-    user_detail_id: number = 0;
+    universal_person_id: number = 0;
 
     //roles
     rolesID: Array<string> = [];

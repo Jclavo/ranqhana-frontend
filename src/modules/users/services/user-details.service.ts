@@ -42,7 +42,7 @@ export class UserDetailsService {
       if(resultRAW.result){
 
         let user = new User();
-        user.user_detail_id = resultRAW.result?.id;
+        user.universal_person_id = resultRAW.result?.id;
         response.result = user
 
       }
@@ -57,7 +57,7 @@ export class UserDetailsService {
 
   update(user: User): Observable<Response> {
 
-    let apiRoot = this.apiRoot + user.user_detail_id;
+    let apiRoot = this.apiRoot + user.universal_person_id;
 
     return this.http.put(apiRoot, user, this.authService.getHeaders()).pipe(map(res => {
 
