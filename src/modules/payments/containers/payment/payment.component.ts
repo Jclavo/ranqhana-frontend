@@ -37,7 +37,7 @@ export class PaymentComponent implements OnInit {
   public INVOICE_STAGE_ANNULLED: number = InvoiceStage.getForAnnulled();
 
   public payments: Array<Payment> = [];
-  private invoice = new Invoice();
+  public invoice = new Invoice();
   public installment = new Installment();
 
   constructor(
