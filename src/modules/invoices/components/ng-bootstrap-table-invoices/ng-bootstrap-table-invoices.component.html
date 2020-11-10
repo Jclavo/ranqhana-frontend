@@ -72,7 +72,7 @@
                 </th>
 
                 <th scope="col" sbSortable="created_at" (sort)="onSort($event)">
-                    <span>Created at</span>
+                    <span i18n="@@button.createAt" >Created at</span>
                     <sb-sort-icon *ngIf='sortedColumn === "created_at"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
 
@@ -126,7 +126,7 @@
                         </div>
                         <div class="col-auto mb-1">
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
-                                size="lg" (click)="modalAnull(invoice.id)"></fa-icon>
+                                size="lg" (click)="modalAnull(invoice.id, invoice.serie)"></fa-icon>
                         </div>
                     </div>
                 </td>
@@ -153,3 +153,5 @@
         </select>
     </div>
 </div>
+<sb-invoice-i18n></sb-invoice-i18n>
+<sb-buttons></sb-buttons>

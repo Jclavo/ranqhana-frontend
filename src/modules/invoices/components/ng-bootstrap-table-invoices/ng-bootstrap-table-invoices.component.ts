@@ -14,7 +14,7 @@ import { ShowInvoiceComponent } from "../show-invoice/show-invoice.component";
 //SERVICES
 import { InvoiceService } from "../../services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService, UtilityService, CustomDateService } from '@modules/utility/services';
+import { NotificationService, UtilityService, CustomDateService, LanguageService } from '@modules/utility/services';
 import { InvoiceTypeService } from "@modules/invoice-types/services";
 
 //Utils
@@ -52,6 +52,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     private customDateService: CustomDateService,
     public formUtils: FormUtils,
     private invoiceTypeService: InvoiceTypeService,
+    private languageService: LanguageService,
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -127,13 +128,13 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
 
   }
 
-  modalAnull(id: string) {
+  modalAnull(id: string, serie: string) {
     
     const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
-    modalRef.componentInstance.title = 'Invoice';
-    modalRef.componentInstance.action = 'Anull/Cancel';
-    modalRef.componentInstance.value = id;
+    modalRef.componentInstance.title = this.languageService.getI18n('invoice.field.name');;
+    modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
+    modalRef.componentInstance.value = serie;
 
     modalRef.result.then((result) => {
       result ? this.anull(id) : null;

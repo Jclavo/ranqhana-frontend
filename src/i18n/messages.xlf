@@ -532,15 +532,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">147</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">149</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">151</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/units/components/ng-bootstrap-table-units/ng-bootstrap-table-units.component.html</context>
@@ -633,7 +633,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">80</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/payments/containers/payment/payment.component.html</context>
@@ -824,6 +824,10 @@
           <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/modules/orders/components/ng-bootstrap-table-orders/ng-bootstrap-table-orders.component.html</context>
           <context context-type="linenumber">32</context>
         </context-group>
@@ -837,6 +841,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/components/change-stage-modal/change-stage-modal.component.html</context>
           <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
+          <context context-type="linenumber">68</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/orders/components/ng-bootstrap-table-orders/ng-bootstrap-table-orders.component.html</context>
@@ -1398,7 +1406,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice.aditional.totalPayment" datatype="html">
@@ -1503,7 +1511,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice.field.searchItem" datatype="html">
@@ -1651,7 +1659,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice.purchaseInvoice.title" datatype="html">
@@ -1676,7 +1684,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice.field.serie" datatype="html">
@@ -1686,46 +1694,53 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="invoice.field.name" datatype="html">
+        <source>Invoice</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="invoice.purchase.title" datatype="html">
         <source>Purchase invoice</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice.message.nostock" datatype="html">
         <source>There is not stock for this quantity</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice.message.negativeDiscount" datatype="html">
         <source>The discount is a negative number</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice.message.quantityInteger" datatype="html">
         <source>The quantity should be an integer</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice.message.nostocked" datatype="html">
         <source>Item is not stocked</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice.message.information" datatype="html">
         <source>Invoice Information</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/show-invoice/show-invoice.component.html</context>
@@ -1736,7 +1751,7 @@
         <source>The process to create the invoice was not complete.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/invoice-i18n/invoice-i18n.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="payment.field.payment" datatype="html">
