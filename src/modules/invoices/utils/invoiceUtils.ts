@@ -229,7 +229,7 @@ export class InvoiceUtils implements OnInit {
         await this.invoiceDetailService.create(invoiceDetail).toPromise().then(response => {
 
             if (response.status) {
-                this.notificationService.success(response.message);
+                // this.notificationService.success(response.message);
             }
             else {
                 this.notificationService.error(response.message);
