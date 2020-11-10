@@ -366,7 +366,7 @@
         <source>Create at</source><target state="final">Fecha de Creación</target>
         
       
-      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">18</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/components/show-invoice/show-invoice.component.html</context><context context-type="linenumber">51</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/orders/components/ng-bootstrap-table-orders/ng-bootstrap-table-orders.component.html</context><context context-type="linenumber">80</context></context-group></trans-unit><trans-unit id="button.company" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">18</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/components/show-invoice/show-invoice.component.html</context><context context-type="linenumber">51</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context><context context-type="linenumber">75</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/orders/components/ng-bootstrap-table-orders/ng-bootstrap-table-orders.component.html</context><context context-type="linenumber">80</context></context-group></trans-unit><trans-unit id="button.company" datatype="html">
         <source>Company</source><target state="final">Empresa</target>
         
       <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context><context context-type="linenumber">19</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/invoices/components/show-invoice/show-invoice.component.html</context><context context-type="linenumber">9</context></context-group></trans-unit><trans-unit id="button.user" datatype="html">
@@ -597,6 +597,12 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
           <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit><trans-unit id="button.annul" datatype="html">
+        <source>Annul</source><target state="final">Anular</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit><trans-unit id="invoice.message.selectPaymentType" datatype="html">
         <source>

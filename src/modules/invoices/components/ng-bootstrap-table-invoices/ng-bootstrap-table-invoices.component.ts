@@ -133,7 +133,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
     modalRef.componentInstance.title = this.languageService.getI18n('invoice.field.name');;
-    modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
+    modalRef.componentInstance.action = this.languageService.getI18n('button.annul');
     modalRef.componentInstance.value = serie;
 
     modalRef.result.then((result) => {
