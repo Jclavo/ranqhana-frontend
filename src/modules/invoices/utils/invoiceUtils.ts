@@ -367,7 +367,7 @@ export class InvoiceUtils implements OnInit {
     
         const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
     
-        modalRef.componentInstance.title = this.languageService.getI18n('invoice.page.title');
+        modalRef.componentInstance.title = 'Item';
         modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
         modalRef.componentInstance.value = name;
     
