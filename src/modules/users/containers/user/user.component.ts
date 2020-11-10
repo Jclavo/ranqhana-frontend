@@ -9,8 +9,8 @@ import { RoleService } from "@modules/roles/services";
 
 //MODELS
 import { Mask, FormMessage } from '@modules/utility/models';
-import { Role, UserRoles  } from '@modules/roles/models';
-import { User } from '../../models';
+import { Role, UserRoles } from '@modules/roles/models';
+import { User, SearchUserOptions } from '../../models';
 
 //UTILS
 import { FormUtils, CustomValidator } from "@modules/utility/utils";
@@ -33,6 +33,7 @@ export class UserComponent implements OnInit {
 
   userForm: FormGroup = this.formBuilder.group({
     id: [''],
+    universal_person_id: [''],
     identification: ['', [Validators.required]],
     name: ['', [Validators.required, Validators.maxLength(45)]],
     lastname: ['', [Validators.required, Validators.maxLength(45)]],
@@ -62,14 +63,18 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getRoles(this.authService.getUserCompanyID(),this.authService.getUserProjectID());
+    this.getRoles(this.authService.getUserCompanyID(), this.authService.getUserProjectID());
     // this.getStores();
     this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
     this.user.id ? this.getUserById(this.user.id) : null;
-    
+
     // get mask by country
     this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode());
-    
+
+  }
+
+  onIdentification() {
+    this.getUsers();
   }
 
   getRoles(company_id: number, project_id: number) {
@@ -78,8 +83,8 @@ export class UserComponent implements OnInit {
 
       if (response.status) {
         this.roles = response.result;
-        this.roles.shift(); 
-      }else{
+        this.roles.shift();
+      } else {
         this.notificationService.error(response.message);
       }
 
@@ -97,11 +102,11 @@ export class UserComponent implements OnInit {
         this.user = response.result;
 
         this.userForm = FormUtils.moveModelValuesToForm(this.userForm, this.user);
-        
+
         //set roles
         this.initialUserRolesIDs = response.result?.rolesID;
         this.userForm.controls['roles'].setValue(this.initialUserRolesIDs);
-        
+
         //set mask
         this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode());
       }
@@ -115,11 +120,34 @@ export class UserComponent implements OnInit {
     });
   }
 
+  getUsers() {
+    let persons: Array<User> = [];
+    let searchOption = new SearchUserOptions();
+
+    searchOption.searchValue = this.userForm.value['identification'];
+    this.personService.get(searchOption).subscribe(response => {
+
+      if (response.status) {
+        persons = response.result;
+        if (persons.length == 1) {
+          console.log(persons[0]);
+          this.userForm = FormUtils.moveModelValuesToForm(this.userForm, persons[0]);
+         
+        }
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+
+  }
+
   save() {
 
     if (this.userForm.invalid) {
       this.errorsListForm = this.utilityService.getFormError(this.userForm);
-      if(this.errorsListForm.length > 0){
+      if (this.errorsListForm.length > 0) {
         this.errorsListForm[0].setKey(this.languageService.getI18n('user.field.' + this.errorsListForm[0].getKey()));
         this.notificationService.error(this.errorsListForm[0].getMessage());
       }
@@ -140,12 +168,9 @@ export class UserComponent implements OnInit {
     this.personService.create(user).subscribe(response => {
 
       if (response.status) {
-        // this.notificationService.success(response.message);
         this.user.universal_person_id = response.result?.universal_person_id;
-        this.user.company_id = this.authService.getUserCompanyID();
-        this.user.project_id = this.authService.getUserProjectID();
-        this.user.universal_person_id ? this.createUser(this.user) : null;
-        
+        this.saveUser(this.user);
+
       }
       else {
         this.notificationService.error(response.message);
@@ -161,8 +186,7 @@ export class UserComponent implements OnInit {
     this.personService.update(user).subscribe(response => {
 
       if (response.status) {
-        // this.notificationService.success(response.message);
-        this.updateUser(this.user);
+        this.saveUser(this.user);
       }
       else {
         this.notificationService.error(response.message);
@@ -173,6 +197,20 @@ export class UserComponent implements OnInit {
       this.authService.raiseError();
     });
   }
+
+  saveUser(user: User){
+    user.company_id = this.authService.getUserCompanyID();
+    user.project_id = this.authService.getUserProjectID();
+
+    if(user.id > 0){
+      this.updateUser(user);
+    }
+    else{
+      this.createUser(user);
+    }
+  }
+
+
 
   createUser(user: User) {
     this.userService.create(user).subscribe(response => {
@@ -217,7 +255,7 @@ export class UserComponent implements OnInit {
     userRoles.roles = this.userForm.value.roles;
 
     //Check if roles have been modified.
-    if(this.initialUserRolesIDs.toString() == userRoles.roles.toString()){
+    if (this.initialUserRolesIDs.toString() == userRoles.roles.toString()) {
       this.authService.getUserID() == this.user.id ? this.router.navigate(['/dashboard']) : this.router.navigate(['/users']);
       return;
     }

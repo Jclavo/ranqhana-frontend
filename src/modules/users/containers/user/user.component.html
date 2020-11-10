@@ -18,7 +18,7 @@
                         <label class="control-label font-weight-bold" for="identification" i18n="@@user.field.identification">Identification</label>
                         <input type="text" class="form-control" id="identification" name="identification"
                         i18n-placeholder="@@user.field.identification" placeholder="Identification" formControlName="identification" mask="{{mask.identification}}"
-                            [validation]="true" [readonly]="user.id > 0">
+                            [validation]="true" [readonly]="user.id > 0" (blur)="onIdentification()">
                     </div>
                 </div>
                 <div class="form-row">
