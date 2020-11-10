@@ -50,8 +50,8 @@ export class InvoiceService {
         invoice.discount = Number(data.discount);
         invoice.total = Number(data.total);
         invoice.taxes = Number(data.taxes);
-        invoice.stage = data.stage?.description;
-        invoice.type = data.type?.description;
+        invoice.stage = data.stage?.name;
+        invoice.type = data.type?.name;
         invoice.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at);
 
         return invoice;
@@ -89,9 +89,7 @@ export class InvoiceService {
         invoice.discount = resultRAW.result.discount;
         invoice.taxes = resultRAW.result.taxes;
         invoice.total = resultRAW.result.total;
-        // invoice.stage    = resultRAW.result.stage?.description;
         invoice.created_at = this.customDateService.formatStringDDMMYYYY(resultRAW.result.created_at);
-        // invoice.store    = resultRAW.result[0].store;
         invoice.type_id = resultRAW.result.type?.code;
         invoice.type = resultRAW.result.type?.name;
         invoice.stage_id = resultRAW.result.stage?.code;
