@@ -5,7 +5,7 @@
     </button>
   </div>
   <div class="modal-body" *ngIf="value">
-    <p><strong><ng-container i18n="@@confirmModal.areyousure">Are you sure you want to</ng-container> {{action}} <span class="text-primary">"{{value}}"</span></strong></p>
+    <p><ng-container i18n="@@confirmModal.areyousure">Are you sure you want to</ng-container> <strong> {{action}} <span class="text-primary">"{{value}}"</span></strong></p>
     <p><span class="text-danger" ><ng-container i18n="@@confirmModal.undoneOperation">This operation can not be undone.</ng-container></span></p>
   </div>
   <div class="modal-body" *ngIf="!value">
