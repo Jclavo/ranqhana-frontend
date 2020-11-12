@@ -11,16 +11,18 @@
                     <div class="col-12 col-md-6 col-xl-3">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.totalPayment">Total Payment</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.totalPayment">
+                                    Total Payment</div>
                             </div>
-                            <input class="form-control" type="text" name="total" 
-                            [(ngModel)]="installment.total" readonly>
+                            <input class="form-control" type="text" name="total" [(ngModel)]="installment.total"
+                                readonly>
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-xl-3">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.remain">Remain</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.remain">Remain
+                                </div>
                             </div>
                             <input class="form-control" type="text" name="remain" [(ngModel)]="installment.remain"
                                 readonly>
@@ -29,7 +31,8 @@
                     <div class="col-12 col-md-6 col-xl-2">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.installment">Installment</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.installment">
+                                    Installment</div>
                             </div>
                             <input class="form-control" type="text" name="quantity" [(ngModel)]="installment.quantity"
                                 (blur)="validateInstallment()">
@@ -38,17 +41,19 @@
                     <div class="col-12 col-md-6 col-xl-2">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.money">Money</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@installment.field.money">Money
+                                </div>
                             </div>
                             <input class="form-control" type="text" name="money" [(ngModel)]="installment.money">
                         </div>
                     </div>
                     <div class="col-12 col-md-6 col-xl-2 mb-2">
-                        <button type="button" class="btn btn-success btn-block"
-                            (click)="generatePayments()" i18n="@@button.generate">Generate</button>
+                        <button type="button" class="btn btn-success btn-block" (click)="generatePayments()"
+                            i18n="@@button.generate">Generate</button>
                     </div>
                     <div class="col-12 col-md-6 offset-xl-10 col-xl-2">
-                        <button type="button" class="btn btn-primary btn-block" (click)="reset()" i18n="@@button.clean">Clean</button>
+                        <button type="button" class="btn btn-primary btn-block" (click)="reset()"
+                            i18n="@@button.clean">Clean</button>
                     </div>
                 </div>
             </form>
@@ -78,25 +83,30 @@
                             <td scope="row">{{ payment.amount }}</td>
                             <td scope="row">{{ payment.money }}</td>
                             <td scope="row">{{ payment.transaction_code }}</td>
-                            <td scope="row" (click)="payment.id == 0 ? dFrom.toggle(): null">{{ payment.payment_date }}</td>
-                            <input cplaceholder="dd-mm-yyyy" name="real_payment_date" [(ngModel)]="payment.payment_date"
-                                ngbDatepicker #dFrom="ngbDatepicker" hidden>
+                            <!-- <td scope="row">{{ payment.payment_date | date: 'dd-MM-yyyy'}}</td> -->
+                            <td scope="row" (click)="payment.id == 0 ? dFrom.toggle(): null">{{ payment.payment_date | date: 'dd-MM-yyyy'}}</td>
+                            <td scope="row">
+                                <input type="text" placeholder="dd-mm-yyyy" name="real_payment_date" [(ngModel)]="payment.payment_date"
+                                    ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()" hidden>
+                            </td>
                             <td scope="row">{{ payment.real_payment_date }}</td>
                             <td scope="row">{{ payment.method }}</td>
                             <td scope="row">{{ payment.stage }}</td>
                             <td>
-                                <div class="row" *ngIf="payment.stage_id != PAYMENT_STAGE_PAID && payment.id > 0 && invoice.stage_id != INVOICE_STAGE_ANNULLED">
-                                    <div class="col-3">
-                                        <fa-icon [icon]='["far", "calendar"]' 
-                                            [styles]="{'stroke': 'black', 'color': 'black'}"
-                                            size="lg" (click)="modalUpdateDate(payment.id, payment.payment_date)">
-                                        </fa-icon>
-                                    </div>
-                                    
-                                    <div class="col-3">
-                                        <fa-icon [icon]='["far", "money-bill-alt"]'
-                                            [styles]="{'stroke': 'red', 'color': 'green'}" size="md"
-                                            (click)="openModalMadePayment(payment.id)"></fa-icon>
+                                <div class="row">
+                                    <div
+                                        *ngIf="payment.stage_id != PAYMENT_STAGE_PAID && payment.id > 0 && invoice.stage_id != INVOICE_STAGE_ANNULLED">
+                                        <div class="col-3">
+                                            <fa-icon [icon]='["far", "calendar"]'
+                                                [styles]="{'stroke': 'black', 'color': 'black'}" size="lg"
+                                                (click)="modalUpdateDate(payment.id, payment.payment_date)">
+                                            </fa-icon>
+                                        </div>
+                                        <div class="col-3">
+                                            <fa-icon [icon]='["far", "money-bill-alt"]'
+                                                [styles]="{'stroke': 'red', 'color': 'green'}" size="md"
+                                                (click)="openModalMadePayment(payment.id)"></fa-icon>
+                                        </div>
                                     </div>
                                     <div class="col-3">
                                         <fa-icon [icon]='["far", "trash-alt"]'
@@ -113,17 +123,20 @@
     </sb-card>
     <sb-card *ngIf="payments.length > 0">
         <div class="card-body">
-            <div class="row mb-2" *ngIf="!isPaymentCompleted">
-                <div class="col-12 col-md-6">
-                    <button type="button" class="btn btn-primary btn-block" (click)="save()" i18n="@@button.save">Save</button>
+            <div class="row" *ngIf="!isPaymentCompleted">
+                <div class="col-12 col-md-6 mb-2">
+                    <button type="button" class="btn btn-primary btn-block" (click)="save()"
+                        i18n="@@button.save">Save</button>
                 </div>
-                <div class="col-12 col-md-6">
-                    <button type="button" class="btn btn-success btn-block" (click)="finish()" i18n="@@button.finish">Finish</button>
+                <div class="col-12 col-md-6 mb-2">
+                    <button type="button" class="btn btn-success btn-block" (click)="finish()"
+                        i18n="@@button.finish">Finish</button>
                 </div>
             </div>
-            <div class="row mb-2" *ngIf="isPaymentCompleted">
-                <div class="col-12">
-                    <button type="button" class="btn btn-success btn-block" (click)="finish()" i18n="@@button.finish">Finish</button>
+            <div class="row" *ngIf="isPaymentCompleted">
+                <div class="col-12 mb-2">
+                    <button type="button" class="btn btn-success btn-block" (click)="finish()"
+                        i18n="@@button.finish">Finish</button>
                 </div>
             </div>
         </div>

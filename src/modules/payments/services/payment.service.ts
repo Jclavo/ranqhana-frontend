@@ -110,7 +110,8 @@ export class PaymentService {
         payment.amount = data.amount;
         payment.money = data.money;
         payment.transaction_code = data.transaction_code;
-        payment.payment_date = this.customDateService.formatShortStringDDMMYYYY(data.payment_date);
+        // payment.payment_date = this.customDateService.formatShortStringDDMMYYYY(data.payment_date);
+        payment.payment_date = data.payment_date;
         payment.real_payment_date = this.customDateService.formatShortStringDDMMYYYY(data.real_payment_date);
         payment.invoice_id = data.invoice_id;
         payment.method_id = data.method_id;

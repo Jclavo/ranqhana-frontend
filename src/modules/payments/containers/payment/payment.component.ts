@@ -288,7 +288,7 @@ export class PaymentComponent implements OnInit {
 
     modalRef.componentInstance.model = Payment.getModelName();
     modalRef.componentInstance.model_id = payment_id;
-    modalRef.componentInstance.date = this.customDateService.formatDDMMYYYYtoYYYYMMDD(date);
+    modalRef.componentInstance.date = this.customDateService.formatDDMMYYYYtoYYYYMMDD(this.customDateService.formatShortStringDDMMYYYY(date));
 
     modalRef.result.then((result: Response) => {
       result.status ? this.getPaymentByInvoice(this.invoice.id) : null;
