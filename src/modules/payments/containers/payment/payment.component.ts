@@ -39,6 +39,8 @@ export class PaymentComponent implements OnInit {
   public payments: Array<Payment> = [];
   public invoice = new Invoice();
   public installment = new Installment();
+  // public isGenerationCompleted: boolean = false;
+  public isPaymentCompleted: boolean = false;
 
   constructor(
     public notificationService: NotificationService,
@@ -84,10 +86,25 @@ export class PaymentComponent implements OnInit {
 
   calculateRemain() {
     let total = 0;
+    let isCompleted = 0;
+    this.isPaymentCompleted = false;
+
     for (let index = 0; index < this.payments.length; index++) {
       total += Number(this.payments[index].amount);
+
+      if(this.payments[index].stage_id == PaymentStage.getForPaid()){
+        isCompleted++;
+      }
     }
     this.installment.remain = this.installment.total - total;
+
+    if(isCompleted == this.payments.length && this.installment.remain == 0){
+      this.isPaymentCompleted = true;
+    }
+
+    // if(this.installment.remain == 0){
+    //   // this.isGenerationCompleted = true;
+    // }
   }
 
   finish(){

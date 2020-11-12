@@ -78,7 +78,7 @@
                             <td scope="row">{{ payment.amount }}</td>
                             <td scope="row">{{ payment.money }}</td>
                             <td scope="row">{{ payment.transaction_code }}</td>
-                            <td scope="row" (click)="dFrom.toggle()">{{ payment.payment_date }}</td>
+                            <td scope="row" (click)="payment.id == 0 ? dFrom.toggle(): null">{{ payment.payment_date }}</td>
                             <input cplaceholder="dd-mm-yyyy" name="real_payment_date" [(ngModel)]="payment.payment_date"
                                 ngbDatepicker #dFrom="ngbDatepicker" hidden>
                             <td scope="row">{{ payment.real_payment_date }}</td>
@@ -113,11 +113,16 @@
     </sb-card>
     <sb-card *ngIf="payments.length > 0">
         <div class="card-body">
-            <div class="row">
-                <div class="col-12 col-md-6 mb-2">
+            <div class="row mb-2" *ngIf="!isPaymentCompleted">
+                <div class="col-12 col-md-6">
                     <button type="button" class="btn btn-primary btn-block" (click)="save()" i18n="@@button.save">Save</button>
                 </div>
                 <div class="col-12 col-md-6">
+                    <button type="button" class="btn btn-success btn-block" (click)="finish()" i18n="@@button.finish">Finish</button>
+                </div>
+            </div>
+            <div class="row mb-2" *ngIf="isPaymentCompleted">
+                <div class="col-12">
                     <button type="button" class="btn btn-success btn-block" (click)="finish()" i18n="@@button.finish">Finish</button>
                 </div>
             </div>
