@@ -313,7 +313,6 @@ export class InvoiceUtils implements OnInit {
         let order = new Order();
         order.id = this.order.id;
         order.stage_id = status_id;
-        console.log('order', order);
         this.updateStage(order);
     }
 
@@ -321,11 +320,10 @@ export class InvoiceUtils implements OnInit {
         this.orderService.updateStage(order).subscribe(async response => {
 
             if (response.status) {
-                this.notificationService.success(response.message);
+                // this.notificationService.success(response.message);
                 if(this.isOrder){
                     this.router.navigate(['/orders', this.type_id]);
                 }
-                
             } else {
                 this.notificationService.error(response.message);
             }
