@@ -5,7 +5,7 @@
         <div class="card-header">
             <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
             <ng-container i18n="@@invoice.sell.title" *ngIf="!invoiceUtils.isOrder">Sell invoice</ng-container>
-            <ng-container i18n="@@invoice.sell.title" *ngIf="invoiceUtils.isOrder">Sell order</ng-container>
+            <ng-container i18n="@@order.sell.title" *ngIf="invoiceUtils.isOrder">Sell order</ng-container>
         </div>
         <div class="card-body">
             <form [formGroup]="addItemForm">
@@ -158,11 +158,11 @@
                 <div class="row" *ngIf="invoiceUtils.order.stage_id == invoiceUtils.ORDER_STAGE_NEW && invoiceUtils.isOrder">
                     <div class="col-md-6 mb-md-3">
                         <button type="button" class="btn btn-info btn-block" 
-                        routerLink="/orders/{{INVOICE_TYPE_SELL}}" i18n="@@button.create">Draft Order</button>
+                        routerLink="/orders/{{INVOICE_TYPE_SELL}}" i18n="@@button.saveDraft">Save as draft</button>
                     </div>
                     <div class="col-md-6 mb-md-3">
                         <button type="button" class="btn btn-success btn-block" 
-                        (click)="invoiceUtils.setOrderRequested(INVOICE_TYPE_SELL)" i18n="@@button.create">Request Order</button>
+                        (click)="invoiceUtils.setOrderRequested(INVOICE_TYPE_SELL)" i18n="@@button.request">Request</button>
                     </div>
                     
                 </div>
