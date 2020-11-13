@@ -25,6 +25,8 @@ import { NotificationService, UtilityService, LanguageService } from '@modules/u
 })
 export class UserComponent implements OnInit {
 
+  public PERSON_TYPE_NATURAL = PersonType.getForNatural();
+  
   public roles: Array<Role> = [];
   public personTypes: Array<PersonType> = [];
   public user = new User();
@@ -74,18 +76,23 @@ export class UserComponent implements OnInit {
     this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
 
     if (this.user.id == 0) {
-      this.onPersonType();
+      this.getMask();
     } else {
       this.getUserById(this.user.id)
-    }    
+    }
   }
 
   onIdentification() {
     this.getUsers();
   }
 
-  onPersonType(){
-    this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode(), this.userForm.value['type_id']);
+  onPersonType() {
+    this.getMask();
+  }
+
+  getMask() {
+    this.user.type_id = this.userForm.value['type_id'];
+    this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode(), this.user.type_id);
   }
 
   getPersonTypes() {
@@ -132,7 +139,7 @@ export class UserComponent implements OnInit {
         this.userForm.controls['roles'].setValue(this.initialUserRolesIDs);
 
         //set mask
-        this.onPersonType();
+        this.getMask();
       }
       else {
         this.notificationService.error(response.message);
@@ -156,7 +163,7 @@ export class UserComponent implements OnInit {
         if (persons.length == 1) {
           console.log(persons[0]);
           this.userForm = FormUtils.moveModelValuesToForm(this.userForm, persons[0]);
-         
+
         }
       }
 
@@ -193,7 +200,7 @@ export class UserComponent implements OnInit {
 
       if (response.status) {
         this.user.universal_person_id = response.result?.universal_person_id;
-    
+
         this.user.type_id == PersonType.getForNatural() ? this.saveUser(this.user) : this.router.navigate(['/users']);
 
       }
@@ -223,14 +230,14 @@ export class UserComponent implements OnInit {
     });
   }
 
-  saveUser(user: User){
+  saveUser(user: User) {
     user.company_id = this.authService.getUserCompanyID();
     user.project_id = this.authService.getUserProjectID();
 
-    if(user.id > 0){
+    if (user.id > 0) {
       this.updateUser(user);
     }
-    else{
+    else {
       this.createUser(user);
     }
   }

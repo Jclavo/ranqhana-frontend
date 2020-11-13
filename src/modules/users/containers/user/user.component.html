@@ -75,7 +75,7 @@
                     </div>
                 </div>
 
-                <div class="form-row">
+                <div class="form-row" *ngIf="user.type_id == PERSON_TYPE_NATURAL">
                     <div class="form-group col-12 col-md-12">
                         <label class="mb-1 font-weight-bold" i18n="@@user.field.roles">Roles</label>
                         <select class="form-control" placeholder="Roles" name="roles" formControlName="roles" multiple>
