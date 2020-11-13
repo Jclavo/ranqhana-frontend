@@ -148,11 +148,11 @@
                 <div class="row" *ngIf="invoiceUtils.order.stage_id == invoiceUtils.ORDER_STAGE_NEW && invoiceUtils.isOrder">
                     <div class="col-md-6 mb-md-3">
                         <button type="button" class="btn btn-info btn-block" 
-                        routerLink="/orders/{{INVOICE_TYPE_PURCHASE}}" i18n="@@button.create">Draft Order</button>
+                        routerLink="/orders/{{INVOICE_TYPE_PURCHASE}}" i18n="@@button.saveDraft">Save as draft</button>
                     </div>
                     <div class="col-md-6 mb-md-3">
                         <button type="button" class="btn btn-success btn-block" 
-                        (click)="invoiceUtils.setOrderRequested(INVOICE_TYPE_PURCHASE)" i18n="@@button.create">Request Order</button>
+                        (click)="invoiceUtils.setOrderRequested(INVOICE_TYPE_PURCHASE)" i18n="@@button.request">Request</button>
                     </div>
                     
                 </div>
