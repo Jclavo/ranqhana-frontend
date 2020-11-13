@@ -18,14 +18,14 @@ import { AuthService } from '@modules/auth/services';
 export class PersonTypeService {
 
   static service: string = 'person-types/'
-  private apiRoot: string = environment.apiURL + PersonTypeService.service;
+  private apiRoot: string = environment.apiURLTaapaq + PersonTypeService.service;
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,  
+    private authService: AuthService,
   ) { }
 
-  getAll() : Observable<Response> { 
+  getAll(): Observable<Response> {
 
     let apiRoot = this.apiRoot;
 

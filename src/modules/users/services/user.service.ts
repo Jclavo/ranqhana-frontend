@@ -51,6 +51,8 @@ export class UserService {
         user.email = data.person?.email;
         user.phone = data.person?.phone;
         user.address = data.person?.address;
+        user.type = data.person?.type?.name;
+        user.type_id = data.person?.type_id;
         user.company_id = data.company.id;
         user.company = data.company.name;
 
@@ -125,7 +127,8 @@ export class UserService {
         user.email = resultRAW.result?.person?.email;
         user.phone = resultRAW.result?.person?.phone;
         user.address = resultRAW.result?.person?.address;
-
+        user.type_id = resultRAW.result?.person?.type_id;
+       
         //set Roles IDs
         for (let index = 0; index < resultRAW.result?.roles.length; index++) {
           user.rolesID.push((resultRAW.result?.roles[index].id));

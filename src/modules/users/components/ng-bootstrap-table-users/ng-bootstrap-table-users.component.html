@@ -50,6 +50,9 @@
                     <span i18n="@@user.field.address">Address</span>
                 </th>
                 <th>
+                    <span i18n="@@button.type">Type</span>
+                </th>
+                <th>
                     <span i18n="@@user.field.roles">Roles</span>
                 </th>
                 <th scope="col">
@@ -78,6 +81,7 @@
                 <td>
                     <ngb-highlight [result]="user.address" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
+                <td>{{ user.type }}</td>
                 <td>
                     <ngb-highlight [result]="user.roles.toString()" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>

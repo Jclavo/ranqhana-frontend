@@ -6,11 +6,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService, PersonService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { RoleService } from "@modules/roles/services";
+import { PersonTypeService } from "@modules/person-types/services";
 
 //MODELS
+import { User, SearchUserOptions } from '../../models';
 import { Mask, FormMessage } from '@modules/utility/models';
 import { Role, UserRoles } from '@modules/roles/models';
-import { User, SearchUserOptions } from '../../models';
+import { PersonType } from '@modules/person-types/models';
 
 //UTILS
 import { FormUtils, CustomValidator } from "@modules/utility/utils";
@@ -24,6 +26,7 @@ import { NotificationService, UtilityService, LanguageService } from '@modules/u
 export class UserComponent implements OnInit {
 
   public roles: Array<Role> = [];
+  public personTypes: Array<PersonType> = [];
   public user = new User();
 
   private errorsListForm: Array<FormMessage> = [];
@@ -43,6 +46,7 @@ export class UserComponent implements OnInit {
     phone: ['', [Validators.required]],
     address: ['', [Validators.required]],
     roles: [[]],
+    type_id: [PersonType.getForNatural(), [Validators.required]],
   },
     {
       validator: CustomValidator.mustMatch('password', 'repassword')
@@ -59,22 +63,46 @@ export class UserComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private utilityService: UtilityService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private personTypeService: PersonTypeService
   ) { }
 
   ngOnInit(): void {
+    this.getPersonTypes();
     this.getRoles(this.authService.getUserCompanyID(), this.authService.getUserProjectID());
     // this.getStores();
     this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
-    this.user.id ? this.getUserById(this.user.id) : null;
 
-    // get mask by country
-    this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode());
+    if (this.user.id == 0) {
+      this.onPersonType();
+    } else {
+      this.getUserById(this.user.id)
+    }
+    // // get mask by country
+    // this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode(), this.user.type_id ?? PersonType.getForNatural());
 
+    
   }
 
   onIdentification() {
     this.getUsers();
+  }
+
+  onPersonType(){
+    this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode(), this.userForm.value['type_id']);
+  }
+
+  getPersonTypes() {
+    this.personTypeService.getAll().subscribe(response => {
+      if (response.status) {
+        this.personTypes = response.result;
+      } else {
+        this.notificationService.error(response.message);
+      }
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
   }
 
   getRoles(company_id: number, project_id: number) {
@@ -108,7 +136,7 @@ export class UserComponent implements OnInit {
         this.userForm.controls['roles'].setValue(this.initialUserRolesIDs);
 
         //set mask
-        this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode());
+        this.onPersonType();
       }
       else {
         this.notificationService.error(response.message);

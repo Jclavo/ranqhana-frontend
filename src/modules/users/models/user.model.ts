@@ -1,4 +1,4 @@
-// import 
+import { PersonType } from '@modules/person-types/models';
 
 export class User {
 
@@ -39,4 +39,8 @@ export class User {
     //roles
     rolesID: Array<string> = [];
     roles: Array<string> = [];
+
+    // type
+    type_id: number = 0;
+    type: string = '';
 }
