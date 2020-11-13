@@ -3,6 +3,7 @@ import { ValidationErrors } from '@angular/forms';
 
 //models
 import { Mask } from '../models';
+import { PersonType } from '@modules/person-types/models';
 
 @Injectable({
     providedIn: 'root'
@@ -47,32 +48,45 @@ export class FormUtils {
         return form;
     }
 
-    static getMaskValidationByCountry(countryCode: string): Mask{
+    // this.maskPhone='(0{2}) 0{5}-0{4}'
+    static getMaskValidationByCountry(countryCode: string, personType: number): Mask {
         let maskByCountry = new Mask();
+        personType = Number(personType);
         switch (countryCode) {
             case '55':
-              console.log('I am brazil');
-              maskByCountry.identification = '000.000.000-00';
-              maskByCountry.prefixPhone = '+' + countryCode;
-              // this.maskPhone='(0{2}) 0{5}-0{4}'
-              maskByCountry.phone = '(00) 00000-0000'
-              break;
+                maskByCountry.prefixPhone = '+' + countryCode + ' ';
+                maskByCountry.phone = '(00) 00000-0000'
+                switch (personType) {
+                    case PersonType.getForNatural():
+                        maskByCountry.identification = '000.000.000-00';
+                        break;
+                    case PersonType.getForJuridical():
+                        maskByCountry.identification = '00.000.000/0000-00';
+                        break;
+                }
+                break;
             case '51':
-              console.log('I am Peru');
-              maskByCountry.identification = '00000000';
-              maskByCountry.prefixPhone = '+' + countryCode;
-              maskByCountry.phone ='0{9}'
-              break;
-      
+                maskByCountry.prefixPhone = '+' + countryCode + ' ';
+                maskByCountry.phone = '0{9}'
+                switch (personType) {
+                    case PersonType.getForNatural():
+                        maskByCountry.identification = '00000000';
+                        break;
+                    case PersonType.getForJuridical():
+                        maskByCountry.identification = '0000000000';
+                        break;
+                }
+                break;
+
             default:
-              break;
-          }
+                break;
+        }
 
         return maskByCountry;
     }
 
 
-    customToFixed(value: number){
+    customToFixed(value: number) {
         return value?.toFixed(2);
     }
 
