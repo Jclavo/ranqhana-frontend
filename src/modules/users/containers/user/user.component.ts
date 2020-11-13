@@ -77,11 +77,7 @@ export class UserComponent implements OnInit {
       this.onPersonType();
     } else {
       this.getUserById(this.user.id)
-    }
-    // // get mask by country
-    // this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode(), this.user.type_id ?? PersonType.getForNatural());
-
-    
+    }    
   }
 
   onIdentification() {
@@ -197,7 +193,8 @@ export class UserComponent implements OnInit {
 
       if (response.status) {
         this.user.universal_person_id = response.result?.universal_person_id;
-        this.saveUser(this.user);
+    
+        this.user.type_id == PersonType.getForNatural() ? this.saveUser(this.user) : this.router.navigate(['/users']);
 
       }
       else {
@@ -214,7 +211,7 @@ export class UserComponent implements OnInit {
     this.personService.update(user).subscribe(response => {
 
       if (response.status) {
-        this.saveUser(this.user);
+        this.user.type_id == PersonType.getForNatural() ? this.saveUser(this.user) : this.router.navigate(['/users']);
       }
       else {
         this.notificationService.error(response.message);
