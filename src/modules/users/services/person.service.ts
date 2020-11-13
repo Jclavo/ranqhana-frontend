@@ -49,6 +49,7 @@ export class PersonService {
         user.email = data.email;
         user.phone = data.phone;
         user.address = data.address;
+        user.type_id = data.type_id;
 
         return user;
       });
