@@ -11,7 +11,7 @@ import { ChangeDateModalComponent } from "@modules/utility/components/change-dat
 //SERVICES
 import { OrderService } from "../../services";
 import { AuthService } from "@modules/auth/services";
-import { NotificationService, UtilityService, CustomDateService } from '@modules/utility/services';
+import { NotificationService, UtilityService, CustomDateService, LanguageService } from '@modules/utility/services';
 import { InvoiceService } from "@modules/invoices/services";
 import { InvoiceTypeService } from "@modules/invoice-types/services";
 import { OrderStageService } from "@modules/order-stages/services";
@@ -62,7 +62,8 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
     public formUtils: FormUtils,
     private invoiceService: InvoiceService,
     private invoiceTypeService: InvoiceTypeService,
-    private orderStageService: OrderStageService
+    private orderStageService: OrderStageService,
+    private languageService: LanguageService, 
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -161,8 +162,8 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
 
     const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
-    modalRef.componentInstance.title = 'Order';
-    modalRef.componentInstance.action = 'Anull/Cancel';
+    modalRef.componentInstance.title = this.languageService.getI18n('order.title');
+    modalRef.componentInstance.action = this.languageService.getI18n('button.annul');
     modalRef.componentInstance.value = id;
 
     modalRef.result.then((result) => {
