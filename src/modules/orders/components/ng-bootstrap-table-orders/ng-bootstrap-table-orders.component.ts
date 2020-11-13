@@ -163,7 +163,7 @@ export class NgBootstrapTableOrdersComponent implements OnInit {
     const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
     modalRef.componentInstance.title = this.languageService.getI18n('order.title');
-    modalRef.componentInstance.action = this.languageService.getI18n('button.annul');
+    modalRef.componentInstance.action = this.languageService.getI18n('button.cancel');
     modalRef.componentInstance.value = serie;
 
     modalRef.result.then((result) => {
