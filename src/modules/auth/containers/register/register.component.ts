@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
         this.storeService.getById(id).subscribe(response => {
           if(response.status){
             this.store = response.result; 
-            this.mask = FormUtils.getMaskValidationByCountry(this.store.countryCode);
+            // this.mask = FormUtils.getMaskValidationByCountry(this.store.countryCode);
             this.registerForm.controls['store_id'].setValue(this.store.id);
           }else{
             this.notificationService.error(response.message);
