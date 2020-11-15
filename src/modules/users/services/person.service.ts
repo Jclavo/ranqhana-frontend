@@ -50,6 +50,7 @@ export class PersonService {
         user.phone = data.phone;
         user.address = data.address;
         user.type_id = data.type_id;
+        user.country_code = data.country_code;
 
         return user;
       });

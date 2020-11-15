@@ -156,15 +156,19 @@ export class UserComponent implements OnInit {
     let persons: Array<User> = [];
     let searchOption = new SearchUserOptions();
 
-    searchOption.searchValue = this.userForm.value['identification'];
+    searchOption.identification = this.userForm.value['identification'];
+    searchOption.type_id = this.userForm.value['type_id'];
+    searchOption.country_code = this.userForm.value['country_code'];
+
     this.personService.get(searchOption).subscribe(response => {
 
       if (response.status) {
         persons = response.result;
         if (persons.length == 1) {
-          console.log(persons[0]);
           this.userForm = FormUtils.moveModelValuesToForm(this.userForm, persons[0]);
-
+        }
+        else{
+          this.notificationService.error('Identification not found.');
         }
       }
 
