@@ -232,12 +232,12 @@ export class UserService {
         user.project = resultRAW.result?.project?.name;
 
         //country info
-        user.country_id = resultRAW.result?.company?.country?.id;
-        user.country = resultRAW.result?.company?.country?.name;
-        user.countryCode = resultRAW.result?.company?.country?.code;
-        user.currency = resultRAW.result?.company?.country?.currency;
-        user.locale = resultRAW.result?.company?.country?.locale;
-        user.tax = resultRAW.result?.company?.country?.tax;
+        user.country_id = resultRAW.result?.company?.person?.country?.id;
+        user.country = resultRAW.result?.company?.person?.country?.name;
+        user.countryCode = resultRAW.result?.company?.person?.country?.code;
+        user.currency = resultRAW.result?.company?.person?.country?.currency;
+        user.locale = resultRAW.result?.company?.person?.country?.locale;
+        user.tax = resultRAW.result?.company?.person?.country?.tax;
 
         //FK
         user.company_project_id = resultRAW.result?.company_project?.id;
