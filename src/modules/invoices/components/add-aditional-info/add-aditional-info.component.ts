@@ -6,7 +6,6 @@ import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operato
 //MODELS
 import { SellInvoice, Invoice } from "../../models";
 import { User, SearchUserOptions } from "@modules/users/models";
-import { Role } from "@modules/roles/models";
 import { PaymentType } from "@modules/payment-types/models";
 import { Payment } from "@modules/payments/models";
 import { Response } from "@modules/utility/models";
@@ -15,7 +14,7 @@ import { Response } from "@modules/utility/models";
 import { InvoiceService } from '../../services';
 import { NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
-import { UserService } from "@modules/users/services";
+import { UserService, PersonService } from "@modules/users/services";
 import { PaymentTypeService } from "@modules/payment-types/services";
 import { PaymentService } from "@modules/payments/services";
 
@@ -31,7 +30,7 @@ export class AddAditionalInfoComponent implements OnInit {
 
   public invoice = new Invoice();
   public searchUserOption = new SearchUserOptions();
-  public externalUser: any;
+  public externalUser = new User();
   public paymentTypes: Array<PaymentType> = [];
   public modalResponse = new Response();
 
@@ -43,7 +42,8 @@ export class AddAditionalInfoComponent implements OnInit {
     public userService: UserService,
     private paymentTypeService: PaymentTypeService,
     private paymentService: PaymentService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private personService: PersonService
   ) { }
 
   ngOnInit(): void {
@@ -51,23 +51,24 @@ export class AddAditionalInfoComponent implements OnInit {
     this.getPaymentTypes();
   }
 
-  formatter = (user: User) => user.identification + ' - ' + user.name + ' ' + user.lastname;
+  formatter = (user: User) => user.identification + ' ' + user.name + ' ' + user.lastname ;
 
   search = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       switchMap(searchValue =>
-        this.getUsers(searchValue)
+        this.getPersons(searchValue)
       )
     )
 
-  getUsers(searchValue: string) {
+  getPersons(searchValue: string) {
 
     this.searchUserOption.searchValue = searchValue;
-    this.searchUserOption.role_id = Role.getClientID();
+    this.searchUserOption.identification = searchValue;
+    this.searchUserOption.country_code = this.authService.getUserCountryCode();
 
-    return this.userService.get(this.searchUserOption).pipe(
+    return this.personService.get(this.searchUserOption).pipe(
       map(response => {
 
         if (response.status) {
@@ -118,9 +119,9 @@ export class AddAditionalInfoComponent implements OnInit {
   save() {
 
     // this.invoice.id = this.invoice_id;
-    this.invoice.external_user_id = this.externalUser?.id;
+    this.invoice.external_user_id = this.externalUser?.universal_person_id;
 
-    this.invoice.serie = this.invoice.serie?.toUpperCase();
+    // this.invoice.serie = this.invoice.serie?.toUpperCase();
     this.updateInvoice(this.invoice);
 
   }
