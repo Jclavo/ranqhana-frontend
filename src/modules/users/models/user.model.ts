@@ -27,7 +27,7 @@ export class User {
     //country info
     country_id: number = 0;
     country: string = '';
-    countryCode: string = '';
+    country_code: string = '';
     currency: string = '';
     locale: string = '';
     tax: number = 0;

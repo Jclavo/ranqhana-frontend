@@ -43,7 +43,7 @@ export class AuthService {
         //country info
         this.user.country_id = _user.country_id;
         this.user.country = _user.country;
-        this.user.countryCode = _user.countryCode;
+        this.user.country_code = _user.country_code;
         this.user.currency = _user.currency;
         this.user.locale = _user.locale;
         this.user.tax = _user.tax;

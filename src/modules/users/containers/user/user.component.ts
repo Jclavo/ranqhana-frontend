@@ -49,6 +49,7 @@ export class UserComponent implements OnInit {
     address: ['', [Validators.required]],
     roles: [[]],
     type_id: [PersonType.getForNatural(), [Validators.required]],
+    country_code: [this.authService.getUserCountryCode(), [Validators.required]],
   },
     {
       validator: CustomValidator.mustMatch('password', 'repassword')
