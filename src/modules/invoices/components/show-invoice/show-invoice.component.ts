@@ -7,7 +7,7 @@ import { Invoice } from "../../models";
 //SERVICES
 import { NotificationService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
-import { UserService } from "@modules/users/services";
+import { UserService, PersonService } from "@modules/users/services";
 import { InvoiceService, InvoiceDetailService } from '../../services';
 
 @Component({
@@ -28,7 +28,8 @@ export class ShowInvoiceComponent implements OnInit {
     public authService: AuthService,
     public invoiceService: InvoiceService,
     public invoiceDetailService: InvoiceDetailService,
-    public userService: UserService
+    public userService: UserService,
+    public personService: PersonService
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +47,7 @@ export class ShowInvoiceComponent implements OnInit {
         this.invoice.store = this.authService.getUserCompanyName();
 
         //Find user
-        this.invoice.external_user_id ? this.getUserById(this.invoice.external_user_id) : null;
+        this.invoice.external_user_id ? this.getPersonById(this.invoice.external_user_id) : null;
         
       }else{
         this.activeModal.close(false)
@@ -77,8 +78,8 @@ export class ShowInvoiceComponent implements OnInit {
     });
   }
 
-  getUserById(id: number) {
-    this.userService.getById(id).subscribe(response => {
+  getPersonById(id: number) {
+    this.personService.getById(id).subscribe(response => {
 
       if (response.status) {
         this.invoice.external_user = response.result?.name + ' ' + response.result?.lastname;

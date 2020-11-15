@@ -65,6 +65,44 @@ export class PersonService {
       }));
   }
 
+  getById(id: number): Observable<Response> {
+
+    let apiRoot = this.apiRoot + id;
+
+    return this.http.get(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      if (resultRAW.result) {
+        let user = new User();
+        user.universal_person_id = resultRAW.result.id;
+        user.identification = resultRAW.result?.identification;
+        user.name = resultRAW.result.name;
+        user.lastname = resultRAW.result.lastname;
+        user.email = resultRAW.result.email;
+        user.phone = resultRAW.result.phone;
+        user.address = resultRAW.result.address;
+        user.type_id = resultRAW.result.type_id;
+        user.country_code = resultRAW.result.country_code;
+
+        response.result = user;
+      }
+
+      // response.records = resultRAW.result?.length;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
 
   create(user: User): Observable<Response> {
 
