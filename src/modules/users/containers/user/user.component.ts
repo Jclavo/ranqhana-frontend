@@ -84,7 +84,7 @@ export class UserComponent implements OnInit {
   }
 
   onIdentification() {
-    this.getUsers();
+    this.getPersons();
   }
 
   onPersonType() {
@@ -152,7 +152,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  getUsers() {
+  getPersons() {
     let persons: Array<User> = [];
     let searchOption = new SearchUserOptions();
 
