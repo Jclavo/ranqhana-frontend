@@ -93,7 +93,7 @@ export class AuthService {
     }
 
     public getUserCountryCode() {
-        return this.getUserFeature('countryCode');
+        return this.getUserFeature('country_code');
     }
 
     public getUserCompanyID() {
@@ -145,8 +145,8 @@ export class AuthService {
                     return JSON.parse(user)?.email;
                 case 'login':
                     return JSON.parse(user)?.login;
-                case 'countryCode':
-                    return JSON.parse(user)?.countryCode;
+                case 'country_code':
+                    return JSON.parse(user)?.country_code;
                 case 'company_id':
                     return JSON.parse(user)?.company_id;
                 case 'company':
