@@ -18,7 +18,7 @@ import { AuthService } from '@modules/auth/services';
 })
 export class LanguageService {
 
-  static service: string =  'languages/';
+  static service: string =  'locales/';
   private apiRoot: string = environment.apiURLTaapaq + LanguageService.service;
 
   constructor(
@@ -44,8 +44,8 @@ export class LanguageService {
 
         let language = new Language();
         language.id = data.id;
-        language.name = data.name;
-        language.locale = data.locale;
+        language.name = data.language;
+        language.locale = data.code;
         return language;
       });
 
