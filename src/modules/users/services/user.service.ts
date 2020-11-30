@@ -128,7 +128,8 @@ export class UserService {
         user.phone = resultRAW.result?.person?.phone;
         user.address = resultRAW.result?.person?.address;
         user.type_id = resultRAW.result?.person?.type_id;
-       
+        user.country_code = resultRAW.result?.person?.country_code;
+
         //set Roles IDs
         for (let index = 0; index < resultRAW.result?.roles.length; index++) {
           user.rolesID.push((resultRAW.result?.roles[index].id));
