@@ -9,6 +9,7 @@ import { AuthService } from "@modules/auth/services";
 import { SearchInvoice } from "@modules/invoices/models";
 import { Graphic } from "@modules/utility/models";
 import { Item } from "@modules/items/models";
+import { InvoiceType } from "@modules/invoice-types/models";
 
 //UTILS
 import { FormUtils } from "@modules/utility/utils";
@@ -49,6 +50,7 @@ export class DashboardCardsComponent implements OnInit {
         //set parameters to search
         let searchInvoiceOption = new SearchInvoice();
         searchInvoiceOption.fromDate = searchInvoiceOption.toDate = this.customDateService.getToday();
+        searchInvoiceOption.type_id = InvoiceType.getForSell();
         searchInvoiceOption.searchBy = 'D';
 
         this.reportService.invoiceMoney(searchInvoiceOption).subscribe(response => {
@@ -75,7 +77,7 @@ export class DashboardCardsComponent implements OnInit {
         //set parameters to search
         let searchInvoiceOption = new SearchInvoice();
         searchInvoiceOption.fromDate = searchInvoiceOption.toDate = this.customDateService.getToday();
-        searchInvoiceOption.type_id = 2;
+        searchInvoiceOption.type_id = InvoiceType.getForPurchase();
         searchInvoiceOption.searchBy = 'D';
 
         this.reportService.invoiceMoney(searchInvoiceOption).subscribe(response => {
