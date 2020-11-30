@@ -14,6 +14,7 @@ export class RequestHttpInterceptor implements HttpInterceptor {
         const newReq = req.clone({ 
             // headers: req.headers.set('Accept', 'application/json'),
             // body: btoa(JSON.stringify(req.body))
+            url: req.url.slice(-1) == '/' ? req.url.slice(0, -1) : req.url
         });
 
         return next.handle(newReq);
