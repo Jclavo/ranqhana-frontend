@@ -73,7 +73,7 @@ export class AuthService {
     }
 
     public getLocale() {
-        return localStorage.getItem('LOCALE') ?? 'es';
+        return localStorage.getItem('LOCALE') ?? 'en';
     }
 
     public getUserEmail() {
