@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+
 //MODEL
 import { User } from '@modules/users/models';
-import { HttpHeaders } from '@angular/common/http';
+import { Language } from '@modules/languages/models';
 
 //ENVIRONMENT
 import { environment } from "../../../environments/environment";
@@ -73,7 +74,12 @@ export class AuthService {
     }
 
     public getLocale() {
-        return localStorage.getItem('LOCALE') ?? 'en';
+        let currentLanguage = window.location.hostname.split('/')[2];
+        if(!Language.getLocales().includes(currentLanguage)){
+            currentLanguage = 'en';
+        }
+        return currentLanguage;
+        // return localStorage.getItem('LOCALE') ?? 'en';
     }
 
     public getUserEmail() {
@@ -188,7 +194,7 @@ export class AuthService {
 
     public cleanStorage() {
         localStorage.removeItem('API_TOKEN');
-        localStorage.removeItem('LOCALE');
+        // localStorage.removeItem('LOCALE');
         localStorage.removeItem('user');
     }
 
