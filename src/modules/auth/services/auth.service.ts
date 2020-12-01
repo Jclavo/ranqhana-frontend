@@ -74,8 +74,9 @@ export class AuthService {
     }
 
     public getLocale() {
-        console.log('window.location.hostname', window.location.hostname);
-        let currentLanguage = window.location.hostname.split('/')[2];
+        console.log('window.location.hostname', window.location.href);
+        let currentLanguage = window.location.href.split('/')[3];
+        console.log('currentLanguage', currentLanguage);
         if(!Language.getLocales().includes(currentLanguage)){
             currentLanguage = 'en';
         }
