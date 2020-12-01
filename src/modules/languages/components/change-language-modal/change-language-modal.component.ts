@@ -57,9 +57,7 @@ export class ChangeLanguageModalComponent implements OnInit {
   }
 
   change(){
-    this.authService.setLocale(this.locale);
     this.activeModal.close(false);
-
   }
 
   setBrowserLanguage(){

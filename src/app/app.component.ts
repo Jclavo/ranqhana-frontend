@@ -29,14 +29,6 @@ export class AppComponent {
                 // this.titleService.setTitle('Store App - ' + this.languageService.getI18n(snapshot.data.title) || 'Store App');
                 this.titleService.setTitle('Store App');
             });
-           this.setBrowserLanguage();
     }
-
-    setBrowserLanguage(){
-        if(!this.authService.getLocale()){
-            this.authService.setLocale(this.localeId);
-        }
-    }
-
 
 }

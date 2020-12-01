@@ -61,10 +61,6 @@ export class AuthService {
         localStorage.setItem('API_TOKEN', token);
     }
 
-    public setLocale(locale: string) {
-        localStorage.setItem('LOCALE', locale?.substring(0, 2));
-    }
-
     public getUser() {
         return this.user;
     }
@@ -81,7 +77,6 @@ export class AuthService {
             currentLanguage = 'en';
         }
         return currentLanguage;
-        // return localStorage.getItem('LOCALE') ?? 'en';
     }
 
     public getUserEmail() {
@@ -196,7 +191,6 @@ export class AuthService {
 
     public cleanStorage() {
         localStorage.removeItem('API_TOKEN');
-        // localStorage.removeItem('LOCALE');
         localStorage.removeItem('user');
     }
 
