@@ -170,7 +170,7 @@ export class AddAditionalInfoComponent implements OnInit {
     }
 
     if (this.invoice.payment_type_id == PaymentType.getForCredit()) {
-      if (!this.externalUser) {
+      if (this.externalUser.universal_person_id == 0 || this.externalUser.universal_person_id == undefined) {
         this.notificationService.error(this.languageService.getI18n('invoice.message.invoicePayer'));
         return;
       }
