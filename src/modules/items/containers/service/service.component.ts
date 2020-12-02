@@ -46,9 +46,9 @@ export class ServiceComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getUnits();
     this.getStockTypes();
-
+    this.getUnits();
+    
     this.service.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
     this.service.id ? this.getById(this.service.id) : null;
   }

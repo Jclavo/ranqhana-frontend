@@ -47,9 +47,9 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getUnits();
     this.getStockTypes();
-
+    this.getUnits();
+    
     this.product.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
     this.product.id ? this.getById(this.product.id) : null;
   }
