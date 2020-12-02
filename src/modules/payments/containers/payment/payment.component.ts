@@ -65,7 +65,6 @@ export class PaymentComponent implements OnInit {
 
   loadInitial(invoice_id: number){
     this.getInvoiceById(invoice_id);
-    this.getPaymentByInvoice(invoice_id);
   }
 
   validateInstallment() {
@@ -119,6 +118,7 @@ export class PaymentComponent implements OnInit {
         if (this.invoice) {
           this.installment.total = response.result.total;
           // this.installment.remain = response.result.total;
+          this.getPaymentByInvoice(id);
         }
 
       }
@@ -205,7 +205,6 @@ export class PaymentComponent implements OnInit {
       }
     }
 
-    this.loadInitial(this.invoice.id);
   }
 
   createPayment(payment: Payment) {
@@ -213,6 +212,7 @@ export class PaymentComponent implements OnInit {
     this.paymentService.create(payment).subscribe(response => {
       if (response.status) {
         this.notificationService.success(response.message);
+        this.loadInitial(this.invoice.id);
       }
       else {
         this.notificationService.error(response.message);
