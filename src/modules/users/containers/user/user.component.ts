@@ -79,6 +79,7 @@ export class UserComponent implements OnInit {
     if (this.user.id == 0) {
       this.getMask();
     } else {
+      this.userForm.controls['type_id'].disable();
       this.getUserById(this.user.id)
     }
   }
