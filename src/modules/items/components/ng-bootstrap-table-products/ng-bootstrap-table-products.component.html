@@ -8,6 +8,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Barcode</th>
                     <th scope="col" sbSortable="name" (sort)="onSort($event)">
                         <span i18n="@@product.page.title">Item</span>
                         <sb-sort-icon *ngIf='sortedColumn === "name"' [direction]="sortedDirection"></sb-sort-icon>
@@ -43,6 +44,9 @@
             <tbody>
                 <tr *ngFor="let item of items">
                     <th scope="row" class="col-auto">{{ item.id }}</th>
+                    <th scope="row" class="col-auto">
+                        <ngx-barcode [bc-value]="item.id" [bc-display-value]="false" [bc-width]="2" [bc-height]="20"></ngx-barcode>
+                    </th>
                     <td>
                         <ngb-highlight [result]="item.name" [term]="searchOption.searchValue"></ngb-highlight>
                     </td>

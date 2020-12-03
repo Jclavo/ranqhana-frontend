@@ -19,6 +19,9 @@ import * as itemsContainers from './containers';
 /* Services */
 import * as itemsServices from './services';
 
+// Import ngx-barcode module
+import { NgxBarcodeModule } from 'ngx-barcode';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +31,8 @@ import * as itemsServices from './services';
     HttpClientModule,
     AppCommonModule,
     NavigationModule,
-    UtilityModule
+    UtilityModule,
+    NgxBarcodeModule.forRoot()
   ],
   providers: [
     DecimalPipe,
