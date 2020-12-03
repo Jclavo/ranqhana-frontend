@@ -32,7 +32,7 @@ import { NgxBarcodeModule } from 'ngx-barcode';
     AppCommonModule,
     NavigationModule,
     UtilityModule,
-    NgxBarcodeModule.forRoot()
+    NgxBarcodeModule
   ],
   providers: [
     DecimalPipe,
