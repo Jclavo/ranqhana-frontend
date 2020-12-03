@@ -30,7 +30,7 @@
                             [validation]="true" [readonly]="user.id > 0" (blur)="onIdentification()">
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row" *ngIf="user.type_id == PERSON_TYPE_NATURAL">
                     <div class="form-group col-12 col-md-6">
                         <label class="control-label font-weight-bold" for="name" i18n="@@user.field.name">Name</label>
                         <input type="text" class="form-control" id="name" name="name" i18n-placeholder="@@user.field.name" placeholder="Name"
@@ -40,6 +40,13 @@
                         <label class="control-label font-weight-bold" for="lastname" i18n="@@user.field.lastname">Lastname</label>
                         <input type="text" class="form-control" id="lastname" name="lastname" i18n-placeholder="@@user.field.lastname" placeholder="Lastname"
                             formControlName="lastname" maxlength="45">
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="user.type_id != PERSON_TYPE_NATURAL">
+                    <div class="form-group col-12">
+                        <label class="control-label font-weight-bold" for="name" i18n="@@user.field.name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" i18n-placeholder="@@user.field.name" placeholder="Name"
+                           formControlName="name" maxlength="45">
                     </div>
                 </div>
                 <div class="form-row" *ngIf="user.id">

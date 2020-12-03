@@ -41,7 +41,7 @@ export class UserComponent implements OnInit {
     universal_person_id: [''],
     identification: ['', [Validators.required]],
     name: ['', [Validators.required, Validators.maxLength(45)]],
-    lastname: ['', [Validators.required, Validators.maxLength(45)]],
+    lastname: [''],
     password: ['', [Validators.minLength(8), Validators.maxLength(45)]],
     repassword: ['', [Validators.minLength(8), Validators.maxLength(45)]],
     email: ['', [Validators.email, Validators.maxLength(45)]],
@@ -79,7 +79,6 @@ export class UserComponent implements OnInit {
     if (this.user.id == 0) {
       this.getMask();
     } else {
-      this.userForm.controls['type_id'].disable();
       this.getUserById(this.user.id)
     }
   }
@@ -139,7 +138,7 @@ export class UserComponent implements OnInit {
         //set roles
         this.initialUserRolesIDs = response.result?.rolesID;
         this.userForm.controls['roles'].setValue(this.initialUserRolesIDs);
-
+        
         //set mask
         this.getMask();
       }
