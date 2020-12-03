@@ -88,7 +88,13 @@ export class UserComponent implements OnInit {
   }
 
   onPersonType() {
-    this.getMask();
+
+    if(this.user.id > 0){
+      this.userForm.controls['type_id'].setValue(this.user.type_id);
+    }else{
+      this.getMask();
+    }
+
   }
 
   getMask() {
