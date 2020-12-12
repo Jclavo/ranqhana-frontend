@@ -7,7 +7,7 @@ import { map, catchError } from "rxjs/operators";
 import { environment } from "../../../environments/environment";
 
 //Models
-import { User } from '../models';
+import { Person } from '../models';
 import { Response, SearchOptions } from '@modules/utility/models';
 
 //SERVICES
@@ -41,18 +41,19 @@ export class PersonService {
 
       response.result = resultRAW.result?.map((data: any) => {
 
-        let user = new User();
-        user.universal_person_id = data.id;
-        user.identification = data?.identification;
-        user.name = data.name;
-        user.lastname = data.lastname;
-        user.email = data.email;
-        user.phone = data.phone;
-        user.address = data.address;
-        user.type_id = data.type_id;
-        user.country_code = data.country_code;
+        let person = new Person();
+        person.id = data.id;
+        person.identification = data?.identification;
+        person.name = data.name;
+        person.lastname = data.lastname;
+        person.email = data.email;
+        person.phone = data.phone;
+        person.address = data.address;
+        person.type_id = data.type_id;
+        person.country_code = data.country_code;
+        person.type = data.type.name;
 
-        return user;
+        return person;
       });
 
       response.records = resultRAW.records;
@@ -79,18 +80,18 @@ export class PersonService {
       response.message = resultRAW.message;
 
       if (resultRAW.result) {
-        let user = new User();
-        user.universal_person_id = resultRAW.result.id;
-        user.identification = resultRAW.result?.identification;
-        user.name = resultRAW.result.name;
-        user.lastname = resultRAW.result.lastname;
-        user.email = resultRAW.result.email;
-        user.phone = resultRAW.result.phone;
-        user.address = resultRAW.result.address;
-        user.type_id = resultRAW.result.type_id;
-        user.country_code = resultRAW.result.country_code;
+        let person = new Person();
+        person.id = resultRAW.result.id;
+        person.identification = resultRAW.result?.identification;
+        person.name = resultRAW.result.name;
+        person.lastname = resultRAW.result.lastname;
+        person.email = resultRAW.result.email;
+        person.phone = resultRAW.result.phone;
+        person.address = resultRAW.result.address;
+        person.type_id = resultRAW.result.type_id;
+        person.country_code = resultRAW.result.country_code;
 
-        response.result = user;
+        response.result = person;
       }
 
       // response.records = resultRAW.result?.length;
@@ -104,11 +105,11 @@ export class PersonService {
   }
 
 
-  create(user: User): Observable<Response> {
+  create(person: Person): Observable<Response> {
 
     let apiRoot = this.apiRoot;
 
-    return this.http.post(apiRoot, user, this.authService.getHeaders()).pipe(map(res => {
+    return this.http.post(apiRoot, person, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -118,9 +119,9 @@ export class PersonService {
       response.message = resultRAW.message;
       if (resultRAW.result) {
 
-        let user = new User();
-        user.universal_person_id = resultRAW.result?.id;
-        response.result = user
+        let person = new Person();
+        person.universal_person_id = resultRAW.result?.id;
+        response.result = person
 
       }
 
@@ -132,11 +133,11 @@ export class PersonService {
       }));
   }
 
-  update(user: User): Observable<Response> {
+  update(person: Person): Observable<Response> {
 
-    let apiRoot = this.apiRoot + user.universal_person_id;
+    let apiRoot = this.apiRoot + person.id;
 
-    return this.http.put(apiRoot, user, this.authService.getHeaders()).pipe(map(res => {
+    return this.http.put(apiRoot, person, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -147,12 +148,32 @@ export class PersonService {
       //response.result = resultRAW.result;
       if (resultRAW.result) {
 
-        let user = new User();
-        user.universal_person_id = resultRAW.result?.id;
-        response.result = user
+        let person = new Person();
+        person.universal_person_id = resultRAW.result?.id;
+        response.result = person
 
       }
 
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  delete(id: string): Observable<Response> {
+
+    let apiRoot = this.apiRoot + id;
+
+    return this.http.delete(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
       return response;
 
     }),

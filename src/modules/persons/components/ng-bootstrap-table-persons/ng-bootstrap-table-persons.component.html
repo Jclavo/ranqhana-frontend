@@ -6,21 +6,7 @@
                     <ng-container i18n="@@button.search"> Search:</ng-container>
                 </div>
             </div>
-            <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-3 offset-xl-3 col-xl-3">
-        <div class="input-group mb-4">
-            <div class="input-group-prepend">
-                <div class="input-group-text font-weight-bold">
-                    <ng-container i18n="@@person.field.roles">Roles</ng-container>
-                </div>
-            </div>
-            <select class="custom-select" [(ngModel)]="searchOption.role_id" placeholder="Type">
-                <option *ngFor="let role of roles" [value]="role.id">
-                    {{role.name}}
-                  </option>
-            </select>
+            <input class="form-control ml-2" type="text" name="identification" [(ngModel)]="searchOption.identification" />
         </div>
     </div>
 </div>
@@ -30,18 +16,11 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col" sbSortable="login" (sort)="onSort($event)">
-                    <span i18n="@@person.field.login">Login</span>
-                    <sb-sort-icon *ngIf='sortedColumn === "login"' [direction]="sortedDirection"></sb-sort-icon>
-                </th>
                 <th>
                     <span i18n="@@person.field.identification">Identification</span>
                 </th>
                 <th>
                     <span i18n="@@person.field.name">Name</span>
-                </th>
-                <th>
-                    <span i18n="@@person.field.lastname">Lastname</span>
                 </th>
                 <th>
                     <span i18n="@@person.field.phone">Phone</span>
@@ -52,48 +31,36 @@
                 <th>
                     <span i18n="@@button.type">Type</span>
                 </th>
-                <th>
-                    <span i18n="@@person.field.roles">Roles</span>
-                </th>
                 <th scope="col">
                     <span i18n="@@person.field.options">Options</span>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users">
-                <th scope="row" class="col-auto">{{ user.id }}</th>
+            <tr *ngFor="let person of persons">
+                <th scope="row" class="col-auto">{{ person.id }}</th>
                 <td>
-                    <ngb-highlight [result]="user.login" [term]="searchOption.searchValue"></ngb-highlight>
+                    <ngb-highlight [result]="person.identification" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="user.person.identification" [term]="searchOption.searchValue"></ngb-highlight>
+                    <ngb-highlight [result]="person.name" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="user.person.name" [term]="searchOption.searchValue"></ngb-highlight>
+                    <ngb-highlight [result]="person.phone" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
                 <td>
-                    <ngb-highlight [result]="user.person.lastname" [term]="searchOption.searchValue"></ngb-highlight>
+                    <ngb-highlight [result]="person.address" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
-                <td>
-                    <ngb-highlight [result]="user.person.phone" [term]="searchOption.searchValue"></ngb-highlight>
-                </td>
-                <td>
-                    <ngb-highlight [result]="user.person.address" [term]="searchOption.searchValue"></ngb-highlight>
-                </td>
-                <td>{{ user.type.name }}</td>
-                <td>
-                    <ngb-highlight [result]="user.roles.toString()" [term]="searchOption.searchValue"></ngb-highlight>
-                </td>
+                <td>{{ person.type }}</td>
                 <td>
                     <div class="row ">
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}"
-                                size="lg" routerLink="/persons/person/{{user.id}}/0"></fa-icon>
+                                size="lg" routerLink="/persons/person/0/{{person.id}}"></fa-icon>
                         </div>
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
-                                size="lg" (click)="modalDelete(user.id, user.person.name)"></fa-icon>
+                                size="lg" (click)="modalDelete(person.id, person.name)"></fa-icon>
                         </div>
                     </div>
                 </td>

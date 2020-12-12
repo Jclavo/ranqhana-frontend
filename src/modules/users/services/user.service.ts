@@ -45,14 +45,19 @@ export class UserService {
         let user = new User();
         user.id = data.id;
         user.login = data.login;
-        user.identification = data.person?.identification;
-        user.name = data.person?.name;
-        user.lastname = data.person?.lastname;
-        user.email = data.person?.email;
-        user.phone = data.person?.phone;
-        user.address = data.person?.address;
-        user.type = data.person?.type?.name;
-        user.type_id = data.person?.type_id;
+
+        user.person.id = data.person?.id;
+        user.person.identification = data.person?.identification;
+        user.person.name = data.person?.name;
+        user.person.lastname = data.person?.lastname;
+        user.person.email = data.person?.email;
+        user.person.phone = data.person?.phone;
+        user.person.address = data.person?.address;
+        user.person.type_id = data.person?.type_id;
+
+        user.type.id = data.person?.type?.id;
+        user.type.name = data.person?.type?.name;
+
         user.company_id = data.company.id;
         user.company = data.company.name;
 
@@ -121,14 +126,15 @@ export class UserService {
         user.universal_person_id = resultRAW.result?.universal_person_id;
 
         //user detail
-        user.identification = resultRAW.result?.person?.identification;
-        user.name = resultRAW.result?.person?.name;
-        user.lastname = resultRAW.result?.person?.lastname;
-        user.email = resultRAW.result?.person?.email;
-        user.phone = resultRAW.result?.person?.phone;
-        user.address = resultRAW.result?.person?.address;
-        user.type_id = resultRAW.result?.person?.type_id;
-        user.country_code = resultRAW.result?.person?.country_code;
+        user.person.id = resultRAW.result?.person?.id;
+        user.person.identification = resultRAW.result?.person?.identification;
+        user.person.name = resultRAW.result?.person?.name;
+        user.person.lastname = resultRAW.result?.person?.lastname;
+        user.person.email = resultRAW.result?.person?.email;
+        user.person.phone = resultRAW.result?.person?.phone;
+        user.person.address = resultRAW.result?.person?.address;
+        user.person.type_id = resultRAW.result?.person?.type_id;
+        user.person.country_code = resultRAW.result?.person?.country_code;
 
         //set Roles IDs
         for (let index = 0; index < resultRAW.result?.roles.length; index++) {
@@ -217,9 +223,9 @@ export class UserService {
         user.api_token = resultRAW.result?.api_token;
 
         //user info
-        // user.identification = resultRAW.result?.id;
-        user.name = resultRAW.result?.person?.name;
-        user.lastname = resultRAW.result?.person?.lastname;
+        user.person.identification = resultRAW.result?.person?.identification;
+        user.person.name = resultRAW.result?.person?.name;
+        user.person.lastname = resultRAW.result?.person?.lastname;
         // user.email = resultRAW.result?.id;
         // user.phone = resultRAW.result?.id;
         // user.address = resultRAW.result?.id;
@@ -233,12 +239,12 @@ export class UserService {
         user.project = resultRAW.result?.project?.name;
 
         //country info
-        user.country_id = resultRAW.result?.company?.person?.country?.id;
-        user.country = resultRAW.result?.company?.person?.country?.name;
-        user.country_code = resultRAW.result?.company?.person?.country?.code;
-        user.currency = resultRAW.result?.company?.person?.country?.currency;
-        user.locale = resultRAW.result?.company?.person?.country?.locale;
-        user.tax = resultRAW.result?.company?.person?.country?.tax;
+        user.country.id = resultRAW.result?.company?.person?.country?.id;
+        user.country.name = resultRAW.result?.company?.person?.country?.name;
+        user.country.code = resultRAW.result?.company?.person?.country?.code;
+        user.country.currency = resultRAW.result?.company?.person?.country?.currency;
+        user.country.locale = resultRAW.result?.company?.person?.country?.locale;
+        user.country.tax = resultRAW.result?.company?.person?.country?.tax;
 
         //FK
         user.company_project_id = resultRAW.result?.company_project?.id;

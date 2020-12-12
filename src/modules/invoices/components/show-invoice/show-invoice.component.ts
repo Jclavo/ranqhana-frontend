@@ -7,7 +7,8 @@ import { Invoice } from "../../models";
 //SERVICES
 import { NotificationService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
-import { UserService, PersonService } from "@modules/users/services";
+import { UserService } from "@modules/users/services";
+import { PersonService } from "@modules/persons/services";
 import { InvoiceService, InvoiceDetailService } from '../../services';
 
 @Component({

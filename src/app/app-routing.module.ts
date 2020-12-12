@@ -79,6 +79,12 @@ const routes: Routes = [
         canActivate: [GlobalGuard]
     },
     {
+        path: 'persons',
+        loadChildren: () =>
+            import('modules/persons/persons-routing.module').then(m => m.PersonsRoutingModule),
+        canActivate: [GlobalGuard]
+    },
+    {
         path: 'stores',
         loadChildren: () =>
             import('modules/stores/stores-routing.module').then(m => m.StoresRoutingModule),

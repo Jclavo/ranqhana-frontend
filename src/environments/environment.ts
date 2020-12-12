@@ -5,9 +5,17 @@
 export const environment = {
     production: false,
     apiURLTaapaq: 'http://127.0.0.1:8080/api/',
-    //apiURL: 'https://blooming-hamlet-62206.herokuapp.com/api/',
-    apiURL: 'http://127.0.0.1:8000/api/',
     apiURLImage: 'http://127.0.0.1:8080/images/',
+    apiURL: 'http://127.0.0.1:8000/api/',
+    
+    // URLTaapaq: 'https://taapaq-backend-dev.herokuapp.com/',
+    // apiURLTaapaq: 'https://taapaq-backend-dev.herokuapp.com/api/',
+    // apiURLImage: 'https://taapaq-backend-dev.herokuapp.com/images/',
+    // apiURL: 'https://ranqhana-backend-dev.herokuapp.com/api/', 
+
+    // apiURLTaapaq: 'https://taapaq-backend-dev.herokuapp.com/api/',
+    // apiURLImage: 'https://taapaq-backend-dev.herokuapp.com/images/',
+   
 };
 
 /*

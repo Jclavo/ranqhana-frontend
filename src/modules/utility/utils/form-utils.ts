@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
+import { FormGroup, ValidationErrors } from '@angular/forms';
 
 //models
 import { Mask } from '../models';
@@ -45,6 +45,15 @@ export class FormUtils {
                 form.controls[key].setValue(model[key]);
             }
         }
+        return form;
+    }
+
+    static getFormValue(form: FormGroup, fieldName: string) {
+        return form.value[fieldName];
+    }
+
+    static setFormValue(form: FormGroup, fieldName: string, value: any): FormGroup {
+        form.controls[fieldName].setValue(value);
         return form;
     }
 

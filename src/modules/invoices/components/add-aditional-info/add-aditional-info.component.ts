@@ -14,7 +14,8 @@ import { Response } from "@modules/utility/models";
 import { InvoiceService } from '../../services';
 import { NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
-import { UserService, PersonService } from "@modules/users/services";
+import { UserService } from "@modules/users/services";
+import { PersonService } from "@modules/persons/services";
 import { PaymentTypeService } from "@modules/payment-types/services";
 import { PaymentService } from "@modules/payments/services";
 
@@ -51,7 +52,7 @@ export class AddAditionalInfoComponent implements OnInit {
     this.getPaymentTypes();
   }
 
-  formatter = (user: User) => user.identification + ' ' + user.name + ' ' + user.lastname ;
+  formatter = (user: User) => user.person.identification + ' ' + user.person.name + ' ' + user.person.lastname ;
 
   search = (text$: Observable<string>) =>
     text$.pipe(
@@ -120,7 +121,7 @@ export class AddAditionalInfoComponent implements OnInit {
   save() {
 
     // this.invoice.id = this.invoice_id;
-    this.invoice.external_user_id = this.externalUser?.universal_person_id;
+    // this.invoice.external_user_id = this.externalUser?.universal_person_id;
 
     // this.invoice.serie = this.invoice.serie?.toUpperCase();
     this.updateInvoice(this.invoice);
@@ -170,12 +171,12 @@ export class AddAditionalInfoComponent implements OnInit {
       return;
     }
 
-    if (this.invoice.payment_type_id == PaymentType.getForCredit()) {
-      if (this.externalUser.universal_person_id == 0 || this.externalUser.universal_person_id == undefined) {
-        this.notificationService.error(this.languageService.getI18n('invoice.message.invoicePayer'));
-        return;
-      }
-    }
+    // if (this.invoice.payment_type_id == PaymentType.getForCredit()) {
+    //   if (this.externalUser.universal_person_id == 0 || this.externalUser.universal_person_id == undefined) {
+    //     this.notificationService.error(this.languageService.getI18n('invoice.message.invoicePayer'));
+    //     return;
+    //   }
+    // }
 
     this.save();
   }

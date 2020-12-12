@@ -1,0 +1,14 @@
+<sb-layout-dashboard>
+    <sb-dashboard-head [hideBreadcrumbs]="true"></sb-dashboard-head>
+    <sb-card>
+        <div class="card-header">
+            <fa-icon class="mr-1" [icon]='["fas", "table"]'></fa-icon>
+            <ng-container i18n="@@company.pageList.title">Companies List</ng-container>
+        </div>
+        <div class="card-body">
+            <sb-ng-bootstrap-table-persons>
+
+            </sb-ng-bootstrap-table-persons>
+        </div>
+    </sb-card>
+</sb-layout-dashboard>

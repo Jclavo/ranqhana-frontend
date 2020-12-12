@@ -28,8 +28,8 @@ export class AuthService {
 
         //user info
         // this.user.identification = _user.id;
-        this.user.name = _user.name;
-        this.user.lastname = _user.lastname;
+        this.user.person.name = _user.person.name;
+        this.user.person.lastname = _user.person.lastname;
         // this.user.email = _user.id;
         // this.user.phone = _user.id;
         // this.user.address = _user.id;
@@ -42,16 +42,16 @@ export class AuthService {
         this.user.project_id = _user.project_id;
         this.user.project = _user.project;
         //country info
-        this.user.country_id = _user.country_id;
-        this.user.country = _user.country;
-        this.user.country_code = _user.country_code;
-        this.user.currency = _user.currency;
-        this.user.locale = _user.locale;
-        this.user.tax = _user.tax;
+        this.user.person.country_id = _user.country.id;
+        this.user.country.id = _user.country.id;
+        this.user.country.code = _user.country.code;
+        this.user.country.currency = _user.country.currency;
+        this.user.country.locale = _user.country.locale;
+        this.user.country.tax = _user.country.tax;
 
         //FK
         this.user.company_project_id = _user.company_project_id;
-        this.user.universal_person_id = _user.universal_person_id;
+        // this.user.universal_person_id = _user.universal_person_id;
 
         localStorage.setItem('user', JSON.stringify(this.user));
     }
@@ -143,11 +143,11 @@ export class AuthService {
                 case 'store_id':
                     return JSON.parse(user)?.store_id;
                 case 'email':
-                    return JSON.parse(user)?.email;
+                    return JSON.parse(user)?.person.email;
                 case 'login':
                     return JSON.parse(user)?.login;
                 case 'country_code':
-                    return JSON.parse(user)?.country_code;
+                    return JSON.parse(user)?.country.code;
                 case 'company_id':
                     return JSON.parse(user)?.company_id;
                 case 'company':
@@ -155,15 +155,15 @@ export class AuthService {
                 case 'project_id':
                     return JSON.parse(user)?.project_id;
                 case 'name':
-                    return JSON.parse(user)?.name;
+                    return JSON.parse(user)?.person.name;
                 case 'lastname':
-                    return JSON.parse(user)?.lastname;
+                    return JSON.parse(user)?.person.lastname;
                 case 'id':
                     return JSON.parse(user)?.id;
                 case 'company_project_id':
                     return JSON.parse(user)?.company_project_id;
                 case 'tax':
-                    return JSON.parse(user)?.tax;
+                    return JSON.parse(user)?.country.tax;
                 default:
                     return;
             }
