@@ -262,10 +262,10 @@ export class InvoiceUtils implements OnInit {
 
             if (response.status) {
                 this.invoiceDetails = response.result;
-                this.calculateInvoice();
             } else {
-                this.notificationService.error(response.message);
+                this.invoiceDetails = [];
             }
+            this.calculateInvoice();
 
         }, error => {
             this.notificationService.error(error);
