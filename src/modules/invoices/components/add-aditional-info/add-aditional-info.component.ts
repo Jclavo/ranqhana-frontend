@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 
 //MODELS
+import { Response } from "@modules/utility/models";
 import { SellInvoice, Invoice } from "../../models";
 import { User, SearchUserOptions } from "@modules/users/models";
 import { PaymentType } from "@modules/payment-types/models";
 import { Payment } from "@modules/payments/models";
-import { Response } from "@modules/utility/models";
+import { Person } from "@modules/persons/models";
 
 //SERVICES
 import { InvoiceService } from '../../services';
@@ -31,7 +32,7 @@ export class AddAditionalInfoComponent implements OnInit {
 
   public invoice = new Invoice();
   public searchUserOption = new SearchUserOptions();
-  public externalUser = new User();
+  public externalPerson = new Person();
   public paymentTypes: Array<PaymentType> = [];
   public modalResponse = new Response();
 
@@ -52,7 +53,7 @@ export class AddAditionalInfoComponent implements OnInit {
     this.getPaymentTypes();
   }
 
-  formatter = (user: User) => user.person.identification + ' ' + user.person.name + ' ' + user.person.lastname ;
+  formatter = (person: Person) => person.identification + ' ' + person.name + ' ' + (person.lastname ?? '');
 
   search = (text$: Observable<string>) =>
     text$.pipe(
@@ -65,15 +66,16 @@ export class AddAditionalInfoComponent implements OnInit {
 
   getPersons(searchValue: string) {
 
-    this.searchUserOption.searchValue = searchValue;
+    // this.searchUserOption.searchValue = searchValue;
     this.searchUserOption.identification = searchValue;
     this.searchUserOption.country_code = this.authService.getUserCountryCode();
+    this.searchUserOption.pageSize = 5;
 
     return this.personService.get(this.searchUserOption).pipe(
       map(response => {
 
         if (response.status) {
-          let external_users: Array<User> = [];
+          let external_users: Array<Person> = [];
           external_users = response.result;
           return external_users;
         } else {
@@ -120,10 +122,8 @@ export class AddAditionalInfoComponent implements OnInit {
 
   save() {
 
-    // this.invoice.id = this.invoice_id;
-    // this.invoice.external_user_id = this.externalUser?.universal_person_id;
+    this.invoice.external_user_id = this.externalPerson?.id;
 
-    // this.invoice.serie = this.invoice.serie?.toUpperCase();
     this.updateInvoice(this.invoice);
 
   }
@@ -134,24 +134,21 @@ export class AddAditionalInfoComponent implements OnInit {
       if (response.status) {
         this.notificationService.success(response.message);
 
-        if (this.invoice.payment_type_id == PaymentType.getForDebit()) {
+        if (this.invoice.payment_type_id == PaymentType.getForInternalCredit()) {
+          this.modalResponse.status = true;
+          this.modalResponse.result = { 'type_id': this.invoice.payment_type_id };
+          this.activeModal.close(this.modalResponse);
+        } else {
 
           if (this.payment_id > 0) {
             this.modalResponse.status = true;
-            this.modalResponse.result = { 'payment_id': this.payment_id };
+            this.modalResponse.result = { 'type_id': this.invoice.payment_type_id, 'payment_id': this.payment_id };
             this.activeModal.close(this.modalResponse);
           } else {
             //create full payment and then go to payment modal
             this.createPaymentCompleted();
           }
-
-        } else {
-          //generates credit payments
-          this.modalResponse.status = true;
-          this.modalResponse.result = { 'credit': true };
-          this.activeModal.close(this.modalResponse);
         }
-
       }
       else {
         this.notificationService.error(response.message);
@@ -172,7 +169,7 @@ export class AddAditionalInfoComponent implements OnInit {
     }
 
     // if (this.invoice.payment_type_id == PaymentType.getForCredit()) {
-    //   if (this.externalUser.universal_person_id == 0 || this.externalUser.universal_person_id == undefined) {
+    //   if (this.externalPerson.universal_person_id == 0 || this.externalPerson.universal_person_id == undefined) {
     //     this.notificationService.error(this.languageService.getI18n('invoice.message.invoicePayer'));
     //     return;
     //   }
@@ -193,7 +190,7 @@ export class AddAditionalInfoComponent implements OnInit {
       if (response.status) {
         payment.id = response.result?.id;
         this.modalResponse.status = true;
-        this.modalResponse.result = { 'payment_id': payment.id };
+        this.modalResponse.result = { 'type_id': this.invoice.payment_type_id, 'payment_id': payment.id };
         this.activeModal.close(this.modalResponse);
 
       }

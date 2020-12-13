@@ -1,3 +1,5 @@
+import { PaymentType } from "@modules/payment-types/models";
+
 export class Payment {
     id: number = 0;
     amount: number = 0;
@@ -13,6 +15,8 @@ export class Payment {
     transaction_code: string = '';
     method: string = '';
     stage: string = '';
+
+    type = new PaymentType();
 
     static getModelName(){
         return 'PAYMENT';

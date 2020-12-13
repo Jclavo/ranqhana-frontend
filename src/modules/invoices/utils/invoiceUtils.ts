@@ -3,10 +3,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
 //MODELS
+import { InvoiceDetail, SearchItem, Invoice } from '../models';
 import { ItemType } from '@modules/item-types/models';
 import { Order } from '@modules/orders/models';
 import { OrderStage } from '@modules/order-stages/models';
-import { InvoiceDetail, SearchItem, Invoice } from '../models';
+import { PaymentType } from '@modules/payment-types/models';
 
 //SERVICES
 import { NotificationService, LanguageService } from '@modules/utility/services';
@@ -382,19 +383,20 @@ export class InvoiceUtils implements OnInit {
         modalRef.componentInstance.invoice_id = invoice.id;
         modalRef.componentInstance.payment_id = payment_id;
 
-        modalRef.result.then((result: Response) => {
+        modalRef.result.then((response: Response) => {
 
-            if (!result.status) {
+            if (!response.status) {
                 this.notificationService.error(this.languageService.getI18n('invoice.message.notCreated'));
                 return;
             }
 
-            if (result?.result) {
-                if (result?.result?.credit) {
+            if (response?.result) {
+                let type_id = response?.result?.type_id
+                if (type_id == PaymentType.getForInternalCredit()) {
                     this.router.navigate(['/payments', invoice.id]);
                 } else {
                     if (payment_id == 0) {
-                        payment_id = result?.result?.payment_id;
+                        payment_id = response?.result?.payment_id;
                     }
                     this.openModalMadePayment(invoice, payment_id);
                 }

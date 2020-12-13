@@ -12,12 +12,18 @@
       <input id="amount" class="form-control" name="amount" [(ngModel)]="payment.amount" readonly>
     </div>
   </div>
+  <div class="form-group">
+    <label for="type" i18n="@@invoice.aditional.paymentType">Payment type</label>
+    <div class="input-group">
+      <input id="type" class="form-control" name="type" [(ngModel)]="payment.type.name" readonly>
+    </div>
+  </div>
   <form>
     <div class="form-group">
       <label for="method_id" i18n="@@payment.field.paymentMethod">Payment Method</label>
       <div class="input-group">
         <select class="form-control" placeholder="Payment method" [(ngModel)]="payment.method_id"
-          name="method_id">
+          name="method_id" [disabled]="PAYMENT_TYPE_INTERNAL_CREDIT != payment.type.id">
           <option *ngFor="let payment_method of paymentMethods" [value]="payment_method.id">
             {{payment_method.name}}
           </option>

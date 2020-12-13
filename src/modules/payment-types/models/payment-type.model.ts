@@ -1,7 +1,6 @@
 export class PaymentType {
-    id: string = '';
+    id: number = 0;
     name: string = '';
-
 
     static getForDebit(){
         return 1;
@@ -9,5 +8,13 @@ export class PaymentType {
 
     static getForCredit(){
         return 2;
+    }
+
+    static getForCash(){
+        return 3;
+    }
+
+    static getForInternalCredit(){
+        return 4;
     }
 }

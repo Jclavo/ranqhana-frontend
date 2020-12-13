@@ -11,6 +11,7 @@ import { Payment } from '../models';
 import { Response } from '../../utility/models';
 import { AuthService } from '@modules/auth/services';
 import { CustomDateService } from '@modules/utility/services';
+import { PaymentType } from '@modules/payment-types/models';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +77,10 @@ export class PaymentService {
         payment.invoice_id = resultRAW.result?.invoice_id;
         payment.method_id = resultRAW.result?.method_id;
         payment.stage_id = resultRAW.result?.stage_id;
+
+        // set payment type
+        payment.type.id = resultRAW.result?.invoice?.payment?.id;
+        payment.type.name = resultRAW.result?.invoice?.payment?.name;
 
         response.result = payment;
       }

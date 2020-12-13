@@ -14,6 +14,7 @@ import { NotificationService, LanguageService } from '@modules/utility/services'
 import { AuthService } from "@modules/auth/services";
 import { UserService } from "@modules/users/services";
 import { PaymentMethodService } from "@modules/payment-methods/services";
+import { PaymentType } from '@modules/payment-types/models';
 
 @Component({
   selector: 'sb-made-payment-modal',
@@ -27,6 +28,7 @@ export class MadePaymentModalComponent implements OnInit {
   public PAYMENT_METHOD_MONEY: number = PaymentMethod.getForMoney();
   public PAYMENT_METHOD_CARD: number = PaymentMethod.getForCard();
 
+  public PAYMENT_TYPE_INTERNAL_CREDIT: number = PaymentType.getForInternalCredit();
 
   public payment = new Payment();
   public paymentMethods: Array<PaymentMethod> = [];
