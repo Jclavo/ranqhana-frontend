@@ -1,13 +1,14 @@
 <div class="row">
-    <div class="col-md-12 col-xl-3">
+    <div class="col-md-12 col-xl-12">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold">Serie</div>
             </div>
-            <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" />
+            <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" maxlength="12"/>
         </div>
     </div>
-    <div class="col-md-4 col-xl-3">
+
+    <div class="col-md-6 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend ">
                 <div class="input-group-text font-weight-bold" i18n="@@button.from">From</div>
@@ -16,7 +17,7 @@
                 [(ngModel)]="searchOption.fromDate" ngbDatepicker #dFrom="ngbDatepicker" (click)="dFrom.toggle()">
         </div>
     </div>
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-6 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold" i18n="@@button.to">To</div>
@@ -25,7 +26,7 @@
                 ngbDatepicker #dTo="ngbDatepicker" (click)="dTo.toggle()">
         </div>
     </div>
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-6 col-xl-3">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold" i18n="@@button.type">Type</div>
@@ -33,6 +34,19 @@
             <select class="form-control" placeholder="Type" name="type_id" id="type" [(ngModel)]="searchOption.type_id">
                 <option *ngFor="let invoiceType of invoiceTypes" [value]="invoiceType.id">
                     {{invoiceType.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold" i18n="@@button.stage">Stage</div>
+            </div>
+            <select class="form-control" placeholder="Stage" name="stage_id" id="stage"
+                [(ngModel)]="searchOption.stage_id">
+                <option *ngFor="let invoiceStage of invoiceStages" [value]="invoiceStage.id">
+                    {{invoiceStage.name}}
                 </option>
             </select>
         </div>

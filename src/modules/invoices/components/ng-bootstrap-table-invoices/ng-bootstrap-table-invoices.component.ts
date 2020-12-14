@@ -8,6 +8,7 @@ import { SellInvoice, SearchInvoice } from "../../models";
 import { InvoiceType } from '@modules/invoice-types/models';
 import { Payment } from '@modules/payments/models';
 import { PaymentType } from '@modules/payment-types/models';
+import { InvoiceStage } from '@modules/invoice-stages/models';
 
 // COMPONENT 
 import { ConfirmModalComponent } from "@modules/utility/components/confirm-modal/confirm-modal.component";
@@ -20,6 +21,7 @@ import { InvoiceService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { NotificationService, UtilityService, CustomDateService, LanguageService } from '@modules/utility/services';
 import { InvoiceTypeService } from "@modules/invoice-types/services";
+import { InvoiceStageService } from "@modules/invoice-stages/services";
 
 //Utils
 import { FormUtils } from "@modules/utility/utils";
@@ -35,6 +37,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
   public searchOption = new SearchInvoice();
   public invoices: Array<SellInvoice> = [];
   public invoiceTypes: Array<InvoiceType> = [];
+  public invoiceStages: Array<InvoiceStage> = [];
   public parameters: any;
   public maxSizePagination: number = 10;
 
@@ -58,6 +61,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     private invoiceTypeService: InvoiceTypeService,
     private languageService: LanguageService,
     private router: Router,
+    private invoiceStageService: InvoiceStageService
   ) {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
@@ -67,6 +71,8 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.maxSizePagination = this.utilityService.getMaxSizePagination(window.screen.width);
+
     let type_id = this.activatedRoute.snapshot.paramMap.get('type_id');
     if (type_id) {
       this.searchOption.type_id = Number(type_id);
@@ -74,8 +80,8 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
 
     this.getInvoices();
     this.getInvoiceTypes();
-    this.maxSizePagination = this.utilityService.getMaxSizePagination(window.screen.width);
-
+    this.getInvoiceStages();
+    
   }
 
   @HostListener('window:resize', ['$event'])
@@ -122,6 +128,23 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
       if (response.status) {
         this.invoices = response.result;
         this.searchOption.total = response.records;
+      } else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+
+  }
+
+  getInvoiceStages() {
+
+    this.invoiceStageService.getAll().subscribe(response => {
+
+      if (response.status) {
+        this.invoiceStages = response.result;
       } else {
         this.notificationService.error(response.message);
       }
