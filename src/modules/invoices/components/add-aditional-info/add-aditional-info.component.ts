@@ -68,7 +68,7 @@ export class AddAditionalInfoComponent implements OnInit {
 
     // this.searchUserOption.searchValue = searchValue;
     this.searchUserOption.identification = searchValue;
-    this.searchUserOption.country_code = this.authService.getUserCountryCode();
+    this.searchUserOption.country_code = this.authService.getCompanyCountryCode();
     this.searchUserOption.pageSize = 5;
 
     return this.personService.get(this.searchUserOption).pipe(

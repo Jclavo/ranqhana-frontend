@@ -40,6 +40,7 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" ngbAutofocus class="btn btn-primary" i18n="@@button.next" (click)="next()">Next</button>
+  <button type="button" *ngIf="!authService.getCompanySettingHasCashier()"   ngbAutofocus class="btn btn-primary" i18n="@@button.next" (click)="next()">Next</button>
+  <button type="button" *ngIf="authService.getCompanySettingHasCashier()" ngbAutofocus class="btn btn-primary" i18n="@@button.save" (click)="next()">Save</button>
 </div>
 <sb-messages></sb-messages>

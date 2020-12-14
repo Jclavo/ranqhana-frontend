@@ -50,7 +50,7 @@ export class NgBootstrapTablePersonsComponent implements OnInit {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
 
-    this.searchOption.country_code = this.authService.getUserCountryCode();
+    this.searchOption.country_code = this.authService.getCompanyCountryCode();
     this.searchOption.type_id = PersonType.getForJuridical();
 
   }

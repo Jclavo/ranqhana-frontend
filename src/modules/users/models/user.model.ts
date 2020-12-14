@@ -1,7 +1,7 @@
 import { PersonType } from '@modules/person-types/models';
 import { Person } from '@modules/persons/models';
 import { Country } from '@modules/country/models';
-
+import { Company } from '@modules/companies/models';
 
 export class User {
 
@@ -20,15 +20,14 @@ export class User {
 
     // type
     type = new PersonType();
-    // type_id: number = 0;
-    // type: string = '';
 
     //country info
-    country = new Country();
+    // country = new Country();
 
     //company info
+    company = new Company();
     company_id: number = 0;
-    company: string = '';
+    // company: string = '';
 
     //project info
     project_id: number = 0;

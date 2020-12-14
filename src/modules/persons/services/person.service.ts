@@ -51,7 +51,6 @@ export class PersonService {
         person.address = data.address;
         person.type_id = data.type_id;
         person.country_code = data.country_code;
-        person.type = data.type.name;
 
         return person;
       });
@@ -120,7 +119,7 @@ export class PersonService {
       if (resultRAW.result) {
 
         let person = new Person();
-        person.universal_person_id = resultRAW.result?.id;
+        person.id = resultRAW.result?.id;
         response.result = person
 
       }
@@ -149,7 +148,7 @@ export class PersonService {
       if (resultRAW.result) {
 
         let person = new Person();
-        person.universal_person_id = resultRAW.result?.id;
+        person.id = resultRAW.result?.id;
         response.result = person
 
       }

@@ -35,19 +35,22 @@ export class AuthService {
         // this.user.address = _user.id;
 
         //company info
-        this.user.company_id = _user.company_id;
-        this.user.company = _user.company;
+        this.user.company.id = _user.company.id;
+        this.user.company.person.name = _user.company.person.name;
+
+        //company settings
+        this.user.company.setting.hasCashier = _user.company.setting.hasCashier;
 
         //project info
         this.user.project_id = _user.project_id;
         this.user.project = _user.project;
         //country info
-        this.user.person.country_id = _user.country.id;
-        this.user.country.id = _user.country.id;
-        this.user.country.code = _user.country.code;
-        this.user.country.currency = _user.country.currency;
-        this.user.country.locale = _user.country.locale;
-        this.user.country.tax = _user.country.tax;
+
+        this.user.company.person.country.id = _user.company.person.country.id;
+        this.user.company.person.country.code = _user.company.person.country.code;
+        this.user.company.person.country.currency = _user.company.person.country.currency;
+        this.user.company.person.country.locale = _user.company.person.country.locale;
+        this.user.company.person.country.tax = _user.company.person.country.tax;
 
         //FK
         this.user.company_project_id = _user.company_project_id;
@@ -71,7 +74,7 @@ export class AuthService {
 
     public getLocale() {
         let currentLanguage = window.location.href.split('/')[3];
-        if(!Language.getLocales().includes(currentLanguage)){
+        if (!Language.getLocales().includes(currentLanguage)) {
             currentLanguage = 'en';
         }
         return currentLanguage;
@@ -89,19 +92,15 @@ export class AuthService {
         return this.getUserFeature('login');
     }
 
-    public getUserStoreID() {
-        return this.getUserFeature('store_id');
-    }
-
-    public getUserCountryCode() {
+    public getCompanyCountryCode() {
         return this.getUserFeature('country_code');
     }
 
-    public getUserCompanyID() {
+    public getCompanyID() {
         return this.getUserFeature('company_id');
     }
 
-    public getUserCompanyName() {
+    public getCompanyName() {
         return this.getUserFeature('company');
     }
 
@@ -117,8 +116,12 @@ export class AuthService {
         return this.getUserFeature('company_project_id');
     }
 
-    public getStoreTax() {
+    public getCompanyTax() {
         return this.getUserFeature('tax');
+    }
+
+    public getCompanySettingHasCashier() {
+        return this.getUserFeature('has_cashier');
     }
 
     public getURLImage() {
@@ -140,30 +143,30 @@ export class AuthService {
             user = localStorage.getItem('user');
 
             switch (feature) {
-                case 'store_id':
-                    return JSON.parse(user)?.store_id;
+                case 'id':
+                    return JSON.parse(user)?.id;
                 case 'email':
                     return JSON.parse(user)?.person.email;
                 case 'login':
                     return JSON.parse(user)?.login;
-                case 'country_code':
-                    return JSON.parse(user)?.country.code;
-                case 'company_id':
-                    return JSON.parse(user)?.company_id;
-                case 'company':
-                    return JSON.parse(user)?.company;
-                case 'project_id':
-                    return JSON.parse(user)?.project_id;
                 case 'name':
                     return JSON.parse(user)?.person.name;
                 case 'lastname':
                     return JSON.parse(user)?.person.lastname;
-                case 'id':
-                    return JSON.parse(user)?.id;
                 case 'company_project_id':
                     return JSON.parse(user)?.company_project_id;
+                case 'project_id':
+                    return JSON.parse(user)?.project_id;
+                case 'company_id':
+                    return JSON.parse(user)?.company.id;
+                case 'company':
+                    return JSON.parse(user)?.company.person.name;
+                case 'country_code':
+                    return JSON.parse(user)?.company.person.country.code;
                 case 'tax':
-                    return JSON.parse(user)?.country.tax;
+                    return JSON.parse(user)?.company.person.country.tax;
+                case 'has_cashier':
+                    return JSON.parse(user)?.company.setting.hasCashier;
                 default:
                     return;
             }

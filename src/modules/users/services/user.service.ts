@@ -58,8 +58,8 @@ export class UserService {
         user.type.id = data.person?.type?.id;
         user.type.name = data.person?.type?.name;
 
-        user.company_id = data.company.id;
-        user.company = data.company.name;
+        user.company.id = data.company.id;
+        user.company.person.name = data.company.name;
 
         //set Roles
         user.roles = data.roles?.map((role: any) => {
@@ -231,20 +231,24 @@ export class UserService {
         // user.address = resultRAW.result?.id;
 
         //company info
-        user.company_id = resultRAW.result?.company?.id;
-        user.company = resultRAW.result?.company?.person?.name;
+        user.company.id = resultRAW.result?.company?.id;
+        user.company.person.name = resultRAW.result?.company?.person?.name;
+
+        //company settings
+        user.company.setting.hasCashier = resultRAW.result?.company?.setting?.has_cashier;
+
 
         //project info
         user.project_id = resultRAW.result?.project?.id;
         user.project = resultRAW.result?.project?.name;
 
-        //country info
-        user.country.id = resultRAW.result?.company?.person?.country?.id;
-        user.country.name = resultRAW.result?.company?.person?.country?.name;
-        user.country.code = resultRAW.result?.company?.person?.country?.code;
-        user.country.currency = resultRAW.result?.company?.person?.country?.currency;
-        user.country.locale = resultRAW.result?.company?.person?.country?.locale;
-        user.country.tax = resultRAW.result?.company?.person?.country?.tax;
+        //company country info
+        user.company.person.country.id = resultRAW.result?.company?.person?.country?.id;
+        user.company.person.country.name = resultRAW.result?.company?.person?.country?.name;
+        user.company.person.country.code = resultRAW.result?.company?.person?.country?.code;
+        user.company.person.country.currency = resultRAW.result?.company?.person?.country?.currency;
+        user.company.person.country.locale = resultRAW.result?.company?.person?.country?.locale;
+        user.company.person.country.tax = resultRAW.result?.company?.person?.country?.tax;
 
         //FK
         user.company_project_id = resultRAW.result?.company_project?.id;

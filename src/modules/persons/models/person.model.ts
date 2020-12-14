@@ -1,5 +1,6 @@
+import { Country } from "@modules/country/models";
+
 export class Person {
-    [key: string]: string | number;
     id: number = 0
     identification: string = '';
     email: string = '';
@@ -11,4 +12,5 @@ export class Person {
     country_code: string = '';
     type_id: number = 0
 
+    country = new Country();
 }

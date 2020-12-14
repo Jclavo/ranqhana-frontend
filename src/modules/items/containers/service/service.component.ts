@@ -93,7 +93,7 @@ export class ServiceComponent implements OnInit {
       this.update(this.service);
     }
     else{
-      this.service.store_id = this.authService.getUserStoreID();
+      this.service.store_id = this.authService.getCompanyID();
       this.create(this.service);
     }
 

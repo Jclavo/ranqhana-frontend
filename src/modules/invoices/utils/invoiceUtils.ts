@@ -32,7 +32,7 @@ import { Response } from '@modules/utility/models';
 export class InvoiceUtils implements OnInit {
 
     public ORDER_STAGE_NEW = OrderStage.getForNew();
- 
+
     // private invoice_id = 0;
     public isOrder: boolean = false;
     private hasInvoice: boolean = false;
@@ -55,7 +55,7 @@ export class InvoiceUtils implements OnInit {
 
 
     ngOnInit(): void {
-        
+
     }
 
     getInvoiceID() {
@@ -70,9 +70,9 @@ export class InvoiceUtils implements OnInit {
         this.hasInvoice = value;
     }
 
-    checkIsOrder(){
+    checkIsOrder() {
 
-        if(this.router.url?.trim()?.toLowerCase()?.includes('order')){
+        if (this.router.url?.trim()?.toLowerCase()?.includes('order')) {
             this.isOrder = true;
         }
     }
@@ -130,7 +130,7 @@ export class InvoiceUtils implements OnInit {
         this.invoice.subtotal = 0.0;
         this.invoice.taxes = 0.0;
         this.invoice.total = 0.0;
-        
+
         for (let index = 0; index < this.invoiceDetails.length; index++) {
             this.invoice.subtotal += Number(this.invoiceDetails[index].total);
         }
@@ -139,7 +139,7 @@ export class InvoiceUtils implements OnInit {
         // this.invoice.total = this.invoice.subtotal + invoice.taxes - invoice.discount;
         this.invoice.total = this.invoice.subtotal - this.invoice.discount;
         this.invoice.discount = this.invoice.discount;
-        this.invoice.taxes = this.invoice.total * (this.authService.getStoreTax() / 100);
+        this.invoice.taxes = this.invoice.total * (this.authService.getCompanyTax() / 100);
         if (this.invoice.total < 0) {
             this.invoice.total = this.invoice.subtotal;
             this.invoice.discount = 0;
@@ -171,7 +171,7 @@ export class InvoiceUtils implements OnInit {
 
         // invoice.total = invoice.subtotal + invoice.taxes - invoice.discount;
         this.invoice.total = this.invoice.subtotal - this.invoice.discount;
-        this.invoice.taxes = this.invoice.total * (this.authService.getStoreTax() / 100);
+        this.invoice.taxes = this.invoice.total * (this.authService.getCompanyTax() / 100);
 
     }
 
@@ -305,12 +305,12 @@ export class InvoiceUtils implements OnInit {
         });
     }
 
-    setOrderRequested(type_id: number){
+    setOrderRequested(type_id: number) {
         this.type_id = type_id;
         this.setOrderStatus(OrderStage.getForRequested());
     }
 
-    setOrderStatus(status_id: number){
+    setOrderStatus(status_id: number) {
         let order = new Order();
         order.id = this.order.id;
         order.stage_id = status_id;
@@ -322,7 +322,7 @@ export class InvoiceUtils implements OnInit {
 
             if (response.status) {
                 // this.notificationService.success(response.message);
-                if(this.isOrder){
+                if (this.isOrder) {
                     this.router.navigate(['/orders', this.type_id]);
                 }
             } else {
@@ -337,13 +337,17 @@ export class InvoiceUtils implements OnInit {
 
     saveInvoice() {
 
-        if(!this.isOrder){
+        if (!this.isOrder) {
             this.setOrderStatus(OrderStage.getForAutomatic());
         }
         this.generate(this.invoice);
 
     }
 
+    /**
+     * 
+     * this function increase/decrease the stock
+     */
     generate(invoice: Invoice) {
         this.invoiceService.generate(invoice).subscribe(async response => {
 
@@ -360,21 +364,21 @@ export class InvoiceUtils implements OnInit {
         });
     }
 
-    
+
 
     modalDelete(id: number, name: string) {
-    
+
         const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
-    
+
         modalRef.componentInstance.title = 'Item';
         modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
         modalRef.componentInstance.value = name;
-    
+
         modalRef.result.then((result) => {
-          result ? this.deleteInvoiceDetail(id) : null;
+            result ? this.deleteInvoiceDetail(id) : null;
         });
-    
-      }
+
+    }
 
 
     openModalAdditionalInfo(invoice: Invoice, payment_id: number) {
@@ -391,15 +395,22 @@ export class InvoiceUtils implements OnInit {
             }
 
             if (response?.result) {
-                let type_id = response?.result?.type_id
-                if (type_id == PaymentType.getForInternalCredit()) {
-                    this.router.navigate(['/payments', invoice.id]);
+
+                if (this.authService.getCompanySettingHasCashier()) {
+                    this.router.navigate(['/invoices', invoice.getType()]);
                 } else {
-                    if (payment_id == 0) {
-                        payment_id = response?.result?.payment_id;
+                    let type_id = response?.result?.type_id
+                    if (type_id == PaymentType.getForInternalCredit()) {
+                        this.router.navigate(['/payments', invoice.id]);
+                    } else {
+                        if (payment_id == 0) {
+                            payment_id = response?.result?.payment_id;
+                        }
+                        this.openModalMadePayment(invoice, payment_id);
                     }
-                    this.openModalMadePayment(invoice, payment_id);
                 }
+
+
             }
         });
     }

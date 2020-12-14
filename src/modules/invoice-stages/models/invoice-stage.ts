@@ -19,7 +19,7 @@ export class InvoiceStage {
         return 4;
     }
 
-    static getForStockUpdated(){
+    static getForWaitingPayment(){
         return 5;
     }
 

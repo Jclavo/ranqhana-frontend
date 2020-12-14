@@ -1,3 +1,5 @@
+import { Payment } from "@modules/payments/models";
+
 export class Invoice {
     // [key: string]: string | number;
     id: number = 0;
@@ -18,8 +20,12 @@ export class Invoice {
     payment_type_id: number = 0;
     order_id: number = 0;
 
+    payments: Array<Payment> = [];
+
     getType(){
         return this.type_id;
     }
+
+
     
 }

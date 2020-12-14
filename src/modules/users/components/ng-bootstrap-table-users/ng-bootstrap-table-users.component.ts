@@ -48,12 +48,12 @@ export class NgBootstrapTableUsersComponent implements OnInit {
 
     this.searchOptionDiffers = this.differs.find(this.searchOption).create();
     //Assign current company id
-    this.searchOption.company_id = this.authService.getUserCompanyID();
+    this.searchOption.company_id = this.authService.getCompanyID();
     //Assign current project id
     this.searchOption.project_id = this.authService.getUserProjectID();
 
     //Get roles
-    this.getRoles(this.authService.getUserCompanyID(), this.authService.getUserProjectID());
+    this.getRoles(this.authService.getCompanyID(), this.authService.getUserProjectID());
   }
 
   ngOnInit(): void {

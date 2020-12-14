@@ -93,7 +93,7 @@ export class ProductComponent implements OnInit {
       this.update(this.product);
     }
     else {
-      this.product.store_id = this.authService.getUserStoreID();
+      this.product.store_id = this.authService.getCompanyID();
       this.create(this.product);
     }
 

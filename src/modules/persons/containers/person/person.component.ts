@@ -53,7 +53,7 @@ export class PersonComponent implements OnInit {
     address: ['', [Validators.required]],
     roles: [[]],
     type_id: [PersonType.getForNatural(), [Validators.required]],
-    country_code: [this.authService.getUserCountryCode(), [Validators.required]],
+    country_code: [this.authService.getCompanyCountryCode(), [Validators.required]],
   },
     {
       validator: CustomValidator.mustMatch('password', 'repassword')
@@ -76,7 +76,7 @@ export class PersonComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPersonTypes();
-    this.getRoles(this.authService.getUserCompanyID(), this.authService.getUserProjectID());
+    this.getRoles(this.authService.getCompanyID(), this.authService.getUserProjectID());
 
     // this.getStores();
     // this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
@@ -164,7 +164,7 @@ export class PersonComponent implements OnInit {
 
   getMask() {
     this.user.person.type_id = FormUtils.getFormValue(this.userForm, 'type_id');
-    this.mask = FormUtils.getMaskValidationByCountry(this.authService.getUserCountryCode(), this.user.person.type_id);
+    this.mask = FormUtils.getMaskValidationByCountry(this.authService.getCompanyCountryCode(), this.user.person.type_id);
   }
 
   getPersonTypes() {
@@ -330,7 +330,7 @@ export class PersonComponent implements OnInit {
   }
 
   saveUser(user: User) {
-    user.company_id = this.authService.getUserCompanyID();
+    user.company_id = this.authService.getCompanyID();
     user.project_id = this.authService.getUserProjectID();
 
     if (user.id > 0) {

@@ -13,6 +13,7 @@ import { Response } from '@modules/utility/models';
 //SERVICES
 import { AuthService } from '@modules/auth/services';
 import { CustomDateService } from '@modules/utility/services';
+import { Payment } from '@modules/payments/models';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,12 @@ export class InvoiceService {
         invoice.stage = data.stage?.name;
         invoice.type = data.type?.name;
         invoice.created_at = this.customDateService.formatStringDDMMYYYY(data.created_at);
+
+         
+        //set Roles
+        invoice.payments = data.payments?.map((payment: any) => {
+          return payment;
+        });
 
         return invoice;
       });
