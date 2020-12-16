@@ -38,6 +38,7 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
   public invoices: Array<SellInvoice> = [];
   public invoiceTypes: Array<InvoiceType> = [];
   public invoiceStages: Array<InvoiceStage> = [];
+  public invoiceTotalSum: number = 0;
   public parameters: any;
   public maxSizePagination: number = 10;
 
@@ -126,7 +127,8 @@ export class NgBootstrapTableInvoicesComponent implements OnInit {
     this.invoiceService.get(this.searchOption).subscribe(response => {
 
       if (response.status) {
-        this.invoices = response.result;
+        this.invoices = response.result?.values;
+        this.invoiceTotalSum =  response.result?.sum;
         this.searchOption.total = response.records;
       } else {
         this.notificationService.error(response.message);

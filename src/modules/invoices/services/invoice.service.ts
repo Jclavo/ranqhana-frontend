@@ -8,12 +8,11 @@ import { environment } from "../../../environments/environment";
 
 //Models
 import { Invoice, SearchInvoice } from '../models';
-import { Response } from '@modules/utility/models';
+import { Response, PaginationSum } from '@modules/utility/models';
 
 //SERVICES
 import { AuthService } from '@modules/auth/services';
 import { CustomDateService } from '@modules/utility/services';
-import { Payment } from '@modules/payments/models';
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +36,14 @@ export class InvoiceService {
 
       let response = new Response();
       let resultRAW: any = res;
+      let paginationSum = new PaginationSum();
 
       //Set response
       response.status = resultRAW.status;
       response.message = resultRAW.message;
 
-      response.result = resultRAW.result?.map((data: any) => {
+      paginationSum.sum = resultRAW.result?.sum;
+      paginationSum.values = resultRAW.result?.values.map((data: any) => {
 
         let invoice = new Invoice();
         invoice.id = data.id;
@@ -64,6 +65,7 @@ export class InvoiceService {
         return invoice;
       });
 
+      response.result = paginationSum;
       response.records = resultRAW.records;
 
       return response;
