@@ -7,3 +7,4 @@ export * from './i18n.model';
 export * from './form-message.model';
 export * from './image.model';
 export * from './stage.model';
+export * from './pagination-sum.model';

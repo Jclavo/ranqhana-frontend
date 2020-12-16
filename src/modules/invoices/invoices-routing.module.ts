@@ -86,24 +86,6 @@ export const ROUTES: Routes = [
     } as SBRouteData,
   },
   {
-    path: 'chart',
-    canActivate: [GlobalGuard],
-    component: invoicesContainers.ChartComponent,
-    data: {
-      title: 'Chart Invoice - Store App',
-      breadcrumbs: [
-        {
-          text: 'Dashboard',
-          link: '/dashboard',
-        },
-        {
-          text: 'Chart Invoice',
-          active: true,
-        },
-      ],
-    } as SBRouteData,
-  },
-  {
     path: ':type_id',
     canActivate: [GlobalGuard],
     component: invoicesContainers.InvoicesComponent,

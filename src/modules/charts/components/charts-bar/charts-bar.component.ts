@@ -54,10 +54,24 @@ export class ChartsBarComponent implements OnInit, AfterViewInit {
         let myLabels = [];
         let myData = [];
 
+        let myMin = 0;
+        let myMax = 500;
+
         for (let index = 0; index < this.graphicData.length; index++) {
             myLabels.push(this.graphicData[index].X);
             myData.push(this.graphicData[index].Y);
 
+            //logic to get max value
+            if (index == 0) {
+                myMax = this.graphicData[index].Y;
+            }
+            else if (myMax < this.graphicData[index].Y) {
+                myMax = this.graphicData[index].Y;
+            }
+
+            if(index == this.graphicData.length - 1){
+                myMax = myMax + (myMax * 0.1);
+            }
         }
 
         //destroy chart if it exist
@@ -74,7 +88,7 @@ export class ChartsBarComponent implements OnInit, AfterViewInit {
                 labels: myLabels,
                 datasets: [
                     {
-                        label: 'Revenue',
+                        label: '$',
                         backgroundColor: 'rgba(2,117,216,1)',
                         borderColor: 'rgba(2,117,216,1)',
                         // data: [4215, 5312, 6251, 7841, 9821, 14984],
@@ -100,8 +114,8 @@ export class ChartsBarComponent implements OnInit, AfterViewInit {
                     yAxes: [
                         {
                             ticks: {
-                                min: 0,
-                                max: 15000,
+                                min: myMin,
+                                max: myMax,
                                 maxTicksLimit: 5,
                             },
                             gridLines: {

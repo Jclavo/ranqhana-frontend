@@ -103,6 +103,12 @@ const routes: Routes = [
         canActivate: [GlobalGuard]
     },
     {
+        path: 'reports',
+        loadChildren: () =>
+            import('modules/reports/reports-routing.module').then(m => m.ReportsRoutingModule),
+        canActivate: [GlobalGuard]
+    },
+    {
         path: 'version',
         loadChildren: () =>
             import('modules/utility/utility-routing.module').then(m => m.UtilityRoutingModule),

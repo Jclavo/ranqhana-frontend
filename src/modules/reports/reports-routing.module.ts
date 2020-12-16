@@ -31,6 +31,42 @@ export const ROUTES: Routes = [
             ],
         } as SBRouteData,
     },
+    {
+        path: 'invoice-money-by-payment-type',
+        canActivate: [],
+        component: reportsContainers.InvoiceMoneyByPaymentTypeComponent,
+        data: {
+            title: 'Invoice Money by Payment Type - Store App',
+            breadcrumbs: [
+                {
+                    text: 'Dashboard',
+                    link: '/dashboard',
+                },
+                {
+                    text: 'Invoice Money by Payment Type',
+                    active: true,
+                },
+            ],
+        } as SBRouteData,
+    },
+    {
+        path: 'invoice-money-by-period',
+        canActivate: [],
+        component: reportsContainers.InvoiceMoneyByPeriodComponent,
+        data: {
+            title: 'Invoice Money by Period - Store App',
+            breadcrumbs: [
+                {
+                    text: 'Dashboard',
+                    link: '/dashboard',
+                },
+                {
+                    text: 'Invoice Money by Payment Period',
+                    active: true,
+                },
+            ],
+        } as SBRouteData,
+    },
 ];
 
 @NgModule({

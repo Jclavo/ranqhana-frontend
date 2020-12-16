@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 /* Modules */
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
+import { ChartsModule } from '@modules/charts/charts.module';
 
 /* Components */
 import * as reportsComponents from './components';
@@ -30,6 +31,7 @@ import * as reportsServices from './services';
         HttpClientModule,
         AppCommonModule,
         NavigationModule,
+        ChartsModule
   ],
   providers: [
     DecimalPipe,
