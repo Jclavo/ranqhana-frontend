@@ -96,7 +96,10 @@ export class FormUtils {
 
 
     customToFixed(value: number) {
-        return value?.toFixed(2);
+        if (typeof value == 'number') {
+            return value?.toFixed(2);
+        }
+        return value;
     }
 
 }
