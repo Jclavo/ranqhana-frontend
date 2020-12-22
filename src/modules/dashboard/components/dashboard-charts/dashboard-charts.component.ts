@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 //SERVICES
 import { ReportService } from "@modules/reports/services";
@@ -8,6 +8,7 @@ import { AuthService } from "@modules/auth/services";
 //MODEL
 import { SearchInvoice } from "@modules/invoices/models";
 import { Graphic } from "@modules/utility/models";
+import { InvoiceType } from "@modules/invoice-types/models";
 
 @Component({
     selector: 'sb-dashboard-charts',
@@ -40,6 +41,8 @@ export class DashboardChartsComponent implements OnInit {
         //set parameters to search
         let searchInvoiceOption = new SearchInvoice();
         searchInvoiceOption.fromDate = searchInvoiceOption.toDate = this.customDateService.getToday();
+        searchInvoiceOption.type_id = InvoiceType.getForSell();
+        searchInvoiceOption.searchBy = 'D';
 
         this.reportService.invoiceMoney(searchInvoiceOption).subscribe(response => {
 
@@ -62,6 +65,7 @@ export class DashboardChartsComponent implements OnInit {
         let searchInvoiceOption = new SearchInvoice();
         searchInvoiceOption.fromDate = this.customDateService.substractDaysFromToday(1);
         searchInvoiceOption.toDate = this.customDateService.getToday();
+        searchInvoiceOption.type_id = InvoiceType.getForSell();
         searchInvoiceOption.searchBy = "M";
 
         this.reportService.invoiceMoney(searchInvoiceOption).subscribe(response => {
