@@ -7,7 +7,7 @@ export class SearchUserOptions extends SearchOptions {
     role_id: number = 0;
     identification: string = '';
     type_id: number = 0;
-    country_code: number = 0;
+    country_code: string = '';
 
     constructor() {
         super();
