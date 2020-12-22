@@ -70,7 +70,7 @@ export class ChartsBarComponent implements OnInit, AfterViewInit {
             }
 
             if(index == this.graphicData.length - 1){
-                myMax = myMax + (myMax * 0.1);
+                myMax = Math.round(myMax + (myMax * 0.3));
             }
         }
 
