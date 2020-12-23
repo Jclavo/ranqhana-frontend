@@ -25,8 +25,6 @@ export class SideNavComponent implements OnInit, OnDestroy {
         public navigationService: NavigationService,
         public authService: AuthService
     ) {
-
-        console.log('this.authService.getUserEmail()', this.authService.getUserEmail());
     }
 
     ngOnInit() {}
