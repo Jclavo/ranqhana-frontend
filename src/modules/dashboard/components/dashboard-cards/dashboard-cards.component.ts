@@ -22,10 +22,10 @@ import { FormUtils } from "@modules/utility/utils";
 })
 export class DashboardCardsComponent implements OnInit {
 
-    public dailySale = {value: '-'};
-    public dailyPurchase = {value: '-'};
-    public popularItem = {value: '-'};
-    public popularProduction = {value: '-'};
+    public dailySale = { value: '-' };
+    public dailyPurchase = { value: '-' };
+    public popularItem = { value: '-' };
+    public popularProduction = { value: '-' };
 
     constructor(
         private reportService: ReportService,
@@ -34,7 +34,7 @@ export class DashboardCardsComponent implements OnInit {
         private customDateService: CustomDateService,
         private formUtils: FormUtils
     ) {
- 
+
     }
 
     ngOnInit(): void {
@@ -57,7 +57,7 @@ export class DashboardCardsComponent implements OnInit {
 
             if (response.status) {
                 graphicData = response.result;
-                if(graphicData.length > 0){
+                if (graphicData.length > 0) {
                     this.dailySale.value = this.formUtils.customToFixed(graphicData[0]?.Y).toString();
                 }
 
@@ -84,7 +84,7 @@ export class DashboardCardsComponent implements OnInit {
 
             if (response.status) {
                 graphicData = response.result;
-                if(graphicData.length > 0){
+                if (graphicData.length > 0) {
                     this.dailyPurchase.value = this.formUtils.customToFixed(graphicData[0]?.Y).toString();
                 }
 
@@ -101,15 +101,17 @@ export class DashboardCardsComponent implements OnInit {
     getPopularItems() {
 
         let items: Array<Item> = [];
-         //set parameters to search
-         let searchInvoiceOption = new SearchInvoice();
-         searchInvoiceOption.fromDate = searchInvoiceOption.toDate = this.customDateService.getToday();
+        //set parameters to search
+        let searchInvoiceOption = new SearchInvoice();
+        searchInvoiceOption.fromDate = searchInvoiceOption.toDate = this.customDateService.getToday();
+        searchInvoiceOption.type_id = InvoiceType.getForSell();
+        searchInvoiceOption.searchBy = 'D';
 
         this.reportService.popularItems(searchInvoiceOption).subscribe(response => {
 
             if (response.status) {
                 items = response.result;
-                if(items.length > 0){
+                if (items.length > 0) {
                     // this.popularItem.value = '#' + items[0]?.id + ' - ' + items[0]?.name;
                     this.popularItem.value = items[0]?.name;
                 }

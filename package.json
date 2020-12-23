@@ -50,6 +50,7 @@
     "@sbpro/ng": "1.4.1",
     "@types/crypto-js": "^3.1.47",
     "chart.js": "2.9.3",
+    "chartjs-plugin-datalabels": "^0.7.0",
     "crypto-js": "^4.0.0",
     "express": "^4.17.1",
     "ngx-barcode": "^0.3.0",

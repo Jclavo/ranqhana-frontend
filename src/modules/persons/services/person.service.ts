@@ -52,6 +52,8 @@ export class PersonService {
         person.type_id = data.type_id;
         person.country_code = data.country_code;
 
+        person.type.name = data.type?.name;
+
         return person;
       });
 

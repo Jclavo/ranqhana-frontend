@@ -15,7 +15,7 @@
             <form [formGroup]="userForm">
                 <div class="form-row">
                     <div class="form-group col-12 col-md-6">
-                        <label class="control-label font-weight-bold" for="unit" i18n="@@person.field.person">Person</label>
+                        <label class="control-label font-weight-bold" for="unit" i18n="@@person.page.title">Person</label>
                         <select class="form-control" placeholder="Type" name="type_id" id="type" 
                                 formControlName="type_id" (change)="onPersonType()">
                           <option *ngFor="let type of personTypes" [value]="type.id">

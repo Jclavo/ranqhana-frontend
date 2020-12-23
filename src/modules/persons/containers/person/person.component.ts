@@ -78,10 +78,6 @@ export class PersonComponent implements OnInit {
     this.getPersonTypes();
     this.getRoles(this.authService.getCompanyID(), this.authService.getUserProjectID());
 
-    // this.getStores();
-    // this.user.id = this.activatedRoute.snapshot.paramMap.get('id') ? Number(this.activatedRoute.snapshot.paramMap.get('id')) : 0;
-    // this.user.universal_person_id = this.activatedRoute.snapshot.paramMap.get('universal_person_id') ? Number(this.activatedRoute.snapshot.paramMap.get('universal_person_id')) : 0;
-
     this.user.id = Number(this.activatedRoute.snapshot.paramMap.get('id') ?? 0);
     this.user.universal_person_id = Number(this.activatedRoute.snapshot.paramMap.get('universal_person_id') ?? 0);
 
@@ -103,13 +99,7 @@ export class PersonComponent implements OnInit {
     this.userForm = FormUtils.setFormValue(this.userForm, 'identification', user.person.identification);
     this.userForm = FormUtils.setFormValue(this.userForm, 'universal_person_id', user.universal_person_id ?? user.person.id);
 
-    this.userForm = FormUtils.setFormValue(this.userForm, 'name', user.person.name);
-    this.userForm = FormUtils.setFormValue(this.userForm, 'lastname', user.person.lastname);
-    this.userForm = FormUtils.setFormValue(this.userForm, 'email', user.person.email);
-    this.userForm = FormUtils.setFormValue(this.userForm, 'phone', user.person.phone);
-    this.userForm = FormUtils.setFormValue(this.userForm, 'address', user.person.address);
-    this.userForm = FormUtils.setFormValue(this.userForm, 'type_id', user.person.type_id);
-    this.userForm = FormUtils.setFormValue(this.userForm, 'country_code', user.person.country_code);
+    this.userForm = this.setPersonToForm(this.userForm, user.person);
 
     // roles: [[]],
     this.userForm = FormUtils.setFormValue(this.userForm, 'roles', this.user.rolesID);
@@ -120,29 +110,43 @@ export class PersonComponent implements OnInit {
     return this.userForm;
   }
 
-  setFormToUser(userForm: FormGroup) {
+  setPersonToForm(userForm: FormGroup, person: Person) {
+
+    this.userForm = FormUtils.setFormValue(this.userForm, 'universal_person_id',person.id);
+    userForm = FormUtils.setFormValue(this.userForm, 'name', person.name);
+    userForm = FormUtils.setFormValue(this.userForm, 'lastname', person.lastname);
+    userForm = FormUtils.setFormValue(this.userForm, 'email', person.email);
+    userForm = FormUtils.setFormValue(this.userForm, 'phone', person.phone);
+    userForm = FormUtils.setFormValue(this.userForm, 'address', person.address);
+    userForm = FormUtils.setFormValue(this.userForm, 'type_id', person.type_id ?? PersonType.getForNatural());
+    userForm = FormUtils.setFormValue(this.userForm, 'country_code', person.country_code ?? this.authService.getCompanyCountryCode());
+
+    return userForm;
+  }
+
+  setFormToUser(userForm: any) {
 
     let user = new User();
 
-    user.id = FormUtils.getFormValue(this.userForm, 'id');
-    user.person.identification = FormUtils.getFormValue(this.userForm, 'identification');
-    user.universal_person_id = FormUtils.getFormValue(this.userForm, 'universal_person_id');
+    user.id = FormUtils.getFormValue(userForm, 'id');
+    user.person.identification = FormUtils.getFormValue(userForm, 'identification');
+    user.universal_person_id = FormUtils.getFormValue(userForm, 'universal_person_id');
 
-    user.person.id = FormUtils.getFormValue(this.userForm, 'universal_person_id');
-    user.person.name = FormUtils.getFormValue(this.userForm, 'name');
-    user.person.lastname = FormUtils.getFormValue(this.userForm, 'lastname');
-    user.person.email = FormUtils.getFormValue(this.userForm, 'email');
-    user.person.phone = FormUtils.getFormValue(this.userForm, 'phone');
-    user.person.address = FormUtils.getFormValue(this.userForm, 'address');
-    user.person.type_id = FormUtils.getFormValue(this.userForm, 'type_id');
-    user.person.country_code = FormUtils.getFormValue(this.userForm, 'country_code');
+    user.person.id = FormUtils.getFormValue(userForm, 'universal_person_id');
+    user.person.name = FormUtils.getFormValue(userForm, 'name');
+    user.person.lastname = FormUtils.getFormValue(userForm, 'lastname');
+    user.person.email = FormUtils.getFormValue(userForm, 'email');
+    user.person.phone = FormUtils.getFormValue(userForm, 'phone');
+    user.person.address = FormUtils.getFormValue(userForm, 'address');
+    user.person.type_id = FormUtils.getFormValue(userForm, 'type_id');
+    user.person.country_code = FormUtils.getFormValue(userForm, 'country_code');
 
     // roles: [[]],
-    user.rolesID = FormUtils.getFormValue(this.userForm, 'roles');
+    user.rolesID = FormUtils.getFormValue(userForm, 'roles');
 
     //
-    user.password = FormUtils.getFormValue(this.userForm, 'password');
-    user.repassword = FormUtils.getFormValue(this.userForm, 'repassword');
+    user.password = FormUtils.getFormValue(userForm, 'password');
+    user.repassword = FormUtils.getFormValue(userForm, 'repassword');
 
     return user;
   }
@@ -243,25 +247,28 @@ export class PersonComponent implements OnInit {
   }
 
   getPersons() {
-    let persons: Array<User> = [];
+    let persons: Array<Person> = [];
     let searchOption = new SearchUserOptions();
 
-    searchOption.identification = this.userForm.value['identification'];
-    searchOption.type_id = this.userForm.value['type_id'];
-    searchOption.country_code = this.userForm.value['country_code'];
+    searchOption.identification = FormUtils.getFormValue(this.userForm, 'identification');
+    searchOption.type_id = FormUtils.getFormValue(this.userForm, 'type_id');
+    searchOption.country_code = FormUtils.getFormValue(this.userForm, 'country_code');
 
     this.personService.get(searchOption).subscribe(response => {
 
       if (response.status) {
         persons = response.result;
         if (persons.length == 1) {
-          this.userForm = FormUtils.moveModelValuesToForm(this.userForm, persons[0]);
-
+          this.userForm = this.setPersonToForm(this.userForm, persons[0]);
+          this.notificationService.success('Identification found.');
         }
         else {
+          let person = new Person();
+          person.type_id = searchOption.type_id;
+          person.country_code = searchOption.country_code;
+
+          this.userForm = this.setPersonToForm(this.userForm, person);
           this.notificationService.error('Identification not found.');
-
-
         }
       }
 
@@ -283,7 +290,7 @@ export class PersonComponent implements OnInit {
       return;
     }
 
-    this.user = this.setFormToUser(this.userForm.value);
+    this.user = this.setFormToUser(this.userForm);
 
     if (this.user.universal_person_id > 0) {
       this.updatePerson(this.user);
@@ -297,7 +304,7 @@ export class PersonComponent implements OnInit {
     this.personService.create(user.person).subscribe(response => {
 
       if (response.status) {
-        this.user.universal_person_id = response.result?.universal_person_id;
+        this.user.universal_person_id = response.result?.id;
 
         this.user.person.type_id == PersonType.getForNatural() ? this.saveUser(this.user) : this.router.navigate(['/persons']);
 
