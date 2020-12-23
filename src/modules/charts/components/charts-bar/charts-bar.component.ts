@@ -1,3 +1,4 @@
+import { useAnimation } from '@angular/animations';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -10,6 +11,7 @@ import {
     KeyValueDiffers,
 } from '@angular/core';
 import { Chart } from 'chart.js';
+import 'chartjs-plugin-datalabels'
 
 @Component({
     selector: 'sb-charts-bar',
@@ -30,7 +32,6 @@ export class ChartsBarComponent implements OnInit, AfterViewInit {
         private differs: KeyValueDiffers, // to get changes in a object
     ) {
         this.graphicDataDiffers = this.differs.find(this.graphicData).create();
-
     }
     ngOnInit() {
     }
@@ -69,7 +70,7 @@ export class ChartsBarComponent implements OnInit, AfterViewInit {
                 myMax = this.graphicData[index].Y;
             }
 
-            if(index == this.graphicData.length - 1){
+            if (index == this.graphicData.length - 1) {
                 myMax = Math.round(myMax + (myMax * 0.3));
             }
         }
@@ -127,7 +128,20 @@ export class ChartsBarComponent implements OnInit, AfterViewInit {
                 legend: {
                     display: false,
                 },
+
+                plugins: {
+                    datalabels: {
+                        color: 'white',
+                        anchor: 'center',
+                        align: 'top',
+                        formatter: Math.round,
+                        font: {
+                            weight: 'bold' 
+                        }
+                    }
+                },
             },
+
         });
 
         this.chart.update();
