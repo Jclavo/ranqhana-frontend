@@ -469,7 +469,7 @@
       </trans-unit>
       <trans-unit id="dashboard.card.todaySales" datatype="html">
         <source>My today's sales</source>
-        <target state="final">Ventas de hoje</target>
+        <target state="final">Vendas de hoje</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/dashboard/components/dashboard-cards/dashboard-cards.component.html</context>
           <context context-type="linenumber">3</context>
@@ -477,7 +477,7 @@
       </trans-unit>
       <trans-unit id="dashboard.card.popularProduct" datatype="html">
         <source>Popular Item</source>
-        <target state="final">Maior venta</target>
+        <target state="final">Maior Venda</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/dashboard/components/dashboard-cards/dashboard-cards.component.html</context>
           <context context-type="linenumber">7</context>
@@ -501,7 +501,7 @@
       </trans-unit>
       <trans-unit id="dashboard.chart.todaySales" datatype="html">
         <source>Today's sales</source>
-        <target state="final">Ventas de hoje</target>
+        <target state="final">Vendas de hoje</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/dashboard/components/dashboard-charts/dashboard-charts.component.html</context>
           <context context-type="linenumber">6</context>
@@ -517,7 +517,7 @@
       </trans-unit>
       <trans-unit id="dashboard.chart.monthSales" datatype="html">
         <source>Month's sales</source>
-        <target state="final">Ventas do mês</target>
+        <target state="final">Vendas do mês</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/dashboard/components/dashboard-charts/dashboard-charts.component.html</context>
           <context context-type="linenumber">17</context>
@@ -931,7 +931,7 @@
       <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/messages/messages.component.html</context><context context-type="linenumber">42</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">34</context></context-group></trans-unit>
       <trans-unit id="person.field.identification" datatype="html">
         <source>Identification</source>
-        <target state="final">Identificação</target>
+        <target state="final">CPF</target>
         
         
       <context-group purpose="location"><context context-type="sourcefile">src/modules/utility/containers/i18n/messages/messages.component.html</context><context context-type="linenumber">43</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/users/components/ng-bootstrap-table-users/ng-bootstrap-table-users.component.html</context><context context-type="linenumber">38</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/persons/containers/person/person.component.html</context><context context-type="linenumber">27</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/persons/containers/person/person.component.html</context><context context-type="linenumber">29</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/modules/persons/components/ng-bootstrap-table-persons/ng-bootstrap-table-persons.component.html</context><context context-type="linenumber">20</context></context-group></trans-unit>
