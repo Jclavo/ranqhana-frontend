@@ -260,7 +260,7 @@ export class PersonComponent implements OnInit {
         persons = response.result;
         if (persons.length == 1) {
           this.userForm = this.setPersonToForm(this.userForm, persons[0]);
-          this.notificationService.success('Identification found.');
+          this.notificationService.success(this.languageService.getI18n('person.message.personFound'));
         }
         else {
           let person = new Person();
@@ -268,7 +268,7 @@ export class PersonComponent implements OnInit {
           person.country_code = searchOption.country_code;
 
           this.userForm = this.setPersonToForm(this.userForm, person);
-          this.notificationService.error('Identification not found.');
+          this.notificationService.error(this.languageService.getI18n('person.message.personNotFound'));
         }
       }
 
