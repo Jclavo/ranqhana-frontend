@@ -1,0 +1,10 @@
+The next modules need to be activate to give access to the user
+
+
+WORKER (access to sell or purchase)
+
+- INVOICES (not cancel)
+- ORDERS (no cancel)
+- PRODUCTS (only PAGINATION)
+- SERVICES (only PAGINATION)
+- PAYMENTS (depends on you, but not delete)
