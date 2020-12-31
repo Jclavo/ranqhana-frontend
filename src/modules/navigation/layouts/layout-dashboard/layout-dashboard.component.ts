@@ -65,8 +65,6 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
         this.moduleService.getMenu().subscribe(response => {
 
             if (response.status) {
-                // this.notificationService.success(response.message);
-                // this.sideNavItems = response.result;
 
                 //Filter only taapaq menu
                 this.sideNavItems =  response.result?.filter(function(module: Module) {
@@ -77,6 +75,14 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
                     this.notificationService.error('Your user does not have any permissions.');
                     this.authService.raiseError();
                 }
+
+                // Add HOME to the menu
+                let moduleHome = new Module();
+                moduleHome.id = 0;
+                moduleHome.icon = 'home';
+                moduleHome.name = 'Home';
+                moduleHome.url = '/home';
+                this.sideNavItems.unshift(moduleHome);
                 
             }
             else {

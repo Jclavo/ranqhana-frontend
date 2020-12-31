@@ -51,6 +51,14 @@ export const ROUTES: Routes = [
             title: 'Pages Forgot Password - Store App',
         } as SBRouteData,
     },
+    {
+        path: 'home',
+        canActivate: [],
+        component: authContainers.HomeComponent,
+        data: {
+            title: 'Home - Store App',
+        } as SBRouteData,
+    },
 ];
 
 @NgModule({

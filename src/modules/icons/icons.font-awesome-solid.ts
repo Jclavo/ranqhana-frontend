@@ -24,7 +24,8 @@ import {
     faTools,
     faICursor,
     faUsers,
-    faExchangeAlt
+    faExchangeAlt,
+    faHome,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeSolidIcons = {
@@ -51,5 +52,6 @@ export const fontAwesomeSolidIcons = {
     faTools,
     faICursor,
     faUsers,
-    faExchangeAlt
+    faExchangeAlt,
+    faHome
 };

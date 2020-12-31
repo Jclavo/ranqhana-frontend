@@ -1,0 +1,20 @@
+<sb-layout-dashboard>
+    <sb-dashboard-head [hideBreadcrumbs]="true"></sb-dashboard-head>
+    <sb-card>
+        <div class="card-header">
+            <fa-icon class="mr-1" [icon]='["fas", "home"]'></fa-icon>
+            <ng-container>HOME</ng-container>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center mt-4">
+                        <h1 class="display-1" i18n="@@welcome">Welcome</h1>
+                        <p class="lead">{{authService.getCompanyName()}}</p>
+                        <!-- <a routerLink="/dashboard"> <fa-icon class="mr-1" [icon]='["fas", "arrow-left"]'></fa-icon>Return to Dashboard</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </sb-card>
+</sb-layout-dashboard>

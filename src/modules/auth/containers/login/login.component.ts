@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
       if (response.status) {
         this.authService.setUser(response.result);
         this.notificationService.success(response.message);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/home']);
       }
       else {
         this.notificationService.error(response.message);
