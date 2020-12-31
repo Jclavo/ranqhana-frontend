@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   public user = new User;
 
   loginForm: FormGroup = this.fb.group({
-    login: ['', [Validators.required, Validators.maxLength(15), CustomValidator.validatePositiveNumbers]],
+    login: ['', [Validators.required, Validators.maxLength(15), CustomValidator.validateStringPositiveNumbers]],
     password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(45)]],
     language: ['']
   });
@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
         this.errorsList[0].setKey(this.languageService.getI18n('login.' + this.errorsList[0].getKey()));
         this.notificationService.error(this.errorsList[0].getMessage());
       }
-
 
       return;
     }
