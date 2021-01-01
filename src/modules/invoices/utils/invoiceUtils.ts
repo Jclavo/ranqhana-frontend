@@ -32,14 +32,13 @@ import { Response } from '@modules/utility/models';
 export class InvoiceUtils implements OnInit {
 
     public ORDER_STAGE_NEW = OrderStage.getForNew();
-
-    // private invoice_id = 0;
-    public isOrder: boolean = false;
+    
     private hasInvoice: boolean = false;
     private type_id: number = 0;
     public invoiceDetails: Array<InvoiceDetail> = [];
     public invoice = new Invoice();
     public order = new Order();
+    public isOrder: boolean = false;
 
 
     constructor(
@@ -150,6 +149,10 @@ export class InvoiceUtils implements OnInit {
 
     calculateDiscount() {
 
+        if(!this.invoice.discount){
+            this.invoice.discount = 0;  
+        }
+
         if (this.invoice.discount != 0) {
             if (this.invoice.discount < 0) {
                 this.notificationService.error(this.languageService.getI18n('invoice.message.negativeDiscount'));
@@ -177,60 +180,79 @@ export class InvoiceUtils implements OnInit {
 
     async create(type_id: number, item: SearchItem) {
 
-        if (this.getInvoiceID() == 0 && !this.hasInvoice) {
+        // if (this.getInvoiceID() == 0 && !this.hasInvoice) {
 
-            this.hasInvoice = true;
+        //     this.hasInvoice = true;
 
-            let invoice = new Invoice();
+        //     let invoice = new Invoice();
 
-            //assign fields
-            invoice.type_id = type_id;
+        //     //assign fields
+        //     invoice.type_id = type_id;
 
-            //Create Invoice with draf stage
-            await this.createInvoice(invoice);
-        }
+        //     //Create Invoice with draf stage
+        //     await this.createInvoice(invoice);
+        // }
 
-        if (this.getInvoiceID() > 0) {
+        // if (this.getInvoiceID() > 0) {
 
-            let invoiceDetail = new InvoiceDetail();
+        //     let invoiceDetail = new InvoiceDetail();
 
-            //assign fields
-            invoiceDetail.item_id = item.id;
-            invoiceDetail.quantity = item.quantity;
-            invoiceDetail.price = item.price;
-            invoiceDetail.invoice_id = this.getInvoiceID();
+        //     //assign fields
+        //     invoiceDetail.item_id = item.id;
+        //     invoiceDetail.quantity = item.quantity;
+        //     invoiceDetail.price = item.price;
+        //     invoiceDetail.invoice_id = this.getInvoiceID();
 
-            await this.addDetail(invoiceDetail);
-        }
+        //     await this.addDetail(invoiceDetail);
+        // }
 
-        this.getInvoiceDetails(this.getInvoiceID());
+        // this.getInvoiceDetails(this.getInvoiceID());
+
+        let invoiceDetail = new InvoiceDetail();
+
+        invoiceDetail.item_id = item.id;
+        invoiceDetail.quantity = item.quantity;
+        invoiceDetail.price = item.price;
+
+        invoiceDetail.invoice_id = this.getInvoiceID();
+        invoiceDetail.type_id = type_id;
+
+        this.addDetail(invoiceDetail);
     }
 
-    async createInvoice(invoice: Invoice) {
+    // async createInvoice(invoice: Invoice) {
 
-        await this.invoiceService.create(invoice).toPromise().then(response => {
-            if (response.status) {
-                this.setInvoiceID(response.result?.id);
-                this.getOrder(response.result?.order_id);
-            }
-            else {
-                this.notificationService.error(response.message);
-            }
+    //     await this.invoiceService.create(invoice).toPromise().then(response => {
+    //         if (response.status) {
+    //             this.setInvoiceID(response.result?.id);
+    //             // this.getOrder(response.result?.order_id);
+    //         }
+    //         else {
+    //             this.notificationService.error(response.message);
+    //         }
 
-        }, error => {
-            this.notificationService.error(error);
-            this.authService.raiseError();
-        });
-    }
+    //     }, error => {
+    //         this.notificationService.error(error);
+    //         this.authService.raiseError();
+    //     });
+    // }
 
 
     async addDetail(invoiceDetail: InvoiceDetail) {
 
-        // this.invoiceDetailService.create(invoiceDetail).subscribe(response => {
-        await this.invoiceDetailService.create(invoiceDetail).toPromise().then(response => {
+        this.invoiceDetailService.create(invoiceDetail).subscribe(response => {
+            // await this.invoiceDetailService.create(invoiceDetail).toPromise().then(response => {
 
             if (response.status) {
-                // this.notificationService.success(response.message);
+
+                this.setInvoiceID(response.result?.id);
+                // this.invoice = response.result;
+
+                this.invoiceDetails = response.result?.details;
+
+                this.order = response.result?.order;
+
+                this.calculateInvoice();
             }
             else {
                 this.notificationService.error(response.message);

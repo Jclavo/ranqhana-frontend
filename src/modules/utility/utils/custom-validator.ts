@@ -10,7 +10,7 @@ export class CustomValidator {
   // static validNumbers = /^\d+$/;
   static validNumbers = /^[1-9]+[0-9]*$/;
   static validStringNumbers = /^[0-9]+[0-9]*$/;
-  static validDecimalNumbers = /^[1-9]+[0-9]*(?:\.[0-9]{1,2})*$/;
+  static validDecimalNumbers = /^[0-9]+[0-9]*(?:\.[0-9]{1,2})*$/;
 
   constructor() { }
 

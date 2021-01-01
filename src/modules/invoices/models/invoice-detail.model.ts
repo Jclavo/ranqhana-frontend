@@ -7,4 +7,7 @@ export class InvoiceDetail {
     price: number = 0.0;
     total: number = 0.0;   
     invoice_id: number = 0;
+
+    //extra
+    type_id: number = 0;
 }

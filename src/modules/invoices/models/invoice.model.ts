@@ -1,4 +1,6 @@
 import { Payment } from "@modules/payments/models";
+import { Order } from "@modules/orders/models";
+import { InvoiceDetail } from "../models";
 
 export class Invoice {
     // [key: string]: string | number;
@@ -21,6 +23,8 @@ export class Invoice {
     order_id: number = 0;
 
     payments: Array<Payment> = [];
+    order = new Order();
+    details: Array<InvoiceDetail> = [];
 
     getType(){
         return this.type_id;
