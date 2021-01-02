@@ -16,8 +16,9 @@
                                 <div class="input-group-text font-weight-bold">Item</div>
                             </div>
                             <input class="form-control" type="text" name="searchItem" formControlName="searchItem"
-                            i18n-placeholder="@@invoice.field.searchItem" placeholder="Search Item" [ngbTypeahead]="search" [inputFormatter]="formatter"
-                                [resultFormatter]="formatter" (blur)="assignSearchItemToForm()" />
+                                i18n-placeholder="@@invoice.field.searchItem" placeholder="Search Item"
+                                [ngbTypeahead]="search" [inputFormatter]="formatter" [resultFormatter]="formatter"
+                                (blur)="assignSearchItemToForm()" />
                         </div>
                     </div>
                     <div class="col-12 col-md-3 col-xl-2">
@@ -25,8 +26,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold" i18n="@@unit.page.title">Unit</div>
                             </div>
-                            <input class="form-control" type="text" name="unit" formControlName="unit"
-                                readonly />
+                            <input class="form-control" type="text" name="unit" formControlName="unit" readonly />
                         </div>
                     </div>
                     <div class="col-12 col-md-3 col-xl-2">
@@ -34,8 +34,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">Stock</div>
                             </div>
-                            <input class="form-control" type="text" name="stock" formControlName="stock"
-                                readonly />
+                            <input class="form-control" type="text" name="stock" formControlName="stock" readonly />
                         </div>
                     </div>
                     <div class="col-12 col-md-5 col-xl-2">
@@ -43,22 +42,23 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold" i18n="@@invoice.field.price">Price</div>
                             </div>
-                            <input class="form-control" type="text" name="price" formControlName="price"
-                                readonly />
+                            <input class="form-control" type="text" name="price" formControlName="price" readonly />
                         </div>
                     </div>
                     <div class="col-12 col-md-5 col-xl-2">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold" i18n="@@invoice.field.quantity">Quantity</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@invoice.field.quantity">Quantity
+                                </div>
                             </div>
                             <input class="form-control" type="text" name="quantity" formControlName="quantity"
-                               maxlength="5"/>
+                                maxlength="5" />
                         </div>
                     </div>
 
                     <div class="col-12 col-md-2 col-xl-1">
-                        <button type="button" class="btn btn-primary btn-block" (click)="addItem()" i18n="@@button.add">Add</button>
+                        <button type="button" class="btn btn-primary btn-block" (click)="addItem()"
+                            i18n="@@button.add">Add</button>
                     </div>
 
                 </div>
@@ -118,8 +118,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">SUBTOTAL</div>
                             </div>
-                            <input class="form-control" type="text" name="subtotal" 
-                            value="{{formUtils.customToFixed(invoiceUtils.invoice.subtotal)}}" readonly />
+                            <input class="form-control" type="text" name="subtotal"
+                                value="{{formUtils.customToFixed(invoiceUtils.invoice.subtotal)}}" readonly />
                         </div>
                     </div>
 
@@ -127,28 +127,30 @@
                         <div class="input-group mb-2 mb-md-3">
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">
-                                    <ng-container i18n="@@invoice.field.taxes">Taxes</ng-container> 
+                                    <ng-container i18n="@@invoice.field.taxes">Taxes</ng-container>
                                     <!-- ({{authService.getCompanyTax()}})% -->
                                 </div>
                             </div>
-                            <input class="form-control" type="text" name="taxes" 
-                                   value="{{formUtils.customToFixed(invoiceUtils.invoice.taxes)}}" readonly />
+                            <input class="form-control" type="text" name="taxes"
+                                value="{{formUtils.customToFixed(invoiceUtils.invoice.taxes)}}" readonly />
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="input-group mb-2 mb-md-3">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold" i18n="@@invoice.field.discount">Discount</div>
+                                <div class="input-group-text font-weight-bold" i18n="@@invoice.field.discount">Discount
+                                </div>
                             </div>
-                            <input class="form-control" type="text" name="discount" 
-                            [(ngModel)]="invoiceUtils.invoice.discount"  min="0.0" (blur)="invoiceUtils.calculateDiscount()" 
-                            [readonly]="invoiceUtils.isOrder"/>
+                            <input class="form-control" type="text" name="discount"
+                                [(ngModel)]="invoiceUtils.invoice.discount" min="0.0"
+                                (blur)="invoiceUtils.calculateDiscount()" />
                         </div>
                     </div>
                     <div class="col-md-1">
-                            <input class="form-check-input" type="checkbox" id="discount_percent" name="discount_percent" 
-                                   [(ngModel)]="invoiceUtils.invoice.discount_percent" (change)="invoiceUtils.calculateDiscount()">
-                            <label class="form-check-label font-weight-bold mx-2" for="discount_percent">%</label>
+                        <input class="form-check-input" type="checkbox" id="discount_percent" name="discount_percent"
+                            [(ngModel)]="invoiceUtils.invoice.discount_percent"
+                            (change)="invoiceUtils.calculateDiscount()">
+                        <label class="form-check-label font-weight-bold mx-2" for="discount_percent">%</label>
                     </div>
 
                     <div class="col-md-3">
@@ -156,28 +158,32 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">TOTAL</div>
                             </div>
-                            <input class="form-control" type="text" name="total" 
-                            value="{{formUtils.customToFixed(invoiceUtils.invoice.total)}}" readonly/>
+                            <input class="form-control" type="text" name="total"
+                                value="{{formUtils.customToFixed(invoiceUtils.invoice.total)}}" readonly />
                         </div>
                     </div>
                 </div>
 
-                <div class="row" *ngIf="invoiceUtils.order.stage_id == invoiceUtils.ORDER_STAGE_NEW && invoiceUtils.isOrder">
+                <div class="row"
+                    *ngIf="invoiceUtils.order.stage_id == invoiceUtils.ORDER_STAGE_NEW && invoiceUtils.isOrder">
                     <div class="col-md-6 mb-md-3">
-                        <button type="button" class="btn btn-info btn-block" 
-                        routerLink="/orders/{{INVOICE_TYPE_SELL}}" i18n="@@button.saveDraft">Save as draft</button>
+                        <button type="button" class="btn btn-info btn-block" routerLink="/orders/{{INVOICE_TYPE_SELL}}"
+                            i18n="@@button.saveDraft">Save as draft</button>
                     </div>
                     <div class="col-md-6 mb-md-3">
-                        <button type="button" class="btn btn-success btn-block" 
-                        (click)="invoiceUtils.setOrderRequested(INVOICE_TYPE_SELL)" i18n="@@button.request">Request</button>
+                        <button type="button" class="btn btn-success btn-block"
+                            (click)="invoiceUtils.setOrderRequested(INVOICE_TYPE_SELL)"
+                            i18n="@@button.request">Request</button>
                     </div>
-                    
+
                 </div>
 
-                <div class="row" *ngIf="(invoiceUtils.order.stage_id != invoiceUtils.ORDER_STAGE_NEW && invoiceUtils.invoice.stage_id == 3) || !invoiceUtils.isOrder">
-                    <button type="button" class="btn btn-success btn-block" (click)="invoiceUtils.saveInvoice()" i18n="@@button.create">Create Invoice</button>
+                <div class="row"
+                    *ngIf="(invoiceUtils.order.stage_id != invoiceUtils.ORDER_STAGE_NEW && invoiceUtils.invoice.stage_id == 3) || !invoiceUtils.isOrder">
+                    <button type="button" class="btn btn-success btn-block" (click)="invoiceUtils.saveInvoice()"
+                        i18n="@@button.create">Create Invoice</button>
                 </div>
-                
+
             </form>
         </div>
     </sb-card>
