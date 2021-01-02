@@ -114,6 +114,7 @@
                     <ngb-highlight [result]="formUtils.customToFixed(invoice.discount)"
                         [term]="searchOption.searchValue">
                     </ngb-highlight>
+                    <label *ngIf="invoice.discount_percent">%</label>
                 </td>
                 <td>
                     <ngb-highlight [result]="formUtils.customToFixed(invoice.total)" [term]="searchOption.searchValue">

@@ -3,12 +3,12 @@ import { Order } from "@modules/orders/models";
 import { InvoiceDetail } from "../models";
 
 export class Invoice {
-    // [key: string]: string | number;
     id: number = 0;
     serie: string = '';
     subtotal: number = 0.0;
     taxes: number = 0.0;
     discount: number = 0.0;
+    discount_percent: boolean = true;
     total: number = 0.0;
     type_id: number = 0;
     type: string = '';

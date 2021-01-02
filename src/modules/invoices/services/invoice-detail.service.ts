@@ -49,6 +49,7 @@ export class InvoiceDetailService {
         invoice.serie = resultRAW.result.serie;
         invoice.subtotal = resultRAW.result.subtotal;
         invoice.discount = resultRAW.result.discount;
+        invoice.discount_percent = resultRAW.result.discount_percent;
         invoice.taxes = resultRAW.result.taxes;
         invoice.total = resultRAW.result.total;
         invoice.type_id = resultRAW.result.type?.code;

@@ -32,7 +32,7 @@ import { Response } from '@modules/utility/models';
 export class InvoiceUtils implements OnInit {
 
     public ORDER_STAGE_NEW = OrderStage.getForNew();
-    
+
     private hasInvoice: boolean = false;
     private type_id: number = 0;
     public invoiceDetails: Array<InvoiceDetail> = [];
@@ -149,16 +149,27 @@ export class InvoiceUtils implements OnInit {
 
     calculateDiscount() {
 
-        if(!this.invoice.discount){
-            this.invoice.discount = 0;  
+        if (!this.invoice.discount) {
+            this.invoice.discount = 0.0;
         }
 
-        if (this.invoice.discount != 0) {
-            if (this.invoice.discount < 0) {
-                this.notificationService.error(this.languageService.getI18n('invoice.message.negativeDiscount'));
-                this.invoice.discount = 0.0;
+        if (this.invoice.discount < 0) {
+            this.notificationService.error(this.languageService.getI18n('invoice.message.negativeDiscount'));
+            this.invoice.discount = 0.0;
+            return;
+        }
+
+        if (this.invoice.discount_percent) {
+
+            if (this.invoice.discount < 0 || this.invoice.discount > 100) {
+                this.notificationService.error(this.languageService.getI18n('invoice.message.invalidDiscountPercent'));
                 return;
             }
+
+            //calculate total
+            this.invoice.total = this.invoice.subtotal - ((this.invoice.subtotal / 100) * this.invoice.discount);
+
+        } else {
 
             if (!CustomValidator.validDecimalNumbers.test(this.invoice.discount.toString())) {
                 this.notificationService.error(this.languageService.getI18n('form.invalidDecimalNumber'));
@@ -170,43 +181,17 @@ export class InvoiceUtils implements OnInit {
                 this.invoice.discount = 0.0;
                 return;
             }
+
+            //calculate total
+            this.invoice.total = this.invoice.subtotal - this.invoice.discount;
+
         }
 
-        // invoice.total = invoice.subtotal + invoice.taxes - invoice.discount;
-        this.invoice.total = this.invoice.subtotal - this.invoice.discount;
         this.invoice.taxes = this.invoice.total * (this.authService.getCompanyTax() / 100);
 
     }
 
     async create(type_id: number, item: SearchItem) {
-
-        // if (this.getInvoiceID() == 0 && !this.hasInvoice) {
-
-        //     this.hasInvoice = true;
-
-        //     let invoice = new Invoice();
-
-        //     //assign fields
-        //     invoice.type_id = type_id;
-
-        //     //Create Invoice with draf stage
-        //     await this.createInvoice(invoice);
-        // }
-
-        // if (this.getInvoiceID() > 0) {
-
-        //     let invoiceDetail = new InvoiceDetail();
-
-        //     //assign fields
-        //     invoiceDetail.item_id = item.id;
-        //     invoiceDetail.quantity = item.quantity;
-        //     invoiceDetail.price = item.price;
-        //     invoiceDetail.invoice_id = this.getInvoiceID();
-
-        //     await this.addDetail(invoiceDetail);
-        // }
-
-        // this.getInvoiceDetails(this.getInvoiceID());
 
         let invoiceDetail = new InvoiceDetail();
 
@@ -219,24 +204,6 @@ export class InvoiceUtils implements OnInit {
 
         this.addDetail(invoiceDetail);
     }
-
-    // async createInvoice(invoice: Invoice) {
-
-    //     await this.invoiceService.create(invoice).toPromise().then(response => {
-    //         if (response.status) {
-    //             this.setInvoiceID(response.result?.id);
-    //             // this.getOrder(response.result?.order_id);
-    //         }
-    //         else {
-    //             this.notificationService.error(response.message);
-    //         }
-
-    //     }, error => {
-    //         this.notificationService.error(error);
-    //         this.authService.raiseError();
-    //     });
-    // }
-
 
     async addDetail(invoiceDetail: InvoiceDetail) {
 

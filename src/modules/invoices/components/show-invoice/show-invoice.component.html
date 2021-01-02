@@ -38,7 +38,7 @@
       <tr>
         <td style="border:none" colspan="4"></td>
         <th i18n="@@invoice.field.discount">Discounts</th>
-        <td>{{invoice.discount}}</td>
+        <td>{{invoice.discount}} <label *ngIf="invoice.discount_percent">%</label></td>
       </tr>
       <tr>
         <td style="border:none" colspan="4"></td>

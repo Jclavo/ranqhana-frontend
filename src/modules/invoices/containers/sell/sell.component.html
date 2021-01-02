@@ -135,7 +135,7 @@
                                    value="{{formUtils.customToFixed(invoiceUtils.invoice.taxes)}}" readonly />
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="input-group mb-2 mb-md-3">
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold" i18n="@@invoice.field.discount">Discount</div>
@@ -145,6 +145,12 @@
                             [readonly]="invoiceUtils.isOrder"/>
                         </div>
                     </div>
+                    <div class="col-md-1">
+                            <input class="form-check-input" type="checkbox" id="discount_percent" name="discount_percent" 
+                                   [(ngModel)]="invoiceUtils.invoice.discount_percent" (change)="invoiceUtils.calculateDiscount()">
+                            <label class="form-check-label font-weight-bold mx-2" for="discount_percent">%</label>
+                    </div>
+
                     <div class="col-md-3">
                         <div class="input-group mb-2 mb-md-3">
                             <div class="input-group-prepend">
