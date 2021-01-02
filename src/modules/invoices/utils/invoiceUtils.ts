@@ -39,6 +39,7 @@ export class InvoiceUtils implements OnInit {
     public invoice = new Invoice();
     public order = new Order();
     public isOrder: boolean = false;
+    public disabledButtonAdd: boolean = false;
 
 
     constructor(
@@ -193,6 +194,8 @@ export class InvoiceUtils implements OnInit {
 
     async create(type_id: number, item: SearchItem) {
 
+        this.disabledButtonAdd = true;
+
         let invoiceDetail = new InvoiceDetail();
 
         invoiceDetail.item_id = item.id;
@@ -225,9 +228,12 @@ export class InvoiceUtils implements OnInit {
                 this.notificationService.error(response.message);
             }
 
+            this.disabledButtonAdd = false;
+
         }, (error: string) => {
             this.notificationService.error(error);
             this.authService.raiseError();
+            this.disabledButtonAdd = false;
         });
     }
 
