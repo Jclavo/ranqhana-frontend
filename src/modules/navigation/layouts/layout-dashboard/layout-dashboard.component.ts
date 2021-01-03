@@ -66,14 +66,9 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
 
             if (response.status) {
 
-                //Filter only taapaq menu
-                this.sideNavItems =  response.result?.filter(function(module: Module) {
-                    return !module.name?.toLowerCase().includes("taapaq".toLowerCase());
-                });
-
                 //do not show order module (test part)
                 this.sideNavItems =  response.result?.filter(function(module: Module) {
-                    return !module.name?.toLowerCase().includes("orders".toLowerCase());
+                    return !module.name?.toLowerCase().includes("pedidos".toLowerCase());
                 });
 
                 if(this.sideNavItems.length == 0){
