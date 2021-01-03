@@ -394,14 +394,14 @@ export class PersonComponent implements OnInit {
 
     //Check if roles have been modified.
     if (this.initialUserRolesIDs.toString() == userRoles.roles.toString()) {
-      this.authService.getUserID() == this.user.id ? this.router.navigate(['/dashboard']) : this.router.navigate(['/users']);
+      this.authService.getUserID() == this.user.id ? this.router.navigate(['/home']) : this.router.navigate(['/users']);
       return;
     }
 
     this.userService.assignMassiveRole(userRoles).subscribe(response => {
 
       if (response.status) {
-        this.authService.getUserID() == this.user.id ? this.router.navigate(['/dashboard']) : this.router.navigate(['/users']);
+        this.authService.getUserID() == this.user.id ? this.router.navigate(['/home']) : this.router.navigate(['/users']);
       }
       else {
         this.notificationService.error(response.message);
