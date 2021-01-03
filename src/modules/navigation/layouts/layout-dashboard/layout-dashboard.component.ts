@@ -71,6 +71,11 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
                     return !module.name?.toLowerCase().includes("taapaq".toLowerCase());
                 });
 
+                //do not show order module (test part)
+                this.sideNavItems =  response.result?.filter(function(module: Module) {
+                    return !module.name?.toLowerCase().includes("orders".toLowerCase());
+                });
+
                 if(this.sideNavItems.length == 0){
                     this.notificationService.error('Your user does not have any permissions.');
                     this.authService.raiseError();
