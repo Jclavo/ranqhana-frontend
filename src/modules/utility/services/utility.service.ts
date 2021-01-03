@@ -48,6 +48,9 @@ export class UtilityService {
             case 'mask':
                 keyError = this.languageService.getI18n('form.mask');
                 break;
+            case 'mustMatch':
+                  keyError = this.languageService.getI18n('form.mustMatch');
+                  break;
             case 'minlength':
               characters = controlErrors[keyError].requiredLength
               keyError = this.languageService.getI18n('form.minlength');
