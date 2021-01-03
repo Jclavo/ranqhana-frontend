@@ -62,7 +62,7 @@
                     <span>Serie</span>
                     <sb-sort-icon *ngIf='sortedColumn === "serie"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
-                <th scope="col" sbSortable="subtotal" (sort)="onSort($event)">
+                <!-- <th scope="col" sbSortable="subtotal" (sort)="onSort($event)">
                     <span>Subtotal</span>
                     <sb-sort-icon *ngIf='sortedColumn === "subtotal"' [direction]="sortedDirection"></sb-sort-icon>
                 </th>
@@ -73,7 +73,7 @@
                 <th scope="col" sbSortable="discount" (sort)="onSort($event)">
                     <span i18n="@@invoice.field.discount">Discount</span>
                     <sb-sort-icon *ngIf='sortedColumn === "discount"' [direction]="sortedDirection"></sb-sort-icon>
-                </th>
+                </th> -->
                 <th scope="col" sbSortable="total" (sort)="onSort($event)">
                     <span>Total</span>
                     <sb-sort-icon *ngIf='sortedColumn === "total"' [direction]="sortedDirection"></sb-sort-icon>
@@ -101,7 +101,7 @@
                 <td>
                     <ngb-highlight [result]="invoice.serie" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
-                <td>
+                <!-- <td>
                     <ngb-highlight [result]="formUtils.customToFixed(invoice.subtotal)"
                         [term]="searchOption.searchValue">
                     </ngb-highlight>
@@ -114,7 +114,8 @@
                     <ngb-highlight [result]="formUtils.customToFixed(invoice.discount)"
                         [term]="searchOption.searchValue">
                     </ngb-highlight>
-                </td>
+                    <label *ngIf="invoice.discount_percent">%</label>
+                </td> -->
                 <td>
                     <ngb-highlight [result]="formUtils.customToFixed(invoice.total)" [term]="searchOption.searchValue">
                     </ngb-highlight>
@@ -135,14 +136,17 @@
                                 size="md" routerLink="/payments/{{invoice.id}}"></fa-icon>
                         </div> -->
                         <div class="col-auto mb-1">
+                            <!-- <div class="col-2 mb-1 ml-3"> -->
                             <fa-icon [icon]='["far", "money-bill-alt"]' [styles]="{'stroke': 'red', 'color': 'green'}"
                                 size="md" (click)="madePayment(invoice.id, invoice.payment_type_id, invoice.payments)"></fa-icon>
                         </div>
                         <div class="col-auto mb-1">
+                            <!-- <div class="col-2 mb-1 ml-3"> -->
                             <fa-icon [icon]='["far", "eye"]' [styles]="{'stroke': 'blue', 'color': 'blue'}" size="lg"
                                 (click)="modalShow(invoice.id)"></fa-icon>
                         </div>
                         <div class="col-auto mb-1">
+                            <!-- <div class="col-2 mb-1 ml-3"> -->
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
                                 size="md" (click)="modalAnull(invoice.id, invoice.serie)"></fa-icon>
                         </div>

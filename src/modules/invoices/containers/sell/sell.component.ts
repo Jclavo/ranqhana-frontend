@@ -31,14 +31,14 @@ import { FormUtils, CustomValidator } from "@modules/utility/utils";
 export class SellComponent implements OnInit {
 
   public INVOICE_TYPE_SELL = InvoiceType.getForSell();
-  
+
   public searchItemOptions = new SearchItemOptions();
   public searchItem = new SearchItem();
 
   public order = new Order();
 
   public items: Array<Item> = [];
-  public invoiceDetails: Array<InvoiceDetail> = [];
+  // public invoiceDetails: Array<InvoiceDetail> = [];
 
   addItemForm: FormGroup = this.formBuilder.group({
     searchItem: ['', [Validators.required]],
@@ -62,7 +62,7 @@ export class SellComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
 
@@ -131,10 +131,10 @@ export class SellComponent implements OnInit {
   calculateStock(searchItem: SearchItem): SearchItem {
 
     //Check if the item has already exist in the list
-    let indexSellItem = this.invoiceDetails.findIndex(value => value.item_id == searchItem.id);
+    let indexSellItem = this.invoiceUtils.invoiceDetails.findIndex(value => value.item_id == searchItem.id);
 
     if (indexSellItem >= 0 && searchItem.stocked) {
-      searchItem.stock = searchItem.stock - this.invoiceDetails[indexSellItem].quantity;
+      searchItem.stock = searchItem.stock - this.invoiceUtils.invoiceDetails[indexSellItem].quantity;
     }
 
     return searchItem;

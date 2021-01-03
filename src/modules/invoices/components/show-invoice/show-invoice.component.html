@@ -38,7 +38,7 @@
       <tr>
         <td style="border:none" colspan="4"></td>
         <th i18n="@@invoice.field.discount">Discounts</th>
-        <td>{{invoice.discount}}</td>
+        <td>{{invoice.discount}} <label *ngIf="invoice.discount_percent">%</label></td>
       </tr>
       <tr>
         <td style="border:none" colspan="4"></td>
@@ -54,3 +54,4 @@
     <button type="button" class="btn btn-outline-primary" (click)="print()" i18n="@@button.print">Print</button>
     <button type="button" ngbAutofocus class="btn btn-success" (click)="exportPDF()" i18n="@@button.exportPDF">Export PDF</button>
   </div>
+  <sb-messages></sb-messages>

@@ -33,13 +33,13 @@ export class InvoiceUtils implements OnInit {
 
     public ORDER_STAGE_NEW = OrderStage.getForNew();
 
-    // private invoice_id = 0;
-    public isOrder: boolean = false;
     private hasInvoice: boolean = false;
     private type_id: number = 0;
     public invoiceDetails: Array<InvoiceDetail> = [];
     public invoice = new Invoice();
     public order = new Order();
+    public isOrder: boolean = false;
+    public disabledButtonAdd: boolean = false;
 
 
     constructor(
@@ -150,12 +150,27 @@ export class InvoiceUtils implements OnInit {
 
     calculateDiscount() {
 
-        if (this.invoice.discount != 0) {
-            if (this.invoice.discount < 0) {
-                this.notificationService.error(this.languageService.getI18n('invoice.message.negativeDiscount'));
-                this.invoice.discount = 0.0;
+        if (!this.invoice.discount) {
+            this.invoice.discount = 0.0;
+        }
+
+        if (this.invoice.discount < 0) {
+            this.notificationService.error(this.languageService.getI18n('invoice.message.negativeDiscount'));
+            this.invoice.discount = 0.0;
+            return;
+        }
+
+        if (this.invoice.discount_percent) {
+
+            if (this.invoice.discount < 0 || this.invoice.discount > 100) {
+                this.notificationService.error(this.languageService.getI18n('invoice.message.invalidDiscountPercent'));
                 return;
             }
+
+            //calculate total
+            this.invoice.total = this.invoice.subtotal - ((this.invoice.subtotal / 100) * this.invoice.discount);
+
+        } else {
 
             if (!CustomValidator.validDecimalNumbers.test(this.invoice.discount.toString())) {
                 this.notificationService.error(this.languageService.getI18n('form.invalidDecimalNumber'));
@@ -167,78 +182,58 @@ export class InvoiceUtils implements OnInit {
                 this.invoice.discount = 0.0;
                 return;
             }
+
+            //calculate total
+            this.invoice.total = this.invoice.subtotal - this.invoice.discount;
+
         }
 
-        // invoice.total = invoice.subtotal + invoice.taxes - invoice.discount;
-        this.invoice.total = this.invoice.subtotal - this.invoice.discount;
         this.invoice.taxes = this.invoice.total * (this.authService.getCompanyTax() / 100);
 
     }
 
     async create(type_id: number, item: SearchItem) {
 
-        if (this.getInvoiceID() == 0 && !this.hasInvoice) {
+        this.disabledButtonAdd = true;
 
-            this.hasInvoice = true;
+        let invoiceDetail = new InvoiceDetail();
 
-            let invoice = new Invoice();
+        invoiceDetail.item_id = item.id;
+        invoiceDetail.quantity = item.quantity;
+        invoiceDetail.price = item.price;
 
-            //assign fields
-            invoice.type_id = type_id;
+        invoiceDetail.invoice_id = this.getInvoiceID();
+        invoiceDetail.type_id = type_id;
 
-            //Create Invoice with draf stage
-            await this.createInvoice(invoice);
-        }
-
-        if (this.getInvoiceID() > 0) {
-
-            let invoiceDetail = new InvoiceDetail();
-
-            //assign fields
-            invoiceDetail.item_id = item.id;
-            invoiceDetail.quantity = item.quantity;
-            invoiceDetail.price = item.price;
-            invoiceDetail.invoice_id = this.getInvoiceID();
-
-            await this.addDetail(invoiceDetail);
-        }
-
-        this.getInvoiceDetails(this.getInvoiceID());
+        this.addDetail(invoiceDetail);
     }
-
-    async createInvoice(invoice: Invoice) {
-
-        await this.invoiceService.create(invoice).toPromise().then(response => {
-            if (response.status) {
-                this.setInvoiceID(response.result?.id);
-                this.getOrder(response.result?.order_id);
-            }
-            else {
-                this.notificationService.error(response.message);
-            }
-
-        }, error => {
-            this.notificationService.error(error);
-            this.authService.raiseError();
-        });
-    }
-
 
     async addDetail(invoiceDetail: InvoiceDetail) {
 
-        // this.invoiceDetailService.create(invoiceDetail).subscribe(response => {
-        await this.invoiceDetailService.create(invoiceDetail).toPromise().then(response => {
+        this.invoiceDetailService.create(invoiceDetail).subscribe(response => {
+            // await this.invoiceDetailService.create(invoiceDetail).toPromise().then(response => {
 
             if (response.status) {
-                // this.notificationService.success(response.message);
+
+                this.setInvoiceID(response.result?.id);
+                // this.invoice = response.result;
+
+                this.invoiceDetails = response.result?.details;
+
+                this.order = response.result?.order;
+
+                this.calculateInvoice();
             }
             else {
                 this.notificationService.error(response.message);
             }
+
+            this.disabledButtonAdd = false;
 
         }, (error: string) => {
             this.notificationService.error(error);
             this.authService.raiseError();
+            this.disabledButtonAdd = false;
         });
     }
 

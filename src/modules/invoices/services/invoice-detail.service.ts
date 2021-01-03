@@ -38,9 +38,47 @@ export class InvoiceDetailService {
       response.message = resultRAW.message;
 
       if (resultRAW.result) {
-        let invoiceDetail = new InvoiceDetail();
-        invoiceDetail.id = resultRAW.result?.id;
-        response.result = invoiceDetail;
+
+        // let invoiceDetail = new InvoiceDetail();
+        // invoiceDetail.id = resultRAW.result?.id;
+        // response.result = invoiceDetail;
+
+        let invoice = new Invoice();
+
+        invoice.id = resultRAW.result.id;
+        invoice.serie = resultRAW.result.serie;
+        invoice.subtotal = resultRAW.result.subtotal;
+        invoice.discount = resultRAW.result.discount;
+        invoice.discount_percent = resultRAW.result.discount_percent;
+        invoice.taxes = resultRAW.result.taxes;
+        invoice.total = resultRAW.result.total;
+        invoice.type_id = resultRAW.result.type?.code;
+        invoice.type = resultRAW.result.type?.name;
+        invoice.stage_id = resultRAW.result.stage?.code;
+        invoice.external_user_id = resultRAW.result?.external_user_id;
+
+        //order
+        invoice.order.id = resultRAW.result?.order?.id;
+        invoice.order.stage_id = resultRAW.result?.order?.stage_id;
+
+        invoice.order_id = invoice.order.id;
+
+        //details
+        invoice.details = resultRAW.result?.details.map((detail: any) => {
+
+          let invoiceDetails = new InvoiceDetail();
+          invoiceDetails.id       = detail.id;
+          invoiceDetails.item_id  = detail.item_id;
+          invoiceDetails.item     = detail.item?.name;
+          invoiceDetails.unit     = detail.item?.unit?.abbreviation;
+          invoiceDetails.quantity = detail.quantity;
+          invoiceDetails.price    = detail.price;
+          invoiceDetails.total    = detail.total;
+          
+          return invoiceDetails;
+        });
+
+        response.result = invoice;
       }
 
       return response;

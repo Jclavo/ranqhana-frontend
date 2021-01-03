@@ -5,7 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Invoice } from "../../models";
 
 //SERVICES
-import { NotificationService } from '@modules/utility/services';
+import { NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 import { UserService } from "@modules/users/services";
 import { PersonService } from "@modules/persons/services";
@@ -30,7 +30,8 @@ export class ShowInvoiceComponent implements OnInit {
     public invoiceService: InvoiceService,
     public invoiceDetailService: InvoiceDetailService,
     public userService: UserService,
-    public personService: PersonService
+    public personService: PersonService,
+    private languageService: LanguageService
   ) { }
 
   ngOnInit(): void {
@@ -96,7 +97,7 @@ export class ShowInvoiceComponent implements OnInit {
   }
 
   print(){
-    this.notificationService.error('Feature not developed yet');
+    this.notificationService.error(this.languageService.getI18n('no.printer'));
   }
 
   exportPDF(){

@@ -81,7 +81,6 @@ export class NgBootstrapTableProductsComponent implements OnInit {
 
       if (response.status) {
         this.items = response.result;
-        console.log(this.items);
         this.searchOption.total = response.records;
       }else{
         this.notificationService.error(response.message);
@@ -124,6 +123,10 @@ export class NgBootstrapTableProductsComponent implements OnInit {
       this.notificationService.error(error);
       this.authService.raiseError();
     });
+  }
+
+  print(){
+    this.notificationService.error(this.languageService.getI18n('no.printer'));
   }
 
 }

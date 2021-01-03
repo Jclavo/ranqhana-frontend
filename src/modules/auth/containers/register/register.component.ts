@@ -95,7 +95,6 @@ export class RegisterComponent implements OnInit {
             }
 
         }, (error: any) => {
-            console.log(error);
             this.notificationService.error(error);
         });
     }

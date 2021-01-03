@@ -164,7 +164,6 @@ export class ServiceComponent implements OnInit {
 
       if (response.status) {
         // this.notificationService.success(response.message);
-        console.log(response.message);
       }
       else {
         this.notificationService.error(response.message);
@@ -224,7 +223,6 @@ export class ServiceComponent implements OnInit {
     const modalRef = this.ngbModal.open(ImageModalComponent, { centered: true, backdrop: 'static' });
 
     modalRef.result.then((result) => {
-      console.log(result);
       if(result.status){
         let newImage = new Image();
         newImage.name = result.image;

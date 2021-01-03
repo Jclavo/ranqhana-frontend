@@ -25,6 +25,7 @@ import * as authGuards from './guards';
 import * as authServices from './services';
 import * as utilityServices from '../utility/services';
 import * as countryServices from '../country/services';
+import { HomeComponent } from './containers/home/home.component';
 
 @NgModule({
     imports: [ 
@@ -40,7 +41,7 @@ import * as countryServices from '../country/services';
         LanguagesModule
     ],
     providers: [...authServices.services, ...authGuards.guards, utilityServices.UtilityService, countryServices.CountryService],
-    declarations: [...authContainers.containers, ...authComponents.components],
+    declarations: [...authContainers.containers, ...authComponents.components, HomeComponent],
     exports: [...authContainers.containers, ...authComponents.components],
 })
 export class AuthModule {}

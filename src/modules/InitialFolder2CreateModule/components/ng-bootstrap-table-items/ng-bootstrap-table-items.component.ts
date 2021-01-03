@@ -30,9 +30,9 @@ export class NgBootstrapTableItemsComponent implements OnInit {
   ngOnInit(): void {
 
     // console.log('this.items$',this.items$);
-    this.itemService.pageSize = this.pageSize;
-    this.items$ = this.itemService.items$;
-    this.total$ = this.itemService.total$;
+    // this.itemService.pageSize = this.pageSize;
+    // this.items$ = this.itemService.items$;
+    // this.total$ = this.itemService.total$;
   }
 
   onSort({ column, direction }: SortEvent) {

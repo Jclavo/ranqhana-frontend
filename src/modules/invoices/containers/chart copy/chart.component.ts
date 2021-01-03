@@ -63,7 +63,6 @@ export class ChartComponent implements OnInit {
 
       if (response.status) {
         this.graphicData = response.result;
-        // console.log('this.graphicData', this.graphicData);
 
       }else{
         this.notificationService.error(response.message);

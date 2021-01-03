@@ -35,8 +35,6 @@ export class PurchaseComponent implements OnInit {
   public purchaseInvoice = new PurchaseInvoice();
 
   public items: Array<SearchItem> = [];
-  public invoiceDetails: Array<InvoiceDetail> = [];
-
   
   addItemForm: FormGroup = this.formBuilder.group({
     searchItem: ['', [Validators.required]],

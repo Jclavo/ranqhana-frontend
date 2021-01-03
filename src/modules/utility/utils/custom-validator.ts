@@ -9,13 +9,24 @@ export class CustomValidator {
   // static validCharacters = /[^\s\w,.:&\/()+%'`@-]/;
   // static validNumbers = /^\d+$/;
   static validNumbers = /^[1-9]+[0-9]*$/;
-  static validDecimalNumbers = /^[1-9]+[0-9]*(?:\.[0-9]{1,2})*$/;
+  static validStringNumbers = /^[0-9]+[0-9]*$/;
+  static validDecimalNumbers = /^[0-9]+[0-9]*(?:\.[0-9]{1,2})*$/;
 
   constructor() { }
 
   static validatePositiveNumbers(control: AbstractControl): { [key: string]: any } | null {
 
     const valid = CustomValidator.validNumbers.test(control.value)
+
+    return valid
+      ? null
+      : { invalidPositiveNumber: true }
+
+  }
+
+  static validateStringPositiveNumbers(control: AbstractControl): { [key: string]: any } | null {
+
+    const valid = CustomValidator.validStringNumbers.test(control.value)
 
     return valid
       ? null

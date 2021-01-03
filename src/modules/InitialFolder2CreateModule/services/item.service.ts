@@ -78,7 +78,6 @@ export class ItemService {
       )
       .subscribe(result => {
         this._items$.next(result.result);
-        console.log('result.result.length', result.records);
         this._total$.next(result.records);
       });
 

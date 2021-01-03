@@ -50,6 +50,7 @@ export class InvoiceService {
         invoice.serie = data.serie;
         invoice.subtotal = Number(data.subtotal);
         invoice.discount = Number(data.discount);
+        invoice.discount_percent = data.discount_percent;
         invoice.total = Number(data.total);
         invoice.taxes = Number(data.taxes);
         invoice.stage = data.stage?.name;
@@ -96,6 +97,7 @@ export class InvoiceService {
         invoice.serie = resultRAW.result.serie;
         invoice.subtotal = resultRAW.result.subtotal;
         invoice.discount = resultRAW.result.discount;
+        invoice.discount_percent = resultRAW.result.discount_percent;
         invoice.taxes = resultRAW.result.taxes;
         invoice.total = resultRAW.result.total;
         invoice.created_at = this.customDateService.formatStringDDMMYYYY(resultRAW.result.created_at);

@@ -79,6 +79,10 @@
                                 <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
                                     size="lg" (click)="modalDelete(item.id, item.name)"></fa-icon>
                             </div>
+                            <div class="col-2 mb-1 ml-3">
+                                <fa-icon [icon]='["fas", "print"]' [styles]="{'stroke': 'blue', 'color': 'blue'}"
+                                    size="lg" (click)="print()"></fa-icon>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -102,4 +106,5 @@
     </div>
 </form>
 <sb-item-i18n></sb-item-i18n>
+<sb-messages></sb-messages>
 <sb-buttons></sb-buttons>
