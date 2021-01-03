@@ -125,4 +125,8 @@ export class NgBootstrapTableProductsComponent implements OnInit {
     });
   }
 
+  print(){
+    this.notificationService.error(this.languageService.getI18n('no.printer'));
+  }
+
 }
