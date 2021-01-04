@@ -59,7 +59,6 @@ export class ProductComponent implements OnInit {
 
       if (response.status) {
         this.product = response.result;
-
         //logic to check as true the stock types selected
         for (let i = 0; i < this.product.stock_types.length; i++) {
           for (let j = 0; j < this.stockTypes.length; j++) {
@@ -69,6 +68,7 @@ export class ProductComponent implements OnInit {
             }
           }
         }
+
       }
       else {
         this.notificationService.error(response.message);
@@ -189,9 +189,9 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  getStockTypes() {
+  async getStockTypes() {
 
-    this.stockTypesService.get().subscribe(response => {
+    await this.stockTypesService.get().toPromise().then(response => {
 
       if (response.status) {
         this.stockTypes = response.result;
