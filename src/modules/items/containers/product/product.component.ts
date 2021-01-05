@@ -16,8 +16,8 @@ import { UnitService } from '@modules/units/services';
 import { StockTypesService } from '@modules/stock-types/services';
 
 // COMPONENT 
-import { ImageModalComponent } from "@modules/utility/components/image-modal/image-modal.component";
-import { ConfirmModalComponent } from '@modules/utility/components';
+import { ImageModalComponent, ConfirmModalComponent } from "@modules/utility/components";
+import { ShowPricesComponent } from '@modules/prices/components';
 
 @Component({
   selector: 'sb-product',
@@ -272,6 +272,14 @@ export class ProductComponent implements OnInit {
       this.notificationService.error(error);
       this.authService.raiseError();
     });
+
+  }
+
+  openPricesModal(item_id: number) {
+    
+    const modalRef = this.ngbModal.open(ShowPricesComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.item_id = item_id;
 
   }
 
