@@ -44,8 +44,8 @@ export class SellComponent implements OnInit {
     searchItem: ['', [Validators.required]],
     unit: [''],
     stock: [''],
-    price: [''],
-    quantity: [0, [Validators.required, CustomValidator.validateDecimalNumbers, Validators.maxLength(5)]]
+    price: ['', CustomValidator.validateGreaterThanZero],
+    quantity: [0, [Validators.required, CustomValidator.validateGreaterThanZero, CustomValidator.validateDecimalNumbers, Validators.maxLength(5)]]
   });
 
   private errorsListForm: Array<FormMessage> = [];

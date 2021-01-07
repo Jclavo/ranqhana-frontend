@@ -8,10 +8,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppCommonModule } from '@common/app-common.module';
 import { NavigationModule } from '@modules/navigation/navigation.module';
 import { UtilityModule } from '@modules/utility/utility.module';
+import { PricesModule } from '@modules/prices/prices.module';
 
 /* Components */
 import * as itemsComponents from './components';
 import * as utilityComponents from '@modules/utility/components';
+import * as pricesComponents from '@modules/prices/components';
 
 /* Containers */
 import * as itemsContainers from './containers';
@@ -32,7 +34,8 @@ import { NgxBarcodeModule } from 'ngx-barcode';
     AppCommonModule,
     NavigationModule,
     UtilityModule,
-    NgxBarcodeModule
+    NgxBarcodeModule,
+    PricesModule
   ],
   providers: [
     DecimalPipe,
@@ -48,7 +51,8 @@ import { NgxBarcodeModule } from 'ngx-barcode';
   ],
   entryComponents: [
     utilityComponents.ConfirmModalComponent,
-    utilityComponents.ImageModalComponent
+    utilityComponents.ImageModalComponent,
+    pricesComponents.ShowPricesComponent
   ]
 })
 export class ItemsModule { }

@@ -39,8 +39,8 @@ export class PurchaseComponent implements OnInit {
   addItemForm: FormGroup = this.formBuilder.group({
     searchItem: ['', [Validators.required]],
     unit: [''],
-    price: [0, [Validators.required, CustomValidator.validateDecimalNumbers, Validators.maxLength(8)]],
-    quantity: [0, [Validators.required, CustomValidator.validateDecimalNumbers, Validators.maxLength(5)]]
+    price: [0, [Validators.required, CustomValidator.validateGreaterThanZero, CustomValidator.validateDecimalNumbers, Validators.maxLength(8)]],
+    quantity: [0, [Validators.required, CustomValidator.validateGreaterThanZero, CustomValidator.validateDecimalNumbers, Validators.maxLength(5)]]
   });
 
   public errorsListForm: Array<FormMessage> = [];

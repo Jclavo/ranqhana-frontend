@@ -163,7 +163,8 @@
                 </div>
 
                 <div class="row" *ngIf="(invoiceUtils.order.stage_id != invoiceUtils.ORDER_STAGE_NEW && invoiceUtils.invoice.stage_id == 3) || !invoiceUtils.isOrder">
-                    <button type="button" class="btn btn-success btn-block" (click)="invoiceUtils.saveInvoice()" i18n="@@button.create">Create Invoice</button>
+                    <button type="button" class="btn btn-success btn-block" (click)="invoiceUtils.saveInvoice()" 
+                    i18n="@@button.create" [disabled]="invoiceUtils.invoice.total <= 0">Create Invoice</button>
                 </div>
                 
             </form>

@@ -40,7 +40,10 @@ export class DashboardChartsComponent implements OnInit {
 
         //set parameters to search
         let searchInvoiceOption = new SearchInvoice();
-        searchInvoiceOption.fromDate = searchInvoiceOption.toDate = this.customDateService.getToday();
+        let mydate = new Date();
+
+        searchInvoiceOption.fromDate = this.customDateService.substractDaysFromToday(mydate.getDate() - 1);
+        searchInvoiceOption.toDate = this.customDateService.getToday();
         searchInvoiceOption.type_id = InvoiceType.getForSell();
         searchInvoiceOption.searchBy = 'D';
 
@@ -63,10 +66,14 @@ export class DashboardChartsComponent implements OnInit {
 
         //set parameters to search
         let searchInvoiceOption = new SearchInvoice();
-        searchInvoiceOption.fromDate = this.customDateService.substractDaysFromToday(1);
+        let mydate = new Date();
+
+        searchInvoiceOption.fromDate = this.customDateService.substractDaysFromToday(mydate.getDate() - 1);
         searchInvoiceOption.toDate = this.customDateService.getToday();
         searchInvoiceOption.type_id = InvoiceType.getForSell();
         searchInvoiceOption.searchBy = "M";
+
+        console.log('searchInvoiceOption.fromDate ', searchInvoiceOption.fromDate )
 
         this.reportService.invoiceMoney(searchInvoiceOption).subscribe(response => {
 

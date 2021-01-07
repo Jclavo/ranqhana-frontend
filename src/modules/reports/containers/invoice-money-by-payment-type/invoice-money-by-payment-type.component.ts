@@ -39,7 +39,7 @@ export class InvoiceMoneyByPaymentTypeComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.searchInvoiceOption.searchBy = 'D';
+    this.searchInvoiceOption.searchBy = 'Y';
 
     this.getInvoiceTypes();
 

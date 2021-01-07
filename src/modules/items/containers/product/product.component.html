@@ -15,10 +15,15 @@
             <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name"
               i18n-placeholder="@@product.page.title" placeholder="Product" required>
           </div>
-          <div class="form-group col-12 col-md-3">
+          <div class="form-group col-12 col-md-2">
             <label class="control-label font-weight-bold" for="price" i18n="@@item.field.price">Price</label>
             <input type="number" step="0.01" min="0" class="form-control" id="price" name="price"
               [(ngModel)]="product.price" placeholder="Price">
+          </div>
+          <div class="form-group col-12 col-md-1">
+            <div class="form-group col-12 col-md-3">
+              <button class="btn btn-info btn-md" (click)="openPricesModal(product.id)" [disabled]="product.id == 0">$</button>
+            </div>
           </div>
           <div class="form-group col-12 col-md-3">
             <label class="control-label font-weight-bold" for="unit" i18n="@@unit.page.title">Unit</label>

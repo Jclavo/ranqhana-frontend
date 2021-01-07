@@ -16,8 +16,8 @@ import { UnitService } from '@modules/units/services';
 import { StockTypesService } from '@modules/stock-types/services';
 
 // COMPONENT 
-import { ImageModalComponent } from "@modules/utility/components/image-modal/image-modal.component";
-import { ConfirmModalComponent } from '@modules/utility/components';
+import { ImageModalComponent, ConfirmModalComponent } from "@modules/utility/components";
+import { ShowPricesComponent } from '@modules/prices/components';
 
 @Component({
   selector: 'sb-product',
@@ -59,7 +59,6 @@ export class ProductComponent implements OnInit {
 
       if (response.status) {
         this.product = response.result;
-
         //logic to check as true the stock types selected
         for (let i = 0; i < this.product.stock_types.length; i++) {
           for (let j = 0; j < this.stockTypes.length; j++) {
@@ -69,6 +68,7 @@ export class ProductComponent implements OnInit {
             }
           }
         }
+
       }
       else {
         this.notificationService.error(response.message);
@@ -189,9 +189,9 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  getStockTypes() {
+  async getStockTypes() {
 
-    this.stockTypesService.get().subscribe(response => {
+    await this.stockTypesService.get().toPromise().then(response => {
 
       if (response.status) {
         this.stockTypes = response.result;
@@ -272,6 +272,14 @@ export class ProductComponent implements OnInit {
       this.notificationService.error(error);
       this.authService.raiseError();
     });
+
+  }
+
+  openPricesModal(item_id: number) {
+    
+    const modalRef = this.ngbModal.open(ShowPricesComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.item_id = item_id;
 
   }
 

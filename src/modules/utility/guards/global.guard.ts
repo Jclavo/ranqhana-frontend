@@ -23,7 +23,7 @@ export class GlobalGuard implements CanActivate {
     if(this.authService.isLogged())
       return true;
 
-    return this.router.parseUrl('/login');
+    return this.router.parseUrl('/');
 
   }
   

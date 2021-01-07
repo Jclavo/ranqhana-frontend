@@ -1,10 +1,18 @@
 <div class="row">
-    <div class="col-md-12 col-xl-12">
+    <div class="col-md-9">
         <div class="input-group mb-4">
             <div class="input-group-prepend">
                 <div class="input-group-text font-weight-bold">Serie</div>
             </div>
             <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="searchOption.searchValue" maxlength="12"/>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <div class="input-group-text font-weight-bold">Total</div>
+            </div>
+            <input class="form-control ml-2" type="number" name="total" [(ngModel)]="invoiceTotalSum" readonly/>
         </div>
     </div>
 

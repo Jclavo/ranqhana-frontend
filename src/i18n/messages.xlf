@@ -293,11 +293,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">122</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">104</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/units/components/unit-modal/unit-modal.component.html</context>
@@ -424,25 +424,32 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="form.mustMatch" datatype="html">
-        <source>does not match</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="form.mask" datatype="html">
         <source>does not have the rigth format</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="form.invalidDecimalNumber" datatype="html">
         <source>does not have the rigth decimal format</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="form.mustMatch" datatype="html">
+        <source>do not match</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context>
           <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="form.invalidGreaterThanZeroNumber" datatype="html">
+        <source>The number should be greater than 0</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/form-validations/form-validations.component.html</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="button.save" datatype="html">
@@ -453,11 +460,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">126</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">108</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/add-aditional-info/add-aditional-info.component.html</context>
@@ -535,27 +542,27 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/components/ng-bootstrap-table-services/ng-bootstrap-table-services.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">81</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/components/ng-bootstrap-table-services/ng-bootstrap-table-services.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">82</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/components/ng-bootstrap-table-services/ng-bootstrap-table-services.component.html</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">83</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
-          <context context-type="linenumber">166</context>
+          <context context-type="linenumber">169</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
-          <context context-type="linenumber">168</context>
+          <context context-type="linenumber">171</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
-          <context context-type="linenumber">170</context>
+          <context context-type="linenumber">173</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/units/components/ng-bootstrap-table-units/ng-bootstrap-table-units.component.html</context>
@@ -636,11 +643,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">91</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">73</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/components/ng-bootstrap-table-products/ng-bootstrap-table-products.component.html</context>
@@ -694,23 +701,23 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">51</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">85</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/sell/sell.component.html</context>
@@ -987,11 +994,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">72</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="button.image" datatype="html">
@@ -1002,11 +1009,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">88</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/components/ng-bootstrap-table-products/ng-bootstrap-table-products.component.html</context>
@@ -1129,6 +1136,54 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/purchase/purchase.component.html</context>
           <context context-type="linenumber">160</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="button.date" datatype="html">
+        <source>Date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/prices/components/show-prices/show-prices.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/prices/components/show-prices/show-prices.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="button.close" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/prices/components/show-prices/show-prices.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="button.sell" datatype="html">
+        <source>Sell</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/prices/components/show-prices/show-prices.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="button.purchase" datatype="html">
+        <source>Purchase</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/prices/components/show-prices/show-prices.component.html</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="no.printer" datatype="html">
@@ -1410,7 +1465,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="person.field.repassword" datatype="html">
-        <source>Confirm Password</source>
+        <source>Passwords</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/containers/i18n/messages/messages.component.html</context>
           <context context-type="linenumber">56</context>
@@ -1605,6 +1660,33 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="item.field.price" datatype="html">
+        <source>Price</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/prices/components/show-prices/show-prices.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/items/containers/item-i18n/item-i18n.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/items/components/ng-bootstrap-table-products/ng-bootstrap-table-products.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/items/components/ng-bootstrap-table-services/ng-bootstrap-table-services.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="product.page.title" datatype="html">
         <source>Product</source>
         <context-group purpose="location">
@@ -1628,34 +1710,11 @@
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="item.field.price" datatype="html">
-        <source>Price</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/items/containers/item-i18n/item-i18n.component.html</context>
-          <context context-type="linenumber">2</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/items/components/ng-bootstrap-table-products/ng-bootstrap-table-products.component.html</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/items/components/ng-bootstrap-table-services/ng-bootstrap-table-services.component.html</context>
-          <context context-type="linenumber">20</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="unit.page.title" datatype="html">
         <source>Unit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/components/ng-bootstrap-table-products/ng-bootstrap-table-products.component.html</context>
@@ -1695,11 +1754,11 @@
             types</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/item-i18n/item-i18n.component.html</context>
@@ -1984,10 +2043,6 @@
           <context context-type="sourcefile">src/modules/invoices/components/show-invoice/show-invoice.component.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
-          <context context-type="linenumber">70</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="invoice.field.discount" datatype="html">
         <source>Discount
@@ -2007,10 +2062,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/show-invoice/show-invoice.component.html</context>
           <context context-type="linenumber">40</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/invoices/components/ng-bootstrap-table-invoices/ng-bootstrap-table-invoices.component.html</context>
-          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="invoice.page.title" datatype="html">

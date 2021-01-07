@@ -131,7 +131,7 @@ export class ChartsBarComponent implements OnInit, AfterViewInit {
 
                 plugins: {
                     datalabels: {
-                        color: 'white',
+                        color: 'black',
                         anchor: 'center',
                         align: 'top',
                         formatter: Math.round,
