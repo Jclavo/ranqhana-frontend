@@ -43,14 +43,17 @@ export class UtilityService {
               keyError = this.languageService.getI18n('form.invalidPositiveNumber');
               break;
             case 'invalidDecimalNumber':
-                keyError = this.languageService.getI18n('form.mask');
-                break;
+              keyError = this.languageService.getI18n('form.mask');
+              break;
             case 'mask':
-                keyError = this.languageService.getI18n('form.mask');
-                break;
+              keyError = this.languageService.getI18n('form.mask');
+              break;
             case 'mustMatch':
-                  keyError = this.languageService.getI18n('form.mustMatch');
-                  break;
+              keyError = this.languageService.getI18n('form.mustMatch');
+              break;
+            case 'invalidGreaterThanZeroNumber':
+              keyError = this.languageService.getI18n('form.invalidGreaterThanZeroNumber');
+              break;
             case 'minlength':
               characters = controlErrors[keyError].requiredLength
               keyError = this.languageService.getI18n('form.minlength');

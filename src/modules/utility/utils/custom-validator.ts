@@ -36,11 +36,20 @@ export class CustomValidator {
 
   static validateDecimalNumbers(control: AbstractControl): { [key: string]: any } | null {
 
+
     const valid = CustomValidator.validDecimalNumbers.test(control.value)
 
     return valid
       ? null
       : { invalidDecimalNumber: true }
+
+  }
+
+  static validateGreaterThanZero(control: AbstractControl): { [key: string]: any } | null {
+
+    return control.value > 0
+      ? null
+      : { invalidGreaterThanZeroNumber: true }
 
   }
 

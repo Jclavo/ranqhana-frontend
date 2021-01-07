@@ -37,7 +37,7 @@ export class InvoiceDetailService {
       response.status = resultRAW.status;
       response.message = resultRAW.message;
 
-      if (resultRAW.result) {
+      if (response.status && resultRAW.result) {
 
         // let invoiceDetail = new InvoiceDetail();
         // invoiceDetail.id = resultRAW.result?.id;
