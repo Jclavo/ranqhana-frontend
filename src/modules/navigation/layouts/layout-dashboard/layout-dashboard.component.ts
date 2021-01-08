@@ -77,12 +77,12 @@ export class LayoutDashboardComponent implements OnInit, OnDestroy {
                 }
 
                 // Add HOME to the menu
-                let moduleHome = new Module();
-                moduleHome.id = 0;
-                moduleHome.icon = 'home';
-                moduleHome.name = 'Home';
-                moduleHome.url = '/home';
-                this.sideNavItems.unshift(moduleHome);
+                // let moduleHome = new Module();
+                // moduleHome.id = 0;
+                // moduleHome.icon = 'home';
+                // moduleHome.name = 'Home';
+                // moduleHome.url = '/home';
+                // this.sideNavItems.unshift(moduleHome);
                 
             }
             else {
