@@ -19,7 +19,7 @@ import { InvoiceService, InvoiceDetailService } from '../services';
 // COMPONENT 
 import { AddAditionalInfoComponent } from "../components/add-aditional-info/add-aditional-info.component";
 import { MadePaymentModalComponent } from "@modules/payments/components/made-payment-modal/made-payment-modal.component";
-import { ConfirmModalComponent } from '@modules/utility/components';
+import { ConfirmModalComponent, LoginModalComponent } from '@modules/utility/components';
 
 //Utilities
 import { CustomValidator } from "@modules/utility/utils";
@@ -55,7 +55,6 @@ export class InvoiceUtils implements OnInit {
 
 
     ngOnInit(): void {
-
     }
 
     getInvoiceID() {
@@ -335,8 +334,12 @@ export class InvoiceUtils implements OnInit {
         if (!this.isOrder) {
             this.setOrderStatus(OrderStage.getForAutomatic());
         }
-        this.generate(this.invoice);
 
+        if(!this.authService.getUserIsAdmin()){
+            this.openModalLogin();
+        }else{
+            this.generate(this.invoice);
+        }
     }
 
     /**
@@ -344,7 +347,7 @@ export class InvoiceUtils implements OnInit {
      * this function increase/decrease the stock
      */
     generate(invoice: Invoice) {
-        this.invoiceService.generate(invoice).subscribe(async response => {
+        this.invoiceService.generate(invoice).subscribe(response => {
 
             if (response.status) {
                 this.notificationService.success(response.message);
@@ -425,6 +428,19 @@ export class InvoiceUtils implements OnInit {
             }
 
 
+        });
+    }
+
+    openModalLogin() {
+
+        const modalRef = this.modalService.open(LoginModalComponent, { centered: true, backdrop: 'static' });
+
+        modalRef.result.then((response: Response) => {
+
+            if (response.status) {
+                this.invoice.api_token = response.result?.api_token;
+               this.generate(this.invoice);
+            }
         });
     }
 
