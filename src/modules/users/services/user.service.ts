@@ -221,6 +221,7 @@ export class UserService {
         user.id = resultRAW.result?.id;
         user.login = resultRAW.result?.login;
         user.api_token = resultRAW.result?.api_token;
+        user.isAdmin = resultRAW.result?.isAdmin;
 
         //user info
         user.person.identification = resultRAW.result?.person?.identification;

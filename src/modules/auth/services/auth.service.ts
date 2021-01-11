@@ -25,6 +25,7 @@ export class AuthService {
 
         this.user.id = _user.id;
         this.user.login = _user.login;
+        this.user.isAdmin = _user.isAdmin;
 
         //user info
         // this.user.identification = _user.id;
@@ -124,6 +125,10 @@ export class AuthService {
         return this.getUserFeature('has_cashier');
     }
 
+    public getUserIsAdmin() {
+        return this.getUserFeature('isAdmin');
+    }
+
     public getURLImage() {
         return environment.apiURLImage + this.getUserCompanyProjectID() + '/';
     }
@@ -145,10 +150,12 @@ export class AuthService {
             switch (feature) {
                 case 'id':
                     return JSON.parse(user)?.id;
-                case 'email':
-                    return JSON.parse(user)?.person.email;
                 case 'login':
                     return JSON.parse(user)?.login;
+                case 'isAdmin':
+                    return JSON.parse(user)?.isAdmin;
+                case 'email':
+                    return JSON.parse(user)?.person.email;
                 case 'name':
                     return JSON.parse(user)?.person.name;
                 case 'lastname':

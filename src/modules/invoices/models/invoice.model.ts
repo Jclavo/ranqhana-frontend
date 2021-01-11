@@ -26,6 +26,8 @@ export class Invoice {
     order = new Order();
     details: Array<InvoiceDetail> = [];
 
+    api_token: string = '';  // for login to validate the ADMIN actions
+
     getType(){
         return this.type_id;
     }

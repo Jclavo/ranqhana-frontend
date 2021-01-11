@@ -10,6 +10,8 @@ export class User {
     api_token: string = '';
     password: string = '';
     repassword: string = '';
+    isAdmin: boolean = false;
+    isCustom: boolean = false; // for login to validate the ADMIN actions
     
     //FK
     universal_person_id: number = 0;
