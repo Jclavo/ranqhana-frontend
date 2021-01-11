@@ -335,7 +335,7 @@ export class InvoiceUtils implements OnInit {
             this.setOrderStatus(OrderStage.getForAutomatic());
         }
 
-        if(!this.authService.getUserIsAdmin()){
+        if(!this.authService.getUserIsAdmin() && this.invoice.discount > 0){
             this.openModalLogin();
         }else{
             this.generate(this.invoice);
