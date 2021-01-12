@@ -237,6 +237,7 @@ export class UserService {
 
         //company settings
         user.company.setting.hasCashier = resultRAW.result?.company?.setting?.has_cashier;
+        user.company.setting.hasBarcodeScanner = resultRAW.result?.company?.setting?.has_barcode_scanner;
 
 
         //project info

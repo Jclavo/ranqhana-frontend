@@ -41,6 +41,7 @@ export class AuthService {
 
         //company settings
         this.user.company.setting.hasCashier = _user.company.setting.hasCashier;
+        this.user.company.setting.hasBarcodeScanner = _user.company.setting.hasBarcodeScanner;
 
         //project info
         this.user.project_id = _user.project_id;
@@ -124,6 +125,9 @@ export class AuthService {
     public getCompanySettingHasCashier() {
         return this.getUserFeature('has_cashier');
     }
+    public getCompanySettingHasBarcodeScanner() {
+        return this.getUserFeature('has_barcode_scanner');
+    }
 
     public getUserIsAdmin() {
         return this.getUserFeature('isAdmin');
@@ -174,6 +178,8 @@ export class AuthService {
                     return JSON.parse(user)?.company.person.country.tax;
                 case 'has_cashier':
                     return JSON.parse(user)?.company.setting.hasCashier;
+                case 'has_barcode_scanner':
+                    return JSON.parse(user)?.company.setting.hasBarcodeScanner;
                 default:
                     return;
             }

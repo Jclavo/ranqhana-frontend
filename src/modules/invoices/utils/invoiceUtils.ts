@@ -191,7 +191,7 @@ export class InvoiceUtils implements OnInit {
 
     }
 
-    async create(type_id: number, item: SearchItem) {
+    create(type_id: number, item: SearchItem) {
 
         this.disabledButtonAdd = true;
 
@@ -207,7 +207,7 @@ export class InvoiceUtils implements OnInit {
         this.addDetail(invoiceDetail);
     }
 
-    async addDetail(invoiceDetail: InvoiceDetail) {
+    addDetail(invoiceDetail: InvoiceDetail) {
 
         this.invoiceDetailService.create(invoiceDetail).subscribe(response => {
             // await this.invoiceDetailService.create(invoiceDetail).toPromise().then(response => {

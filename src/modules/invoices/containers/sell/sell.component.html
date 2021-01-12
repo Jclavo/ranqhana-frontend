@@ -10,7 +10,7 @@
         <div class="card-body">
             <form [formGroup]="addItemForm">
                 <div class="row">
-                    <div class="col-12 col-md-6 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3" *ngIf="!hasBarcodeScanner">
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
                                 <div class="input-group-text font-weight-bold">Item</div>
@@ -19,6 +19,16 @@
                                 i18n-placeholder="@@invoice.field.searchItem" placeholder="Search Item"
                                 [ngbTypeahead]="search" [inputFormatter]="formatter" [resultFormatter]="formatter"
                                 (blur)="assignSearchItemToForm()" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-xl-3" *ngIf="hasBarcodeScanner">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text font-weight-bold">Barcode</div>
+                            </div>
+                            <input class="form-control" type="text" name="barcode" formControlName="barcode"
+                                i18n-placeholder="@@invoice.field.barcode" placeholder="Barcode"
+                                (input)="onChangeBarcode()" maxlength="8" />
                         </div>
                     </div>
                     <div class="col-12 col-md-3 col-xl-2">
@@ -57,13 +67,19 @@
                     </div>
 
                     <div class="col-12 col-md-2 col-xl-1">
-                        <button type="button" class="btn btn-primary btn-block" (click)="addItem()"
-                        i18n="@@button.add" [disabled]="invoiceUtils.disabledButtonAdd">ADD</button>
+                        <button type="button" class="btn btn-primary btn-block" (click)="addItem()" i18n="@@button.add"
+                            [disabled]="invoiceUtils.disabledButtonAdd">ADD</button>
                     </div>
 
                 </div>
-
             </form>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="input-group mb-2">
+                    <input class="form-check-input" type="checkbox" id="hasBarcodeScanner" name="hasBarcodeScanner"
+                    [(ngModel)]="hasBarcodeScanner">
+                    <label class="form-check-label font-weight-bold mx-2" for="hasBarcodeScanner">Barcode Scanner</label>
+                </div>
+            </div>
         </div>
     </sb-card>
 
@@ -74,7 +90,7 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col"><span>ID</span></th>
+                            <th scope="col"><span>Barcode</span></th>
                             <th scope="col"><span i18n="@@button.description">Description</span></th>
                             <th scope="col"><span i18n="@@unit.page.title">Unit</span></th>
                             <th scope="col"><span i18n="@@invoice.field.quantity">Quantity</span></th>
@@ -86,7 +102,7 @@
                     <tbody>
                         <tr *ngFor="let invoiceDetail of  invoiceUtils.invoiceDetails; index as index">
                             <th scope="row">{{ index + 1 }}</th>
-                            <th scope="row">{{ invoiceDetail.item_id }}</th>
+                            <th scope="row">{{ invoiceDetail.barcode }}</th>
                             <td scope="row">{{ invoiceDetail.item }}</td>
                             <td scope="row">{{ invoiceDetail.unit }}</td>
                             <td scope="row">{{ invoiceDetail.quantity }}</td>

@@ -70,6 +70,7 @@ export class InvoiceDetailService {
           invoiceDetails.id       = detail.id;
           invoiceDetails.item_id  = detail.item_id;
           invoiceDetails.item     = detail.item?.name;
+          invoiceDetails.barcode  = detail.item?.barcode;
           invoiceDetails.unit     = detail.item?.unit?.abbreviation;
           invoiceDetails.quantity = detail.quantity;
           invoiceDetails.price    = detail.price;
