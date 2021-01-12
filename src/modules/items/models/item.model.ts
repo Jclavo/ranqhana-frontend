@@ -12,6 +12,7 @@ export class Item {
     fractioned: boolean = false; 
     stocked: boolean = true; 
     store_id: number = 0;
+    barcode: string = '';
     created_at: string = ''; 
     updated_at: string = ''; 
 
