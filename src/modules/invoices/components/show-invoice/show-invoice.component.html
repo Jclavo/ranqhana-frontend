@@ -21,7 +21,7 @@
         <td>{{invoiceDetail.id}}</td>
         <td>{{invoiceDetail.item}}</td>
         <td>{{invoiceDetail.unit}}</td>
-        <td>{{invoiceDetail.quantity}}</td>
+        <td>{{formUtils.customToFixedIntegerDecimal(invoiceDetail.quantity)}}</td>
         <td>{{invoiceDetail.price}}</td>
         <td>{{invoiceDetail.total}}</td>
       </tr>

@@ -67,7 +67,6 @@ export class SellComponent implements OnInit {
 
   ngAfterViewInit(): void {
 
-    console.log('this.authService.getCompanySettingHasBarcodeScanner()', this.authService.getCompanySettingHasBarcodeScanner());
     this.hasBarcodeScanner = this.authService.getCompanySettingHasBarcodeScanner();
 
     this.invoiceUtils.setHasInvoice(false);

@@ -105,7 +105,7 @@
                             <th scope="row">{{ invoiceDetail.barcode }}</th>
                             <td scope="row">{{ invoiceDetail.item }}</td>
                             <td scope="row">{{ invoiceDetail.unit }}</td>
-                            <td scope="row">{{ invoiceDetail.quantity }}</td>
+                            <td scope="row">{{ formUtils.customToFixedIntegerDecimal(invoiceDetail.quantity) }}</td>
                             <td scope="row">{{ invoiceDetail.price }}</td>
                             <td scope="row">{{ invoiceDetail.total }}</td>
                             <td>
