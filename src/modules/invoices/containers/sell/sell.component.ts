@@ -144,7 +144,7 @@ export class SellComponent implements OnInit {
           this.assignSearchItemToForm();
           this.addItem();
         }else{
-          this.notificationService.error('Item not found');
+          this.notificationService.error(this.languageService.getI18n('item.message.notFound'));
           this.addItemForm.reset();
         }
 
