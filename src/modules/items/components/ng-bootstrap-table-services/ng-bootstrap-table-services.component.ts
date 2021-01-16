@@ -7,7 +7,7 @@ import { Item, SearchItemOptions } from '@modules/items/models';
 import { ItemType } from '@modules/item-types/models';
 
 // COMPONENT 
-import { ConfirmModalComponent } from '@modules/utility/components';
+import { ConfirmModalComponent, BarcodePrintModalComponent } from '@modules/utility/components';
 
 //SERVICES
 import { ItemService } from "../../services";
@@ -126,8 +126,20 @@ export class NgBootstrapTableServicesComponent implements OnInit {
     });
   }
 
-  print(){
-    this.notificationService.error(this.languageService.getI18n('no.printer'));
+  modalPrint(name: string, price: number, barcode: string) {
+
+    if(!barcode){
+      this.notificationService.error('Barcode not found.');
+      return;
+    }
+
+    const modalRef = this.modalService.open(BarcodePrintModalComponent, { centered: true, backdrop: 'static'});
+    // size: 'lg' 
+
+    modalRef.componentInstance.name = name;
+    modalRef.componentInstance.price = price;
+    modalRef.componentInstance.barcode = barcode;
+
   }
 
 }
