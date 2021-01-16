@@ -52,6 +52,7 @@ import { NgxBarcodeModule } from 'ngx-barcode';
   entryComponents: [
     utilityComponents.ConfirmModalComponent,
     utilityComponents.ImageModalComponent,
+    utilityComponents.BarcodePrintModalComponent,
     pricesComponents.ShowPricesComponent
   ]
 })

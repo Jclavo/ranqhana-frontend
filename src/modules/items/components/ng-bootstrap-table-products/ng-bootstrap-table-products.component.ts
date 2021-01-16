@@ -7,7 +7,7 @@ import { Item, SearchItemOptions } from '@modules/items/models';
 import { ItemType } from '@modules/item-types/models';
 
 // COMPONENT 
-import { ConfirmModalComponent } from '@modules/utility/components';
+import { ConfirmModalComponent, BarcodePrintModalComponent } from '@modules/utility/components';
 
 //SERVICES
 import { ItemService } from "../../services";
@@ -54,7 +54,7 @@ export class NgBootstrapTableProductsComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: any ) {
+  onResize(event: any) {
     this.maxSizePagination = this.utilityService.getMaxSizePagination(event.target.innerWidth);
   }
 
@@ -82,7 +82,7 @@ export class NgBootstrapTableProductsComponent implements OnInit {
       if (response.status) {
         this.items = response.result;
         this.searchOption.total = response.records;
-      }else{
+      } else {
         this.notificationService.error(response.message);
       }
 
@@ -94,7 +94,7 @@ export class NgBootstrapTableProductsComponent implements OnInit {
   }
 
   modalDelete(id: string, name: string) {
-    
+
     const modalRef = this.modalService.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
 
     modalRef.componentInstance.title = this.languageService.getI18n('product.page.title');
@@ -125,8 +125,33 @@ export class NgBootstrapTableProductsComponent implements OnInit {
     });
   }
 
-  print(){
-    this.notificationService.error(this.languageService.getI18n('no.printer'));
+  print() {
+    // this.notificationService.error(this.languageService.getI18n('no.printer'));
+    // let divToPrint = document.getElementById('print-index-invoice');
+    // var newWin = window.open('', 'Print-Window');
+    // newWin.document.open();
+    // newWin.document.write('<html><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" media="print"/><body onload="window.print()">' + 'HI' + '</body></html>');
+    // newWin.document.close();
+    // setTimeout(function () {
+    //   newWin.close();
+    // }, 10000);
+    window.print();
+  }
+
+  modalPrint(name: string, price: number, barcode: string) {
+
+    if(!barcode){
+      this.notificationService.error('Barcode not found.');
+      return;
+    }
+
+    const modalRef = this.modalService.open(BarcodePrintModalComponent, { centered: true, backdrop: 'static'});
+    // size: 'lg' 
+
+    modalRef.componentInstance.name = name;
+    modalRef.componentInstance.price = price;
+    modalRef.componentInstance.barcode = barcode;
+
   }
 
 }

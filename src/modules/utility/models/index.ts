@@ -8,3 +8,4 @@ export * from './form-message.model';
 export * from './image.model';
 export * from './stage.model';
 export * from './pagination-sum.model';
+export * from './barcode-print-configuration';

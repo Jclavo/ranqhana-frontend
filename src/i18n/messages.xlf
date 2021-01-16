@@ -292,6 +292,10 @@
           <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/components/barcode-print-modal/barcode-print-modal.component.html</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
           <context context-type="linenumber">122</context>
         </context-group>
@@ -795,6 +799,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
           <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/components/barcode-print-modal/barcode-print-modal.component.html</context>
+          <context context-type="linenumber">88</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/components/show-invoice/show-invoice.component.html</context>
@@ -1612,6 +1620,21 @@
           <context context-type="linenumber">12</context>
         </context-group>
         <note priority="1" from="description">@changeDateModal.date</note>
+      </trans-unit>
+      <trans-unit id="8df9ca254c8d2256596ec99b80c19cda801b99f2" datatype="html">
+        <source>Print Barcode</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/components/barcode-print-modal/barcode-print-modal.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <note priority="1" from="description">@barcode.print.title</note>
+      </trans-unit>
+      <trans-unit id="barcode.configurations" datatype="html">
+        <source>Configurations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/components/barcode-print-modal/barcode-print-modal.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="login.pagetitle" datatype="html">
         <source>Login Page</source>

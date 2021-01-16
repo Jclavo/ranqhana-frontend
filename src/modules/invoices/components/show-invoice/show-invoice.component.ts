@@ -99,7 +99,8 @@ export class ShowInvoiceComponent implements OnInit {
   }
 
   print(){
-    this.notificationService.error(this.languageService.getI18n('no.printer'));
+    // this.notificationService.error(this.languageService.getI18n('no.printer'));
+    window.print();
   }
 
   exportPDF(){
