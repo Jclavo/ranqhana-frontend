@@ -55,6 +55,7 @@
     "express": "^4.17.1",
     "ngx-barcode": "^0.3.0",
     "ngx-mask": "^10.0.1",
+    "ngx-print": "^1.2.0-beta.5",
     "ngx-toastr": "^13.0.0",
     "object-hash": "2.0.3",
     "rxjs": "6.6.2",

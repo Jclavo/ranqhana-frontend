@@ -8,10 +8,10 @@
 
 <div class="modal-body">
 
-  <div style=" border: 1px solid black" class="container" [style.width]="configuration.divWidth"
+  <div id="print-section" style=" border: 1px solid black" class="container" [style.width]="configuration.divWidth"
     [style.height]="configuration.divHeight">
 
-    <table style="width:100%">
+    <table>
       <tr>
         <th style="text-align: center; vertical-align:bottom;" [style.font-size]="configuration.fontSize">
           {{name}}
@@ -85,7 +85,7 @@
   <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close()"
     i18n="@@button.cancel">Cancel</button>
   <button type="button" ngbAutofocus class="btn btn-outline-success" (click)="print()"
-    i18n="@@button.print">Print</button>
+    i18n="@@button.print" [useExistingCss]="true" printSectionId="print-section" ngxPrint>Print</button>
 
 </div>
 <sb-messages></sb-messages>
