@@ -4,6 +4,7 @@ export class SearchItemOptions extends SearchOptions {
 
     stock_type_id: number = 0;
     type_id: number = 0;
+    barcode: boolean = false;
 
     constructor() {
         super();

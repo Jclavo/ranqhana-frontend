@@ -8,12 +8,14 @@ import { ItemType } from '@modules/item-types/models';
 import { Order } from '@modules/orders/models';
 import { OrderStage } from '@modules/order-stages/models';
 import { PaymentType } from '@modules/payment-types/models';
+import { Payment } from '@modules/payments/models';
 
 //SERVICES
 import { NotificationService, LanguageService } from '@modules/utility/services';
 import { AuthService } from "@modules/auth/services";
 import { OrderService } from "@modules/orders/services";
 import { InvoiceService, InvoiceDetailService } from '../services';
+import { PaymentService } from "@modules/payments/services";
 
 
 // COMPONENT 
@@ -50,7 +52,8 @@ export class InvoiceUtils implements OnInit {
         private modalService: NgbModal,
         private router: Router,
         private languageService: LanguageService,
-        private orderService: OrderService
+        private orderService: OrderService,
+        private paymentService: PaymentService
     ) { }
 
 
@@ -191,7 +194,7 @@ export class InvoiceUtils implements OnInit {
 
     }
 
-    async create(type_id: number, item: SearchItem) {
+    create(type_id: number, item: SearchItem) {
 
         this.disabledButtonAdd = true;
 
@@ -207,7 +210,7 @@ export class InvoiceUtils implements OnInit {
         this.addDetail(invoiceDetail);
     }
 
-    async addDetail(invoiceDetail: InvoiceDetail) {
+    addDetail(invoiceDetail: InvoiceDetail) {
 
         this.invoiceDetailService.create(invoiceDetail).subscribe(response => {
             // await this.invoiceDetailService.create(invoiceDetail).toPromise().then(response => {
@@ -335,9 +338,9 @@ export class InvoiceUtils implements OnInit {
             this.setOrderStatus(OrderStage.getForAutomatic());
         }
 
-        if(!this.authService.getUserIsAdmin() && this.invoice.discount > 0){
+        if (!this.authService.getUserIsAdmin() && this.invoice.discount > 0) {
             this.openModalLogin();
-        }else{
+        } else {
             this.generate(this.invoice);
         }
     }
@@ -397,19 +400,55 @@ export class InvoiceUtils implements OnInit {
                 if (this.authService.getCompanySettingHasCashier()) {
                     this.router.navigate(['/invoices', invoice.getType()]);
                 } else {
+
                     let type_id = response?.result?.type_id
+                    if (payment_id == 0) {
+                        payment_id = response?.result?.payment_id;
+                    }
+
                     if (type_id == PaymentType.getForInternalCredit()) {
                         this.router.navigate(['/payments', invoice.id]);
-                    } else {
-                        if (payment_id == 0) {
-                            payment_id = response?.result?.payment_id;
-                        }
+                    } else if (type_id == PaymentType.getForCash()) {
                         this.openModalMadePayment(invoice, payment_id);
+                    } else {
+                        this.getPaymentById(payment_id);
                     }
                 }
 
 
             }
+        });
+    }
+
+    getPaymentById(id: number) {
+        this.paymentService.getById(id).subscribe(response => {
+            if (response.status) {
+                this.savePayment(response.result);
+            }
+            else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
+        });
+    }
+
+
+    savePayment(payment: Payment) {
+
+        this.paymentService.save(payment).subscribe(response => {
+            if (response.status) {
+                this.router.navigate(['/invoices', this.invoice.getType()]);
+            }
+            else {
+                this.notificationService.error(response.message);
+            }
+
+        }, error => {
+            this.notificationService.error(error);
+            this.authService.raiseError();
         });
     }
 
@@ -439,7 +478,7 @@ export class InvoiceUtils implements OnInit {
 
             if (response.status) {
                 this.invoice.api_token = response.result?.api_token;
-               this.generate(this.invoice);
+                this.generate(this.invoice);
             }
         });
     }

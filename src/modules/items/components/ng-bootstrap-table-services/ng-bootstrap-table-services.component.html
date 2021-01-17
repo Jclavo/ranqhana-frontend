@@ -32,8 +32,8 @@
                 <tr *ngFor="let service of services">
                     <th scope="row" class="col-auto">{{ service.id }}</th>
                     <th scope="row" class="col-auto">
-                        <ngx-barcode [bc-value]="service.id" [bc-display-value]="false" [bc-width]="2" [bc-height]="20">
-                        </ngx-barcode>
+                        <ngx-barcode [bc-value]="service.barcode" [bc-display-value]="true" [bc-width]="2" [bc-height]="20"
+                        [bc-font-size]="15" [bc-format]="'EAN8'"></ngx-barcode>
                     </th>
                     <td>
                         <ngb-highlight [result]="service.name" [term]="searchOption.searchValue"></ngb-highlight>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-2 mb-1 ml-3">
                                 <fa-icon [icon]='["fas", "print"]' [styles]="{'stroke': 'blue', 'color': 'blue'}"
-                                    size="lg" (click)="print()"></fa-icon>
+                                    size="lg" (click)="modalPrint(service.name, service.price, service.barcode)"></fa-icon>
                             </div>
                         </div>
                     </td>

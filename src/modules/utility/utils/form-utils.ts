@@ -101,4 +101,17 @@ export class FormUtils {
         return value;
     }
 
+    customToFixedIntegerDecimal(value: number) {
+
+        if (typeof value == 'number') {
+            if (Number.isInteger(value)) {
+                return value?.toFixed();
+            } else {
+                this.customToFixed(value);
+            }
+        }
+        return value;
+
+    }
+
 }

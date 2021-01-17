@@ -80,7 +80,7 @@
                             <th scope="row">{{ invoiceDetail.item_id }}</th>
                             <td scope="row">{{ invoiceDetail.item }}</td>
                             <td scope="row">{{ invoiceDetail.unit }}</td>
-                            <td scope="row">{{ invoiceDetail.quantity }}</td>
+                            <td scope="row">{{ formUtils.customToFixedIntegerDecimal(invoiceDetail.quantity) }}</td>
                             <td scope="row">{{ invoiceDetail.price }}</td>
                             <td scope="row">{{ invoiceDetail.total }}</td>
                             <td>
@@ -142,7 +142,7 @@
                     <div class="col-md-3">
                         <div class="input-group mb-2 mb-md-3">
                             <div class="input-group-prepend">
-                                <div class="input-group-text font-weight-bold">TOTAL</div>
+                                <div class="input-group-text font-weight-bold">TOTAL {{ authService.getCompanyCurrencySymbol() }}</div>
                             </div>
                             <input class="form-control" type="text" name="total" 
                             value="{{formUtils.customToFixed(invoiceUtils.invoice.total)}}" readonly/>

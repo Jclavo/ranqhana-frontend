@@ -30,6 +30,8 @@ export class AddAditionalInfoComponent implements OnInit {
   @Input() invoice_id: number = 0;
   @Input() payment_id: number = 0;
 
+  public PAYMENT_TYPE_FOR_CASH = PaymentType.getForCash();
+
   public invoice = new Invoice();
   public searchUserOption = new SearchUserOptions();
   public externalPerson = new Person();
@@ -93,7 +95,7 @@ export class AddAditionalInfoComponent implements OnInit {
 
       if (response.status) {
         this.invoice = response.result;
-        this.invoice.payment_type_id = PaymentType.getForCash();
+        this.invoice.payment_type_id = this.authService.getCompanyPaymentTypeID();
       }
       else {
         this.notificationService.error(response.message);
@@ -118,14 +120,6 @@ export class AddAditionalInfoComponent implements OnInit {
       this.notificationService.error(error);
       this.authService.raiseError();
     });
-  }
-
-  save() {
-
-    this.invoice.external_user_id = this.externalPerson?.id;
-
-    this.updateInvoice(this.invoice);
-
   }
 
   updateInvoice(invoice: SellInvoice) {
@@ -175,7 +169,9 @@ export class AddAditionalInfoComponent implements OnInit {
     //   }
     // }
 
-    this.save();
+    this.invoice.external_user_id = this.externalPerson?.id;
+
+    this.updateInvoice(this.invoice);
   }
 
   createPaymentCompleted() {

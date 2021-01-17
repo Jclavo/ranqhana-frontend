@@ -1,0 +1,91 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title" i18n="@barcode.print.title">Print Barcode</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+    (click)="activeModal.close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+  <div id="print-section" style=" border: 1px solid black" class="container" [style.width]="configuration.divWidth"
+    [style.height]="configuration.divHeight">
+
+    <table>
+      <tr>
+        <th style="text-align: center; vertical-align:bottom;" [style.font-size]="configuration.fontSize">
+          {{name}}
+        </th>
+        <th style="text-align: center; vertical-align:bottom;" [style.font-size]="configuration.fontSize">
+          [{{price}}]
+        </th>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;padding: 0px;">
+          <ngx-barcode [bc-value]="barcode" [bc-display-value]="true" [bc-width]="configuration.barcodeWidth"
+            [bc-height]="configuration.barcodeHeight" [bc-format]="'EAN8'">
+          </ngx-barcode>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2" style="text-align: center;">
+          <p [style.font-size]="configuration.fontSize">{{authService.getCompanyName()}}</p>
+        </th>
+      </tr>
+    </table>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <label class="control-label font-weight-bold" for="configuration" i18n="@@barcode.configurations">Configurations</label>
+      <select class="form-control" name="configuration" id="configuration" [(ngModel)]="configurationID"
+        (change)="onConfiguration()">
+        <option *ngFor="let conf of configurations" [value]="conf.id">
+          {{conf.divWidth}} X {{conf.divHeight}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <form *ngIf="true">
+    <div class="form-row">
+      <div class="form-group col-12 col-md-4">
+        <label class="control-label font-weight-bold" for="divWidth">W</label>
+        <input type="text" class="form-control" id="divWidth" name="divWidth" [(ngModel)]="configuration.divWidth">
+      </div>
+      <div class="form-group col-12 col-md-4">
+        <label class="control-label font-weight-bold" for="divHeight">H</label>
+        <input type="text" class="form-control" id="divHeight" name="divHeight" [(ngModel)]="configuration.divHeight">
+      </div>
+      <div class="form-group col-12 col-md-4">
+        <label class="control-label font-weight-bold" for="divQuantity">Q</label>
+        <input type="text" class="form-control" id="divQuantity" name="divQuantity"
+          [(ngModel)]="configuration.divQuantity">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-12 col-md-4">
+        <label class="control-label font-weight-bold" for="barcodeWidth">BC-W</label>
+        <input type="text" class="form-control" id="barcodeWidth" name="barcodeWidth"
+          [(ngModel)]="configuration.barcodeWidth">
+      </div>
+      <div class="form-group col-12 col-md-4">
+        <label class="control-label font-weight-bold" for="barcodeHeight">BC-H</label>
+        <input type="text" class="form-control" id="barcodeHeight" name="barcodeHeight"
+          [(ngModel)]="configuration.barcodeHeight">
+      </div>
+      <div class="form-group col-12 col-md-4">
+        <label class="control-label font-weight-bold" for="fontSize">Font size</label>
+        <input type="text" class="form-control" id="fontSize" name="fontSize" [(ngModel)]="configuration.fontSize">
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close()"
+    i18n="@@button.cancel">Cancel</button>
+  <button type="button" ngbAutofocus class="btn btn-outline-success" (click)="print()"
+    i18n="@@button.print" [useExistingCss]="true" printSectionId="print-section" ngxPrint>Print</button>
+
+</div>
+<sb-messages></sb-messages>

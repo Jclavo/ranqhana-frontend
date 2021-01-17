@@ -61,6 +61,7 @@ export class ItemService {
         item.stocked = data.stocked;
         item.store_id = data.store_id;
         item.type_id = data.type_id;
+        item.barcode = data.barcode;
         item.created_at = data.created_at;
         item.updated_at = data.updated_at;
 

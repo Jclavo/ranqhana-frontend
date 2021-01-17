@@ -40,7 +40,20 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" *ngIf="!authService.getCompanySettingHasCashier()"   ngbAutofocus class="btn btn-primary" i18n="@@button.next" (click)="next()">Next</button>
-  <button type="button" *ngIf="authService.getCompanySettingHasCashier()" ngbAutofocus class="btn btn-primary" i18n="@@button.save" (click)="next()">Save</button>
+
+  <div *ngIf="!authService.getCompanySettingHasCashier()">
+
+    <button type="button" *ngIf="invoice.payment_type_id == PAYMENT_TYPE_FOR_CASH"
+    ngbAutofocus class="btn btn-primary" i18n="@@button.next" (click)="next()">Next</button>
+    
+    <button type="button" ngbAutofocus *ngIf="invoice.payment_type_id != PAYMENT_TYPE_FOR_CASH"
+    class="btn btn-primary" i18n="@@button.finish" (click)="next()">Finish</button>
+
+  </div>
+
+  <div *ngIf="authService.getCompanySettingHasCashier()">
+    <button type="button" ngbAutofocus class="btn btn-primary" i18n="@@button.finish" (click)="next()">Finish</button>
+  </div>
+
 </div>
 <sb-messages></sb-messages>

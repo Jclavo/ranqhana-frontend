@@ -4,6 +4,7 @@ export class Country {
     name: string = '';
     timezone: string = '';
     currency: string = '';
+    currency_symbol: string = '';
     locale: string = '';
     tax: number = 0;
 }

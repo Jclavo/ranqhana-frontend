@@ -33,6 +33,12 @@ import * as utilityServices from './services';
 /* Interceptor */
 import * as interceptorServices from './interceptors';
 
+// Import ngx-barcode module
+import { NgxBarcodeModule } from 'ngx-barcode';
+
+//Import NgxPrintModule
+import {NgxPrintModule} from 'ngx-print';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -42,7 +48,9 @@ import * as interceptorServices from './interceptors';
         HttpClientModule,
         AppCommonModule,
         NavigationModule,
-        LanguagesModule
+        LanguagesModule,
+        NgxBarcodeModule,
+        NgxPrintModule
     ],
     providers: [
         ...utilityServices.services, 

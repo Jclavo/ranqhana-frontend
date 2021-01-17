@@ -10,6 +10,7 @@ import { AuthService } from "@modules/auth/services";
 import { UserService } from "@modules/users/services";
 import { PersonService } from "@modules/persons/services";
 import { InvoiceService, InvoiceDetailService } from '../../services';
+import { FormUtils } from '@modules/utility/utils';
 
 @Component({
   selector: 'sb-show-invoice',
@@ -31,7 +32,8 @@ export class ShowInvoiceComponent implements OnInit {
     public invoiceDetailService: InvoiceDetailService,
     public userService: UserService,
     public personService: PersonService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    public formUtils: FormUtils,
   ) { }
 
   ngOnInit(): void {
@@ -45,8 +47,6 @@ export class ShowInvoiceComponent implements OnInit {
 
       if(response.status){
         this.invoice = response.result;
-        //Set Company Name
-        this.invoice.store = this.authService.getCompanyName();
 
         //Find user
         this.invoice.external_user_id ? this.getPersonById(this.invoice.external_user_id) : null;
@@ -97,7 +97,8 @@ export class ShowInvoiceComponent implements OnInit {
   }
 
   print(){
-    this.notificationService.error(this.languageService.getI18n('no.printer'));
+    // this.notificationService.error(this.languageService.getI18n('no.printer'));
+    window.print();
   }
 
   exportPDF(){

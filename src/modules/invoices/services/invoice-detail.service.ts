@@ -70,8 +70,9 @@ export class InvoiceDetailService {
           invoiceDetails.id       = detail.id;
           invoiceDetails.item_id  = detail.item_id;
           invoiceDetails.item     = detail.item?.name;
+          invoiceDetails.barcode  = detail.item?.barcode;
           invoiceDetails.unit     = detail.item?.unit?.abbreviation;
-          invoiceDetails.quantity = detail.quantity;
+          invoiceDetails.quantity = Number(detail.quantity);
           invoiceDetails.price    = detail.price;
           invoiceDetails.total    = detail.total;
           
@@ -110,7 +111,7 @@ export class InvoiceDetailService {
         invoiceDetails.item_id  = data.item_id;
         invoiceDetails.item     = data.item?.name;
         invoiceDetails.unit     = data.item?.unit?.abbreviation;
-        invoiceDetails.quantity = data.quantity;
+        invoiceDetails.quantity = Number(data.quantity);
         invoiceDetails.price    = data.price;
         invoiceDetails.total    = data.total;
         

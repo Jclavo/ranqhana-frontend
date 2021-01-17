@@ -234,10 +234,13 @@ export class UserService {
         //company info
         user.company.id = resultRAW.result?.company?.id;
         user.company.person.name = resultRAW.result?.company?.person?.name;
+        user.company.person.address = resultRAW.result?.company?.person?.address;
 
         //company settings
         user.company.setting.hasCashier = resultRAW.result?.company?.setting?.has_cashier;
-
+        user.company.setting.hasBarcodeScanner = resultRAW.result?.company?.setting?.has_barcode_scanner;
+        user.company.setting.payment_type_id = resultRAW.result?.company?.setting?.payment_type_id;
+        user.company.setting.hasDiscountPercent = resultRAW.result?.company?.setting?.has_discount_percent;
 
         //project info
         user.project_id = resultRAW.result?.project?.id;
@@ -248,6 +251,7 @@ export class UserService {
         user.company.person.country.name = resultRAW.result?.company?.person?.country?.name;
         user.company.person.country.code = resultRAW.result?.company?.person?.country?.code;
         user.company.person.country.currency = resultRAW.result?.company?.person?.country?.currency;
+        user.company.person.country.currency_symbol = resultRAW.result?.company?.person?.country?.currency_symbol;
         user.company.person.country.locale = resultRAW.result?.company?.person?.country?.locale;
         user.company.person.country.tax = resultRAW.result?.company?.person?.country?.tax;
 

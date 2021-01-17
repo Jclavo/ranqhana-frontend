@@ -38,10 +38,11 @@ export class SellComponent implements OnInit {
   public order = new Order();
 
   public items: Array<Item> = [];
-  // public invoiceDetails: Array<InvoiceDetail> = [];
+  public hasBarcodeScanner: boolean = false;
 
   addItemForm: FormGroup = this.formBuilder.group({
     searchItem: ['', [Validators.required]],
+    barcode: [''],
     unit: [''],
     stock: [''],
     price: ['', CustomValidator.validateGreaterThanZero],
@@ -66,6 +67,8 @@ export class SellComponent implements OnInit {
 
   ngAfterViewInit(): void {
 
+    this.hasBarcodeScanner = this.authService.getCompanySettingHasBarcodeScanner();
+
     this.invoiceUtils.setHasInvoice(false);
     this.invoiceUtils.checkIsOrder();
     //reset values
@@ -81,6 +84,8 @@ export class SellComponent implements OnInit {
       this.invoiceUtils.getOrder(Number(this.activatedRoute.snapshot.paramMap.get('order_id')) ?? 0);
     }
 
+    this.invoiceUtils.invoice.discount_percent = this.authService.getCompanyHasDiscountPercent();
+
   }
 
   formatter = (item: Item) => item.name;
@@ -94,9 +99,19 @@ export class SellComponent implements OnInit {
       )
     )
 
+  onChangeBarcode() {
+    let barcode = this.addItemForm.value.barcode;
+
+    if (barcode.length == 8) {
+      this.getItemsByBarcode(barcode);
+    }
+
+  }
+
   getItems(searchValue: string) {
 
     this.searchItemOptions.searchValue = searchValue; // Assign value to search
+    this.searchItemOptions.barcode = false; // Assign value to search
     this.searchItemOptions.stock_type_id = StockType.getForSell();
 
     return this.itemService.get(this.searchItemOptions).pipe(
@@ -115,17 +130,57 @@ export class SellComponent implements OnInit {
       }))
   }
 
+  getItemsByBarcode(searchValue: string) {
+
+    this.searchItemOptions.searchValue = searchValue; // Assign value to search
+    this.searchItemOptions.barcode = true; // to check if the search is by barcode
+    this.searchItemOptions.stock_type_id = StockType.getForSell();
+
+    this.itemService.get(this.searchItemOptions).subscribe(response => {
+
+      if (response.status) {
+        this.items = response.result;
+
+        if (this.items?.length > 0) {
+          this.addItemForm.controls['searchItem'].setValue(this.items[0]);
+          this.assignSearchItemToForm();
+          this.addItem();
+        }else{
+          this.notificationService.error(this.languageService.getI18n('item.message.notFound'));
+          this.addItemForm.reset();
+        }
+
+      } else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+
+  }
+
   assignSearchItemToForm() {
 
     this.addItemForm.controls['searchItem'].setValue(this.calculateStock(this.addItemForm.value.searchItem));
-
-    this.addItemForm.controls['unit'].setValue(this.addItemForm.value.searchItem.unit);
     this.addItemForm.controls['price'].setValue(this.formUtils.customToFixed(this.addItemForm.value.searchItem.price));
-    this.addItemForm.value.searchItem.stocked ? this.addItemForm.controls['stock'].setValue(this.addItemForm.value.searchItem.stock) : this.addItemForm.controls['stock'].setValue('-');
+    this.addItemForm.controls['unit'].setValue(this.addItemForm.value.searchItem.unit);
+
+    this.addItemForm.value.searchItem.stocked ? this.addItemForm.controls['stock'].setValue(this.addItemForm.value.searchItem.stock)
+                                              : this.addItemForm.controls['stock'].setValue('-');
+    
+
     if (this.addItemForm.value.searchItem.type_id == ItemType.getForService()) {
       this.addItemForm.controls['unit'].setValue('-');
       this.addItemForm.controls['stock'].setValue('-');
     }
+
+    // this.addItemForm.controls['barcode'].setValue(this.addItemForm.value.barcode);
+    // Check is allow decimal 
+    // if (this.addItemForm.value.searchItem.stock > 0) {
+      this.addItemForm.controls['quantity'].setValue(1);
+    // }
   }
 
   calculateStock(searchItem: SearchItem): SearchItem {
@@ -153,7 +208,7 @@ export class SellComponent implements OnInit {
     return searchItem;
   }
 
-  async addItem() {
+  addItem() {
 
     if (this.addItemForm.invalid) {
       this.errorsListForm = this.utilityService.getFormError(this.addItemForm);
@@ -176,7 +231,7 @@ export class SellComponent implements OnInit {
     if (!this.invoiceUtils.unitAllowDecimal(this.searchItem)) return;
 
 
-    await this.invoiceUtils.create(InvoiceType.getForSell(), this.searchItem);
+    this.invoiceUtils.create(InvoiceType.getForSell(), this.searchItem);
 
     this.searchItem = new SearchItem();
     this.addItemForm.reset();
