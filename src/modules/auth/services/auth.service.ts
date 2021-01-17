@@ -13,61 +13,57 @@ import { environment } from "../../../environments/environment";
 export class AuthService {
 
     private api_token: string = '';
-    public user = new User();
+    // public user = new User();
 
     constructor(
         private router: Router,
     ) { }
 
-    public setUser(_user: User) {
+    public setUser(user: User) {
 
-        this.setAPITOKEN(_user.api_token);
+        this.setAPITOKEN(user.api_token);
+        localStorage.setItem('user', JSON.stringify(user));
 
-        this.user.id = _user.id;
-        this.user.login = _user.login;
-        this.user.isAdmin = _user.isAdmin;
+        // this.user.id = _user.id;
+        // this.user.login = _user.login;
+        // this.user.isAdmin = _user.isAdmin;
 
-        //user info
-        // this.user.identification = _user.id;
-        this.user.person.name = _user.person.name;
-        this.user.person.lastname = _user.person.lastname;
-        // this.user.email = _user.id;
-        // this.user.phone = _user.id;
-        // this.user.address = _user.id;
+        // //user info
+        // // this.user.identification = _user.id;
+        // this.user.person.name = _user.person.name;
+        // this.user.person.lastname = _user.person.lastname;
+        // // this.user.email = _user.id;
+        // // this.user.phone = _user.id;
+        // // this.user.address = _user.id;
 
-        //company info
-        this.user.company.id = _user.company.id;
-        this.user.company.person.name = _user.company.person.name;
+        // //company info
+        // this.user.company.id = _user.company.id;
+        // this.user.company.person.name = _user.company.person.name;
+        // this.user.company.person.address = _user.company.person.address;
 
-        //company settings
-        this.user.company.setting.hasCashier = _user.company.setting.hasCashier;
-        this.user.company.setting.hasBarcodeScanner = _user.company.setting.hasBarcodeScanner;
+        // //company settings
+        // this.user.company.setting.hasCashier = _user.company.setting.hasCashier;
+        // this.user.company.setting.hasBarcodeScanner = _user.company.setting.hasBarcodeScanner;
 
-        //project info
-        this.user.project_id = _user.project_id;
-        this.user.project = _user.project;
-        //country info
+        // //project info
+        // this.user.project_id = _user.project_id;
+        // this.user.project = _user.project;
+        // //country info
 
-        this.user.company.person.country.id = _user.company.person.country.id;
-        this.user.company.person.country.code = _user.company.person.country.code;
-        this.user.company.person.country.currency = _user.company.person.country.currency;
-        this.user.company.person.country.locale = _user.company.person.country.locale;
-        this.user.company.person.country.tax = _user.company.person.country.tax;
+        // this.user.company.person.country.id = _user.company.person.country.id;
+        // this.user.company.person.country.code = _user.company.person.country.code;
+        // this.user.company.person.country.currency = _user.company.person.country.currency;
+        // this.user.company.person.country.locale = _user.company.person.country.locale;
+        // this.user.company.person.country.tax = _user.company.person.country.tax;
 
-        //FK
-        this.user.company_project_id = _user.company_project_id;
-        // this.user.universal_person_id = _user.universal_person_id;
-
-        localStorage.setItem('user', JSON.stringify(this.user));
+        // //FK
+        // this.user.company_project_id = _user.company_project_id;
+        // // this.user.universal_person_id = _user.universal_person_id;
     }
 
     private setAPITOKEN(token: string) {
         this.api_token = token;
         localStorage.setItem('API_TOKEN', token);
-    }
-
-    public getUser() {
-        return this.user;
     }
 
     public getAPITOKEN() {
@@ -117,6 +113,11 @@ export class AuthService {
     public getUserCompanyProjectID() {
         return this.getUserFeature('company_project_id');
     }
+
+    public getCompanyAddress() {
+        return this.getUserFeature('company_address');
+    }
+
 
     public getCompanyTax() {
         return this.getUserFeature('tax');
@@ -172,6 +173,8 @@ export class AuthService {
                     return JSON.parse(user)?.company.id;
                 case 'company':
                     return JSON.parse(user)?.company.person.name;
+                case 'company_address':
+                    return JSON.parse(user)?.company.person.address;
                 case 'country_code':
                     return JSON.parse(user)?.company.person.country.code;
                 case 'tax':

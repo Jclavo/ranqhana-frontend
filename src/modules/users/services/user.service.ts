@@ -234,6 +234,7 @@ export class UserService {
         //company info
         user.company.id = resultRAW.result?.company?.id;
         user.company.person.name = resultRAW.result?.company?.person?.name;
+        user.company.person.address = resultRAW.result?.company?.person?.address;
 
         //company settings
         user.company.setting.hasCashier = resultRAW.result?.company?.setting?.has_cashier;
