@@ -239,7 +239,8 @@ export class UserService {
         //company settings
         user.company.setting.hasCashier = resultRAW.result?.company?.setting?.has_cashier;
         user.company.setting.hasBarcodeScanner = resultRAW.result?.company?.setting?.has_barcode_scanner;
-
+        user.company.setting.payment_type_id = resultRAW.result?.company?.setting?.payment_type_id;
+        user.company.setting.hasDiscountPercent = resultRAW.result?.company?.setting?.has_discount_percent;
 
         //project info
         user.project_id = resultRAW.result?.project?.id;

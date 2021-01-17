@@ -95,7 +95,7 @@ export class AddAditionalInfoComponent implements OnInit {
 
       if (response.status) {
         this.invoice = response.result;
-        this.invoice.payment_type_id = PaymentType.getForCash();
+        this.invoice.payment_type_id = this.authService.getCompanyPaymentTypeID();
       }
       else {
         this.notificationService.error(response.message);

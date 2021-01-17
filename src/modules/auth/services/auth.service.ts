@@ -130,8 +130,17 @@ export class AuthService {
     public getCompanySettingHasCashier() {
         return this.getUserFeature('has_cashier');
     }
+
     public getCompanySettingHasBarcodeScanner() {
         return this.getUserFeature('has_barcode_scanner');
+    }
+
+    public getCompanyPaymentTypeID() {
+        return this.getUserFeature('payment_type_id');
+    }
+
+    public getCompanyHasDiscountPercent() {
+        return this.getUserFeature('has_discount_percent');
     }
 
     public getUserIsAdmin() {
@@ -189,6 +198,10 @@ export class AuthService {
                     return JSON.parse(user)?.company.setting.hasCashier;
                 case 'has_barcode_scanner':
                     return JSON.parse(user)?.company.setting.hasBarcodeScanner;
+                case 'payment_type_id':
+                    return JSON.parse(user)?.company.setting.payment_type_id;
+                case 'has_discount_percent':
+                    return JSON.parse(user)?.company.setting.hasDiscountPercent;
                 default:
                     return;
             }
