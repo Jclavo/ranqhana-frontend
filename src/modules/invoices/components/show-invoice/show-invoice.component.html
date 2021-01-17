@@ -7,7 +7,7 @@
   </div>
   <div class="modal-body">
     <div id="print-section">
-      <p><strong i18n="@@button.company">Company</strong>: {{invoice.store}}</p>
+      <p><strong i18n="@@button.company">Company</strong>: {{authService.getCompanyName()}} - {{authService.getCompanyAddress()}}</p>
       <p><strong i18n="@@button.type">Type</strong>: {{invoice.type}}</p>
       <table>
         <tr>

@@ -47,8 +47,6 @@ export class ShowInvoiceComponent implements OnInit {
 
       if(response.status){
         this.invoice = response.result;
-        //Set Company Name
-        this.invoice.store = this.authService.getCompanyName();
 
         //Find user
         this.invoice.external_user_id ? this.getPersonById(this.invoice.external_user_id) : null;
