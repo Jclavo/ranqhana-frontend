@@ -123,6 +123,10 @@ export class AuthService {
         return this.getUserFeature('tax');
     }
 
+    public getCompanyCurrencySymbol() {
+        return this.getUserFeature('currency_symbol');
+    }
+
     public getCompanySettingHasCashier() {
         return this.getUserFeature('has_cashier');
     }
@@ -177,6 +181,8 @@ export class AuthService {
                     return JSON.parse(user)?.company.person.address;
                 case 'country_code':
                     return JSON.parse(user)?.company.person.country.code;
+                case 'currency_symbol':
+                    return JSON.parse(user)?.company.person.country.currency_symbol;
                 case 'tax':
                     return JSON.parse(user)?.company.person.country.tax;
                 case 'has_cashier':

@@ -250,6 +250,7 @@ export class UserService {
         user.company.person.country.name = resultRAW.result?.company?.person?.country?.name;
         user.company.person.country.code = resultRAW.result?.company?.person?.country?.code;
         user.company.person.country.currency = resultRAW.result?.company?.person?.country?.currency;
+        user.company.person.country.currency_symbol = resultRAW.result?.company?.person?.country?.currency_symbol;
         user.company.person.country.locale = resultRAW.result?.company?.person?.country?.locale;
         user.company.person.country.tax = resultRAW.result?.company?.person?.country?.tax;
 
