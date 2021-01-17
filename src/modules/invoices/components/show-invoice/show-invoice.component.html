@@ -6,52 +6,116 @@
     </button>
   </div>
   <div class="modal-body">
-    <p><strong i18n="@@button.company">Company</strong>: {{invoice.store}}</p>
-    <p><strong i18n="@@button.type">Type</strong>: {{invoice.type}}</p>
-    <table>
-      <tr>
-        <th>ID</th>
-        <th i18n="@@button.description">Description</th>
-        <th i18n="@@unit.page.title">Unit</th>
-        <th i18n="@@invoice.field.quantity">Quantity</th>
-        <th i18n="@@invoice.field.price">Price</th>
-        <th>Total</th>
-      </tr>
-      <tr *ngFor="let invoiceDetail of invoiceDetails">
-        <td>{{invoiceDetail.id}}</td>
-        <td>{{invoiceDetail.item}}</td>
-        <td>{{invoiceDetail.unit}}</td>
-        <td>{{formUtils.customToFixedIntegerDecimal(invoiceDetail.quantity)}}</td>
-        <td>{{invoiceDetail.price}}</td>
-        <td>{{invoiceDetail.total}}</td>
-      </tr>
-      <tr>
-        <td style="border:none" colspan="4"></td>
-        <th>Subtotal</th>
-        <td>{{invoice.subtotal}}</td>
-      </tr>
-      <tr>
-        <td style="border:none" colspan="4"></td>
-        <th  i18n="@@invoice.field.taxes">Taxes</th>
-        <td>{{invoice.taxes}}</td>
-      </tr>
-      <tr>
-        <td style="border:none" colspan="4"></td>
-        <th i18n="@@invoice.field.discount">Discounts</th>
-        <td>{{invoice.discount}} <label *ngIf="invoice.discount_percent">%</label></td>
-      </tr>
-      <tr>
-        <td style="border:none" colspan="4"></td>
-        <th>Total</th>
-        <th>{{invoice.total}}</th>
-      </tr>
-    </table>
-    <br>
-    <p><strong i18n="@@button.user">User</strong>: {{invoice.external_user?.length > 0 ? invoice.external_user : '-'}}</p>
-    <p><strong i18n="@@button.createAt">Create at</strong>: {{invoice.created_at}}</p>
+    <div id="print-section">
+      <p><strong i18n="@@button.company">Company</strong>: {{invoice.store}}</p>
+      <p><strong i18n="@@button.type">Type</strong>: {{invoice.type}}</p>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th i18n="@@button.description">Description</th>
+          <th i18n="@@unit.page.title">Unit</th>
+          <th i18n="@@invoice.field.quantity">Quantity</th>
+          <th i18n="@@invoice.field.price">Price</th>
+          <th>Total</th>
+        </tr>
+        <tr *ngFor="let invoiceDetail of invoiceDetails">
+          <td>{{invoiceDetail.id}}</td>
+          <td>{{invoiceDetail.item}}</td>
+          <td>{{invoiceDetail.unit}}</td>
+          <td>{{formUtils.customToFixedIntegerDecimal(invoiceDetail.quantity)}}</td>
+          <td>{{invoiceDetail.price}}</td>
+          <td>{{invoiceDetail.total}}</td>
+        </tr>
+        <tr>
+          <td style="border:none" colspan="4"></td>
+          <th>Subtotal</th>
+          <td>{{invoice.subtotal}}</td>
+        </tr>
+        <tr>
+          <td style="border:none" colspan="4"></td>
+          <th  i18n="@@invoice.field.taxes">Taxes</th>
+          <td>{{invoice.taxes}}</td>
+        </tr>
+        <tr>
+          <td style="border:none" colspan="4"></td>
+          <th i18n="@@invoice.field.discount">Discounts</th>
+          <td>{{invoice.discount}} <label *ngIf="invoice.discount_percent">%</label></td>
+        </tr>
+        <tr>
+          <td style="border:none" colspan="4"></td>
+          <th>Total</th>
+          <th>{{invoice.total}}</th>
+        </tr>
+      </table>
+      <br>
+      <p><strong i18n="@@button.user">User</strong>: {{invoice.external_user?.length > 0 ? invoice.external_user : '-'}}</p>
+      <p><strong i18n="@@button.createAt">Create at</strong>: {{invoice.created_at}}</p>
+    </div>
+
+    <!-- <div id="hidden-part">
+      <div id="print-section" style="border: 1px solid black; font-size: 8px;" class="container" [style.width]="'80mm'"
+      [style.height]="'80mm'" >
+      <div>
+        <br>
+        <ng-container i18n="@@button.company" >Company: {{invoice.store}}</ng-container>
+        <br>
+        <ng-container i18n="@@button.type">Type: {{invoice.type}}</ng-container>
+        <br>
+        <table style="border:none;">
+          <tr>
+            <th class="noBorder">ID</th>
+            <th class="noBorder" i18n="@@button.description">Description</th>
+            <th class="noBorder" i18n="@@unit.page.title">Unit</th>
+            <th class="noBorder" i18n="@@invoice.field.quantity">Quantity</th>
+            <th class="noBorder" i18n="@@invoice.field.price">Price</th>
+            <th class="noBorder">Total</th>
+          </tr>
+          <tr *ngFor="let invoiceDetail of invoiceDetails">
+            <td class="noBorder">{{invoiceDetail.id}}</td>
+            <td class="noBorder">{{invoiceDetail.item}}</td>
+            <td class="noBorder">{{invoiceDetail.unit}}</td>
+            <td class="noBorder">{{formUtils.customToFixedIntegerDecimal(invoiceDetail.quantity)}}</td>
+            <td class="noBorder">{{invoiceDetail.price}}</td>
+            <td class="noBorder">{{invoiceDetail.total}}</td>
+          </tr>
+          <tr>
+            <td class="noBorder" colspan="4"></td>
+            <th class="noBorder">Subtotal</th>
+            <td class="noBorder">{{invoice.subtotal}}</td>
+          </tr>
+          <tr>
+            <td class="noBorder" colspan="4"></td>
+            <th class="noBorder" i18n="@@invoice.field.taxes">Taxes</th>
+            <td class="noBorder">{{invoice.taxes}}</td>
+          </tr>
+          <tr>
+            <td class="noBorder" colspan="4"></td>
+            <th class="noBorder"i18n="@@invoice.field.discount">Discounts</th>
+            <td class="noBorder">{{invoice.discount}} <label *ngIf="invoice.discount_percent">%</label></td>
+          </tr>
+          <tr>
+            <td class="noBorder" colspan="4"></td>
+            <th class="noBorder">Total</th>
+            <th class="noBorder">{{invoice.total}}</th>
+          </tr>
+        </table>
+        <br>
+        <ng-container i18n="@@button.user">User: {{invoice.external_user?.length > 0 ? invoice.external_user : '-'}}</ng-container>
+        <br>
+        <ng-container i18n="@@button.createAt">Create at: {{invoice.created_at}}</ng-container>
+      </div>
+      </div>
+    </div> -->
+   
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="print()" i18n="@@button.print">Print</button>
-    <button type="button" ngbAutofocus class="btn btn-success" (click)="exportPDF()" i18n="@@button.exportPDF">Export PDF</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close()"
+    i18n="@@button.cancel">Cancel</button>
+
+    <button type="button" ngbAutofocus class="btn btn-success" (click)="print()" 
+    i18n="@@button.print" printSectionId="print-section" 
+    [printStyle]="{p : {'font-size': '8px'}, table : {'font-size': '8px'}, div : {'width': '80mm','height': '80mm'}}"
+    ngxPrint>Print</button>
+    <!-- <button type="button" ngbAutofocus class="btn btn-success" (click)="exportPDF()" i18n="@@button.exportPDF">Export PDF</button> -->
   </div>
   <sb-messages></sb-messages>

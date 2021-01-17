@@ -26,6 +26,8 @@ import * as invoicesServices from './services';
 import * as invoicesUtils from './utils';
 // import * as UtilityUtils from '@modules/utility/utils';
 
+import {NgxPrintModule} from 'ngx-print';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import * as invoicesUtils from './utils';
     NavigationModule,
     UtilityModule,
     ChartsModule,
-    PaymentsModule
+    PaymentsModule,
+    NgxPrintModule
   ],
   providers: [
     ...invoicesServices.services,
