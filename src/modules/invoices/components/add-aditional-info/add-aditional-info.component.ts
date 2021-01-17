@@ -30,6 +30,8 @@ export class AddAditionalInfoComponent implements OnInit {
   @Input() invoice_id: number = 0;
   @Input() payment_id: number = 0;
 
+  public PAYMENT_TYPE_FOR_CASH = PaymentType.getForCash();
+
   public invoice = new Invoice();
   public searchUserOption = new SearchUserOptions();
   public externalPerson = new Person();
@@ -120,14 +122,6 @@ export class AddAditionalInfoComponent implements OnInit {
     });
   }
 
-  save() {
-
-    this.invoice.external_user_id = this.externalPerson?.id;
-
-    this.updateInvoice(this.invoice);
-
-  }
-
   updateInvoice(invoice: SellInvoice) {
     this.invoiceService.update(invoice).subscribe(response => {
 
@@ -175,7 +169,9 @@ export class AddAditionalInfoComponent implements OnInit {
     //   }
     // }
 
-    this.save();
+    this.invoice.external_user_id = this.externalPerson?.id;
+
+    this.updateInvoice(this.invoice);
   }
 
   createPaymentCompleted() {
