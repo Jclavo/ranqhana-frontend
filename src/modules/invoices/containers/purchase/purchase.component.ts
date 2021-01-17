@@ -78,6 +78,8 @@ export class PurchaseComponent implements OnInit {
       this.invoiceUtils.getOrder(Number(this.activatedRoute.snapshot.paramMap.get('order_id')) ?? 0);
     }
 
+    this.invoiceUtils.invoice.discount_percent = this.authService.getCompanyHasDiscountPercent();
+
   }
 
   formatter = (item: SearchItem) => item.name;
