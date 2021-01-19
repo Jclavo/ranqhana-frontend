@@ -7,7 +7,7 @@ import { map, catchError } from "rxjs/operators";
 import { environment } from "../../../environments/environment";
 
 //Models
-import { User } from '../models';
+import { User, Password } from '../models';
 import { UserRoles } from '@modules/roles/models';
 import { Response, SearchOptions } from '@modules/utility/models';
 
@@ -222,6 +222,7 @@ export class UserService {
         user.login = resultRAW.result?.login;
         user.api_token = resultRAW.result?.api_token;
         user.isAdmin = resultRAW.result?.isAdmin;
+        user.hasInitialPassword = resultRAW.result?.hasInitialPassword;
 
         //user info
         user.person.identification = resultRAW.result?.person?.identification;
@@ -338,4 +339,28 @@ export class UserService {
       }));
   }
 
+  changePassword(password: Password): Observable<Response> {
+
+    let apiRoot = environment.apiURLTaapaq + 'changePassword';
+
+    //Encrypt
+    password.actualPassword = btoa(password.actualPassword);
+    password.newPassword = btoa(password.newPassword);
+    password.reNewPassword = btoa(password.reNewPassword);
+
+    return this.http.post(apiRoot, password, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
 }
