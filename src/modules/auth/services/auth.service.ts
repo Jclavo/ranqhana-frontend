@@ -143,6 +143,10 @@ export class AuthService {
         return this.getUserFeature('has_discount_percent');
     }
 
+    public getCompanyPrinterWorkflowForInvoice() {
+        return this.getUserFeature('printer_workflow_for_invoice');
+    }
+
     public getUserIsAdmin() {
         return this.getUserFeature('isAdmin');
     }
@@ -202,6 +206,8 @@ export class AuthService {
                     return JSON.parse(user)?.company.setting.payment_type_id;
                 case 'has_discount_percent':
                     return JSON.parse(user)?.company.setting.hasDiscountPercent;
+                case 'printer_workflow_for_invoice':
+                    return JSON.parse(user)?.company.setting.printerWorkflowForInvoice;
                 default:
                     return;
             }

@@ -19,7 +19,7 @@ import { PaymentService } from "@modules/payments/services";
 
 
 // COMPONENT 
-import { AddAditionalInfoComponent } from "../components/add-aditional-info/add-aditional-info.component";
+import { AddAditionalInfoComponent, ShowInvoiceComponent } from "../components";
 import { MadePaymentModalComponent } from "@modules/payments/components/made-payment-modal/made-payment-modal.component";
 import { ConfirmModalComponent, LoginModalComponent } from '@modules/utility/components';
 
@@ -440,6 +440,9 @@ export class InvoiceUtils implements OnInit {
 
         this.paymentService.save(payment).subscribe(response => {
             if (response.status) {
+                if (this.authService.getCompanyPrinterWorkflowForInvoice()) {
+                    this.OpenModalShowInvoice(this.invoice.id);
+                }
                 this.router.navigate(['/invoices', this.invoice.getType()]);
             }
             else {
@@ -453,6 +456,13 @@ export class InvoiceUtils implements OnInit {
     }
 
 
+    OpenModalShowInvoice(id: number) {
+
+        const modalRef = this.modalService.open(ShowInvoiceComponent, { centered: true, backdrop: 'static' });
+        modalRef.componentInstance.invoice_id = id;
+
+    }
+
     openModalMadePayment(invoice: Invoice, payment_id: number) {
         const modalRef = this.modalService.open(MadePaymentModalComponent, { centered: true, backdrop: 'static' });
 
@@ -461,12 +471,13 @@ export class InvoiceUtils implements OnInit {
         modalRef.result.then((result: Response) => {
 
             if (result.status) {
+                if (this.authService.getCompanyPrinterWorkflowForInvoice()) {
+                    this.OpenModalShowInvoice(this.invoice.id);
+                }
                 this.router.navigate(['/invoices', invoice.getType()]);
             } else {
                 this.openModalAdditionalInfo(invoice, payment_id);
             }
-
-
         });
     }
 

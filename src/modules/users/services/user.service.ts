@@ -242,6 +242,7 @@ export class UserService {
         user.company.setting.hasBarcodeScanner = resultRAW.result?.company?.setting?.has_barcode_scanner;
         user.company.setting.payment_type_id = resultRAW.result?.company?.setting?.payment_type_id;
         user.company.setting.hasDiscountPercent = resultRAW.result?.company?.setting?.has_discount_percent;
+        user.company.setting.printerWorkflowForInvoice = resultRAW.result?.company?.setting?.printer_workflow_for_invoice;
 
         //project info
         user.project_id = resultRAW.result?.project?.id;
