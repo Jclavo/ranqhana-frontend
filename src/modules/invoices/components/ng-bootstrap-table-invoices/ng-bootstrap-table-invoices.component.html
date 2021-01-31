@@ -139,24 +139,24 @@
                 </td>
                 <td>
                     <div class="row">
-                        <!-- <div class="col-auto mb-1">
-                            <fa-icon [icon]='["far", "money-bill-alt"]' [styles]="{'stroke': 'red', 'color': 'green'}"
-                                size="md" routerLink="/payments/{{invoice.id}}"></fa-icon>
-                        </div> -->
                         <div class="col-auto mb-1">
                             <!-- <div class="col-2 mb-1 ml-3"> -->
                             <fa-icon [icon]='["far", "money-bill-alt"]' [styles]="{'stroke': 'red', 'color': 'green'}"
-                                size="md" (click)="madePayment(invoice.id, invoice.payment_type_id, invoice.payments)"></fa-icon>
+                                size="md" (click)="madePayment(invoice.id, invoice.payment_type_id, invoice.payments)"
+                                i18n-title="@@payment.made.title" title="Made Payment"
+                            ></fa-icon>
                         </div>
                         <div class="col-auto mb-1">
                             <!-- <div class="col-2 mb-1 ml-3"> -->
                             <fa-icon [icon]='["far", "eye"]' [styles]="{'stroke': 'blue', 'color': 'blue'}" size="lg"
-                                (click)="modalShow(invoice.id)"></fa-icon>
+                                (click)="modalShow(invoice.id)" 
+                                i18n-title="@@invoice.message.information" title="Invoice Information"></fa-icon>
                         </div>
                         <div class="col-auto mb-1">
                             <!-- <div class="col-2 mb-1 ml-3"> -->
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
-                                size="md" (click)="modalAnull(invoice.id, invoice.serie)"></fa-icon>
+                                size="md" (click)="modalAnull(invoice.id, invoice.serie)"
+                                i18n-title="@@button.delete" title="Delete"></fa-icon>
                         </div>
                     </div>
                 </td>
