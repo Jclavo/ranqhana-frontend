@@ -39,7 +39,7 @@ export class NgBootstrapTableUsersComponent implements OnInit {
     private differs: KeyValueDiffers, // to get changes in a object
     private notificationService: NotificationService,
     private userService: UserService,
-    private authService: AuthService,
+    public authService: AuthService,
     private modalService: NgbModal,
     private utilityService: UtilityService,
     private roleService: RoleService,
