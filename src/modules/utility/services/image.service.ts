@@ -28,9 +28,11 @@ export class ImageService {
   ) {
   }
 
-  create(image: any): Observable<Response> {
+  savePhysical(image: any): Observable<Response> {
 
-    return this.http.post(this.apiRootExternal, image, this.authService.getHeaders()).pipe(map(res => {
+    let apiRootExternal = this.apiRootExternal + 'storePhysical';
+
+    return this.http.post(apiRootExternal, image, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;
@@ -42,6 +44,28 @@ export class ImageService {
       if (resultRAW.result) {
         response.result = resultRAW.result?.name;
       }
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  saveExternal(image: Image): Observable<Response> {
+
+    let apiRootExternal = this.apiRootExternal + 'storeLogical';
+
+    return this.http.post(apiRootExternal, image, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
 
       return response;
 
@@ -78,6 +102,26 @@ export class ImageService {
     let apiRoot = this.apiRoot + id;
 
     return this.http.delete(apiRoot, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+  deleteExternal(id: number): Observable<Response> {
+
+    let apiRootExternal = this.apiRootExternal + 'destroyLogical/' + id;
+
+    return this.http.delete(apiRootExternal, this.authService.getHeaders()).pipe(map(res => {
 
       let response = new Response();
       let resultRAW: any = res;

@@ -123,6 +123,10 @@ export class AuthService {
         return this.getUserFeature('tax');
     }
 
+    public getCompanyImage() {
+        return this.getUserFeature('company_image');
+    }
+
     public getCompanyCurrencySymbol() {
         return this.getUserFeature('currency_symbol');
     }
@@ -182,6 +186,8 @@ export class AuthService {
                     return JSON.parse(user)?.person.name;
                 case 'lastname':
                     return JSON.parse(user)?.person.lastname;
+                // case 'user_image':
+                //      return JSON.parse(user)?.person.images[0]?.name;
                 case 'company_project_id':
                     return JSON.parse(user)?.company_project_id;
                 case 'project_id':
@@ -198,6 +204,8 @@ export class AuthService {
                     return JSON.parse(user)?.company.person.country.currency_symbol;
                 case 'tax':
                     return JSON.parse(user)?.company.person.country.tax;
+                case 'company_image':
+                     return JSON.parse(user)?.company.person.images[0]?.name;
                 case 'has_cashier':
                     return JSON.parse(user)?.company.setting.hasCashier;
                 case 'has_barcode_scanner':

@@ -9,9 +9,11 @@ import { environment } from "../../../environments/environment";
 //Models
 import { Person } from '../models';
 import { Response, SearchOptions } from '@modules/utility/models';
+import { Image } from "@modules/utility/models";
 
 //SERVICES
 import { AuthService } from '@modules/auth/services';
+import { CompanyProject } from '@modules/companies/models';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +54,25 @@ export class PersonService {
         person.type_id = data.type_id;
         person.country_code = data.country_code;
 
+        person.belongs = data.belongs;
         person.type.name = data.type?.name;
+
+        //images
+        person.images =  data.images?.map(function(value: Image) {
+          let image = new Image();
+          image.id = value.id;
+          image.name = value.name;
+          return image;
+        });
+
+        //company project
+        person.company_project =  data.company_project?.map(function(value: CompanyProject) {
+          let company_project = new CompanyProject();
+          company_project.id = value.id;
+          company_project.company_id = value.company_id;
+          company_project.project_id = value.project_id;
+          return company_project;
+        });
 
         return person;
       });
@@ -91,6 +111,15 @@ export class PersonService {
         person.address = resultRAW.result.address;
         person.type_id = resultRAW.result.type_id;
         person.country_code = resultRAW.result.country_code;
+
+        //images
+        person.images = resultRAW.result?.images.map(function(value: Image) {
+  
+          let image = new Image();
+          image.id = value.id;
+          image.name = value.name;
+          return image;
+        });
 
         response.result = person;
       }

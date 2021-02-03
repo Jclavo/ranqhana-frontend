@@ -70,7 +70,7 @@ export class ItemService {
           return value.name;
         });
 
-        //stock images
+        //images
         item.images =  data.images?.map(function(value: Image) {
           let image = new Image();
           image.id = value.id;
@@ -125,7 +125,7 @@ export class ItemService {
           return value.id;
         });
 
-        //stock images
+        //images
         item.images = resultRAW.result?.images.map(function(value: Image) {
           
           let image = new Image();
