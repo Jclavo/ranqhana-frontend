@@ -4,4 +4,5 @@ export class CompanySetting {
     hasBarcodeScanner: boolean = false;
     payment_type_id: number = 0;
     hasDiscountPercent: boolean = false;
+    printerWorkflowForInvoice: boolean = false;
 }

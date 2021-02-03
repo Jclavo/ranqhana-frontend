@@ -52,6 +52,14 @@ export const ROUTES: Routes = [
         } as SBRouteData,
     },
     {
+        path: 'change-password/:api_token',
+        canActivate: [],
+        component: authContainers.ChangePasswordComponent,
+        data: {
+            title: 'Page Change Password - Store App',
+        } as SBRouteData,
+    },
+    {
         path: 'home',
         canActivate: [],
         component: authContainers.HomeComponent,

@@ -70,7 +70,12 @@ export class LoginComponent implements OnInit {
       if (response.status) {
         this.authService.setUser(response.result);
         this.notificationService.success(response.message);
-        this.router.navigate(['/home']);
+        
+        if(response.result?.hasInitialPassword){
+          this.router.navigate(['/change-password', this.authService.getAPITOKEN()]);
+        }else{
+          this.router.navigate(['/home']);
+        }
       }
       else {
         this.notificationService.error(response.message);

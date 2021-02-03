@@ -74,15 +74,18 @@
                         <div class="row ">
                             <div class="col-2 mb-1 ml-3">
                                 <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}"
-                                    size="lg" routerLink="/items/product/{{item.id}}"></fa-icon>
+                                    size="lg" routerLink="/items/product/{{item.id}}"
+                                    i18n-title="@@button.edit" title="Edit"></fa-icon>
                             </div>
                             <div class="col-2 mb-1 ml-3">
                                 <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
-                                    size="lg" (click)="modalDelete(item.id, item.name)"></fa-icon>
+                                    size="lg" (click)="modalDelete(item.id, item.name)"
+                                    i18n-title="@@button.delete" title="Delete"></fa-icon>
                             </div>
                             <div class="col-2 mb-1 ml-3">
                                 <fa-icon [icon]='["fas", "print"]' [styles]="{'stroke': 'blue', 'color': 'blue'}"
-                                    size="lg" (click)="modalPrint(item.name, item.price, item.barcode)"></fa-icon>
+                                    size="lg" (click)="modalPrint(item.name, item.price, item.barcode)"
+                                    i18n-title="@@button.print" title="Print"></fa-icon>
                             </div>
                         </div>
                     </td>

@@ -49,7 +49,8 @@ import { NgxMaskModule } from 'ngx-mask';
     ...personsComponents.components
   ],
   entryComponents: [
-    utilitiesComponents.ConfirmModalComponent
+    utilitiesComponents.ConfirmModalComponent,
+    utilitiesComponents.ImageModalComponent
   ]
 })
 export class PersonsModule { }

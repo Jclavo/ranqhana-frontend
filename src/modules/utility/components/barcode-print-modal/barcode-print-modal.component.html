@@ -17,7 +17,7 @@
           {{name}}
         </th>
         <th style="text-align: center; vertical-align:bottom;" [style.font-size]="configuration.fontSize">
-          [{{price}}]
+          {{authService.getCompanyCurrencySymbol()}} {{price}}
         </th>
       </tr>
       <tr>

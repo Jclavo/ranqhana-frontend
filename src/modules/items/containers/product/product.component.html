@@ -22,7 +22,8 @@
           </div>
           <div class="form-group col-12 col-md-1">
             <div class="form-group col-12 col-md-3">
-              <button class="btn btn-info btn-md" (click)="openPricesModal(product.id)" [disabled]="product.id == 0">$</button>
+              <button class="btn btn-info btn-md" (click)="openPricesModal(product.id)" [disabled]="product.id == 0"
+              i18n-title="@@price.historical" title="Historic pricing">$</button>
             </div>
           </div>
           <div class="form-group col-12 col-md-3">

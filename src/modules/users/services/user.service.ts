@@ -7,9 +7,9 @@ import { map, catchError } from "rxjs/operators";
 import { environment } from "../../../environments/environment";
 
 //Models
-import { User } from '../models';
+import { User, Password } from '../models';
 import { UserRoles } from '@modules/roles/models';
-import { Response, SearchOptions } from '@modules/utility/models';
+import { Response, SearchOptions, Image } from '@modules/utility/models';
 
 //SERVICES
 import { AuthService } from '@modules/auth/services';
@@ -64,6 +64,14 @@ export class UserService {
         //set Roles
         user.roles = data.roles?.map((role: any) => {
           return role.nickname;
+        });
+
+        //set images
+        user.person.images = data.person?.images?.map(function (value: Image) {
+          let image = new Image();
+          image.id = value.id;
+          image.name = value.name;
+          return image;
         });
 
         return user;
@@ -140,6 +148,14 @@ export class UserService {
         for (let index = 0; index < resultRAW.result?.roles.length; index++) {
           user.rolesID.push((resultRAW.result?.roles[index].id));
         }
+
+        //set images
+        user.person.images = resultRAW.result?.person?.images?.map(function (value: Image) {
+          let image = new Image();
+          image.id = value.id;
+          image.name = value.name;
+          return image;
+        });
 
         response.result = user;
       }
@@ -222,11 +238,21 @@ export class UserService {
         user.login = resultRAW.result?.login;
         user.api_token = resultRAW.result?.api_token;
         user.isAdmin = resultRAW.result?.isAdmin;
+        user.hasInitialPassword = resultRAW.result?.hasInitialPassword;
 
         //user info
         user.person.identification = resultRAW.result?.person?.identification;
         user.person.name = resultRAW.result?.person?.name;
         user.person.lastname = resultRAW.result?.person?.lastname;
+
+        //user pictures
+        user.person.images = resultRAW.result?.person?.images?.map(function(value: Image) {
+          let image = new Image();
+          image.id = value.id;
+          image.name = value.name;
+          return image;
+        });
+
         // user.email = resultRAW.result?.id;
         // user.phone = resultRAW.result?.id;
         // user.address = resultRAW.result?.id;
@@ -236,11 +262,20 @@ export class UserService {
         user.company.person.name = resultRAW.result?.company?.person?.name;
         user.company.person.address = resultRAW.result?.company?.person?.address;
 
+        //company pictures
+        user.company.person.images = resultRAW.result?.company?.person?.images?.map(function(value: Image) {
+          let image = new Image();
+          image.id = value.id;
+          image.name = value.name;
+          return image;
+        });
+
         //company settings
         user.company.setting.hasCashier = resultRAW.result?.company?.setting?.has_cashier;
         user.company.setting.hasBarcodeScanner = resultRAW.result?.company?.setting?.has_barcode_scanner;
         user.company.setting.payment_type_id = resultRAW.result?.company?.setting?.payment_type_id;
         user.company.setting.hasDiscountPercent = resultRAW.result?.company?.setting?.has_discount_percent;
+        user.company.setting.printerWorkflowForInvoice = resultRAW.result?.company?.setting?.printer_workflow_for_invoice;
 
         //project info
         user.project_id = resultRAW.result?.project?.id;
@@ -338,4 +373,28 @@ export class UserService {
       }));
   }
 
+  changePassword(password: Password): Observable<Response> {
+
+    let apiRoot = environment.apiURLTaapaq + 'changePassword';
+
+    //Encrypt
+    password.actualPassword = btoa(password.actualPassword);
+    password.newPassword = btoa(password.newPassword);
+    password.reNewPassword = btoa(password.reNewPassword);
+
+    return this.http.post(apiRoot, password, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
 }

@@ -9,8 +9,17 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="text-center mt-4">
-                        <h1 class="display-1" i18n="@@welcome">Welcome</h1>
-                        <p class="lead">{{authService.getCompanyName()}}</p>
+
+                        <div *ngIf="authService.getCompanyImage()">
+                            <img class="mb-4" src="{{authService.getURLImage() + authService.getCompanyImage()}}"
+                                style="width:100%;height:100%;" />
+                            <h1 class="display-4" i18n="@@welcome">{{authService.getCompanyName()}}</h1>
+                        </div>
+
+                        <div *ngIf="!authService.getCompanyImage()">
+                            <h1 class="display-1" i18n="@@welcome">Welcome</h1>
+                            <p class="lead">{{authService.getCompanyName()}}</p>
+                        </div>
                         <!-- <a routerLink="/dashboard"> <fa-icon class="mr-1" [icon]='["fas", "arrow-left"]'></fa-icon>Return to Dashboard</a> -->
                     </div>
                 </div>

@@ -12,6 +12,7 @@ export class User {
     repassword: string = '';
     isAdmin: boolean = false;
     isCustom: boolean = false; // for login to validate the ADMIN actions
+    hasInitialPassword: boolean = false;
     
     //FK
     universal_person_id: number = 0;

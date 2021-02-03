@@ -15,7 +15,10 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <!-- <th scope="col">#</th> -->
+                <th scope="col">
+                    <span>Logo</span>
+                </th>
                 <th>
                     <span i18n="@@person.field.identification">Identification</span>
                 </th>
@@ -38,7 +41,11 @@
         </thead>
         <tbody>
             <tr *ngFor="let person of persons">
-                <th scope="row" class="col-auto">{{ person.id }}</th>
+                <!-- <th scope="row" class="col-auto">{{ person.id }}</th> -->
+                <td>
+                    <img name="image" src="{{authService.getURLImage() + person?.images[0]?.name}}" class="img-fluid" 
+                    style="width:70px;height:50px;">
+                </td>
                 <td>
                     <ngb-highlight [result]="person.identification" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
@@ -53,14 +60,16 @@
                 </td>
                 <td>{{ person.type.name }}</td>
                 <td>
-                    <div class="row ">
+                    <div class="row" *ngIf="person.belongs">
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}"
-                                size="lg" routerLink="/persons/person/0/{{person.id}}"></fa-icon>
+                                size="lg" routerLink="/persons/person/0/{{person.id}}"
+                                i18n-title="@@button.edit" title="Edit"></fa-icon>
                         </div>
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
-                                size="lg" (click)="modalDelete(person.id, person.name)"></fa-icon>
+                                size="lg" (click)="modalDelete(person.id, person.name)"
+                                i18n-title="@@button.delete" title="Delete"></fa-icon>
                         </div>
                     </div>
                 </td>

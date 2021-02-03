@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Location } from '@angular/common';
 //Services
 import { PersonService } from "../../services";
 import { AuthService } from "@modules/auth/services";
 import { RoleService } from "@modules/roles/services";
 import { PersonTypeService } from "@modules/person-types/services";
 import { UserService } from "@modules/users/services";
+import { ImageService } from '@modules/utility/services';
 
 //MODELS
 // import { User, SearchUserOptions } from '../../models';
-import { Mask, FormMessage } from '@modules/utility/models';
+import { Mask, FormMessage, Image } from '@modules/utility/models';
 import { Role, UserRoles } from '@modules/roles/models';
 import { PersonType } from '@modules/person-types/models';
 import { User, SearchUserOptions } from '@modules/users/models';
@@ -21,6 +23,9 @@ import { FormUtils, CustomValidator } from "@modules/utility/utils";
 import { NotificationService, UtilityService, LanguageService } from '@modules/utility/services';
 import { Person } from '@modules/persons/models';
 
+// COMPONENT 
+import { ImageModalComponent, ConfirmModalComponent } from "@modules/utility/components";
+import { NumericLiteral } from 'typescript';
 
 @Component({
   selector: 'sb-person',
@@ -34,6 +39,7 @@ export class PersonComponent implements OnInit {
   public roles: Array<Role> = [];
   public personTypes: Array<PersonType> = [];
   public user = new User();
+  public userImage = new Image();
 
   private errorsListForm: Array<FormMessage> = [];
 
@@ -64,14 +70,17 @@ export class PersonComponent implements OnInit {
     private formBuilder: FormBuilder,
     private notificationService: NotificationService,
     private userService: UserService,
-    private authService: AuthService,
+    public authService: AuthService,
     private personService: PersonService,
     private roleService: RoleService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private utilityService: UtilityService,
     private languageService: LanguageService,
-    private personTypeService: PersonTypeService
+    private personTypeService: PersonTypeService,
+    private ngbModal: NgbModal,
+    private imageService: ImageService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -112,7 +121,7 @@ export class PersonComponent implements OnInit {
 
   setPersonToForm(userForm: FormGroup, person: Person) {
 
-    this.userForm = FormUtils.setFormValue(this.userForm, 'universal_person_id',person.id);
+    this.userForm = FormUtils.setFormValue(this.userForm, 'universal_person_id', person.id);
     userForm = FormUtils.setFormValue(this.userForm, 'name', person.name);
     userForm = FormUtils.setFormValue(this.userForm, 'lastname', person.lastname);
     userForm = FormUtils.setFormValue(this.userForm, 'email', person.email);
@@ -213,6 +222,12 @@ export class PersonComponent implements OnInit {
 
         //set mask
         this.getMask();
+
+        //set images
+        if (this.user.person.images.length > 0) {
+          this.userImage = this.user.person.images[0];
+        }
+        
       }
       else {
         this.notificationService.error(response.message);
@@ -235,6 +250,13 @@ export class PersonComponent implements OnInit {
 
         //set mask
         this.getMask();
+
+        //set images
+        if (this.user.person.images.length > 0) {
+          this.userImage = this.user.person.images[0];
+        }
+
+
       }
       else {
         this.notificationService.error(response.message);
@@ -306,6 +328,8 @@ export class PersonComponent implements OnInit {
       if (response.status) {
         this.user.universal_person_id = response.result?.id;
 
+        this.saveImage(this.userImage.name, this.user.universal_person_id);
+
         this.user.person.type_id == PersonType.getForNatural() ? this.saveUser(this.user) : this.router.navigate(['/persons']);
 
       }
@@ -324,6 +348,7 @@ export class PersonComponent implements OnInit {
     this.personService.update(user.person).subscribe(response => {
 
       if (response.status) {
+        this.saveImage(this.userImage.name, this.user.universal_person_id);
         this.user.person.type_id == PersonType.getForNatural() ? this.saveUser(this.user) : this.router.navigate(['/persons']);
       }
       else {
@@ -411,6 +436,84 @@ export class PersonComponent implements OnInit {
       this.notificationService.error(error);
       this.authService.raiseError();
     });
+  }
+
+  openImageModal() {
+
+    const modalRef = this.ngbModal.open(ImageModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.result.then((result) => {
+      if (result.status) {
+        this.userImage.name = result.image;
+      }
+
+    });
+  }
+
+  saveImage(imageName: string, person_id: number) {
+
+    if (!imageName) return;
+
+    let newImage = new Image();
+    newImage.name = imageName;
+    newImage.model_id = person_id;
+    newImage.model = "PERSON";
+
+    this.imageService.saveExternal(newImage).subscribe(response => {
+
+      if (response.status) {
+        // this.notificationService.success(response.message);
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+  modalDelete(id: number, name: string) {
+
+    const modalRef = this.ngbModal.open(ConfirmModalComponent, { centered: true, backdrop: 'static' });
+
+    modalRef.componentInstance.title = 'Logo';
+    modalRef.componentInstance.action = this.languageService.getI18n('button.delete');
+    modalRef.componentInstance.value = name;
+
+    modalRef.result.then((result) => {
+      if (result) {
+        if (id > 0) {
+          this.deleteImage(id);
+        }else{
+          this.userImage = new Image();
+        }
+      }
+    });
+
+  }
+
+  deleteImage(id: number) {
+
+    this.imageService.deleteExternal(id).subscribe(response => {
+
+      if (response.status) {
+        this.notificationService.success(response.message);
+        this.userImage = new Image();
+      }
+      else {
+        this.notificationService.error(response.message);
+      }
+
+    }, error => {
+      this.notificationService.error(error);
+      this.authService.raiseError();
+    });
+  }
+
+  cancel(){
+    this.location.back();
   }
 
 }

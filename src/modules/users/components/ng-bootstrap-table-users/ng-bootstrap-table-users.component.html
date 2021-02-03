@@ -29,7 +29,10 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <!-- <th scope="col">#</th> -->
+                <th>
+                    <span i18n="@@button.picture">Picture</span>
+                </th>
                 <th scope="col" sbSortable="login" (sort)="onSort($event)">
                     <span i18n="@@person.field.login">Login</span>
                     <sb-sort-icon *ngIf='sortedColumn === "login"' [direction]="sortedDirection"></sb-sort-icon>
@@ -62,7 +65,11 @@
         </thead>
         <tbody>
             <tr *ngFor="let user of users">
-                <th scope="row" class="col-auto">{{ user.id }}</th>
+                <!-- <th scope="row" class="col-auto">{{ user.id }}</th> -->
+                <td>
+                    <img name="image" src="{{authService.getURLImage() + user.person?.images[0]?.name}}" class="img-fluid" 
+                    style="width:70px;height:50px;">
+                </td>
                 <td>
                     <ngb-highlight [result]="user.login" [term]="searchOption.searchValue"></ngb-highlight>
                 </td>
@@ -89,11 +96,13 @@
                     <div class="row ">
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "edit"]' [styles]="{'stroke': 'green', 'color': 'green'}"
-                                size="lg" routerLink="/persons/person/{{user.id}}/0"></fa-icon>
+                                size="lg" routerLink="/persons/person/{{user.id}}/0"
+                                i18n-title="@@button.edit" title="Edit"></fa-icon>
                         </div>
                         <div class="col-2 mb-1 ml-3">
                             <fa-icon [icon]='["far", "trash-alt"]' [styles]="{'stroke': 'red', 'color': 'red'}"
-                                size="lg" (click)="modalDelete(user.id, user.person.name)"></fa-icon>
+                                size="lg" (click)="modalDelete(user.id, user.person.name)"
+                                i18n-title="@@button.delete" title="Delete"></fa-icon>
                         </div>
                     </div>
                 </td>
