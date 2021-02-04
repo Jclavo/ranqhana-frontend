@@ -205,7 +205,11 @@ export class AuthService {
                 case 'tax':
                     return JSON.parse(user)?.company.person.country.tax;
                 case 'company_image':
-                     return JSON.parse(user)?.company.person.images[0]?.name;
+                    let images = JSON.parse(user)?.company.person?.images;
+                    if (Array.isArray(images)) {
+                        return images[0]?.name;
+                    }
+                    return '';
                 case 'has_cashier':
                     return JSON.parse(user)?.company.setting.hasCashier;
                 case 'has_barcode_scanner':
