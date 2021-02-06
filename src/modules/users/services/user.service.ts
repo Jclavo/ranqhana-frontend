@@ -145,7 +145,7 @@ export class UserService {
         user.person.country_code = resultRAW.result?.person?.country_code;
 
         //set Roles IDs
-        for (let index = 0; index < resultRAW.result?.roles.length; index++) {
+        for (let index = 0; index < resultRAW.result?.roles?.length; index++) {
           user.rolesID.push((resultRAW.result?.roles[index].id));
         }
 
