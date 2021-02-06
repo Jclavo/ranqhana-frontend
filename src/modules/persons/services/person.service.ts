@@ -113,7 +113,7 @@ export class PersonService {
         person.country_code = resultRAW.result.country_code;
 
         //images
-        person.images = resultRAW.result?.images.map(function(value: Image) {
+        person.images = resultRAW.result?.images?.map(function(value: Image) {
   
           let image = new Image();
           image.id = value.id;
