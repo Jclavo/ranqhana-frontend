@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 //MODELS
-import { Item } from "@modules/items/models";
+import { Item, ItemTag } from "@modules/items/models";
 import { Unit } from "@modules/units/models";
 import { StockType } from "@modules/stock-types/models";
 import { Image } from "@modules/utility/models";

@@ -10,23 +10,48 @@
       <form #form="ngForm">
 
         <div class="form-row">
-          <div class="form-group col-12 col-md-4">
-            <label class="control-label font-weight-bold" for="name" i18n="@@product.page.title">Product</label>
-            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name"
-              i18n-placeholder="@@product.page.title" placeholder="Product" required>
+
+          <div class="form-check col-auto mb-2 ml-4 ml-md-4">
+            <input class="form-check-input" type="checkbox" id="isContainer" name="isContainer"
+              [(ngModel)]="product.isContainer" (ngModelChange)="onContainer()" [disabled]="product.id > 0">
+            <label class="form-check-label font-weight-bold mx-2" for="isContainer">Container</label>
           </div>
+
+          <div class="form-group col-auto">
+            <button class="btn btn-info btn-md" (click)="openPricesModal(product.id)" [disabled]="product.id == 0"
+              i18n-title="@@price.historical" title="Historic pricing">$</button>
+          </div>
+
+        </div>
+
+        <div class="form-row">
+
+          <div class="form-group col-12 col-md-4" *ngIf="product.isContainer && product.id == 0">
+            <label class="control-label font-weight-bold" for="itemRoot" i18n="@@product.page.title">Product</label>
+            <input type="text" class="form-control" id="itemRoot" name="itemRoot" [(ngModel)]="itemRoot"
+              i18n-placeholder="@@product.page.title" placeholder="Product" [ngbTypeahead]="search"
+              [inputFormatter]="formatter" [resultFormatter]="formatter" />
+          </div>
+
+          <div class="form-group col-12 col-md-4" *ngIf="!product.isContainer || product.id > 0">
+            <label class="control-label font-weight-bold" for="name" i18n="@@button.name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name"
+              i18n-placeholder="@@button.name" placeholder="Name" [readonly]="product.isContainer && product.id > 0" required>
+          </div>
+
+          <div class="form-group col-12 col-md-2" *ngIf="product.isContainer">
+            <label class="control-label font-weight-bold" for="amount" i18n="@@item.field.amount">Amount</label>
+            <input type="number" min="0" class="form-control" id="amount" name="amount" [(ngModel)]="itemRootAmount"
+              placeholder="amount">
+          </div>
+
           <div class="form-group col-12 col-md-2">
             <label class="control-label font-weight-bold" for="price" i18n="@@item.field.price">Price</label>
             <input type="number" step="0.01" min="0" class="form-control" id="price" name="price"
               [(ngModel)]="product.price" placeholder="Price">
           </div>
-          <div class="form-group col-12 col-md-1">
-            <div class="form-group col-12 col-md-3">
-              <button class="btn btn-info btn-md" (click)="openPricesModal(product.id)" [disabled]="product.id == 0"
-              i18n-title="@@price.historical" title="Historic pricing">$</button>
-            </div>
-          </div>
-          <div class="form-group col-12 col-md-3">
+
+          <div class="form-group col-12 col-md-2">
             <label class="control-label font-weight-bold" for="unit" i18n="@@unit.page.title">Unit</label>
             <select class="form-control" placeholder="Unit" name="unit_id" id="unit" [(ngModel)]="product.unit_id">
               <option *ngFor="let unit of units" [value]="unit.id">
@@ -40,7 +65,6 @@
               Stocked
             </label>
           </div>
-
         </div>
 
         <div class="form-row">
@@ -96,10 +120,10 @@
               <tbody>
                 <tr *ngFor="let image of product.images">
                   <th scope="row" class="col-auto">{{ image.id }}</th>
-                  <td >{{ image.name }}</td>
+                  <td>{{ image.name }}</td>
                   <td class="w-25 ">
                     <img name="image" src="{{authService.getURLImage() + image.name}}" class="img-fluid"
-                    style="width:150px;height:100px;" >
+                      style="width:150px;height:100px;">
                   </td>
                   <td>
                     <div class="row ">

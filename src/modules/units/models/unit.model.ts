@@ -4,6 +4,7 @@ export class Unit {
     abbreviation: string = '';
     name: string = '';
     fractioned: boolean = false;
+    isBasic: boolean = false;
     // isDecimal: string = '';
     // store_id: string = '';
 }
