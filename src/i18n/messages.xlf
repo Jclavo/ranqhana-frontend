@@ -1395,6 +1395,14 @@
           <context context-type="sourcefile">src/modules/items/containers/product/product.component.html</context>
           <context context-type="linenumber">39</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="button.confirm" datatype="html">
         <source>Confirm</source>
@@ -1409,6 +1417,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/invoices/containers/purchase/purchase.component.html</context>
           <context context-type="linenumber">169</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="button.chooseImage" datatype="html">
+        <source>Choose Image</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/modules/utility/containers/i18n/buttons/buttons.component.html</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="no.printer" datatype="html">
@@ -2068,10 +2083,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
           <context context-type="linenumber">6</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/modules/items/containers/service/service.component.html</context>
-          <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/modules/items/containers/item-i18n/item-i18n.component.html</context>
