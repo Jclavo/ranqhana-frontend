@@ -32,6 +32,7 @@
 
 \newcommand\AutoCalc{\textsf{AutoratingCalculator}}
 \newcommand\Ranqhana{\textsf{Ranqhana}}
+\newcommand\InConstruction{\color{red} Module under construction.}
 \newcommand\SiteRanqhana{\textsf{http://localhost:4200/}}
 \renewcommand\abstractname{Introduction}
 
@@ -76,9 +77,9 @@
 %\end{tikzpicture}
 
 
-\section{Login Module}
+\section{Login}
 
-\subsection{Login in the application}
+\subsection{Login in the application}\label{section:login_app}
 \begin{enumerate}
 \item Go to \SiteRanqhana
 \item Write your identification, \emph{which is in a numeric format}
@@ -86,27 +87,93 @@
 \item Click in \keys{login}
 \begin{figure}[H]\centering
 	\includegraphics[width=\textwidth]{images/login}
-	\caption{Login in the application}\label{fig:login}
+	\caption{login in the application}\label{fig:login}
 \end{figure}
 \end{enumerate}	
 
-
-\subsection{Change language}
+\subsection{Change language}\label{section:change_language}
 \begin{enumerate}
-	\item Click in ...
+	\item \InConstruction{}	
 \end{enumerate}	
 
-\section{Invoices Module}
+\section{Invoices}
+\subsection{Invoice List}\label{section:invoice_list}
+\begin{enumerate}
+	\item \InConstruction{}
+\end{enumerate}
 
-\subsection{To Sell}
-\subsubsection{Access to the module}
+\subsection{To Sell}\label{section:to_sell}
+\subsubsection{Access to module: Sell}
 \begin{enumerate}
 	\item From the left menu, click in  \menu{Invoices}
 	\item From the left submenu, click in  \menu{Sell invoice}
 	\item The page will be showed.
 	\begin{figure}[H]\centering
-		\includegraphics[width=\textwidth]{images/sellinvoice-1}
-		\caption{Access to the module}\label{fig:sellinvoice-1}
+		\includegraphics[width=\textwidth]{images/invoice_sell-access}
+		\caption{access to module: Sell}
+		\label{fig:invoice_sell-access}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Add an item}
+\begin{enumerate}
+	\item Search item, \emph{write the first letters of item name and it will be auto-completed.}
+	\medskip
+	\begin{leftbar}
+		It will show item's information such as \emph{ unit, stock and price}
+	\end{leftbar}
+	\item Write quantity.
+	\item Click in \keys{\texttt{+}}
+	\medskip
+	\begin{leftbar}
+		The item will be showed in the grill,  \emph{with some additional information}
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_sell-item}
+		\caption{add an item}\label{fig:invoice_sell-item}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Show item in grill}
+\begin{enumerate}
+	\item in that section, the item is showed in the grill,  \emph{with some additional fields}
+	\medskip
+	\begin{leftbar}
+		It will show item's information such as \emph{ index, barcode, unit, quantity, unit price, line total and delete button}
+	\end{leftbar}
+	\item in that section, information about \emph{subtotal, taxes, discount and total} is showed
+	\medskip
+	\begin{leftbar}
+	To make a discount check its section.
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_sell-grill}
+		\caption{show item in grill}\label{fig:invoice_sell-grill}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Confirm sell}
+\begin{enumerate}
+	\item Click in \keys{Confirm} 
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_sell-confirm}
+		\caption{confirm sell}\label{fig:invoice_sell-confirm}
+	\end{figure}
+	\item Go to (Section~\ref{section:invoice_additional_information}) to continue the workflow.
+\end{enumerate}
+
+%\subsubsection{Show sell invoice}
+
+\subsection{To Purchase}\label{section:to_purchase}
+\subsubsection{Access to module: Purchase}
+\begin{enumerate}
+	\item From the left menu, click in  \menu{Invoices}
+	\item From the left submenu, click in  \menu{Purchase invoice}
+	\item The page will be showed.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_purchase-access.png}
+		\caption{access to module: Purchase}
+		\label{fig:invoice_purchase-access}
 	\end{figure}
 \end{enumerate}
 
@@ -118,55 +185,61 @@
 	\begin{leftbar}
 		It will show item's information such as \emph{ unit, stock and price}
 	\end{leftbar}
+	\item Write purchase's price.
 	\item Write quantity.
 	\item Click in \keys{\texttt{+}}
-	\item The item will be showed in the grill,  \emph{with some additional information}
+
+	\medskip
+	\begin{leftbar}
+		The item will be showed in the grill,  \emph{with some additional information.}
+	\end{leftbar}
 	\begin{figure}[H]\centering
-		\includegraphics[width=\textwidth]{images/sellinvoice-2}
-		\caption{Add an item}\label{fig:sellinvoice-2}
+		\includegraphics[width=\textwidth]{images/invoice_purchase-item.png}
+		\caption{add an item}\label{fig:invoice_purchase-item}
 	\end{figure}
 \end{enumerate}
 
-\subsubsection{Show item in the grill}
+\subsubsection{Show item in grill}
 \begin{enumerate}
-	\item in that section, the item is showed in the grill,  \emph{with some additional fields}
+	\item In that section, the item is showed in the grill,  \emph{with some additional fields}
 	\medskip
 	\begin{leftbar}
-		It will show item's information such as \emph{ index, barcode, unit, quantity, unit price, line total and delete button}
+		It will show item's information such as \emph{ index, barcode, description, unit, quantity, unit price, line total and delete button.}
 	\end{leftbar}
-	\item in that section, information about \emph{subtotal, taxes, discount and total} is showed
+	\item In that section, information about \emph{subtotal, taxes, discount and total} is showed.
 	\medskip
 	\begin{leftbar}
-	To make a discount check its section
+		To make a discount check its section.
 	\end{leftbar}
 	\begin{figure}[H]\centering
-		\includegraphics[width=\textwidth]{images/sellinvoice-3}
-		\caption{Show item in the grill}\label{fig:sellinvoice-3}
+		\includegraphics[width=\textwidth]{images/invoice_purchase-grill.png}
+		\caption{show item in grill}\label{fig:invoice_purchase-grill}
 	\end{figure}
 \end{enumerate}
 
-\subsubsection{confirm the sell}
+\subsubsection{Confirm purchase}
 \begin{enumerate}
 	\item Click in \keys{Confirm} 
 	\begin{figure}[H]\centering
-		\includegraphics[width=\textwidth]{images/sellinvoice-4}
-		\caption{confirm the sell}\label{fig:sellinvoice-4}
+		\includegraphics[width=\textwidth]{images/invoice_purchase-confirm.png}
+		\caption{confirm purchase}
+		\label{fig:invoice_purchase-confirm}
 	\end{figure}
+	\item Go to (Section~\ref{section:invoice_additional_information}) to continue the workflow.
 \end{enumerate}
 
-\subsubsection{Add additional information}
-about \emph{payment type} there are the next options:
+\subsection{Invoice additional information}\label{section:invoice_additional_information}
+This workflow depends on the option that is selected for \emph{payment type} which are the next ones:
 \begin{itemize}
 	\item Credit
 	\item Debit
 	\item Cash
 	\item Store Credit
 \end{itemize}
-
-\subsubsection{Add additional information: Credit or Debit}
+\subsubsection{Payment type: Credit or Debit}
 \begin{enumerate}
-	\item Select payment type \textbf{CREDIT} or \textbf{DEBIT}	
-	\item Select a client, \emph{write its name or identification number}
+	\item Select payment type \textbf{CREDIT} or \textbf{DEBIT}	.
+	\item Select a client, \emph{write its name or identification number}.
 	\medskip
 	\begin{leftbar}
 		\textbf{OPTIONAL FIELD}
@@ -174,7 +247,7 @@ about \emph{payment type} there are the next options:
 	\item Click in \keys{Finish} 	
 	\medskip
 	\begin{leftbar}
-		the process will be finished and the user will redirected to \textbf{Invoice List} page.
+		The process will be finished and the user will redirected to \textbf{Invoice List} page in (Section~\ref{section:invoice_list}).
 	\end{leftbar}
 	\begin{figure}[H]\centering
 		\includegraphics[width=\textwidth]{images/sellinvoice-5}
@@ -182,10 +255,10 @@ about \emph{payment type} there are the next options:
 	\end{figure}
 \end{enumerate}
 
-\subsubsection{Add additional information: Cash}
+\subsubsection{Payment type: Cash}
 \begin{enumerate}
-	\item Select payment type \textbf{CASH}	
-	\item Select a client, \emph{write its name or identification number}
+	\item Select payment type \textbf{CASH}.
+	\item Select a client, \emph{write its name or identification number}.
 	\medskip
 	\begin{leftbar}
 		\textbf{OPTIONAL FIELD}
@@ -194,50 +267,31 @@ about \emph{payment type} there are the next options:
 	\medskip
 	\begin{figure}[H]\centering
 		\includegraphics[width=\textwidth]{images/sellinvoice-6}
-		\caption{Add additional information: Cash}\label{fig:sellinvoice-6}
+		\caption{add additional information: Cash}\label{fig:sellinvoice-6}
 	\end{figure}
+	\item It will be redirected to make the payment in  (Section~\ref{section:made_payment}) and continue the workflow.
 \end{enumerate}
-
-\subsubsection{Made Payment}
-\begin{enumerate}
-	\item Write the amount of cash 
-	\item If there is an exchange, it will be showed
-	\item Click in \keys{Pay}
-	\medskip
-	\begin{leftbar}
-		the process will be finished and the user will redirected to \textbf{Invoice List} page.
-	\end{leftbar}
-	\begin{figure}[H]\centering
-		\includegraphics[width=\textwidth]{images/sellinvoice-7}
-		\caption{Made Payment}\label{fig:sellinvoice-7}
-	\end{figure}
-\end{enumerate}
-
-\subsubsection{Show sell invoice}
-
-\section{Product}
-
-\subsection{Product List}
-
-\subsubsection{Access to the module}
+\section{Products}
+\subsection{Product List}\label{section:product_list}
+\subsubsection{Access to module}
 \begin{enumerate}
 	\item From the left menu, click in  \menu{Products}
 	\item From the left submenu, click in  \menu{Products List}
 	\item The page will be showed.
 	\medskip
 	\begin{leftbar}
-		Here there are some action that can be done with the items in the grid such as:  \emph{search, edit, delete and print} .
+		Here there are some action that can be done with the items in the grid such as: \emph{search, edit, delete and print} .
 	\end{leftbar}
 	\begin{figure}[H]\centering
 		\includegraphics[width=\textwidth]{images/produc_list-access.png}
-		\caption{Access to the module: Product List}
+		\caption{access to module: Product List}
 		\label{fig:produc_list-access.png}
 	\end{figure}
 \end{enumerate}
 
-\subsubsection{Search product}
+\subsubsection{Search product}\label{section:product_search}
 \begin{enumerate}
-	\item Write the product name or part of that and it will be searched automatically.
+	\item Write product name or part of that and it will be searched automatically.
 	\begin{figure}[H]\centering
 		\includegraphics[width=\textwidth]{images/produc_list-search.png}
 		\caption{search product}
@@ -266,14 +320,367 @@ about \emph{payment type} there are the next options:
 \begin{enumerate}
 	\item Find the product to edit.
 	\item Click in \faIcon{edit}.
+	\medskip
+	\begin{leftbar}
+	 At that moment, it will be redirected to \textbf{Product Form} page in (Section~\ref{section:product_list}).
+	\end{leftbar}
 	\begin{figure}[H]\centering
 		\includegraphics[width=\textwidth]{images/produc_list-update.png}
 		\caption{update/edit product}
-		\label{fig:produc_list-update.png}
+		\label{fig:produc_list-update.png}.
 	\end{figure}
 \end{enumerate}
 
-\subsection{Product Form}
+\subsubsection{Print product}
+\begin{enumerate}
+	\item \InConstruction{}
+\end{enumerate}
+
+\subsection{Product form}\label{section:product_form}
+\subsubsection{Access to module}
+\begin{enumerate}
+	\item From the left menu, click in  \menu{Products}
+	\item From the left submenu, click in  \menu{Product}
+	\item The page will be showed.
+	\medskip
+	\begin{leftbar}
+		Here 2 actions can be performed \emph{create and update} .
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/product_form-access.png}
+		\caption{access to module: Product}
+		\label{fig:product_form-access.png}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Product's field}
+\begin{enumerate}
+	\item \textbf{Container}: it must be unchecked which means that a product will be created.	
+	\item \textbf{Historic pricing}: show sell and purchase's price through time. If its only activate when a product is updated. See (Section~\ref{section:historic_pricing}).
+	\item \textbf{Name}: product's name.
+	\item \textbf{Price}: product's price.
+		\medskip
+		\begin{leftbar}
+			\textbf{OPTIONAL FIELD}, can be fulfill later.
+		\end{leftbar}
+	\item \textbf{Unit}: it can be chosen between some options as: \emph{box, bottle, kilogram and so on}
+	\item \textbf{Stocked}: check if the product will have stock; otherwise, uncheck it.
+	\item \textbf{Description}: product's description.
+		\medskip
+		\begin{leftbar}
+			\textbf{OPTIONAL FIELD}
+		\end{leftbar}
+	\item \textbf{Stock types}: there are 3 types and they can be selected more than one.
+		\begin{enumerate}
+			\item \textbf{Sale}: if the product is going to be only sell, but not buy itself.
+			\item \textbf{Purchase}: if the product is only bought but not sell.
+			\item \textbf{Production}:  \InConstruction{}
+		\end{enumerate}
+	\item \textbf{Add image}: add product's image. See in (Section~\ref{section:add_image}).
+		\medskip
+		\begin{leftbar}
+			\textbf{OPTIONAL FIELD}.
+		\end{leftbar}
+	\item Click in \keys{save} to confirm the process; otherwise, Click in \keys{cancel} to abort it.
+		\medskip
+		\begin{leftbar}
+			The process will be finished and the user will redirected to \textbf{Product List} page in (Section~\ref{section:product_list}).
+		\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/product_form-fields.png}
+		\caption{product's fields}
+		\label{fig:product_form-fields}
+	\end{figure}
+\end{enumerate}	
+
+\subsubsection{Container's field}
+\begin{enumerate}
+	\item \textbf{Container}: it must be checked which means that a container will be created. A container has an amount of products.
+	\item \textbf{Historic pricing}: show sell and purchase's price through time. If its only activate when a product is updated. See (Section~\ref{section:historic_pricing}).
+	\item \textbf{Product's name}: search for the product that will belong to the container.
+	\item \textbf{Amount}: amount of units of a container.
+		\medskip
+		\begin{leftbar}
+			only available when container is checked.
+		\end{leftbar}
+	\item \textbf{Price}:  container's price.
+		\medskip
+		\begin{leftbar}
+			\textbf{OPTIONAL FIELD}, can be fulfill later.
+		\end{leftbar}
+	\item \textbf{Unit}: it can be chosen between only options for container: \emph{box, package and back}
+	\item \textbf{Stocked}: check if the container will have stock; otherwise, uncheck it.
+	\item \textbf{Description}: container's description.
+	\medskip
+		\begin{leftbar}
+			\textbf{OPTIONAL FIELD}
+		\end{leftbar}
+	\item \textbf{Stock types}: there are 3 types and they can be selected more than one.
+		\begin{enumerate}
+			\item \textbf{Sale}: if the product is going to be only sell, but not buy itself.
+			\item \textbf{Purchase}: if the product is only bought but not sell.
+			\item \textbf{Production}:  \InConstruction{}
+		\end{enumerate}
+	
+	\item \textbf{Add image}: add product's image. See in (Section~\ref{section:add_image}).
+		\medskip
+		\begin{leftbar}
+			\textbf{OPTIONAL FIELD}.
+		\end{leftbar}  
+	\item Click in \keys{save} to confirm the process; otherwise, Click in \keys{cancel} to abort it.
+		\medskip
+		\begin{leftbar}
+			The process will be finished and the user will redirected to \textbf{Product List} page in (Section~\ref{section:product_list}).
+		\end{leftbar}
+	\begin{figure}[H]\centering
+	\includegraphics[width=\textwidth]{images/product_form-fields-container.png}
+	\caption{container's fields}
+	\label{fig:product_form-fields-container}
+\end{figure}
+\end{enumerate}	
+
+
+
+\section{Service}
+\subsection{Service List}\label{section:service_list}
+\subsubsection{Access to module}
+\begin{enumerate}
+	\item From the left menu, click in  \menu{Services}
+	\item From the left submenu, click in  \menu{Services List}
+	\item The page will be showed.
+	\medskip
+	\begin{leftbar}
+		Here there are some action that can be done with the items in the grid such as: \emph{search, edit, delete and print} .
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/produc_list-access.png}
+		\caption{access to module: Services List}
+		\label{fig:service_list-access.png}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Search service}\label{section:service_search}
+\begin{enumerate}
+	\item Write the service name or part of that and it will be searched automatically.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/service_list-search.png}
+		\caption{search service}
+		\label{fig:service_list-search.png}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Delete service}
+\begin{enumerate}
+	\item Find the service to delete.
+	\item Click in \faIcon{trash}.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/service_list-delete.png}
+		\caption{delete service}
+		\label{fig:service_list-delete.png}
+	\end{figure}
+	\item Click in \keys{yes} to confirm the delete; otherwise, Click in \keys{cancel} to abort the process.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/service_list-delete-popup.png}
+		\caption{delete service: popup}
+		\label{fig:service_list-delete-popup.png}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Update/Edit service}
+\begin{enumerate}
+	\item Find the service to edit.
+	\item Click in \faIcon{edit}.
+	\medskip
+	\begin{leftbar}
+		At that moment, it will be redirected to \textbf{Service Form} page.
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/service_list-update.png}
+		\caption{update/edit service}
+		\label{fig:service_list-update.png}.
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Print service}
+\begin{enumerate}
+	\item \InConstruction{}
+\end{enumerate}
+
+\subsection{Service Form}\label{section:service_form}
+\subsubsection{Access to module}
+\begin{enumerate}
+	\item From the left menu, click in \menu{Services}
+	\item From the left submenu, click in \menu{Service}
+	\item The page will be showed.
+	\medskip
+	\begin{leftbar}
+		Here 2 actions can be performed \emph{create and update} .
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/service_form-access.png}
+		\caption{access to module: service}
+		\label{fig:service_form-access.png}
+	\end{figure}
+\end{enumerate}
+
+%%\subsection{Create Product}
+\subsubsection{service's fields}
+\begin{enumerate}
+	\item \textbf{Name}: service's name.
+	\item \textbf{Price}: service's price.
+	\medskip
+	\begin{leftbar}
+		\textbf{OPTIONAL FIELD}, can be fulfill later.
+	\end{leftbar}
+	\item \textbf{Historic pricing}: show sell and purchase's price through time. If its only activate when a product is updated. See (Section~\ref{section:historic_pricing}).
+	\item \textbf{Description}: product's description.
+	\medskip
+	\begin{leftbar}
+		\textbf{OPTIONAL FIELD}
+	\end{leftbar}
+	\item \textbf{Stock types}: there are 3 types and they can be selected more than one.
+		\begin{enumerate}
+			\item \textbf{Sale}: if the product is going to be only sell, but not buy itself.
+			\item \textbf{Purchase}: if the product is only bought but not sell.
+			\item \textbf{Production}:  \InConstruction{}
+		\end{enumerate}
+	\item \textbf{Add image}: add product's image. See in (Section~\ref{section:add_image}).
+	\medskip
+	\begin{leftbar}
+		\textbf{OPTIONAL FIELD}.
+	\end{leftbar}
+	\item Click in \keys{save} to confirm the process; otherwise, Click in \keys{cancel} to abort it.
+		\medskip
+		\begin{leftbar}
+			The process will be finished and the user will redirected to \textbf{Product List} page.
+		\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/service_form-fields.png}
+		\caption{service's fields}
+		\label{fig:service_form-fields}
+	\end{figure}
+\end{enumerate}
+
+
+\section{Others modules}
+\subsection{Images}
+\subsubsection{Add image}\label{section:add_image}
+\begin{enumerate}
+	\item Click in \keys{add images}
+	\medskip
+	\begin{leftbar}
+		This button is showed in many modules such as: \emph{products, services and users}
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/image-clickIn.png}
+		\caption{image click in}
+		\label{fig:image-clickIn}
+	\end{figure}
+	\item Click in \keys{choose image}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/image-modal.png}
+		\caption{image modal}
+		\label{fig:image-modal}
+	\end{figure}
+	\item A window will be opened to browser the image in the computer.
+	\item Select the image
+	\item Click in \keys{open} to confirm the selection; otherwise, click in \keys{cancel} to abort the process.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/image-choose.png}
+		\caption{image choose}
+		\label{fig:image-choose}
+	\end{figure}
+	\item Click in \keys{ok} to save the image; otherwise, click in \keys{cancel} to abort the process.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/image-save.png}
+		\caption{image save}
+		\label{fig:image-save}
+	\end{figure}
+	\item Finally, the image will be showed .
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/image-show.png}
+		\caption{image show}
+		\label{fig:image-show}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Delete image}
+\begin{enumerate}
+	\item Find the image to delete.
+	\item Click in \faIcon{trash}.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/image-delete.png}
+		\caption{delete image}
+		\label{fig:image-delete.png}
+	\end{figure}
+	\item Click in \keys{yes} to confirm the delete; otherwise, click in \keys{cancel} to abort the process.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/image-delete-popup.png}
+		\caption{delete image: popup}
+		\label{fig:image-delete-popup.png}
+	\end{figure}
+\end{enumerate}
+
+\subsection{Made Payment}\label{section:made_payment}
+\begin{enumerate}
+	\item Write the amount of cash.
+	\item If there is an exchange, it will be showed.
+	\item Click in \keys{Pay}
+	\medskip
+	\begin{leftbar}
+		the process will be finished and the user will redirected to \textbf{Invoice List} page in (Section~\ref{section:invoice_list}).
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/sellinvoice-7}
+		\caption{made payment}\label{fig:sellinvoice-7}
+	\end{figure}
+\end{enumerate}
+
+\subsection{Historic Pricing}\label{section:historic_pricing}
+\begin{enumerate}
+	\item Find the item.
+	\medskip
+	\begin{leftbar}
+		Item can be a product (Section~\ref{section:product_search}) or a service (Section~\ref{section:service_search})
+	\end{leftbar}
+	\item Click in \faIcon{edit}.
+	\medskip
+	\begin{leftbar}
+		At that moment, it will be redirected to \textbf{Product Form} page in (Section~\ref{section:product_form}) or to \textbf{Service Form} page in (Section~\ref{section:service_form}).
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/produc_list-update.png}
+		\caption{select product}
+		\label{fig:select-product.png}.
+	\end{figure}
+	\item Click in \keys{\$}.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/historing_price-open.png}
+		\caption{historing price: open}
+		\label{fig:historing_price-open}
+	\end{figure}
+	\item A modal will show sell and purchase's prices.
+	\item Click in \keys{close} to exit.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/historing_price-modal.png}
+		\caption{historing price}
+		\label{fig:historing_price-modal}
+	\end{figure}
+	
+\end{enumerate}	
+
+%\subsection{123}
+%\subsubsection{sub 123}
+%\begin{enumerate}
+%	\item 1
+%	\item 2
+%	\item 3
+%	\begin{figure}[H]\centering
+%		\includegraphics[width=\textwidth]{images/123.png}
+%		\caption{123}
+%		\label{fig:123}
+%	\end{figure}
+%\end{enumerate}	
 
 %\begin{enumerate}
 %	
