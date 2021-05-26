@@ -32,7 +32,7 @@
 
 \newcommand\AutoCalc{\textsf{AutoratingCalculator}}
 \newcommand\Ranqhana{\textsf{Ranqhana}}
-\newcommand\InConstruction{\color{red} Module under construction.}
+\newcommand\InConstruction{\textcolor{red}{Module under construction.}}
 \newcommand\SiteRanqhana{\textsf{http://localhost:4200/}}
 \renewcommand\abstractname{Introduction}
 
@@ -78,7 +78,6 @@
 
 
 \section{Login}
-
 \subsection{Login in the application}\label{section:login_app}
 \begin{enumerate}
 \item Go to \SiteRanqhana
@@ -87,19 +86,140 @@
 \item Click in \keys{login}
 \begin{figure}[H]\centering
 	\includegraphics[width=\textwidth]{images/login}
-	\caption{login in the application}\label{fig:login}
+	\caption{login in the application}
+	\label{fig:login}
 \end{figure}
 \end{enumerate}	
 
-\subsection{Change language}\label{section:change_language}
-\begin{enumerate}
-	\item \InConstruction{}	
-\end{enumerate}	
+\section{Main Page}\label{section:main_page}
+This page is showed at access to the system.
+\begin{figure}[H]\centering
+	\includegraphics[width=\textwidth]{images/main_page}
+	\caption{main page}
+	\label{fig:main_page}
+\end{figure}
 
+\section{Dashboard}
+\subsection{Access to module}
+\begin{enumerate}
+	\item From the left menu, click in  \menu{Dashboard}
+	\item The page will be showed.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/dashboard-access.png}
+		\caption{access to module: Dashboard}
+		\label{fig:dashboard-access}
+	\end{figure}
+\end{enumerate}
+\subsection{Features}
+\begin{enumerate}
+	\item \textbf{My todays' sales}: amount of money from sells in the current day.
+	\item \textbf{Popular item}: name of item that is the most sell in the current day. 
+	\item \textbf{My todays' sales}: amount of money from purchases in the current day.
+	\item \textbf{Popular Production}: name of item that is the most produce in the current day. 
+		\medskip
+	\begin{leftbar}
+	 \InConstruction.
+	\end{leftbar} 
+	\item \textbf{Week's sales}: amount of money from sells in the current week.
+	\item \textbf{Month's sales}: amount of money from sells in the current month.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/dashboard}
+		\caption{dashboard features}
+		\label{fig:dashboard}
+	\end{figure}
+\end{enumerate}
+	
 \section{Invoices}
 \subsection{Invoice List}\label{section:invoice_list}
+\subsubsection{Access to module}
 \begin{enumerate}
-	\item \InConstruction{}
+	\item From the left menu, click in  \menu{Invoices}
+	\item From the left submenu, click in  \menu{Invoices List}
+	\item The page will be showed.
+	\medskip
+	\begin{leftbar}
+		Here there are some action that can be done with the items in the grid such as: \emph{search, made a payment, show and annul} .
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_list-access.png}
+		\caption{access to module: Invoice List}
+		\label{fig:invoice_list-access}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Search invoice: fields}\label{invoice:invoice_search}
+After select or fulfill any field the search will be automatically.
+\begin{enumerate}
+	\item \textbf{Serie}: invoice serie's number.
+	\item \textbf{Total}: this fields is read-only and shows the total amount of all invoice listed.
+	\item \textbf{From}: initial date in search range.
+	\item \textbf{To}: final date in search range.
+	\item \textbf{Type}: it is the type of invoice and it can selected one option or in blank, which means will search for all.
+		\medskip
+		\begin{leftbar}
+			Options: \emph{sell or purchase} .
+		\end{leftbar}
+	\item \textbf{Stage}: It is the status of the invoice and it can selected one option or in blank, which means will search for both.
+		\medskip
+		\begin{leftbar}
+			Options: \emph{paid, annulled, draft, by installment and no paid} .
+		\end{leftbar}
+	
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_list-search-fields.png}
+		\caption{search invoice: fields}
+		\label{fig:invoice_list-search-fields}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Made payment}
+\begin{enumerate}
+	\item Find the invoice to pay.
+	\item Click in \faIcon{money-bill-alt}.
+	\medskip
+	\begin{leftbar}
+		A modal will be open, go to (Section~\ref{section:made_payment}) to continue this workflow.
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_list-made-payment.png}
+		\caption{Made Payment}
+		\label{fig:invoice_list-made-payment}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Show invoice's information}
+\begin{enumerate}
+	\item Find the invoice to show its information.
+	\item Click in \faIcon{eye}.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_list-show.png}
+		\caption{show invoice's information}
+		\label{fig:invoice_list-show}
+	\end{figure}
+	\item The information is showed.
+	\item Click in \keys{print} to print the invoice; otherwise, Click in \keys{close} to close the modal.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_list-show-modal.png}
+			\caption{show invoice's information: modal}
+		\label{fig:invoice_list-show-modal}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Annul invoice}
+\begin{enumerate}
+	\item Find the invoice to annul.
+	\item Click in \faIcon{trash}.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_list-annul.png}
+		\caption{annul invoice}
+		\label{fig:invoice_list-annul}
+	\end{figure}
+	\item Click in \keys{yes} to confirm the annul; otherwise, Click in \keys{cancel} to abort the process.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/invoice_list-annul-modal.png}
+		\caption{annul invoice: modal}
+		\label{fig:invoice_list-annul-modal}
+	\end{figure}
 \end{enumerate}
 
 \subsection{To Sell}\label{section:to_sell}
@@ -310,9 +430,9 @@ This workflow depends on the option that is selected for \emph{payment type} whi
 		\end{figure}
 	\item Click in \keys{yes} to confirm the delete; otherwise, Click in \keys{cancel} to abort the process.
 	\begin{figure}[H]\centering
-		\includegraphics[width=\textwidth]{images/produc_list-delete-popup.png}
-		\caption{delete product: popup}
-		\label{fig:produc_list-delete-popup.png}
+		\includegraphics[width=\textwidth]{images/produc_list-delete-modal.png}
+		\caption{delete product: modal}
+		\label{fig:produc_list-delete-modal.png}
 	\end{figure}
 \end{enumerate}
 
@@ -480,9 +600,9 @@ This workflow depends on the option that is selected for \emph{payment type} whi
 	\end{figure}
 	\item Click in \keys{yes} to confirm the delete; otherwise, Click in \keys{cancel} to abort the process.
 	\begin{figure}[H]\centering
-		\includegraphics[width=\textwidth]{images/service_list-delete-popup.png}
-		\caption{delete service: popup}
-		\label{fig:service_list-delete-popup.png}
+		\includegraphics[width=\textwidth]{images/service_list-delete-modal.png}
+		\caption{delete service: modal}
+		\label{fig:service_list-delete-modal.png}
 	\end{figure}
 \end{enumerate}
 
@@ -562,6 +682,310 @@ This workflow depends on the option that is selected for \emph{payment type} whi
 \end{enumerate}
 
 
+\section{Persons}
+\subsection{Users List}\label{section:user_list}
+\subsubsection{Access to module}
+\begin{enumerate}
+	\item From the left menu, click in  \menu{Persons}
+	\item From the left submenu, click in  \menu{My users list}
+	\item The page will be showed.
+	\medskip
+	\begin{leftbar}
+		Here there are some action that can be done with the items in the grid such as: \emph{search, edit and delete}.
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/user_list-access.png}
+		\caption{access to module: Services List}
+		\label{fig:user_list-access}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Search user}\label{section:user_search}
+\begin{enumerate}
+	\item Write the user identification/name or part of that and it will be searched automatically.
+	\item Select a role or in blank, which means search for all.
+		\medskip
+		\begin{leftbar}
+			This option depends of your company and can be: \emph{user, admin and more} .
+		\end{leftbar}
+	\item Record(s) is showed.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/user_list-search.png}
+		\caption{search user}
+		\label{fig:user_list-search.png}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Delete user}
+\begin{enumerate}
+	\item Find the user to delete.
+	\item Click in \faIcon{trash}.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/user_list-delete.png}
+		\caption{delete user}
+		\label{fig:user_list-delete.png}
+	\end{figure}
+	\item Click in \keys{yes} to confirm the delete; otherwise, Click in \keys{cancel} to abort the process.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/user_list-delete-modal.png}
+		\caption{delete user: modal}
+		\label{fig:user_list-delete-modal.png}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Update/Edit user}
+\begin{enumerate}
+	\item Find the user to edit.
+	\item Click in \faIcon{edit}.
+	\medskip
+	\begin{leftbar}
+		At that moment, it will be redirected to \textbf{Person Form} page in (Section~\ref{section:user_form}).
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/user_list-update.png}
+		\caption{update/edit user}
+		\label{fig:user_list-update.png}.
+	\end{figure}
+\end{enumerate}
+
+\subsection{Person Form}\label{section:person_form}
+\subsubsection{Access to module}
+\begin{enumerate}
+	\item From the left menu, click in \menu{Persons}
+	\item From the left submenu, click in \menu{Person}
+	\item The page will be showed.
+	\medskip
+	\begin{leftbar}
+		Here 2 actions can be performed \emph{create and update} .
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/person_form-access.png}
+		\caption{access to module: Person Form}
+		\label{fig:person_form-access.png}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{user's fields}\label{section:user_form}
+\begin{enumerate}
+	\item \textbf{Person}: to add an user, should be selected \textbf{Natural}.
+	\item \textbf{Identification}: user's document identification number.
+		\medskip
+		\begin{leftbar}
+			It is a numeric field and ask the ADMIN for which is going to be use here.
+		\end{leftbar}
+	\item \textbf{Name}: user's name.
+	\item \textbf{lastname}: user's lastname.
+	\item \textbf{E-mail}: user's e-mail.
+	\item \textbf{Phone}: user's phone.
+	\item \textbf{Address}: user's address.
+		\medskip
+		\begin{leftbar}
+			\textbf{OPTIONAL FIELD}.
+		\end{leftbar}
+	\item \textbf{Roles}: roles of user in the application.
+	\medskip
+	\begin{leftbar}
+		\textbf{OPTIONAL FIELD}, more than one can be selected and at least one is needed to user can access to the application.
+	\end{leftbar}
+	\item \textbf{Add image}: add product's image. See in (Section~\ref{section:add_image}).
+	\medskip
+	\begin{leftbar}
+		\textbf{OPTIONAL FIELD}.
+	\end{leftbar}
+	\item Click in \keys{save} to confirm the process; otherwise, Click in \keys{cancel} to abort it.
+	\medskip
+	\begin{leftbar}
+		The process will be finished and the user will redirected to \textbf{User List} page in (Section~\ref{section:user_list}).
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/person_form-user-fields.png}
+		\caption{user's fields}
+		\label{fig:person_form-user-fields}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{company's fields}\label{section:company_form}
+\begin{enumerate}
+	\item \textbf{Person}: to add a company, should be selected \textbf{Juridical}.
+	\item \textbf{Identification}: company's document identification number.
+	\medskip
+	\begin{leftbar}
+		It is a numeric field and ask the ADMIN for which is going to be use here.
+	\end{leftbar}
+	\item \textbf{Name}: company's name.
+	\item \textbf{E-mail}: company's e-mail.
+	\item \textbf{Phone}: company's phone.
+	\item \textbf{Address}: company's address.
+	\medskip
+	\begin{leftbar}
+		\textbf{OPTIONAL FIELD}.
+	\end{leftbar}
+	\item \textbf{Add image}: add product's image. See in (Section~\ref{section:add_image}).
+	\medskip
+	\begin{leftbar}
+		\textbf{OPTIONAL FIELD}.
+	\end{leftbar}
+	\item Click in \keys{save} to confirm the process; otherwise, Click in \keys{cancel} to abort it.
+	\medskip
+	\begin{leftbar}
+		The process will be finished and the user will redirected to \textbf{User List} page in (Section~\ref{section:user_list}).
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/person_form-company-fields.png}
+		\caption{company's fields}
+		\label{fig:company_form-user-fields}
+	\end{figure}
+\end{enumerate}
+
+
+\subsection{Companies List}\label{section:company_list}
+\subsubsection{Access to module}
+\begin{enumerate}
+	\item From the left menu, click in  \menu{Persons}
+	\item From the left submenu, click in  \menu{Company list}
+	\item The page will be showed.
+	\medskip
+	\begin{leftbar}
+		Here there are some action that can be done with the items in the grid such as: \emph{search, edit and delete}. The last 2 actions are allowed only for your companies.
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/company_list-access.png}
+		\caption{access to module: Companies List}
+		\label{fig:company_list-access}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Search company}\label{section:company_search}
+\begin{enumerate}
+	\item Write the company identification/name or part of that and it will be searched automatically.
+	\item Record(s) is showed.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/company_list-search.png}
+		\caption{search company}
+		\label{fig:company_list-search}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Delete company}
+\begin{enumerate}
+	\item Find the company to delete.
+	\item Click in \faIcon{trash}.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/company_list-delete.png}
+		\caption{delete company}
+		\label{fig:company_list-delete}
+	\end{figure}
+	\item Click in \keys{yes} to confirm the delete; otherwise, Click in \keys{cancel} to abort the process.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/company_list-delete-modal.png}
+		\caption{delete company: modal}
+		\label{fig:company_list-delete-modal}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Update/Edit company}
+\begin{enumerate}
+	\item Find the company to edit.
+	\item Click in \faIcon{edit}.
+	\medskip
+	\begin{leftbar}
+		At that moment, it will be redirected to \textbf{Company Form} page in (Section~\ref{section:company_form}).
+	\end{leftbar}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/company_list-update.png}
+		\caption{update/edit company}
+		\label{fig:company_list-update}.
+	\end{figure}
+\end{enumerate}
+
+\section{Reports}
+\subsection{Invoice money by payment type}\label{section:invoice_money_by_payment_type}
+\subsubsection{Access to module}
+\begin{enumerate}
+	\item From the left menu, click in  \menu{Reports}
+	\item From the left submenu, click in \menu{Invoice \$\$\$ by payment type}
+	\item The page will be showed.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/report_invoice_by_payment_type-access.png}
+		\caption{access to module: Invoice money by payment type}
+		\label{fig:report_invoice_by_payment_type-access}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Search}\label{section:invoice_money_by_payment_type_search}
+\begin{enumerate}
+	\item \textbf{From}: initial date in search range.
+	\item \textbf{To}: final date in search range.
+	\item \textbf{Type}: it is the type of invoice and it can selected one option or in blank, which means will search for all.
+		\medskip
+		\begin{leftbar}
+			Options: \emph{sell or purchase} .
+		\end{leftbar}
+	\item Click in \keys{search}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/report_invoice_by_payment_type-search.png}
+		\caption{search}
+		\label{fig:report_invoice_by_payment_type-search}
+	\end{figure}
+	\item Result graph is showed in (Section~\ref{section:invoice_money_by_payment_type_result}).
+\end{enumerate}
+
+\subsubsection{Result}\label{section:invoice_money_by_payment_type_result}
+Each column represents amount of money depends on search's parameters.
+\begin{enumerate}
+	\item \textbf{Debit}: transactions paid using debit card.
+	\item \textbf{Credit}: transactions paid using credit card.
+	\item \textbf{Cash}: transactions paid with cash.
+	\item \textbf{Store credit}: transactions offers with internal credit from the store.
+	\item \textbf{Total}: sum of the last transactions' values.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/report_invoice_by_payment_type-result1.png}
+		\caption{result}
+		\label{fig:report_invoice_by_payment_type-result1}
+	\end{figure}
+\end{enumerate}
+
+\subsection{Invoice money by period}\label{section:invoice_money_by_period}
+\subsubsection{Access to module}
+\begin{enumerate}
+	\item From the left menu, click in  \menu{Reports}
+	\item From the left submenu, click in \menu{Invoice \$\$\$ by period}
+	\item The page will be showed.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/report_invoice_by_period-access.png}
+		\caption{access to module: Invoice money by period}
+		\label{fig:report_invoice_by_period-access}
+	\end{figure}
+\end{enumerate}
+
+\subsubsection{Search \& Result}\label{section:invoice_money_by_period_search}
+\begin{enumerate}
+	\item \textbf{From}: initial date in search range.
+	\item \textbf{To}: final date in search range.
+	\item \textbf{Type}: it is the type of invoice and it can selected one option or in blank, which means will search for all.
+	\medskip
+	\begin{leftbar}
+		Options: \emph{sell or purchase}.
+	\end{leftbar}
+	\item \textbf{By}: it is the period by what it will be searched.
+	\medskip
+	\begin{leftbar}
+		Options: \emph{hour, day, month and year}.
+	\end{leftbar}
+	\item Click in \keys{search}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/report_invoice_by_period-search.png}
+		\caption{search}
+		\label{fig:report_invoice_by_period-search}
+	\end{figure}
+	\item Result graph is showed.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/report_invoice_by_period-result.png}
+		\caption{result}
+		\label{fig:report_invoice_by_period-result1}
+	\end{figure}
+\end{enumerate}
+
 \section{Others modules}
 \subsection{Images}
 \subsubsection{Add image}\label{section:add_image}
@@ -615,9 +1039,9 @@ This workflow depends on the option that is selected for \emph{payment type} whi
 	\end{figure}
 	\item Click in \keys{yes} to confirm the delete; otherwise, click in \keys{cancel} to abort the process.
 	\begin{figure}[H]\centering
-		\includegraphics[width=\textwidth]{images/image-delete-popup.png}
-		\caption{delete image: popup}
-		\label{fig:image-delete-popup.png}
+		\includegraphics[width=\textwidth]{images/image-delete-modal.png}
+		\caption{delete image: modal}
+		\label{fig:image-delete-modal.png}
 	\end{figure}
 \end{enumerate}
 
@@ -669,145 +1093,46 @@ This workflow depends on the option that is selected for \emph{payment type} whi
 	
 \end{enumerate}	
 
-%\subsection{123}
-%\subsubsection{sub 123}
-%\begin{enumerate}
-%	\item 1
-%	\item 2
-%	\item 3
-%	\begin{figure}[H]\centering
-%		\includegraphics[width=\textwidth]{images/123.png}
-%		\caption{123}
-%		\label{fig:123}
-%	\end{figure}
-%\end{enumerate}	
+\subsection{Change language}\label{section:change_language}
+\subsubsection{Access to module from Login}
+This option is found in \textbf{Login} page. (Section~\ref{section:login_app}).
+\begin{enumerate}
+	\item Click in link \textbf{\emph{Change language}}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/change_language-login.png}
+		\caption{access to module from login}
+		\label{fig:change_language-login}
+	\end{figure}
+\end{enumerate}
 
-%\begin{enumerate}
-%	
-%\begin{lstlisting}
-%10032,Mary Tan
-%10143,Prabakar Murugan
-%10033,Tan Beng Huat
-%10165,Calvin Ong
-%
-%10052,Mooi Siok Lan
-%10114,Bong Chin Keat
-%10432,Joseph Calvin
-%10281,Suresh Kappan
-%\end{lstlisting}
-%  
-%\item Save the group list file using \texttt{.txt} or \texttt{.csv} extension, e.g.\\\texttt{DIT1234-Apr2013-groups.txt}.
-%
-%\medskip
-%
-%\begin{leftbar}
-%You may also prepare the group list in Excel. List the IDs in column A and the IDs in column B. Save the file as a Comma separated values file (CSV). In the Export Filter Settings, set text delimiter to blank, and field separator to comma (\texttt{,}).
-%\end{leftbar}
-%
-%\end{enumerate}
-%
-%\section{Importing a Group List for a New Assignment Score File}
-%
-%\begin{enumerate}
-%\item Launch the \AutoCalc\ tool by double-clicking on its icon in Windows Explorer.
-%\item From the menu bar, select \menu{File>Import...} or press \keys{Ctrl+I}.
-%\item Select a \emph{group list file} (\texttt{*.txt, *.csv}) to import from, e.g.\\\texttt{DIT1234-Apr2013-groups.txt}.
-%\item \AutoCalc\ will then ask you for a \emph{new} file name to save the new score list as (\texttt{*.xml}), e.g.~\texttt{DIT1234-Apr2013-Assgn1.xml}.
-%
-%
-%\medskip
-%
-%\begin{leftbar}
-%Make sure the \texttt{.xml} score filename selected does not already exist. Otherwise the existing score file \textbf{may be overwritten without warning}!
-%\end{leftbar}
-%
-%\medskip
-%
-%\item \AutoCalc\ imports the group lists and displays the student IDs and names in the main panel (Figure~\ref{fig:grouplist}).
-%
-%\begin{figure}[H]\centering
-%\includegraphics[width=\textwidth]{images/grouplist}
-%\caption{Imported group list}\label{fig:grouplist}
-%\end{figure}
-%\end{enumerate}
-%
-%\section{Computing Autorated Scores from Group Scores and Peer Ratings}
-%
-%\subsection{Setting Options}
-%
-%Two options may be set at the top of the main \AutoCalc{} window.
-%
-%\begin{itemize}
-%\item You may set the minimum and maximum autorating weight caps. Defaults are set at 0.8 and 1.02.
-%
-%\item You may choose whether to include self-evaluated peer ratings. The default is to include self ratings.
-%
-%\item If you change the settings, make sure to save them from the menu \menu{File>Save} or pressing \keys{Ctrl+S}.
-%\end{itemize}
-%
-%\subsection{Selecting Students from List}
-%
-%Double-click on the name of a student in the list to display the peer review score entry window.
-%
-%\subsection{Searching Students by ID}
-%
-%You can also load the peer ratings entry window of a student by keying in the ID number in the search box, and then click on the \keys{Search} button.
-%
-%\subsection{Entering Scores and Ratings}
-%
-%\begin{enumerate}
-%\begin{figure}[H]
-%\includegraphics[width=\textwidth]{images/scorewindow}
-%\caption{Peer Ratings Window}
-%\end{figure}
-%
-%\item In the peer ratings window for each student, enter the peer ratings given by the student to his/her teammates, including him/herself.
-%\item Enter also the overall score awarded to the group at the top of the window. (You only need to enter the group score once for each group.)
-%\item Click the  \keys{Commit Ratings} button to save the ratings.
-%\item Close the current peer rating window. Continue entering scores for other students.
-%\item You may click on the \keys{Peer Ratings Received by \ldots} tab to see ratings received by a student.
-%
-%\begin{figure}[H]
-%\includegraphics[width=\textwidth]{images/ratingsreceived}
-%\caption{Peer Ratings Received}
-%\end{figure}
-%
-%\end{enumerate}
-%
-%\subsection{Computing Autorated Scores}
-%\begin{enumerate}
-%\item When peer ratings of all students in a group has been entered and committed, click on the \keys{Compute Weights and Scores} button. The computed weights and scores will be saved to file immediately.
-%\item Click on the \keys{Group Overview} tab to see autorated weights and scores for each student in the group.
-%
-%\begin{figure}[H]
-%\includegraphics[width=\textwidth]{images/groupoverview}
-%\caption{Autorated Weights and Scores of Group Members}
-%\end{figure}
-%
-%\end{enumerate}
-%
-%\section{Opening Existing Assignment Score File}
-%You may open an existing assignment score file (\texttt{*.xml}) to inspect scores, as well as to change settings and recalculate scores.
-%\begin{enumerate}
-%\item To open an existing score file, access the menu item \menu{File>Open\ldots} or press \keys{Ctrl+O}.
-%\item Locate and select the \texttt{*.xml} file to open.
-%\end{enumerate}
-%
-%\section{Exporting Data for Excel}
-%The autorated scores can be exported for further processing in Excel.
-%\begin{enumerate}
-%\item Select \menu{File>Export\ldots} from the menu, or \keys{Ctrl+E}.
-%\item Select a file name to save the exported data in. The file will be saved with a \texttt{.csv} extension. \includegraphics[height=1em]{csv}
-%\item In Windows Explorer, locate the \texttt{.csv} file and double-click on it to open it in Excel.
-%\item If warning messages are displayed, keep on clicking \keys{OK} or \keys{Yes} to ignore them.
-%\item When the data is displayed, you may save the file as an \texttt{.xlsx} or \texttt{.xsl} Excel file, and continue processing it.
-%
-%\begin{figure}[H]
-%\includegraphics[width=\textwidth]{images/excel}
-%\caption{Exported data in Excel}
-%\end{figure}
+\subsubsection{Access to module from System}
+This option is found from up panel at any page in the system.
+\begin{enumerate}
+	\item Click in icon \faIcon{user}
+	\item Click in option \textbf{\emph{Change language}}
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/change_language-system.png}
+		\caption{access to module from system}
+		\label{fig:change_language-system}
+	\end{figure}
+\end{enumerate}
 
-%\end{enumerate}
+\subsubsection{Change}
+\begin{enumerate}
+	\item Select language.
+		\medskip
+		\begin{leftbar}
+			options: \emph{English, Spanish and Portuguese}.
+		\end{leftbar}
+	\item Click in \keys{yes} to confirm the change; otherwise, Click in \keys{cancel} to abort the process.
+	\begin{figure}[H]\centering
+		\includegraphics[width=\textwidth]{images/change_language-modal.png}
+		\caption{change language: modal}
+		\label{change_language-modal}
+	\end{figure}
+\end{enumerate}
+
+
 
 \bibliographystyle{plain}
 \bibliography{refs}
