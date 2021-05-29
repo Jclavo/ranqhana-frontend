@@ -7,7 +7,7 @@ import { map, catchError, switchMap } from "rxjs/operators";
 import { environment } from "../../../environments/environment";
 
 //Models
-import { Item, SearchItemOptions } from '@modules/items/models';
+import { Item, SearchItemOptions, ItemRoot } from '@modules/items/models';
 import { StockType } from "@modules/stock-types/models";
 import { Response } from '@modules/utility/models';
 import { Image } from "@modules/utility/models";
@@ -22,11 +22,13 @@ export class ItemService {
 
   static service: string =  'items/';
   static sub_service_product: string =  'products/';
-  static sub_service_service: string =  'services/'
+  static sub_service_service: string =  'services/';
+  static service_item_children: string =  'item-roots/';
 
   private apiRoot: string = environment.apiURL + ItemService.service;
   private apiRootProduct: string = environment.apiURL + ItemService.service + ItemService.sub_service_product;
   private apiRootService: string = environment.apiURL + ItemService.service + ItemService.sub_service_service;
+  private apiRootItemChildren:  string = environment.apiURL + ItemService.service_item_children;
 
   constructor(
     private http: HttpClient,
@@ -127,11 +129,25 @@ export class ItemService {
 
         //images
         item.images = resultRAW.result?.images.map(function(value: Image) {
-          
           let image = new Image();
           image.id = value.id;
           image.name = value.name;
           return image;
+        });
+
+        // item roots
+        item.roots = resultRAW.result?.roots.map(function(value: ItemRoot) {
+          let root = new ItemRoot();
+          root.id = value.id;
+          root.item_id = value.item_id;
+          root.root_id = value.root_id;
+          root.amount = value.amount;
+
+          // item
+          root.item.id = value.item.id;
+          root.item.name = value.item.name;
+
+          return root;
         });
 
         response.result = item;
@@ -276,4 +292,38 @@ export class ItemService {
         return throwError(error.message);
       }));
   }
+
+  /**
+   * Item child
+   */
+
+  saveItemChild(itemChild: ItemRoot): Observable<Response> {
+
+    let apiRoot = this.apiRootItemChildren;
+
+    return this.http.post(apiRoot, itemChild, this.authService.getHeaders()).pipe(map(res => {
+
+      let response = new Response();
+      let resultRAW: any = res;
+
+      //Set response
+      response.status = resultRAW.status;
+      response.message = resultRAW.message;
+      //response.result = resultRAW.result;
+
+      if (resultRAW.result) {
+        let item = new Item();
+        item.id = resultRAW.result?.id;
+        response.result = item;
+      }
+
+      return response;
+
+    }),
+      catchError(error => {
+        return throwError(error.message);
+      }));
+  }
+
+
 }

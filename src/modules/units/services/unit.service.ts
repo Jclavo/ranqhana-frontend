@@ -82,6 +82,7 @@ export class UnitService {
         unit.abbreviation = data.abbreviation;
         unit.name = data.name;
         unit.fractioned = data.fractioned;
+        unit.isBasic = data.isBasic;
         // unit.created_at = data.created_at;
         // unit.updated_at = data.updated_at;
 
