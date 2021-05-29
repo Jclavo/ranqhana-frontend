@@ -21,7 +21,8 @@
     "build-i18n": "for lang in en es pt; do ng build --output-path=dist/$lang --aot --prod --base-href /$lang/ --i18n-file=src/i18n/messages.$lang.xlf --i18n-locale=$lang; done",
     "extract-i18n": "ng xi18n sb-admin-angular --i18n-format xlf --output-path src/i18n --i18n-locale en && ng run sb-admin-angular:xliffmerge",
     "start-es": "ng serve --configuration=es",
-    "start-pt": "ng serve --configuration=pt"
+    "start-pt": "ng serve --configuration=pt",
+    "postinstall": "npm run build-i18n"
   },
   "private": true,
   "dependencies": {
