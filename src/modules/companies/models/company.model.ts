@@ -1,4 +1,4 @@
-import { CompanySetting } from '@modules/companies/models';
+import { CompanySetting } from './company-setting.model';
 import { Person } from '@modules/persons/models';
 
 export class Company {
