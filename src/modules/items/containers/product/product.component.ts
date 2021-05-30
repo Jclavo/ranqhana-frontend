@@ -350,7 +350,7 @@ export class ProductComponent implements OnInit {
       });
 
       if (this.product.id == 0) {
-        this.product.unit_id = 0;
+        this.product.unit_id = -1;
       }
       
     } else {
