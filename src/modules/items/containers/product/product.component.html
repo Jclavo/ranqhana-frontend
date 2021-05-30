@@ -52,15 +52,15 @@
           </div>
 
           <div class="form-group col-12 col-md-2">
-            <label class="control-label font-weight-bold" for="unit" i18n="@@unit.page.title">Unit</label>
-            <select class="form-control" placeholder="Unit" name="unit_id" id="unit" [(ngModel)]="product.unit_id">
+            <label class="control-label font-weight-bold" for="unit_id" i18n="@@unit.page.title">Unit</label>
+            <select class="form-control" placeholder="Unit" name="unit_id" id="unit_id" [(ngModel)]="product.unit_id">
               <option *ngFor="let unit of units" [value]="unit.id">
                 {{unit.name}}
               </option>
             </select>
           </div>
           <div class="form-check col-auto mt-md-4 ml-4 ml-md-5">
-            <input class="form-check-input" type="checkbox" id="stocked" name="unit" [(ngModel)]="product.stocked">
+            <input class="form-check-input" type="checkbox" id="stocked" name="stocked" [(ngModel)]="product.stocked">
             <label class="form-check-label font-weight-bold mx-2" for="stocked">
               Stocked
             </label>
